@@ -1,0 +1,92 @@
+<script type="text/javascript" src="/javascript/wc_guiamadre.js"></script>
+<h2>Módulo de Administrador :: Privilegios Especiales :: Edicion Global de Orden de Venta</h2>
+<br>
+<div id="busqueda">
+		Busqueda:<input type="text" id="txtOrdenVentaEdicionGlobal" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+		<input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required" val="0">
+		<button id="imprimir" >Imprimir</button>
+		<button id="btnEditarOrdenVenta">Editar Orden Venta</button>
+</div>
+
+<div id="OrdenVentaEdicionGlobal">
+	<br><br>
+	<div>
+		<table id="tblOrdenVenta">
+
+				<tr>
+					
+					<th>Razon Social</th>
+					<th>RUC - Dakkar - ERP </th>
+					<th>Transporte</th>
+					<th>Vendedor</th>
+				</tr>
+				<tr>
+					<th><input type="text" readonly id="razonsocial"  value=""></th>
+					<th><input type="text" readonly id="datoscliente" value=""></th>
+					<th><input type="text" readonly id="trazonsocial" value=""></th>
+					<th><input type="text" readonly id="vendedor" value=""></th>
+				</tr>
+
+				<tr>
+					<th class="text-20">Fecha Pedido</th>
+					<th>Moneda</th>
+					<th>Forma de Pago</th>
+					<th>Documento</th>
+				</tr>
+
+				<tr>
+					<th><input type="text" readonly id="fordenventa"  value=""></th>
+					<th><input type="text" readonly id="simbolomoneda" value=""></th>
+					<th><input type="radio" readonly id="trazonsocial" value=""></th>
+					<th><input type="text" readonly id="vendedor" value=""></th>
+				</tr>
+
+
+		</table>
+		<table id="tblDetalleProductosOrdenVenta">
+			<thead>
+				<tr>
+					<th>Codigo</th><th colspan="5">Descripcion</th><th>Cantidad</th><th>Dscto</th><th><input type="button" value="Agregar"></th>
+				</tr>
+				<tr>
+					<th>Codigo</th>
+					<th>Descripcion</th>
+					<th>Moneda</th>
+					<th>Precio Aprobado</th>
+					<th>Cantidad Aprobada</th>
+					<th>Dscto Aprobado</th>
+					<th>Precio Final</th>
+					<th>SubTotal</th>
+					<th>Acciones</th>					
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+
+	<div>
+		<table id="tblAprobacionesOrdenVenta">
+			<thead>
+
+			</thead>
+		</table>
+	</div>
+
+	<div>
+		<table id="tblCondicionesFinancierasOrdenVenta">
+			<thead>
+
+			</thead>
+		</table>
+	</div>
+
+	<div>
+		<table id="tblIngresosAsignadosOrdenVenta">
+			<thead>
+
+			</thead>
+		</table>
+	</div>
+
+
+</div>

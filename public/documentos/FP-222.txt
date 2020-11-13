@@ -1,0 +1,73 @@
+A;Serie;;F002
+A;Correlativo;;00000036
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;1006683528
+A;RznSocRecep;;ASTUDILLOS TEJADA GUILLERMO
+A;DirRecep;;CAL.JUAN GONZALO ROSSE MZA. Z LOTE. 22 COO. VIñA SAN FRANCISCO
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;55.73
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;10.03
+A;MntTotal;;65.76
+A;FchEmis;;2017-09-05
+A;IndPercepcion;;1
+A;MntImpPercepcion;;0
+A;MntPercepcion;;0
+A;MntTotalMasPercepcion;;65.76
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;10.03
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;DRK-200
+B;NmbItem;1;ESMERIL 1 HP DEREK MOTORS
+B;PrcItem;1;40.4
+B;PrcItemSinIgv;1;34.24
+B;MontoItem;1;34.24
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;6.16
+B;NroLinDet;2;2
+B;QtyItem;2;1
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;YK3208-BK
+B;NmbItem;2;BALANZA 40 KG S/TORRE C/NEGRO,KAZO
+B;PrcItem;2;25.36
+B;PrcItemSinIgv;2;21.49
+B;MontoItem;2;21.49
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;3.87
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;LIMA - LIMA - SANTA ANITA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 336 DC: OV-17000370
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Sesenta y Cinco con 76/100 Dolares Americanos  

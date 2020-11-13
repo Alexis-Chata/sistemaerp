@@ -1,0 +1,44 @@
+<h2>Mantenimiento: Nuevo Empresa</h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/grabar">
+		<ul class="inline-block">
+			<li>
+				<label>Nombre</label>
+				<input required type="text" name="<?php echo $titulo.'[nombre]'; ?>">
+			</li>
+			<li>
+				<label>Descripcion</label>
+				<input required type="text" name="<?php echo $titulo.'[descripcion]'; ?>">
+				
+			</li>
+			<li>
+				<label >Tipo Empresa</label>
+				<select name="<?php echo $titulo.'[idtipoempresa]'; ?>">
+						<?php $cantidadTipoEmpresa=count($tipoEmpresa) ?>
+						<?php for ($x=0; $x <$cantidadTipoEmpresa ; $x++) { ?>
+							<option  value="<?php echo $tipoEmpresa[$x]['idtipoempresa']; ?>"><?php echo  $tipoEmpresa[$x]['nombre']; ?></option>
+						<?php 
+						 } ?>
+				</select>
+				
+			</li>
+			
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+
+	</form>
+</fieldset>

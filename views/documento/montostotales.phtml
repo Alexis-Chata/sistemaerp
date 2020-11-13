@@ -1,0 +1,64 @@
+<script src="/javascript/montostotales.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">RESUMEN :: MONTOS TOTALES</h2>
+<fieldset style="position:relative">
+    <ul>
+        <li>
+            <label for="txtFechaInicio">Desde</label>
+            <input type="text" class="datepicker" id="txtFechaInicio" style="background-color: #F7E816">
+        </li>
+        <li>
+            <label for="txtFechaFin">Hasta</label>
+            <input type="text" class="datepicker" id="txtFechaFin" style="background-color: #F7E816">
+        </li>
+        <li>
+            <label for="lstTipoDocumento">Tipo Documento:</label>
+            <select id="lstTipoDocumento">
+                <option value=""> -- Seleccione -- </option>
+                <option value="1">Factura</option>
+                <option value="2">Boleta</option>
+                <option value="5">NotaCredito</option>
+                <option value="6">NotaDebito</option>
+                <option value="10">Percepcion</option>
+            </select>
+        </li>            
+        <li>
+            <label>Electrónico</label>
+            <input type="checkbox" id="idElectronico" name="idElectronico" value="1">
+        </li>
+        <li>
+            <label>Físico</label>
+            <input type="checkbox" id="idFisico" name="idFisico" value="1">
+        </li>
+        <li>
+            <label>Moneda: </label>
+            <select name="idmoneda" id="txtMoneda">
+                <option value="1">Soles (S/.)</option>
+                <option value="2">Dolares (US $)</option>
+            </select>
+        </li>
+    </ul>
+    <br>
+    <ul>
+        <li>
+            <button id="btnConsultar" style="font-size: 18px;" class="button">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button>
+        </li>
+    </ul>
+</fieldset>
+<fieldset>
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha Inicio:</th>
+                <td><label class="encabezado" id="lblFechaInicio"></label></td>
+                <th>Fecha Fin:</th>
+                <td><label class="encabezado" id="lblFechaFin"></label></td>
+                <th>Documento:</th>
+                <td><label class="encabezado" id="lblDocumento"></label></td>
+                <th>Moneda:</th>
+                <td><label class="encabezado" id="lblMoneda"></label></td>
+                <th>Importe Total:</th>
+                <td><label class="encabezado" id="lblImporteTotal"></label></td>
+            </tr>
+        </thead>
+    </table>
+</fieldset>

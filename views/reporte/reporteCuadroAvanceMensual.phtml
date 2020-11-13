@@ -1,0 +1,215 @@
+<script type="text/javascript" src="/javascript/reporteCuadroAvanceMensual.js"></script>
+<h2>Reporte :: Cuadro de Avance</h2>
+<fieldset>
+<legend></legend>
+<form id="Parametros" action="/pdf/reporteventas/" method="post" target="_blank">
+           <!-- 
+        <ul>
+		<li>
+			<label>Fecha Guiado Inicio</label>
+			<input style="background:pink;" type="text" id="txtFechaGuiadoInicio" name="txtFechaGuiadoInicio" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Guiado Fin</label>
+			<input style="background:pink;" type="text" id="txtFechaGuiadoFin" name="txtFechaGuiadoFin" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Despacho Inicio</label>
+			<input style="background:skyblue;" type="text" id="txtFechaDespachoInicio" name="txtFechaDespachoInicio" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Despacho Fin</label>
+			<input style="background:skyblue;" type="text" id="txtFechaDespachoFin" name="txtFechaDespachoFin" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Pendiente</label>
+			<input type="checkbox" name="pendiente" value="1">
+		</li>
+		<li>
+			<label>Fecha Cancelado Inicio</label>
+			<input style="background:#9FFF6A;" type="text" id="txtFechaCanceladoInicio" name="txtFechaCanceladoInicio" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Cancelado Fin</label>
+			<input style="background:#9FFF6A;" type="text" id="txtFechaCanceladoFin" name="txtFechaCanceladoFin" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Aprobado Inicio</label>
+			<input style="background:#F7E816;" type="text" id="txtFechaAprobadoInicio" name="txtFechaAprobadoInicio" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Aprobado Fin</label>
+			<input style="background:#F7E816;" type="text" id="txtFechaAprobadoFinal" name="txtFechaAprobadoFinal" class="datepicker" readonly>
+		</li>
+	</ul> -->
+           
+           <br>
+	<ul>
+                <!--
+                <li>
+			<label>Condicion Venta</label>
+                        <select name="condVenta" id="condVenta">
+                                <option value="0">Todos</option>
+                                <option value="1">Contado</option>
+                                <option value="2">Creditos</option>
+                                <option value="3">Letras</option>
+                        </select>
+		</li>
+		<li>
+			<label>Orden de Venta</label>
+			<input type="text" id="txtOrdenVenta" name="txtOrdenVenta" class="uppercase text-300">
+			<input type="hidden" id="idOrdenVenta" name="idOrdenVenta">
+		</li>
+		<li>
+			<label>Cliente</label>
+			<input type="text" id="txtCliente" name="txtCliente" class="uppercase text-300" >
+			<input type="hidden" id="idCliente" name="idCliente">
+		</li>
+                -->
+		<li>
+			<label>Vendedor</label>
+			<input type="text" id="txtVendedor" name="txtVendedor" class="uppercase text-300" >
+			<input type="hidden" id="idVendedor" name="idVendedor">
+		</li>
+                <li>
+                        <label>Linea</label>
+                        <select id="lstLinea" name="lstLinea">
+                                <option value="">Seleccione Linea</option>
+                        </select>
+                </li>
+                
+                <li>
+			<label>Fecha Inicio</label>
+			<input style="background:pink;" type="text" id="txtFechaMesInicio" name="txtFechaInicio" class="datepicker" readonly>
+		</li>
+                
+                <li>
+			<label>Fecha Fin</label>
+			<input style="background:pink;" type="text" id="txtFechaMesFin" name="txtFechaFinal" class="datepicker" readonly>
+		</li>
+                
+                <?php $meses = [
+                    "1" => "Enero",
+                    "2" => "Febrero",
+                    "3" => "Marzo",
+                    "4" => "Abril",
+                    "5" => "Mayo",
+                    "6" => "Junio",
+                    "7" => "Julio",
+                    "8" => "Agosto",
+                    "9" => "Setiembre",
+                    "10" => "Octubre",
+                    "11" => "Noviembre",
+                    "12" => "Diciembre"
+                    ];
+                ?>
+                <li>
+                    <label for="lstMes">MES</label>
+                    <select name="lstMes" id="lstMes">
+                        <?php foreach($meses as $clave=>$valor){ ?>
+                        <option value="<?php echo $clave; ?>" <?php if($clave == intval(date('m'))) echo 'selected'; ?> ><?php echo $valor; ?></option>
+                        <?php } ?>
+                    </select>
+                </li>
+                
+                <li>
+                    <button id="btnCuadroAvance" style="font-size: 18px;">Ver PDF</button>
+                </li>
+
+	</ul>
+	<br>
+         
+        <!--
+	<ul>    
+                
+		<li>
+			<label>Zona Geografica</label>
+			<select id="lstCategoriaPrincipal" name="idpadre">
+				<option value="">Seleccione Zona Geografica</option>
+				<?php $cantidadPrincipal=count($categoriaPrincipal) ?>
+				<?php for ($i=0; $i <$cantidadPrincipal ; $i++) { ?>
+					<option value="<?php echo $categoriaPrincipal[$i]['idcategoria'] ?>"><?php echo $categoriaPrincipal[$i]['nombrec'] ?></option>
+				<?php } ?>
+			</select>
+		</li>
+		<li>
+			<label>Region Cobranza</label>
+			<select id="lstRegionCobranza" name="idcategoria">
+				<option value="">Zona Cobranza-Categoria</option>
+			</select>
+		</li>
+		<li>
+			<label>Zona</label>
+			<select id="lstZona" name="idzona">
+				<option value="">Zona Cobranza-Detalle</option>
+			</select>
+		</li> 
+		li>
+			<label>Condicion Venta</label>
+			<select id="lstCondicion" name="condicion" disabled="disabled">
+				<option value="">Seleccione Condicion</option>
+				<?php //$cantidadCondicion=count($condicionVenta); ?>
+				<?php //for ($i=1; $i <$cantidadCondicion+1 ; $i++) { ?>
+					<option value="<?php //echo $i ?>"><?php // echo $condicionVenta[$i] ?></option>
+				<?php //} ?>
+			</select>
+		</li
+		
+		<li>
+			<label>Aprobados</label>
+			<input type="checkbox" id="aprobados" name="aprobados" value="1">
+		</li>
+		<li>
+			<label>Desaprobados</label>
+			<input type="checkbox" id="desaprobados" name="desaprobados" value="1">
+		</li>
+		<li>
+			<label>Moneda</label>
+                        <select name="idmoneda" id="txtMoneda">
+                                <option value="-1">Seleccione Moneda</option>
+                                <option value="1">Soles (S/.)</option>
+                                <option value="2">Dolares (US $)</option>
+                        </select>
+		</li>		
+	</ul>
+        -->
+        <!--
+	<ul>
+		<li><button id="btnCuadroAvance" style="font-size: 18px;">Ver PDF<img style="vertical-align: middle;text-align: center;"  width="50px" height="25px" src="/imagenes/ranking.png"> </button></li>
+	</ul>
+        -->
+	
+
+</form>
+
+</fieldset>
+<!--
+<fieldset>
+<div id="imprimir">
+	<table id="cabecera" style="display:none;">
+		<thead>
+			<tr>
+				<th style="width:15%">Fecha Guiado</th><td><label class="encabezado" id="lblFechaGuiado"></label></td><th style="width:15%">Fecha Despacho</th><td style="width:15%"><label class="encabezado" id="lblFechaDespacho"></label></td><th style="width:15%">Fecha Cancelado</th><td style="width:15%"><label class="encabezado" id="lblFechaCancelado"></label></td>
+			</tr>
+			<tr>
+				<th style="width:15%">Fecha Aprobado</th><td><label class="encabezado" id="lblFechaAprobado" ></label></td><th style="width:15%"></th><td style="width:15%"><label class="encabezado" ></label></td><th style="width:15%"></th><td style="width:15%"><label class="encabezado" ></label></td>
+			</tr>
+			<tr>
+				<th>Orden de Venta</th><td><label class="encabezado" id="lblOrdenVenta"></label></td><th>Nombre de Cliente</th><td><label class="encabezado" id="lblCliente"></label></td><th>Nombre de Vendedor</th><td><label class="encabezado" id="lblVendedor"></label></td>
+			</tr>
+			<tr>
+				<th>Zona Geografica</th><td><label class="encabezado" id="lblZonaGeografica"></label></td><th>Region Cobranza</th><td><label class="encabezado" id="lblRegionCobranza"></label></td><th>Zona</th><td><label class="encabezado" id="lblZona"></label></td>
+			</tr>
+			<tr>
+				<th>Condicion de Venta</th><td><label class="encabezado" id="lblCondicion"></label></td><th>Condicion de la Orden</th><td><label class="encabezado" id="lblCondicionOrden"></label></td><th>Clientes</th><td><label class="encabezado" id="lblfiltrocliente"></label></td>
+			</tr>
+		</thead>
+	</table>
+	<table id="tblVentas" style="display:none;">
+
+	</table>
+
+</div>
+
+</fieldset>
+-->

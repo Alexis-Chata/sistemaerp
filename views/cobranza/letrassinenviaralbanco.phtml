@@ -1,0 +1,94 @@
+<script src="/javascript/reportletras.js" type="text/javascript"></script>
+<?php
+    $cantidadpadre = count($padre);
+    $cantidadhijo = count($hijo);
+    $cantidadzona = count($zona);
+?>
+<fieldset>
+    <h2>Letras sin enviar al banco</h2>
+    <br>
+    <form action="/excel/letrassinenviaralbanco"  method="POST" target="_blank" id="frmLetras">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio:</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Fin:</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li>
+            <li class="cls_power">
+                <label for="">Zona Geografica:</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal" >
+                    <option value="">Zona Geografica</option>
+                    <?php for ($i = 0; $i < $cantidadpadre; $i++) { ?>
+                        <option value="<?php echo $padre[$i]['idcategoria']; ?>"><?php echo $padre[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Region Cobranza:</label>
+                <select id="lstCategoria"  name="lstCategoria" >
+                    <option value="">Zona Cobranza-Categoria</option>
+                    <?php for ($i = 0; $i < $cantidadhijo; $i++) { ?>
+                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Zona:</label>
+                <select id="lstZona"  name="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                    <?php for ($i = 0; $i < $cantidadzona; $i++) { ?>
+                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="">Moneda:</label>
+                <input type="text" id="txtCondiciones" name="txtCondiciones" hidden="">
+                <select name="lstMoneda" id="lstMoneda">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Soles</option>
+                    <option value="2">Dolares</option>
+                </select>
+            </li>
+            <li>
+                    <label>Cliente</label>
+                    <input type="text" id="txtCliente" name="txtCliente" class="uppercase text-300" >
+                    <input type="hidden" id="idCliente" name="idCliente">
+                    <a href="#" id="btnLimpiarCliente">[ Limpiar ]</a>
+            </li>
+            <li>
+                    <label>Vendedor</label>
+                    <input type="text" id="txtVendedor" name="txtVendedor" class="uppercase text-300" >
+                    <input type="hidden" id="idVendedor" name="idVendedor">
+                    <a href="#" id="btnLimpiarVendedor">[ Limpiar ]</a>
+            </li>
+        </ul>
+        <script>
+            $(document).ready(function(){
+                
+                $('#btnLimpiarCliente').click(function () {
+                    $('#idCliente').val('');
+                    $('#txtCliente').val('');
+                    $('#txtCliente').focus();
+                    return false;
+                });
+                
+                $('#btnLimpiarVendedor').click(function () {
+                    $('#idVendedor').val('');
+                    $('#txtVendedor').val('');
+                    $('#txtVendedor').focus();
+                    return false;
+                });
+            });
+        </script>
+        <br>
+        <ul>
+            <li>
+                <button type="submit">Formato <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

@@ -1,0 +1,143 @@
+<script src="/javascript/proveedor.js"></script>
+<style>
+    .block-contacto {
+        width: 95%;
+        background: #f5f5f5;
+    }
+    .bloque{
+        float:left;
+        margin : 10px;
+        min-height: 500px;
+        border : 1px dashed #444;
+        padding: 5px;
+        width: 40%;
+
+    }
+    .bloque-60{
+        float:left;
+        margin : 10px;
+        min-height: 500px;
+        border : 1px dashed #444;
+        padding: 5px;
+        width: 52%;
+    }
+</style>
+<h2>Actualizaci&oacute;n de Proveedor</h2>
+<fieldset>
+    <div class="bloque">	
+        <h4>Datos Principales</h4>
+        <form action="/proveedor/actualiza/" method="POST" >
+            <ul class="inline-block">
+                <li>
+                    <label>Compañia:</label>
+                    <input type="hidden" name="idProveedor" id="idProveedor" value="<?php echo $_REQUEST['id']?>">
+                    <input required type="text" placeholder="Nombre de la compañia" name="Proveedor[razonsocialp]" value="<?php echo $Proveedor[0]['razonsocialp'] ?>" class="txtRSocial uppercase" size="50px">
+                </li>
+                <li>
+                    <label>Direcci&oacute;n:</label>
+                    <textarea  name="Proveedor[direccionp]" id="" cols="52" rows="4" class="required uppercase"><?php echo $Proveedor[0]['direccionp'] ?></textarea>
+                </li>
+                <li>
+                    <label>Descripci&oacute;n:</label>
+                    <textarea   name="Proveedor[descripcionp]" id="" cols="52" rows="4" class="required uppercase"><?php echo $Proveedor[0]['descripcionp'] ?></textarea>
+                </li>
+                <li>
+                    <label>Pagina Web:</label>
+                    <input  type="text" placeholder="http://www.webdelaempresa.com" name="Proveedor[webp]" value="<?php echo $Proveedor[0]['webp'] ?>">
+                </li>
+                <li>
+                    <label>Tel&eacute;fono Principal:</label>
+                    <input  type="text" placeholder="Teléfono de contacto principal" name="Proveedor[telefonop]" value="<?php echo $Proveedor[0]['telefonop'] ?>" >
+                </li>
+                <li>
+                    <label>E-mail Principal:</label>
+                    <input  type="text" placeholder="Email de uso frecuente" name="Proveedor[emailp]" value="<?php echo $Proveedor[0]['emailp'] ?>">
+                </li>
+                <li>
+                    <label>Fax:</label>
+                    <input  type="text" name="Proveedor[faxp]" maxlength="7" value="<?php echo $Proveedor[0]['faxp'] ?>">
+                </li>
+            </ul>
+            <br>
+            <ul class="inline-block block-contacto">
+                <li>
+                    <label>Persona:</label>
+                    <input type="text" placeholder="Persona de contacto/Vendedor" value="<?php echo $Proveedor[0]['contacto'] ?>" name="Proveedor[contacto]" class="txtRSocial uppercase" size="50px">
+                </li>
+                <li>
+                    <label>Cargo:</label>
+                    <input type="text" placeholder="Cargo de la persona" value="<?php echo $Proveedor[0]['cargo'] ?>" name="Proveedor[cargo]" class="uppercase" size="50px">
+                </li>   
+                <li>
+                    <label>E-mail:</label>
+                    <input  type="text" placeholder="Email del vendedor" value="<?php echo $Proveedor[0]['emailp2'] ?>" name="Proveedor[emailp2]" size="50px">
+                </li>
+                <li>
+                    <label>Tel&eacute;fono:</label>
+                    <input  type="text" placeholder="Teléfono de contacto del vendedor" value="<?php echo $Proveedor[0]['telefonop2'] ?>" name="Proveedor[telefonop2]" size="50px">
+                </li>
+            </ul>        
+            <input type="hidden" name="Proveedor[tipoEmpresa]" value=2>
+            <input type="hidden" name="Proveedor[idpais]" value=46>
+            <br>
+            <input type="submit" value="Actualizar" class="btnActualizar">
+            <button id="btnCancelar">Cancelar</button>
+        </form>
+    </div>
+    <div class="bloque-60" id="bloquepersona">
+        <h4>Personas: </h4>
+        <table id="tblPersona">
+            <caption><a id="btnNuevo" href="#"><img src="/imagenes/iconos/nuevo.gif"></a></caption>
+            <thead>
+                <tr>
+                    <th>Personas</th>
+                    <th>Cargo</th>
+                    <th>Telefono</th>
+                    <th>email</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $tam = count($Personas);
+                for ($i = 0; $i < $tam; $i++) {
+                    echo '<tr>' . 
+                            '<td>' . $Personas[$i]['contacto'] . '</td>' . 
+                            '<td>' . $Personas[$i]['cargo'] . '</td>' . 
+                            '<td>' . $Personas[$i]['telefono'] . '</td>' . 
+                            '<td>' . $Personas[$i]['email'] . '</td>' . 
+                            '<td>'
+                            . '<a href="#" data-id="' . $Personas[$i]['idproveedorpersona'] . '" class="btnEditarPersona" href="#"><img src="/imagenes/editar.gif"></a>'
+                            . '<a href="#" data-id="' . $Personas[$i]['idproveedorpersona'] . '" style="margin-left:5px;" class="btnEliminarPersona" href="#"><img src="/imagenes/eliminar.gif"></a>'
+                            . '</td>' . 
+                         '</tr>';
+                    
+                } ?>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+<div id="contenedor" style="position:relative;width:400px;display:none" title="Datos de la Persona">
+    <ul>
+        <li>
+            <label>Persona:</label>
+            <input type="hidden" value="" name="ProveedorPersona[idproveedorpersona]" id="idproveedorpersona">
+            <input type="text" placeholder="Persona de contacto/Vendedor" id="idcontacto" value="" name="ProveedorPersona[contacto]" class="txtRSocial uppercase" size="50px">
+        </li>
+        <li>
+            <label>Cargo:</label>
+            <input type="text" placeholder="Cargo de la persona" value="" name="ProveedorPersona[cargo]" id="idcargo" class="uppercase" size="50px">
+        </li>   
+        <li>
+            <label>E-mail:</label>
+            <input type="text" placeholder="Email del vendedor" value="" name="ProveedorPersona[email]" id="idemail" size="50px">
+        </li>
+        <li>
+            <label>Tel&eacute;fono:</label>
+            <input type="text" placeholder="Teléfono de contacto del vendedor" value="" id="idtelefono" name="ProveedorPersona[telefono]" size="50px">
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li><button id="btnGrabar">Grabar</button></li>
+    </ul>
+</div>

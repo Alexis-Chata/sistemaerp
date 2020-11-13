@@ -1,0 +1,104 @@
+<h2>Ventas: Autorizar Ventas</h2>
+<div id="divPedidos">
+<style type="text/css">
+	#divCondicionPedido li{
+		display:block;
+	}
+</style>
+<script type="text/javascript" src="/javascript/aprobacion-pedido.js"></script>
+<div class="field-set">
+	<p class="title">Pedidos por Aprobar <span class="addicional-informacion"></span></p>
+	<div class="body">
+	<table id="tblOrdenes">
+		<thead>
+			<tr>
+				<th>Nro. Pedido</th>
+				<th>Forma<br>Pago</th>
+				<th>Fecha</th>
+				<th>Cliente</th>
+				<th>Vendedor</th>
+				<th>Acci&oacute;n</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				for($i=0;$i<count($ordenVenta);$i++){
+					$fOrdenVenta = date("d-m-Y",strtotime($ordenVenta[$i]['fordenventa']));
+					$cliente=($ordenVenta[$i]['razonsocial'])?$ordenVenta[$i]['razonsocial']:$ordenVenta[$i]['nombrecli']." ".$ordenVenta[$i]['apellido1']." ".$ordenVenta[$i]['apellido2'];
+					echo "<tr>";
+						echo '<td>'.$ordenVenta[$i]['codigov'].
+							'<input type="hidden" value="' . $ordenVenta[$i]['codigov'] . " - " . $fOrdenVenta . '" class="important">'.
+							'<input type="hidden" value="'.$ordenVenta[$i]['idordenventa'].'" class="txtIdOrden">
+							</td>';
+						echo '<td>'.$FormaPago[($ordenVenta[$i]['formapagoov'])].'</td>';
+						echo "<td>". $fOrdenVenta ."</td>";
+						echo "<td>".$cliente."</td>";
+						echo "<td>".$ordenVenta[$i]['nombres'].' '.$ordenVenta[$i]['apellidopaterno'].' '.$ordenVenta[$i]['apellidomaterno']."</td>";
+						echo '<td><a href="/ordenventa/listadetalle/'.$ordenVenta[$i]['idordenventa'].'" class="btnVerDetalle">Ver</a></td>';
+					echo "</tr>";
+				}
+			?>
+		</tbody>
+	</table>
+</div>
+</div>
+	<div class="field-set">
+		<p class="title">Datos del Cliente <span class="addicional-informacion"></span></p>
+		<div class="body">
+		<ul class="inline-block">
+			<li>
+				<label>Cliente:</label>
+				<input type="text" id="txtCliente" readonly class="important">
+				<input type="hidden" id="txtIdOrden" name="idOrdenVenta">
+				<input type="hidden" name="estadoOrden" value="1" id="txtEstadoOrden">
+			</li>
+			<li>
+				<label>Direccion:</label>
+				<input type="text" id="txtDireccion" readonly>
+			</li>
+		</ul>
+		<ul class="inline-block">
+			<li>
+				<label>Telefono:</label>
+				<input type="text" id="txtTelefono" size="7" maxlength="10" readonly>
+			</li>
+			<li>
+				<label>RUC / DNI:</label>
+				<input type="text" id="txtRucDni" size="11" maxlength="11" readonly>
+			</li>
+		</u>
+	</div>
+</div>
+	<div class="field-set">
+		<p class="title">Condiciones de pedido</p>
+		<div class="body">
+		<div id="divCondicionPedido"></div>
+		<ul class="block clear-both">
+			<li class="block">
+				<label>Mis Observaci&oacute;nes</label>
+				<input type="text" name="Orden[mventas]" class="uppercase text-full">
+			</li>
+		</ul>
+	</div>
+</div>
+	<div class="field-set">
+		<p class="title">Productos</p>
+		<div class="body">
+		<table id="tblProductosGuia">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Descripci&oacute;n</th>
+					<th>Cantidad<br>Solicitada</th>
+					<th>Cantidad<br>Aprobada</th>
+					<th>P.Unit.</th>
+					<th>Dscto</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>

@@ -1,0 +1,16 @@
+<form action="/conceptomovimiento/graba/" method="POST">
+	<ul>
+		<li>
+			<label>Tipo</label>
+			<select name="Conceptomovimiento[idtipomovimiento]">
+				<?php
+					for($i=0;$i<count($Tipomovimiento);$i++){
+						echo '<option value="'.$Tipomovimiento[$i]['idtipomovimiento'].'">'.$Tipomovimiento[$i]['nomtipmov'].'</option>';
+					}
+				?>
+			</select>
+		</li>
+		<li><label>Nombre</label><input type="text" name="Conceptomovimiento[nomconmov]"></li>
+		<li><input type="submit" value="Registrar"></li>
+	</ul>
+</form>

@@ -1,0 +1,133 @@
+<script type="text/javascript" src="/javascript/listadomercaderia.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Listado :: Mercaderia por Aprobar</h2>
+<br>
+<fieldset>
+    <table id="tblRecepciones">
+        <thead>
+            <tr>
+                <th colspan="9"></th>
+                <th><a href="/atencioncliente/recepcionmercaderia"><img src="/public/imagenes/iconos/nuevo.gif"> </a> </th>
+            </tr>
+            <tr>
+                <th rowspan="2">N° de Recojo</th>
+                <th rowspan="2">Documento</th>
+                <th rowspan="2">Fecha de Recojo</th>
+                <th rowspan="2">Motivo</th>
+                <th rowspan="2">Situacion</th>
+                <th rowspan="2">Observaciones</th>
+                <th colspan="4">Acciones</th>
+            </tr>
+            <tr>
+                <th>Ver</th>
+                <th>Editar</th>
+<!--                <th>Servicio Tecnico</th>-->
+                <th>Aprobacion</th>
+                <th>Eliminar</th>			
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $tam = count($listaRecepcion);
+            for ($i = 0; $i < $tam; $i++) {/*
+                echo '<tr>' .
+                '<td style="text-align: center;">' . $listaRecepcion[$i]['idrecepcion'] . '</td>' .
+                '<td style="text-align: center;">' . $listaRecepcion[$i]['numero'] . '</td>' .
+                '<td style="text-align: center;">' . $listaRecepcion[$i]['fregistro'] . '</td>' .
+                '<td style="text-align: center;">' . $listaRecepcion[$i]['nombremotivo'] . '</td>' .
+                '<td style="text-align: center;">Recogido </td>' .
+                '<td style="text-align: center;">' . $listaRecepcion[$i]['observaciones'] . '</td>' .
+                '<td><a class="verdetalle" data-id="' . $listaRecepcion[$i]['idrecepcion'] . '" href=""><img style="margin:auto;display:block" src="/public/imagenes/ver.gif"></a></td>' .
+                '<td><a href="/atencioncliente/recepcionmercaderia/' . $listaRecepcion[$i]['idrecepcion'] . '"><img style="margin:auto;display:block" src="/public/imagenes/editar.gif"></a></td>' .
+                '<td style="text-align: center;"><input type="button" value="Remitir" class="button btnremitir" data-id="' . $listaRecepcion[$i]['idrecepcion'] . '"></td>' .
+                '<td><a class="recEliminar" href="/atencioncliente/eliminarrecepcion/' . $listaRecepcion[$i]['idrecepcion'] . '"><img style="margin:auto;display:block" src="/public/imagenes/eliminar.gif"></a></td>' .
+                '</tr>';*/
+                echo '<tr>' .
+                            '<td style="text-align: center;">' . $listaRecepcion[$i]['idrecepcion'] . '</td>' .
+                            '<td style="text-align: center;">' . $listaRecepcion[$i]['numero'] . '</td>' .
+                            '<td style="text-align: center;">' . $listaRecepcion[$i]['fregistro'] . '</td>' .
+                            '<td style="text-align: center;">' . $listaRecepcion[$i]['nombremotivo'] . '</td>' .
+                            '<td style="text-align: center;">Recogido </td>' .
+                            '<td style="text-align: center;">' . $listaRecepcion[$i]['observaciones'] . '</td>' .
+                            '<td><a class="verdetalle" data-id="' . $listaRecepcion[$i]['idrecepcion'] . '" href=""><img style="margin:auto;display:block" src="/public/imagenes/ver.gif"></a></td>' .
+                            '<td><a href="/atencioncliente/recepcionmercaderia/' . $listaRecepcion[$i]['idrecepcion'] . '"><img style="margin:auto;display:block" src="/public/imagenes/editar.gif"></a></td>' .
+                            '<td style="text-align: center;"><input type="button" value="Aprobar" class="button btnremitir" data-id="' . $listaRecepcion[$i]['idrecepcion'] . '"></td>' .
+                            '<td><a class="recEliminar" href="/atencioncliente/eliminarrecepcion/' . $listaRecepcion[$i]['idrecepcion'] . '"><img style="margin:auto;display:block" src="/public/imagenes/eliminar.gif"></a></td>' .
+                     '</tr>';
+            }
+            ?>             
+        </tbody>
+    </table>
+    <style type="text/css">
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+            border-spacing:0px;
+            padding: 0px;
+            margin: 0px 0px 5px 0px;
+        }
+        table thead th{
+            background: #d2e9fd;
+            font-weight: bold;
+        }
+        table thead th, tfoot th {
+            background: #d2e9fd;
+            color: #000;
+            padding: 3px 5px 3px 5px;
+            text-align: center;
+        }   
+        #classNumero {
+            padding: 5px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+    <div id="detalle" style="display: none;">
+        <a id="imprimir" href="#"><img src="/imagenes/imprimir.gif"></a>
+        <b id="mensaje"></b>
+        <table id="tblcabecera">
+            <thead>                
+            </thead>
+        </table>
+        <table id="tbldetalles">
+            <thead>
+                <tr>
+                    <th>Vendedor</th>
+                    <th>Orden Venta</th>
+                    <th>Fecha</th>
+                    <th>Codigo</th>
+                    <th>Descripción</th>
+                    <th>Precio Venta (Uni.)</th>
+                    <th>Cantidad Recogida</th>
+                    <th style="width: 1%;">Garantia</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="btncerrar" class="button">Cerrar Detalle</button>
+    </div>
+</fieldset>
+
+<div id="contenedorremitir">
+    <form action="/atencioncliente/remitirrecepcion" method="post" id="frmRemitir">
+        <ul>
+            <li>
+                Fecha Envio:
+                <input type="hidden" value="" id="idRecepRemision" name="txtRecepRemision">
+                <input type="text" class="datepicker" value="<?php echo date('Y/m/d'); ?>" id="idfremision" style="width: 150px" name="Recepcion[fremision]">
+            </li>
+            <li>
+                Prioridad: 
+                <select name="Recepcion[prioridad]">
+                    <?php $tamprioridad = count($prioridad);
+//                    for ($i = 1; $i <= $tamprioridad; $i++) {
+                    for ($i = 1; $i <= 1; $i++) {
+                        echo '<option value="' . $i . '">' . $prioridad[$i] . '</option>';
+                    }
+                    ?>
+                </select>
+            </li>
+        </ul>   
+    </form>
+</div>

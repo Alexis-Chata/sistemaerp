@@ -1,0 +1,41 @@
+<div id="listados">
+<h2><?php echo $Modulo." : ".$Opcion ?></h2>
+<table>
+		<caption>Listado de Cuentas Por Cobrar</caption>		
+		<tr>
+			<th>Numero Cuenta</th>
+			<th>Orden de Venta</th>
+			<th>Cliente</th>
+			<th>Vendedor</th>
+			<th>Situacion Pago</th>
+			<th>Zona</th>			
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			$tot=count($cuenta);			
+			for($i=0;$i<$tot;$i++){
+				echo "<tr>";
+					echo "<td>".$cuenta[$i]['numerocuenta']."</td>";
+					echo "<td>".$cuenta[$i]['idordenventa']."</td>";
+					echo "<td>".$cuenta[$i]['idcliente']."</td>";
+					echo "<td>".$cuenta[$i]['idvendedor']."</td>";
+					echo "<td>".$cuenta[$i]['situacionpago']."</td>";
+					echo "<td>".$cuenta[$i]['idzona']."</td>";
+					echo "<td><a href=\"/cobranza/editar/".$cuenta[$i]['idcuenta']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/cobranza/eliminar/".$cuenta[$i]['idcuenta']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>		
+</table>
+</div>
+<a href="/cobranza/nuevo/"><img src="/imagenes/new.gif"></a>
+<div id="paginacion">
+	<a href="/cobranza/estcuentas/1" id="btnPrimero">&lt;&lt;Primero</a>
+	<a href="/cobranza/estcuentas/" id="btnAnterior">&lt;Anterior</a>
+	<span class="bold"> P&aacute;gina</span>
+	<input type="text" value="<?php echo $Paginacion['Pagina'] ?>" readonly style="width:30px" class="center" id="txtPaginaActual">
+	<input type="hidden" value="<?php echo $Paginacion['Paginas'] ?>" id="txtNumeroPaginas">
+	<span class="bold"> de <?php echo $Paginacion['Paginas'] ?> </span>
+	<a href="/cobranza/estcuentas/" id="btnSiguiente">Siguiente&gt;</a>
+	<a href="/cobranza/estcuentas/<?php echo $Paginacion['Paginas'] ?>" id="btnUltimo">Ultimo&gt;&gt;</a>
+</div>

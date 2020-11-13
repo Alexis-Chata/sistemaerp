@@ -1,0 +1,339 @@
+<script type="text/javascript" src="/javascript/reportletras.js"></script>
+<script src="/javascript/wc_cliente.js"></script>
+<script src="/javascript/wc_ordenventa.js"></script>
+
+<fieldset>
+
+	<ul>
+		<li>
+                    <label>Dietario Soles</label>
+                    <input type="text" id="dietariosoles">
+		</li>
+                <li>
+                    <label>Dietario Dolares</label>
+                    <input type="text" id="dietariodolares">
+		</li>
+		<li>
+                     <button id="letrasbanco" value="5" Style="margin-right:20px;margin-left:5px;">Reporte General</button>
+		</li>
+		
+		<li>
+			<button id="imprimirT" >Imprimir</button>
+		</li>
+		
+	</ul>
+	</form>
+</fieldset>
+<div id="reporteGeneral" style=" display: none">
+<fieldset>
+    <center><h2>REPORTE GENERAL DE COBRANZA</h2></center>
+    </br>
+    
+    <table id="tblDetalleOrdenVenta">
+            
+            <thead>
+                 
+                  <tr><th colspan="12"><h3>LETRAS PENDIENTES (LIMA - PROVINCIA)</h3></th></tr>
+                  <tr>
+                      <th style="width:25% !important"></th>
+                      <th colspan="2">S/.</th>
+                      <th colspan="2">USD $</th>
+                      <th colspan="2"></th>
+                      <th colspan="2"></th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="width:25% !important">DIETARIO BANCO :</th>
+                    <td colspan="2" style="width:5% !important"><input type="text" style="text-align:center" id="valor1" value="" readonly="readonly" ></td>
+                    <td colspan="2" style="width:5% !important"><input style="text-align:center" id="valor4" type="text" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2" style="width:15% !important;"><label id="total1soles"></label></td>
+                    <td colspan="2" style="width:15% !important;"><label id="total1dolares"></label></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">LETRAS POR TRABAJAR :</th>
+                    <td colspan="2"><input style="text-align:center;" id="valor2" type="text" readonly="readonly"></td>
+                    <td colspan="2"><input style="text-align:center" id="valor5" type="text" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">LETRAS PROTESTADAS :</th>
+                    <td colspan="2" style="width:5% !important"><input style="text-align:center" type="text" id="lprotestadas_soles"  readonly="readonly"></td>
+                    <td colspan="2" style="width:5% !important"><input style="text-align:center" id="lprotestadas_dolares" readonly="readonly"> </td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">Totales:</th>
+                    <td colspan="2" style="width:5% !important;"><input style="text-align:center" type="text" id="totalsoles" disabled value="0"></td>
+                    <td colspan="2" style="width:5% !important"><input style="text-align:center" type="text" id="totaldolares" disabled value="0"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                 
+            </tbody>
+        </table>
+     
+
+    <table id="tblDetalleOrdenVenta">
+        
+            <thead>
+                  <tr><th colspan="12"><h3>LETRAS PROTESTADAS</h3></th></tr>
+                  <tr>
+                      <th style="width:25% !important"></th>
+                      <th colspan="2">S/.</th>
+                      <th colspan="2">USD $</th>
+                      <th colspan="2"></th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="width:25% !important">LIMA:</th>
+                    <td colspan="2"  style="width:5% !important"><input style="text-align:center" type="text" id="totalLimaSoles" readonly="readonly"></td>
+                    <td colspan="2"  style="width:5% !important"><input style="text-align:center" type="text" id="totalLimaDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2" style="width:15% !important;"><label id="totalLetrassoles"></label></td>
+                    <td colspan="2" style="width:15% !important;"><label id="totalLetrasdolares"></label></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">PROVINCIAS :</th>
+                    <td colspan="2"><input type="text" style="text-align:center" id="totalProvinciaSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" style="text-align:center" id="totalProvinciaDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">LETRAS INCOBRABLES :</th>
+                    <td colspan="2"><input type="text" style="text-align:center" id="totalZonaIncobrablesSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" style="text-align:center" id="totalZonaIncobrablesDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">TOTALES:</th>
+                    <td colspan="2"><input style="text-align:center" id="lprotestadasSoles" disabled></td>
+                    <td colspan="2"><input style="text-align:center" id="lprotestadasDolares" disabled></label></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                 
+            </tbody>
+        </table>
+     
+
+    <table id="tblDetalleOrdenVenta" class="">
+             <thead>
+                  <tr><th colspan="12"><h3>LETRAS POR TRABAJAR (LIMA Y PROVINCIA)</h3></th></tr>
+                  
+                      <th style="width:25% !important"></th>
+                      <th colspan="2">S/.</th>
+                      <th colspan="2">USD $</th>
+                      <th colspan="2"></th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="width:25% !important">LETRAS POR FIRMAR:</th>
+                    <td colspan="2" colspan="2" style="width:5% !important;height: 25px;"><input type="text" type="text" style="text-align:center" id="letrasSinPASoles" readonly="readonly"></td>
+                    <td colspan="2" colspan="2" style="width:5% !important"><input type="text" type="text" style="text-align:center" id="letrasSinPADolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2" style="width:15% !important;"><label id="totaxtrabajarsoles"></label></td>
+                    <td colspan="2"style="width:15% !important;"><label id="letrasxtrabajardolares"></label></td>
+                </tr>
+               
+                <tr>
+                    <th style="width:25% !important">LETRAS POR HACER PLANILLAS:</th>
+                    <td colspan="2"><input type="text" type="text" style="text-align:center" id="totalLetrasConPASoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" type="text" style="text-align:center" id="totalLetrasConPADolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th style="width:25% !important">TOTALES:</th>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="totalLProtestadasSoles" disabled></td>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="totaLProtestadasDolares" disabled></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+            </tbody>
+            
+        </table>
+         <table id="tblDetalleOrdenVenta" class="">
+             <thead>
+                  <tr><th colspan="12"><h3>CREDITO</h3></th></tr>
+                  
+                      <th style="width:25% !important"></th>
+                      <th colspan="2">S/.</th>
+                      <th colspan="2">USD $</th>
+                      <th colspan="2"></th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>LIMA:</th>
+                    <td colspan="2" colspan="2" style="width:5% !important;height: 25px;"><input type="text" type="text" style="text-align:center" id="creditoLimaSoles" readonly="readonly"></td>
+                    <td colspan="2" colspan="2" style="width:5% !important"><input type="text" type="text" style="text-align:center" id="creditoLimaDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2" style="width:15% !important;"><label id="creditosoles"></label></td>
+                    <td colspan="2" style="width:15% !important;"><label id="creditodolares"></label></td>
+                </tr>
+               
+                <tr>
+                    <th>PROVINCIAS:</th>
+                    <td colspan="2"><input type="text" type="text" style="text-align:center" id="creditoProvSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" type="text" style="text-align:center" id="creditoProvDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th>TOTALES:</th>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="totalCreditoSoles" disabled></td>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="totaLCreditoDolares" disabled></label></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+            </tbody>
+            
+            
+        </table>
+     <table id="tblDetalleOrdenVenta" class="">
+             <thead>
+                  <tr><th colspan="12"><h3>EMPRESA</h3></th></tr>
+                  
+                      <th style="width:25% !important"></th>
+                      <th colspan="2">S/.</th>
+                      <th colspan="2">USD $</th>
+                      <th colspan="2"></th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                      <th colspan="2"> </th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>TIENDA PARURO(F):</th>
+                    <td colspan="2" colspan="2" style="width:5% !important;height: 25px;"><input type="text" type="text" style="text-align:center" id="tiendaParuroFSoles" readonly="readonly"></td>
+                    <td colspan="2" colspan="2" style="width:5% !important"><input type="text" type="text" style="text-align:center" id="tiendaParuroFDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2" style="width:15% !important;"><label id="empresaSoles"></label></td>
+                    <td colspan="2" style="width:15% !important;"><label id="empresaDolares"></label></td>
+                </tr>
+               
+                <tr>
+                    <th>TIENDA PARURO(CARLOS PUSE):</th>
+                    <td colspan="2"><input type="text" type="text" style="text-align:center" id="tiendaParuroPSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" type="text" style="text-align:center" id="tiendaParuroPDolares" readonly="readonly"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th>MUESTRAS:</th>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="mustrasSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="muestrasDolares" readonly="readonly"></label></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th>USO EXCLUSIVO:</th>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="usoExclusivoSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="usoExclusivoDolares" readonly="readonly"></label></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th>PRESTAMO PERSONAL:</th>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="prestamoPersonalSoles" readonly="readonly"></td>
+                    <td colspan="2"><input type="text" style="text-align:center;" id="prestamoPersonalDolares" readonly="readonly"></label></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                 <tr>
+                    <th>TOTALES:</th>
+                    <td colspan="2"><input style="text-align:center" id="totalEmpresaSoles" disabled></td>
+                    <td colspan="2"><input style="text-align:center" id="totalEmpresaDolares" disabled></label></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+            </tbody>
+            
+            
+        </table>
+     
+</fieldset>
+</div>    
+<style type="text/css">
+*{
+
+}
+
+table tr td, table tr th{
+	font-size: 10px;
+	/*font-family: fixedsys, consolas, monospace;*/
+	margin: 0px;
+	border-collapse: collapse;
+}
+table tr td, table tr th{
+	font-weight: 2px;
+}
+
+.tblchildren,.filaOculta{
+
+background-color : rgb(124, 180, 224);
+border : none ;
+/*font-family: fixedsys, consolas, monospace;*/
+border-collapse: collapse;
+
+font-size : 7px;
+padding-left : 5px;
+padding-right : 5px;
+}
+
+</style>

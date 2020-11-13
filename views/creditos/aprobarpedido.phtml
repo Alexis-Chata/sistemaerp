@@ -1,0 +1,236 @@
+<script type="text/javascript" src="/javascript/aprobacion-pedido-creditos.js"></script>
+
+<h2>Créditos: Autorizar Créditos</h2>
+<div id="divPedidos">
+    <div class="field-set">
+        <p class="title">Pedidos  <span class="addicional-informacion"></span></p>
+        <div class="body">
+            <input type="hidden" id="codigov"   class="important">
+            <input type="hidden" id="txtIdCliente" >
+            <table id="tblOrdenes">
+                <thead>
+                    <tr>
+                        <th>Nro. Pedido</th>
+                        <th>Forma<br>Pago</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Vendedor</th>
+                        <th>Acci&oacute;n</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    for ($i = 0; $i < count($ordenVenta); $i++) {
+                        $fOrdenVenta = date("d-m-Y", strtotime($ordenVenta[$i]['fordenventa']));
+                        $cliente = ($ordenVenta[$i]['razonsocial']) ? $ordenVenta[$i]['razonsocial'] : $ordenVenta[$i]['nombrecli'] . " " . $ordenVenta[$i]['apellido1'] . " " . $ordenVenta[$i]['apellido2'];
+                        echo "<tr>";
+                        echo '<td>' . $ordenVenta[$i]['codigov'] .
+                        '<input type="hidden" value="' . $ordenVenta[$i]['codigov'] . " - " . $fOrdenVenta . '" class="important">' .
+                        '<input type="hidden" value="' . $ordenVenta[$i]['idordenventa'] . '" class="txtIdOrdenVenta"></td>';
+                        echo '<td>' . $FormaPago[($ordenVenta[$i]['formapagoov'])] . '</td>';
+                        echo "<td>" . $fOrdenVenta . "</td>";
+                        echo "<td>" . $cliente . "</td>";
+                        echo "<td>" . $ordenVenta[$i]['nombres'] . ' ' . $ordenVenta[$i]['apellidopaterno'] . ' ' . $ordenVenta[$i]['apellidomaterno'] . "</td>";
+                        echo '<td><a href="/ordenventa/listadetalleparacreditos/' . $ordenVenta[$i]['idordenventa'] . '" class="btnVerDetalle">Ver</a></td>';
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <form action="/creditos/autorizarcreditos/" id="frmApruebaOrden" method="POST">
+        <div class="field-set">
+            <p class="title">Datos del Cliente <span class="addicional-informacion"></span></p>
+            <div class="body">
+                <ul class="inline-block">
+                    <li>
+                        <label>Cliente:</label>
+                        <input type="text" id="txtCliente" readonly  class="important">
+                        <input type="hidden" id="txtIdCliente" name="idCliente">
+                        <input type="hidden" id="txtIdOrdenVenta" name="idOrdenVenta">
+                        <input type="hidden" name="estadoOrden" value="1" id="txtEstadoOrden">
+                    </li>
+                    <li>
+                        <label>Direccion:</label>
+                        <input type="text" id="txtDireccion" readonly style="width:250;">
+                    </li>
+
+                    <li>
+                        <label>Telefono:</label>
+                        <input type="text" id="txtTelefono" size="10" maxlength="10" readonly>
+                    </li>
+                    <li>
+                        <label>RUC / DNI:</label>
+                        <input type="text" id="txtRucDni" size="11" maxlength="11" readonly>
+                    </li>
+                </ul>
+                <ul>
+                    <li><div id="clienteultimaorden"></div></li>
+                </ul>
+                <ul>
+                    <li><div id="clientedeudatotal"></div></li>
+                </ul>
+                <ul >
+                    <li><div id="clienteposicion"></div></li>
+                </ul>			
+                <br>	
+            </div>
+        </div>
+        <div class="clear-both"></div>
+        <div class="field-set">
+            <p class="title">Condiciones del Pedido por Aprobar  <span class="addicional-informacion"></span></p>
+            <div class="body">
+                <ul class="inline-block">
+                    <li>
+                        <label>Forma de Pago:</label>
+                        <input type="hidden" name="observacion" id="observacion">
+                        <input type="checkbox" name="ordenVenta[escontado]" id="chkContado" value="0"> <label for="chkContado" class="inline">Contado</label>
+                        <input type="checkbox" name="ordenVenta[escredito]" id="chkCredito" value="0"> <label for="chkCredito" class="inline">Credito</label>
+                        <input type="checkbox" name="ordenVenta[esletras]" id="chkLetras" value="0"> <label for="chkLetras" class="inline">Letras</label>
+                    </li>
+                    <li>
+            <label>Fecha:</label>
+                        <input style="background:pink;" value="<?php echo date('Y/m/d') ?>" type="text" name="txtFechaCredito" class="datepicker" readonly>
+                    </li>
+                    <li id="liCreditoDias">
+                        <label for="txtCreditoDias">Credito Dias:</label>
+                        <input type="text" name="creditoDias" id="txtCreditoDias" size="2" class="numeric">
+                    </li>
+                    <li id="liMontoContado">
+                        <label>Monto al Contado:</label>
+                        <input type="text" name="montoContado" id="txtMontoContado" class="numeric">
+                    </li>
+                    <li id="liMontoCredito">
+                        <labeL>Monto al Credito:</label>
+                        <input type="text" name="montoCredito" id="txtMontoCredito" class="numeric" size="6" >
+                    </li>
+                </ul>
+                <ul class="inline-block">
+                    <li id="liMontoLetras" class="liLetras">
+                        <label>Monto a Letras:</label>
+                        <input type="text" name="montoLetras" id="txtMontoLetras" class="numeric" size="6" >
+                    </li>
+                    <li id="liCondicionLetra" class="liLetras">
+                        <label>Condici&oacute;n Letra:</label>
+                        <select name="ordenVenta[idcondicionletra]" id="lstCondicionLetra">
+                            <option value="">-- Condici&oacute;n Letra --
+                                <?php
+                                $totalCL = count($CondicionLetra);
+                                for ($i = 0; $i < $totalCL; $i++) {
+                                    echo '<option value="' . $CondicionLetra[$i]['idcondicionletra'] . '">' . $CondicionLetra[$i]['nombreletra'];
+                                }
+                                ?>
+                        </select>
+                        <a href="/letras/nuevo"><span class="bold">.:Nueva Condicion Letra:.</span></a>
+                    </li>
+<!--                    <li id="liLAletra" class="liLAletra" style="display: none">
+                        <label>Letra Adicional:</label>
+                        <select name="lacliente" id="lacliente"></select>
+                    </li>-->
+                    <li id="liTipoLetra" class="liLetras">
+                        <label>Tipo Letra:</label>
+                        <select name="ordenVenta[tipoletra]" id="lstTipoLetra">
+                            <option value="">-- Tipo Letra --
+                                <?php
+                                for ($i = 1; $i <= count($TipoLetra); $i++) {
+                                    echo '<option value="' . $i . '">' . $TipoLetra[$i];
+                                }
+                                ?>
+                        </select>
+                    </li>
+                    <li id="liDocumento">
+                        <label>Tipo Documento:</label>
+                        <select id="lstDocumento" name="lstDocumento">
+                            <option value="">-- Seleccionar uno --
+                                <?php
+                                for ($i = 1; $i <= count($documento); $i++) {
+                                    echo '<option value="' . $i . '">' . $documento[$i];
+                                }
+                                ?>
+                        </select>
+                    </li>
+                </ul>
+                <ul>
+                    <li><div id="divCondicionPedido"></div></li>
+                </ul>
+                <ul class="block">
+                    <li class="block">
+                        <label>Observaci&oacute;nes Ventas</label>
+                        <input type="text" class="uppercase text-full" id="mensajeVentas" readonly>
+                    </li>
+                </ul>
+                <ul class="block">
+                    <li class="block">
+                        <label>Observaci&oacute;nes Cobranzas</label>
+                        <input type="text" class="uppercase text-full" id="mensajeCobranzas" readonly>
+                    </li>
+                </ul>
+                <ul class="block">
+                    <li class="block">
+                        <label>Observaci&oacute;nes Almacen</label>
+                        <input type="text" class="uppercase text-full" id="mensajeAlmacen" readonly>
+                    </li>
+                </ul>
+                <ul class="block">
+                    <li class="block">
+                        <label>Mis Observaci&oacute;nes</label>
+                        <input type="text" name="mensajeCreditos" class="uppercase text-full">
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="field-set">
+            <p class="title">Productos  <span class="addicional-informacion"></span></p>
+            <div class="body">
+                <table id="tblProductosGuia">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Codigo</th>
+                            <th rowspan="2">Descripci&oacute;n</th>
+                            <th colspan="2">CANTIDAD</th>
+                            <th colspan="5">PRECIO</th>
+                            <th rowspan="2">TOTAL</th>
+                        </tr>
+                        <tr>
+                            <th>SOLICITADA</th>
+                            <th>APROBADA</th>
+                            <th>Solicitado</th>
+                            <th>Aprobado</th>
+                            <th>Dscto.</th>
+                            <th>%Oferta</th>
+                            <th>Neto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <input type="submit" value="Aprobar" class="btnRegistrar" id="btnAprobar">
+        <button id="btnDesaprobar">Desaprobar</button>
+        <button id="btnretornar">Retornar Ventas</button>
+    </form>
+</div>
+<div id="tablaMostrar">
+    <p ></p>
+    <div >
+        <table >
+            <thead>
+                <tr>
+                    <th>Nro. Orden</th>
+                    <th>Forma<br>Pago</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Vendedor</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="6" aling="center">No hay Creditos para Autorizar</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

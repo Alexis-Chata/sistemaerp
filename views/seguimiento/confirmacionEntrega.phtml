@@ -1,0 +1,58 @@
+<script src="/javascript/seguimientoalmacen.js"></script>
+
+<div id="listados">
+   <h2> Orden Venta:: Listado</h2><br>
+
+    <div id="busqueda">
+                    Busqueda: </br>
+                    <input type="text"  id="txtBuscar" name="txtBusqueda" size="50px" title="Ingrese Numero de Orden de Venta" autofocus="on">
+                    <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required"/></br>
+    </div>
+    <div>
+
+    </div>
+    <table id="tblConfirmacion">
+            <thead>
+                    <tr>
+                            <th colspan="14">Seguimiento de Despacho de Productos</th>
+                    </tr>
+                    <tr>
+                            <th>Orden Venta</th>
+                            <th>Importe OV</th>
+                            <th>Vendedor</th>
+                            <th>Cliente</th>
+                            <th title="Aprobado Cobranzas?">Confirmacion de Entrega </th>
+                            <th title="Acciones" colspan="2">Acc.</th>
+
+                    </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                    
+            </tfoot>
+    </table>
+
+</div>
+<div class="detalleOV">
+    <table id="tablita">
+            <thead>
+                    <th>N°</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Alm.</th>
+                    <th title="cantidad Solicitada">Cant.S.</th>
+                    <th title="cantidad Aprobada">Cant.A.</th>
+                    <th title="cantidad Despachada">Cant.D.</th>
+                    <th title="Precio solicitado">Pre.S.</th>
+                    <th title="Precio Aprobado">Pre.A.</th>
+                    <th title="Precio Neto">Precio Neto</th>
+                    <th>Importe</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+    </table>
+    <button id="cierraTabla">Cerrar</button>
+</div>

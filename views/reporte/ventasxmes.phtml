@@ -1,0 +1,32 @@
+
+<fieldset>
+    <h2>REPORTE :: Record de Documentos de Ventas</h2>
+    <form action="/pdf/reporteVentasXMes" method="post" target="_blank" id="frmConsulta">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Final</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li>
+            <li>
+                <label for="lstTipoDocumento">Tipo de Documento</label>
+                <select id="lstTipoDocumento" name="lstTipoDocumento">
+                    <?php $cantidadDocumentos = count($documentos);
+                    for ($i = 1; $i < $cantidadDocumentos + 1; $i++) {
+                        ?>
+                        <?php if ($i != 3) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $documentos[$i]; ?></option>
+                        <?php }
+                    }
+                    ?>
+                </select>
+            </li>
+            <li>
+                <button type="submit">Consulta <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

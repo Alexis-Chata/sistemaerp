@@ -1,0 +1,42 @@
+<script type="text/javascript" src="/javascript/wc_producto.js"></script>
+<h2>Productos :: Actualizar Imágen </h2>
+<div id="actualizaciones">
+	<ul>
+		<li>	
+			<label>Ingrese el código del Producto</label>
+			<input type="text" name="txtproducto" id="txtproducto" class="text-250" placeholder="Codigo: LX-5645">
+		</li>
+		<li>	
+			<label>Descripción:</label>
+			<input type="text" name="txtDescripcion" class="text-250" id="txtDescripcion">
+			<input type="hidden" id="rutaImagenProducto">
+		</li>
+		<li>
+			<input type="submit" value="Ver Imagen" id="btnVerImagen">
+		</li>	
+		<li>
+			<label>Modificar?</label>
+			<input type="checkbox" id="chkImagenProducto" name="chkImagenProducto">
+		</li>
+		<form action="/producto/actualiza" method="POST">			
+			<li>
+				<input type="file" id="imgProducto" name="foto">
+			</li>
+			<li>
+				<input type="hidden" id="idProducto" name="idProducto">
+				<input type="hidden" id="codigoProducto" name="Producto[codigopa]">
+				<input type="submit" value="Actualizar Imagen" id="btnActualizarImagen">
+			</li>				
+		</form>
+	</ul>
+</div>
+<fieldset id="verImagenes" style:"text-align:center;">
+	<legend>Imagenes</legend>
+	<ul >
+		<li><img class="img top" src="#" width="32px"></li>
+		<li><img class="img" src="#" width="64px"></li>
+		<li><img class="img" src="#" width="128px"></li>
+		<li><img class="img" src="#" width="256px"></li>
+		<li><img class="img" src="#" width="512px"></li>
+	</ul>
+</fieldset>

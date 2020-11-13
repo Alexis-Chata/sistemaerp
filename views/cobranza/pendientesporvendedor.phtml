@@ -1,0 +1,77 @@
+<script src="/javascript/pendientesporvendedor.js" type="text/javascript"></script>
+
+<?php
+    $cantidadpadre = count($padre);
+    $cantidadhijo = count($hijo);
+    $cantidadzona = count($zona);
+    $cantidadvendedor = count($vendedor);
+?>
+
+<fieldset>
+    <h2>Pendientes por vendedor</h2>
+    <br>
+    <form action=""  method="POST" target="_blank" id="frmPendientesxvendedor">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Fecha Vencimiento:</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFin">Fecha Vencimiento:</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFin" name="txtFechaFin">
+            </li>
+            <li>
+                <label>Zona Geografica:</label>
+                <input type="text" id="txtCondiciones" name="txtCondiciones" hidden="">
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal" >
+                    <option value="">Zona Geografica</option>
+                    <?php for ($i = 0; $i < $cantidadpadre - 1; $i++) { ?>
+                        <option value="<?php echo $padre[$i]['idcategoria']; ?>"><?php echo $padre[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="lstCategoria">Region Cobranza:</label>
+                <select id="lstCategoria"  name="lstCategoria" >
+                    <option value="">Zona Cobranza-Categoria</option>
+                    <?php for ($i = 0; $i < $cantidadhijo; $i++) { ?>
+                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="lstZona">Zona:</label>
+                <select id="lstZona"  name="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                    <?php for ($i = 0; $i < $cantidadzona; $i++) { ?>
+                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label>Vendedor:</label>
+                <select name="txtIdVendedor" id="lstVendedor" class="required">
+                    <option value="">-- Seleccionar uno --</option>;
+                    <?php for ($i = 0; $i < count($Vendedor); $i++) {
+                        echo '<option  value="' . $Vendedor[$i]['idactor'] . '">' . $Vendedor[$i]['nombreconcat'] . '</option>';
+                    } ?>
+                </select>
+            </li>
+            <li>
+                <label for="txtClientexIdCliente">Razon Social Cliente:</label>
+                <input type="text" id="txtClientexIdCliente" name="txtClientexIdCliente" size="50">
+                <input type="hidden" id="txtIdCliente" name="txtIdCliente">
+                <a href="#" id="btnLimpiarCliente" style="color: red"> [ Limpiar ]</a>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button type="button" id="btnPDF">Consultar <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+            <li>
+                <button type="button" id="btnExcel">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

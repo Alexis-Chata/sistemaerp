@@ -1,0 +1,29 @@
+<script src="/javascript/seguimiento_letraxguia.js"></script>
+<input type="hidden" value="0" id="contador">
+<div id="listados">
+    <h2> LETRAS POR ORDEN DE VENTA</h2><br>
+    <div>
+        <ul>
+        <li>
+            <label>Buscar Por:</label>
+            <input type="radio" name="rbFiltro" value="1" checked="checked"> Por Numero de Letra
+            &nbsp;<input type="radio" name="rbFiltro" value="2"> Por Lista de Letras	
+        </li>
+        </ul>
+    </div>
+    <div class="busqueda">
+        Busqueda: <br>
+        <input type="text"  id="txtBusqueda" name="txtBusqueda" size="50px" placeholder="Ingrese Numero de Letra" title="Ingrese Numero de Letra" autofocus="on">
+        <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required"/>         
+    </div>
+    <div class="busquedaLista" style="display:none">
+        Busqueda: <br>
+        <textarea id="XbusquedaLista" rows="10" cols="50"></textarea> 
+        <input type="button" value="consultar" id="btnConsultar" class="button"/>  
+    </div>
+</div>
+<fieldset id="contResultado" style="display: none">
+    <h1>Lista de Letras:</h1>
+    <textarea id="TAcontenido" cols="50" rows="10" readonly></textarea> 
+    <input type="button" value="Limpiar" id="btnLimpiar" class="button"/>  
+</fieldset>

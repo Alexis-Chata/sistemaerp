@@ -1,0 +1,37 @@
+<br>
+<h2>Pedidos Entregados</h2>
+
+<fieldset style="position:relative">
+    <form action="/excel2/indicadoresdespacho_productos" method="post" target="_blank" >
+        <ul>
+            <li>
+                <label>Mes:</label>
+                <select name="cmbMes" required>
+                    <option Value="01">Enero</option>
+                    <option Value="02">Febrero</option>
+                    <option Value="03">Marzo</option>
+                    <option Value="04">Abril</option>
+                    <option Value="05">Mayo</option>
+                    <option Value="06">Junio</option>
+                    <option Value="07">Julio</option>
+                    <option Value="08">Agosto</option>
+                    <option Value="09">Septiembre</option>
+                    <option Value="10">Octubre</option>
+                    <option Value="11">Noviembre</option>
+                    <option Value="12">diciembre</option>
+                </select>
+            </li>
+            <li>
+                <label>Año:</label>
+                <select name="cmbAnio" required>
+                    <option Value="2018">2018</option>
+                    <option Value="2019">2019</option>
+                    <option Value="2020">2020</option>
+                </select>
+            </li>
+            <li>
+                <input type="submit" value="Consultar">
+            </li>
+        </ul>
+    </form>
+</fieldset>

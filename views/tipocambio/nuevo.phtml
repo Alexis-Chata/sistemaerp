@@ -1,0 +1,37 @@
+<h2>Tipo de Cambio: Agregar nuevo/vigente </h2>
+<br>
+<div id="listados">
+    <form action="/tipocambio/grabarvigente" method="POST">
+        <ul>
+            <li>
+                <label>Moneda</label>
+                <select name="TipoCambio[idmoneda]" id="txtMoneda">
+                        <option value="-1">Seleccione Moneda</option>
+                        <option value="2" selected>Dolares (US $)</option>
+                        <option value="3">Euros (€)</option>
+                </select>
+            </li>
+            <li>
+                <label>Compra</label>
+                <input type="text" name="TipoCambio[compra]" class="numeric">
+            </li>
+            <li>
+                <label>Venta</label>
+                <input type="text" name="TipoCambio[venta]" class="numeric">
+            </li>
+            <li>
+                <label>Referencia</label>
+                <select name="TipoCambio[referencia]">
+                    <option value="SBS">SBS</option>
+                </select>
+                <input type="hidden" name="TipoCambio[fechatc]" value="<?php echo date("Y/m/d");?>" >
+            </li>
+            <li>
+                <small><a href="http://www.sbs.gob.pe/" style="color: blue;" target="_blank" title="Ver tipo de cambio SUNAT">Ref. SBS</a></small>
+            </li>
+            <li>
+                <input type="submit" value="Registrar Tipo de Cambio">
+            </li>
+        </ul>
+    </form>
+</div>

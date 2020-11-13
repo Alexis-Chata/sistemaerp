@@ -1,0 +1,22 @@
+<script src="/javascript/reporteUtilidadesComision.js"></script>
+<fieldset>
+    <h2>Reporte Utilidades x Guia Cancelada</h2>
+    <form id="frmConsulta" action="/pdf/reporteUtilidadesComision" method="post" target="_blank">
+        <ul>
+            <li>
+                <input type="text" id="txtOrdenVenta" size="40px" placeholder="Ingrese Orden Venta">
+                <input type="hidden" id="idOrdenVenta" value="0" name="idOrdenVenta">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button id="btnConsultarHtml">Consultar<img src="/imagenes/html5.png" alt="" style="width:25px;height:25px;vertical-align: middle;text-align: center;"></button>
+                <button id="btnConsultarPDF">Consultar<img src="/imagenes/iconos/pdf.gif" alt="" style="width:25px;height:25px;vertical-align: middle;text-align: center;"></button>
+                <button id="btnConsultarExcel">Consultar<img src="/imagenes/excel.png" alt="" style="width:25px;height:25px;vertical-align: middle;text-align: center;"></button>
+                <button id="btnLimpiar">Limpiar<img src="/imagenes/limpiar.png" alt="" style="width:25px;height:25px;vertical-align: middle;text-align: center;"></button>
+                <button id="btnImprimir"><img src="/imagenes/html5.png" alt="" style="width:25px;height:25px;vertical-align: middle;text-align: center;">Imprimir<img src="/imagenes/imprimir.gif" alt="" style="width:25px;height:25px;vertical-align: middle;text-align: center;"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

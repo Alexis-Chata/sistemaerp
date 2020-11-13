@@ -1,0 +1,32 @@
+<script src="/javascript/reporteOrdenCompra.js"></script>
+
+<h2>Reporte Orden de Compra </h2>
+
+<fielset>
+	<form id="frmReporte" method="post" action="/pdf/reporteOrdenCompra" target="_blank">
+		<ul>
+			<li>
+				<label>Orden de Compra</label>
+				<input type="text" size="30" id="txtOrdenCompra" >
+				<input type="hidden" id="idOrdenCompra" name="idOrdenCompra">
+			</li>
+			<li>
+				<label>Producto</label>
+				<input type="text" size="35" id="txtProducto">
+				<input type="text" size="55" id="txtDescripcion" disabled="disabled">
+				<input type="hidden" id="idProducto" name="idProducto">
+			</li>
+
+		</ul>
+		<br>
+		<ul>
+			<li>
+				<button id="btnReporte"> Reporte Orden Compra <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/iconos/pdf.gif"></button>
+				<button id="btnReporteExcel"> Reporte Orden Compra <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/excel.png"></button>
+
+                <button id="btnHistorial">Historial Compras del Producto <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/iconos/pdf.gif"></button>
+				<button id="btnLimpiar">Limpiar <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/limpiar.png"></button>
+			</li>
+		</ul>
+	</form>
+</fielset>

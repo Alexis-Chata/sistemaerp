@@ -1,0 +1,45 @@
+<br><a href="/movimiento/nuevo/"><img src="/imagenes/new.gif" style="float:right"></a>
+<table>
+		<caption>Movimientos</caption>
+		<tr>
+			<th>Tipo</th>
+			<th>Concepto</th>
+			<th>Fecha</th>
+			<th>Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Movimiento);$i++){
+				echo "<tr>";
+					echo "<td>".$Movimiento[$i]['nomtipmov']."</td>";
+					echo "<td>".$Movimiento[$i]['nomconmov']."</td>";
+					echo "<td>".$Movimiento[$i]['fechamovimiento']."</td>";
+					echo '<td><a href="/movimiento/detalle/'.$Movimiento[$i]['idmovimiento'].'" class="btnMostrarDetalleMovimiento">Ver Detalle</a></td>';
+				echo "</tr>";
+			}
+		?>
+</table>
+<div id="paginacion">
+	<a href="/movimiento/listar/1" id="btnPrimero">&lt;&lt;Primero</a>
+	<a href="/movimiento/listar/" id="btnAnterior">&lt;Anterior</a>
+	<span class="bold"> P&aacute;gina</span>
+	<input type="text" value="<?php echo $Paginacion['Pagina'] ?>" readonly style="width:30px" class="center" id="txtPaginaActual">
+	<input type="hidden" value="<?php echo $Paginacion['Paginas'] ?>" id="txtNumeroPaginas">
+	<span class="bold"> de <?php echo $Paginacion['Paginas'] ?> </span>
+	<a href="/movimiento/listar/" id="btnSiguiente">Siguiente&gt;</a>
+	<a href="/movimiento/listar/<?php echo $Paginacion['Paginas'] ?>" id="btnUltimo">Ultimo&gt;&gt;</a>
+</div>
+
+<table id="tblDetallesMovimiento" class="hide">
+		<caption>Detalle Movimiento</caption>
+		<thead>
+			<tr>
+				<th>Codigo</th>
+				<th>Descripci&oacute;n</th>
+				<th>Observaciones</th>
+				<th>cantidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+</table>

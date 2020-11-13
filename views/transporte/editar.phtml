@@ -1,0 +1,27 @@
+<script src="/javascript/transporte.js"></script>
+<div id="nuevoregistro">
+	<h2>Transporte : Nuevo</h2>
+	<form action="/transporte/actualiza/" id="frmTransporte">
+		<ul class="inline-block">
+			<li>
+				<label>Razon Social:</label>
+				<input type="text" value="<?php echo $Transporte[0]['trazonsocial'] ?>" class="text-250 uppercase required" id="txtRazonSocial" name="Transporte[trazonsocial]" autocomplete="off" autofocus>
+			</li>
+			<li>
+				<label>R.U.C.:</label>
+				<input type="text" value="<?php echo $Transporte[0]['truc'] ?>" maxlength="11" size="11" id="txtTRuc" name="Transporte[truc]" class="numeric required">
+			</li>
+			<li>
+				<label>Telefono:</label>
+				<input type="text" value="<?php echo $Transporte[0]['ttelefono'] ?>" size="50" id="txtTelefono" name="Transporte[ttelefono]">
+			</li>
+			<li>
+				<label>Direcci&oacute;n:</label>
+				<input type="text" value="<?php echo $Transporte[0]['tdireccion'] ?>" class="text-250 uppercase required" id="txtDireccion" name="Transporte[tdireccion]">
+				<input type="hidden" value="<?php echo $_REQUEST['id']?>" name="idTransporte">
+			</li>
+		</ul><br>
+		<input type="submit" value="Actualizar">
+		<button id="btnCancelar">Cancelar</button>
+	</form>
+</div>

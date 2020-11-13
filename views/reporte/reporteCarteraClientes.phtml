@@ -1,0 +1,129 @@
+﻿<script src="/javascript/reporteCarteraClientes.js"></script>
+<br>
+<h2>Reporte de Cartera de Clientes</h2>
+
+<fieldset style="position:relative">
+    <legend><h4>Datos Generales</h4></legend>
+    <form id="frmParametros" action="/pdf/reporteCarteraClientes" method="post" target="_blank" >
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Desde</label>
+                <input type="text" class="datepicker" id="txtFechaInicio" name="txtFechaInicio" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+            <li>
+                <label for="txtFechaFin">Hasta</label>
+                <input type="text" class="datepicker" id="txtFechaFin" name="txtFechaFin" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+            <li>
+                <label>Zona Geografica</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal">
+                    <option value="">Seleccione Zona Geografica</option>
+                    <?php $cantidadCategoriaPrincipal = count($categoriaPrincipal); ?>
+                    <?php for ($i = 0; $i < $cantidadCategoriaPrincipal; $i++) { ?>
+                        <option value="<?php echo $categoriaPrincipal[$i]['idcategoria']; ?>"><?php echo $categoriaPrincipal[$i]['nombrec'] ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label>Region de Cobranza</label>
+                <select name="lstRegionCobranza" id="lstRegionCobranza">
+                    <option value="">Zona Cobranza-Categoria</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstZona">Zona</label>
+                <select name="lstZona" id="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstCondicion">Condicion</label>
+                <select name="lstCondicion" id="lstCondicion">
+                    <option value="">Seleccione Condicion</option>
+                    <?php $cantidadCondicionVenta = count($condicionVenta); ?>
+                    <?php for ($i = 1; $i <= $cantidadCondicionVenta; $i++) { ?>
+                        <option value="<?php echo $i; ?>"><?php echo $condicionVenta[$i] ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <!--li>
+                <label>Linea de Productos</label>
+                <select name="lstLineaProductos" id="lstLineaProductos">
+                    <option value="">Seleccione Linea</option>
+                    <?php //$totalLineas = count($linea); ?>
+                    <?php //for ($i = 0; $i < $totalLineas; $i++) { ?>
+                        <option value="<?php //echo linea[$i]['idlinea']; ?>"><?php //echo $linea[$i]['nomlin'] ?></option>
+                    <?php //} ?>
+                </select>
+            </li-->
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label for="lstMostrar">Estado:</label>
+                <select name="lstMostrar" id="lstMostrar">
+                    <option value="">Seleccione Estado</option>
+                    <option value="D">ATENDIDOS</option>
+                    <option value="N">NO ATENDIDOS</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstAprobados">Filtro</label>
+                <select name="lstAprobados" id="lstAprobados">
+                    <option value="1">Todos</option>
+                    <option value="2">Aprobados</option>
+                    <option value="3">Pendientes</option>
+                    <option value="4">Desaprobados</option>
+                </select>
+            </li>
+            <li>
+                <label for="txtVendedor">Nombre Vendedor</label>
+                <input type="text" id="txtVendedor" class="uppercase" size="50" style="background-color: skyblue;" />
+                <input type="hidden" id="idVendedor" name="idVendedor"/>
+            </li>
+            <li>
+                <label>Ultimo Vendedor</label>
+                <input type="checkbox" name="txtUltVend">
+            </li>
+            <li>
+                <label>Linea Cliente</label>
+                <input type="checkbox" name="txtLinCli">
+            </li>
+            <li>
+                <label>Condicion Compra</label>
+                <input type="checkbox" name="txtCondComp">
+            </li>
+            <li>
+                <label>"Calificacion Cobranzas"</label>
+                <input type="checkbox" name="lstVerAuditoriaCobranza">
+            </li>
+            <li>
+                <label for="lstOrden">Ordenar por</label>
+                <select name="lstOrden" id="lstOrden">
+                    <option value="d">Dirección</option>
+                    <option value="u">Ultima Orden</option>
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button type="button" id="btnConsultar">Consultar <img style="vertical-align:middle" src="/imagenes/html5.png" width="25" height="25" /></button>
+                <button id="btnConsultarPdf">Consultar <img style="vertical-align:middle" src="/imagenes/iconos/pdf.gif" width="25" height="25" /></button>
+                <button id="btnConsultarExcel">Consultar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+                <button id="btnLimpiar">Limpiar <img style="vertical-align:middle" src="/imagenes/limpiar.png" width="25" height="25" /></button>
+                <button id="btnResumen">Resumen <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+                <button id="btnFormatoExcel">Formato Excel <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+            </li>
+        </ul>
+        <hr>
+        <ul style="float: right">
+            <button id="btnRankingClientexVendedor">Ranking Cliente por Vendedor<img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+            <button id="btnClientesPorVendedor">Cliente Por Vendedor <img style="vertical-align:middle" src="/imagenes/iconos/pdf.gif" width="25" height="25" /></button>
+            <button id="btnConsultarPorZona">Cartera Por Zona <img style="vertical-align:middle" src="/imagenes/iconos/pdf.gif" width="25" height="25" /></button>
+            <button id="btnConsultarPorVendedor">Cartera Por Vendedor <img style="vertical-align:middle" src="/imagenes/iconos/pdf.gif" width="25" height="25" /></button>
+        </ul>
+    </form>
+</fieldset>
+<hr>
+<div id="carteraCliente"></div>

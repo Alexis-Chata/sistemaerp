@@ -1,0 +1,36 @@
+<h2>Mantenimiento: Editar <?php echo $titulo ?></h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+<?php 
+	$cantidadBanco=count($banco);
+	$cantidadEmpresa=count($empresa);
+ ?>
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/actualizar">
+		<ul class="inline-block">
+			<li>
+				<input type="hidden" value="<?php echo $data[0]['idbanco']; ?>" name="idbanco">
+				<label>Codigo</label>
+				<input required type="text" size="10" name="<?php echo $titulo.'[Codigo]'; ?>"  value="<?php echo $data[0]['codigo'] ?>" required>
+			</li>
+			<li>
+				<label>Nombre</label>
+				<input required type="text" size="40" name="<?php echo $titulo.'[descripcion]'; ?>"  value="<?php echo $data[0]['descripcion'] ?>" required>
+			</li>
+			
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+
+	</form>
+</fieldset>

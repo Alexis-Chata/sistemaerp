@@ -1,0 +1,44 @@
+<script src="/javascript/asignarrol.js"></script>
+<div id="listados">
+	<div id="Actor">
+		<h2>Seguridad: Asignar Roles a:</h2>
+		<h3><?php echo $Actor[0]['apellidopaterno']." ".$Actor[0]['apellidomaterno']." ,".$Actor[0]['nombres']; ?></h3>
+	</div>
+
+	<div id="Roles">
+		<?php $totalRoles=count($Roles);?>
+		<table>
+			<tr>
+			<?php for ($i=0; $i < $totalRoles; $i++) { ?>
+					<td>
+						<?php
+						$checked="";
+						$totalRolesAsignados=count($ActorRol);
+							for ($j=0; $j <$totalRolesAsignados ; $j++) { 
+								if($Roles[$i]['idrol']==$ActorRol[$j]['idrol']){
+									$checked="checked ";
+								}
+							}
+						?>
+						<input type="checkbox" name="<?php echo $Roles[$i]['idrol'];?>" <?php echo $checked; ?> id="<?php echo $Actor[0]['idactor'];?>">
+					<?php echo $Roles[$i]['nombre'];?>
+					<?php 
+						if ($i%5==0 || ($totalRoles-$i)==1) {
+							echo "</tr>";
+						} else {
+							echo "</td>";
+						}
+					}
+			?>
+		</table>
+	</div>	
+
+<h3>Busqueda de Otros usuarios</h3>
+<br>
+<form method="POST" action="/actor/busqueda/">
+<div id="busqueda">
+		Busqueda: <br><input type="text" id="txtBusqueda" name="txtBusqueda" size="50px">
+		<input type="submit" value="Ver">
+</form>
+
+</div>

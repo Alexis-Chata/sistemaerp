@@ -1,0 +1,40 @@
+<script type="text/javascript" src="/public/javascript/precioReferencia.js"></script>
+<h2>Producto: Precio de Referencia</h2>
+
+<fieldset>
+
+<label> Producto: </label>
+<input type="text" size="30" id="txtproducto" class="precioreferencia" placeholder="Ingrese el Nombre del producto">
+
+</fieldset>
+<form id="frmProducto">
+	<input type="hidden" id="idProducto" name="idProducto">
+	<table>
+		<caption></caption>
+		<tr>
+			<th>Imagén</th>			
+			<th>Codigo</th>
+			<th>Nombre</th>
+			<th>Marca</th>
+			<th>Precio Lista Actual</th>
+			<th>Precio Competencia 1</th>
+			<th>Precio Competencia 2</th>
+			<th>Precio Competencia 3</th>
+
+			<th>Actualizar</th>
+		</tr>
+		<tr>
+			<td style="vertical-align: middle;text-align:center;"><img src="" width="50" height="50" id="rutaImagenProducto"></td>			
+			<td style="vertical-align: middle;text-align:center;"><label id="codigoProducto"></label></td>
+			<td style="vertical-align: middle;text-align:center;"><label id="txtDescripcion"></label></td>
+			<td style="vertical-align: middle;text-align:center;"><label id="marca"></label></td>
+			<td style="vertical-align: middle;text-align:center;"><label id="preciolista"></label></td>
+			<td style="vertical-align: middle;text-align:center;">S/.<input class="numeric precioreferencia" type="text" id="precioreferencia01" name="precioreferencia01" size="15" ></td>
+			<td style="vertical-align: middle;text-align:center;">S/.<input class="numeric precioreferencia" type="text" id="precioreferencia02" name="precioreferencia02" size="15"></td>
+			<td style="vertical-align: middle;text-align:center;">S/.<input class="numeric precioreferencia" type="text" id="precioreferencia03" name="precioreferencia03" size="15"></td>
+
+			<td style="vertical-align: middle;text-align:center;"><button id="btnActualizar"> <img width="25" height="25" src="/imagenes/grabar.gif"><br>Grabar</button></td>
+		</tr>
+		<tr><td style="vertical-align: middle;text-align:center;background:white;" colspan="9"><b id="respuesta"></b></td></tr>
+	</table>
+</form>

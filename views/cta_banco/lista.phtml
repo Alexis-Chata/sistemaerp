@@ -1,0 +1,45 @@
+<h2>Mantenimiento:: Cuentas de Banco</h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
+				<th colspan="2">Acciones</th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Cuenta</th>
+				<th>Banco</th>
+				<th>Empresa</th>
+				<th>Editar</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td><?php echo ($i+1); ?></td>
+					<td style="text-align:center;"><?php echo $data[$i]['3'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['21'] ?> </td>
+					<td ><?php echo $data[$i]['razsocalm'] ?> </td>
+					<td><a href="/cta_banco/editar/<?php echo $data[$i]['idctabanco']; ?>"><img src="/imagenes/editar.gif"></a></td>
+					<td><a href="/cta_banco/eliminar/<?php echo $data[$i]['idctabanco']; ?>"><img src="/imagenes/eliminar.gif"></a></td>
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

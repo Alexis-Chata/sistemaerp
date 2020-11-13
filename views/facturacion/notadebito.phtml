@@ -1,0 +1,251 @@
+<script type="text/javascript" src="/javascript/notadebito.js"></script>
+<form action="/facturacion/registrarnotadebito/" method="POST">
+    <h2>Facturación: Nota de Debito</h2>
+    <fieldset id="bqdFactura">
+        <legend>Busqueda</legend>
+        <ul>
+            <li>
+                <label>Buscar:</label>
+                <input type="radio" class="cmbPanel" name="gender" value="1" checked> Por Factura
+                <input type="radio" class="cmbPanel" name="gender" value="2"> Por Orden de Venta
+            </li>
+            <li class="clFE">
+                <label>Tipo:</label>
+                <select id="lstTipoDocumento" required>
+                    <option value="1" selected="">ELECTRONICO</option>
+                    <option value="0">FÍSICO</option>
+                </select>
+            </li>
+            <li class="clFE">
+                <label>Numero Factura:</label>
+                <input type="text" id="txtFactura" placeholder="Factura" maxlength="10" size="10" style="display: none">
+                <input type="text" id="txtFacturaElectronica" placeholder="Factura Electronica" maxlength="10" size="30px">
+                <input type="hidden" id="txtIdOrden" name="NotaDebito[idordenventa]" >
+                <input type="hidden" id="txtIdDocumento" name="NotaDebito[idRelacionado]" >
+                <input type="hidden" id="idcliente" name="idcliente">
+            </li>
+            <li id="clOV" style="display: none;">
+                <label>Orden Venta:</label>
+                <input type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="30px" placeholder="Ingrese el codigo de orden de venta">
+                <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required" val="0">
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset id="bqdOv" style="display: none">
+        <table id="tblfacturas">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Tipo</th>
+                    <th>Serie</th>
+                    <th>Correlativo</th>
+                    <th>Facturado</th>
+                    <th>Fecha</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody> 
+            </tbody>
+        </table>
+        <div id="detalle" style="display: none;">        
+            <hr><hr>
+            <table id="tbldetalles">
+                <thead>
+                    <tr>
+                        <th>Documento:</th>
+                        <td id="idtxtDocumento"></td>
+                        <th style="color: red"><center style="font-weight: 700; font-size: 20px"><a href="#Datos" id="btnSeleccionar" data-iddoc="">[Seleccionar]</a></center></th>
+                    </tr>			
+                </thead>
+                <tbody>                    
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+            <button type="button" id="btnCerrarFactura">Cerrar Factura</button>
+        </div>
+    </fieldset>
+    <fieldset id="Datos" style="background: #eef6f9">
+        <legend>Datos de la Nota de Debito</legend>
+        <ul>
+            <li>
+                <label>Fecha:</label>
+                <label style="color:#f00"><?php echo date("d/m/Y") ?></label>
+                <input type="hidden" value="<?php echo date("Y/m/d") ?>" name="NotaDebito[fechadoc]">
+            </li>
+            <li>
+                <label>Serie</label>
+                <b style="color: red;" id="leTipoFactura">F-</b>
+                <select type="text" name="NotaDebito[serie]" id="txtSerie" style="color: red; font-weight: 700">
+                    <option value="1" selected="">001</option>
+                    <option value="2">002</option>
+                    <option value="3">003</option>
+                </select>
+            </li>
+        </ul>
+        <ul>
+            <div id="blockCorrelativo">
+                <li>
+                    <label>Correlativo 1</label>
+                    <input type="text" name="NotaDebito[numdoc]" maxlength="6" size="6" disabled="" required>                                  
+                </li>
+            </div>  
+        </ul>
+        <ul>
+            <li>
+                <label>Sustento:</label>
+                <select id="lstMotivoNotaCredito" name="NotaDebito[concepto]" required disabled="">
+                    <option value="">Seleccione uno</option>	
+                    <?php for ($i=1; $i <= count($sustentos); $i++) { 
+                        echo '<option value="' . $i . '">' . $sustentos[$i] . '</option>';
+                    } ?>
+                </select>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Leyenda de la Nota de Debito</legend>
+        <ul>
+            <li class="Ocultar" id="idLiLetras" style="display: none;">
+                <label>Letra</label>
+                <input type="text" id="txtidLiLetras" class="uppercase" placeholder="Numero de Letra">
+            </li>
+            <li class="Ocultar" id="idLiProducto" style="display: none;">
+                <label>Producto</label>
+                <input type="text" id="txtidLiProducto" class="uppercase text-600" placeholder="Ejm. Diferencia de Precios">
+            </li>
+            <li class="Ocultar" id="idLiCheque" style="display: none;">
+                <label>Nro de Cheque</label>
+                <input type="text" id="txtidLiCheque" class="uppercase text-250" placeholder="Cheque Extornado">
+            </li>
+            <li class="Ocultar" id="idLiAdicional" style="display: none;">
+                <label>Otros</label>
+                <input type="text" id="txtidLiAdicional" class="uppercase text-300" value="CARGOS ADMINISTRATIVOS ADICIONALES" placeholder="Otros">
+            </li>
+            <li class="Mostrar" style="display: none;"><label>Cantidad</label>
+                <input type="text" id="txtidLiCantidad" value="1" class="text-50" placeholder="Cantidad">
+            </li>
+            <li class="Mostrar" style="display: none;"><label>Moneda</label>
+                <input type="text" id="txtidLiMoneda" class="text-30" value="U$." placeholder="Precio Incluido IGV" readonly="">
+            </li>
+            <li class="Mostrar" style="display: none;"><label>Precio(Inc. IGV)</label>
+                <input type="text" id="txtidLiPrecio" class="text-250" placeholder="Precio Incluido IGV">
+            </li>
+            <li class="Mostrar" style="display: none;">
+                <input type="button" class="button" id="btnanadirregistro" value="Añadir">
+            </li>
+        </ul>
+        <table id="tblLeyenda">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Descripcion</th>
+                    <th>Uni. Medida</th>
+                    <th>Cantidad</th>
+                    <th>Precio Neto</th>
+                    <th>Precio I.G.V.</th>
+                    <th>Monto Total</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td rowspan="2" colspan="5"></td>
+                    <th>Monto Neto: </th>
+                    <td><input type="text" value="0.00" id="tblmontoNeto" maxlength="6" size="6" readonly=""></td>
+                    <td rowspan="3"></td>
+                </tr>
+                <tr>
+                    <th>Monto I.G.V.(18%): </th>
+                    <td><input type="text" value="0.00" id="tblmontoIgv" maxlength="6" size="6" readonly=""></td>
+                </tr>
+                <tr>      
+                    <td colspan="5" id="ItemsTotal" style="color: red; font-weight: 700; font-size: 12px">0 de 25 Item's</td>
+                    <th>Monto Total:</th>
+                    <td>
+                        <input type="text" value="0.00" name="NotaDebito[montofacturado]" id="montoTotal" maxlength="6" size="6" readonly="">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div style="float: right" id="blockbtnRegistrar"><input type="submit" value="Registrar" class="btnRegistrar" id="registrar"></div>
+    </fieldset>
+
+<fieldset id="blockFactura">
+    <legend><h1 style="color:blue" id="dxFactura">Datos de la Factura</h1></legend>
+    <ul>
+        <li style="background: #eef6f9; padding: 5px; border: 1px solid black; border-radius: 5px;">
+            <label>N° de Factura</label>
+            <input type="text" id="numeroFactura" readonly>
+            <select name="NotaDebito[nroSeleccion]" id="opcSeleccion" style="border: 2px solid blue; font-weight: bold;">
+            </select>
+        </li>
+        <li>
+            <label>Porcentaje</label>
+            <input type="text" id="porcentajeFacturacion" readonly> 
+        </li>
+        <li>
+            <label>Modo de Fact.</label>
+            <input type="text" id="modoFacturacion" readonly>
+        </li>
+        <li>
+            <label>Fecha Emsion</label>
+            <input type="text" id="FechEmsion" readonly>
+        </li>
+        <li>
+            <label>Monto Neto</label>
+            <input type="text" id="montoNeto" readonly>
+        </li>
+        <li>
+            <label>Monto del IGV</label>
+            <input type="text" id="montoIGV" readonly>
+        </li>
+        <li>
+            <label>Monto Facturado</label>
+            <input type="text" id="montoFactura" readonly>
+        </li>  
+        <li id="blockCargado">
+            <label>Estado </label>
+            <input type="text" style="color: red; font-weight: 700"  value="" type="text" readonly="">
+        </li>
+    </ul>
+</fieldset>
+    </form>
+<fieldset>
+    <legend><h1 style="color:blue">Datos  de la Orden</h1></legend>
+    <ul>
+        <li>
+            <label>Codigo</label>
+            <input type="text" id="codigo" size="10" readonly>
+
+        </li>
+        <li>
+            <label>Monto </label>
+            <input type="text" id="importe" size="10" readonly>
+        </li>
+        <li>
+            <label>Nombre o Razon Social:</label>
+            <input type="text" id="txtCliente" readonly size="45">
+        </li>
+        <li>
+            <label>RUC/DNI:</label>
+            <input type="text" id="txtRucDni" maxlength="11" size="11" readonly>
+        </li>
+        <li>
+            <label>Dirección</label>
+            <input type="text" id="direccion" readonly size="40">
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <label>Ubicacion</label>
+            <input type="text" id="ubicacion" readonly size="50">
+        </li>
+        <li>
+            <label>Telefono</label>
+            <input type="text" id="telefono" readonly>
+        </li>
+    </ul>
+</fieldset>
+

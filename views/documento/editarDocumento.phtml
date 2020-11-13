@@ -1,0 +1,55 @@
+<script src="/javascript/documento.js"></script>
+<fieldset>
+	<h2>Editar Documentos</h2>
+	<ul class="inline-block">
+		
+		<form  action="/documento/actualizaDocumento/" method="post">
+			<li>
+				<label>Serie</label>
+				<input type="text" name="documento[serie]" class="numeric" required value="<?php echo $documento[0]['serie']; ?>">
+			</li>
+			<li>
+				<label>Numero</label>
+				<input type="text" name="documento[numdoc]" class="numeric" required value="<?php echo $documento[0]['numdoc']; ?>">
+			</li>
+			<li>
+				<label>Tipo Documento</label>
+				<select name="documento[nombredoc]" required>
+
+					<?php foreach ($tipodocumento as $key=>$datos) { 
+						if ($key==$documento[0]['nombredoc']) { ?>
+							<option selected value="<?php echo $key; ?>"><?php echo $datos; ?></option>
+
+					<?php	}elseif(!empty($datos))  { ?>
+							<option value="<?php echo $key; ?>" ><?php echo $datos; ?></option>
+					<?php	}
+					}?>
+				</select>
+
+			</li>
+			<?php if ($documento[0]['nombredoc']==1){ ?>
+			<li>
+				<label>Modo de Facturacion</label>
+				<select name="documento[modofactura]">
+					<option value="">Seleccione Modo</option>
+					<?php 
+					$cantidad=count($ModoFacturacion);
+						for ($i=1; $i <$cantidad+1 ; $i++) { ?>
+							<option value="<?php echo $i; ?>"><?php echo $ModoFacturacion[$i]; ?></option>
+						<?php  } ?>
+				</select>
+			</li>
+			<li>
+				<label>Porcerntaje Facturacion</label>
+				<input type="text" required value="100" name="documento[porcentajefactura]" >
+			</li>
+			<?php } ?>
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="btnCancelar">Cancelar</button>
+			</li>
+			<input type="hidden" name="documento[iddocumento]" value="<?php echo $documento[0]['iddocumento']; ?>">
+		</form>
+		
+	</ul>
+</fieldset>

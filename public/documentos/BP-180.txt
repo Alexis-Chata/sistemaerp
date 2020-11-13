@@ -1,0 +1,93 @@
+A;Serie;;B002
+A;Correlativo;;00000043
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;46364813
+A;RznSocRecep;;VIBIANA SANCHEZ GABINO
+A;DirRecep;;ALBERTO FUJIMORI -LORETO-IQUITOS - LORETO - MAYNAS - IQUITOS
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;313.92
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;56.5
+A;MntTotal;;370.42
+A;FchEmis;;2017-08-15
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;56.5
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;DPS2215C
+B;NmbItem;1;CAJA ACUSTICA PIBE
+B;PrcItem;1;127.91
+B;PrcItemSinIgv;1;108.4
+B;MontoItem;1;108.4
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;19.51
+B;NroLinDet;2;2
+B;QtyItem;2;1
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;RCZ-808D
+B;NmbItem;2;CONSOLA 8 CANALES USB,SD,BLUETOOH,DISPLAY,EQUALIZADOR C/CONTROL,SHERIFF
+B;PrcItem;2;185.25
+B;PrcItemSinIgv;2;156.99
+B;MontoItem;2;156.99
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;28.26
+B;NroLinDet;3;3
+B;QtyItem;3;1
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;RCZ-115-LIGH
+B;NmbItem;3;CAJA ACUSTICA 1X15 + DRIVER,RCZ
+B;PrcItem;3;50.96
+B;PrcItemSinIgv;3;43.19
+B;MontoItem;3;43.19
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;7.77
+B;NroLinDet;4;4
+B;QtyItem;4;1
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;TSCT-2501
+B;NmbItem;4;DRIVER TITANIUM 1" 8 OHM 150W C/BORNE DORADO,POWER ACOSUTIK
+B;PrcItem;4;6.3
+B;PrcItemSinIgv;4;5.34
+B;MontoItem;4;5.34
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.96
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 330
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Trescientos Setenta con 42/100 Dolares Americanos  

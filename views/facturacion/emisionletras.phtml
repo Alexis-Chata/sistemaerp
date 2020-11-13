@@ -1,0 +1,64 @@
+<script type="text/javascript" src="/javascript/emision-letras.js"></script>
+<input type="hidden" value="1" id="txtContador">
+<form action="/ordenventa/graba/" method="POST">
+	<fieldset>
+		<legend>Datos de Cliente</legend>
+		<ul>
+			<li>
+				<label>Fecha:</label>
+				<input type="hidden" id="txtFEmision" value="<?php echo date("Y/m/d") ?>" name="Orden[femision]">
+				<label style="text-align:left; color:#f00"><?php echo date("d/m/Y")?></label>
+			</li>
+			<li>
+				<label>Nro. Guia:</label>
+				<input type="text" id="txtOrdenVenta" size="8">
+				<input type="hidden" id="txtIdOrden">
+			</li>
+			<li>
+				<label>Condici&oacute;n de letra</label>
+				<input type="text" id="txtCondicionLetra">
+			</li>
+			<li>
+				<label>Tipo Letra</label>
+				<input type="text" id="txtTipoLetra">
+			</li>
+			<li>
+				<label>Cant. Letras</label>
+				<input type="text" id="txtCantidadLetras" class="text-100">
+			</li>
+			<fieldset>
+				<legend>Guia De pedido</legend>
+				<table id="tblOrdenVenta">
+					<thead>
+						<tr>
+							<th>Guia</th>
+							<th>Fec. Pedido</th>
+							<th>Cliente</th>
+							<th>Monto Total</th>
+						</tr>
+						<tbody>
+							
+						</tbody>
+					</thead>
+				</table>
+			</fieldset>
+			<fieldset>
+				<legend>Letras</legend>
+				<table id="tblLetras">
+					<thead>
+						<tr>
+							<th>Nro.</th>
+							<th>Fec. Vencimiento</th>
+							<th>Importe</th>
+						</tr>
+						<tbody>
+							
+						</tbody>
+					</thead>
+				</table>
+			</fieldset>
+		</ul>
+	</fieldset>
+	<input type="submit" value="Registrar" class="btnRegistrar">
+</form>
+<div id="test"></div>

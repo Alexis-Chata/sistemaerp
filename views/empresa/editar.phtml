@@ -1,0 +1,47 @@
+<h2>Mantenimiento: Editar Empresa</h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/actualizar" method="post">
+		<ul class="inline-block">
+			<li>
+				<input type="hidden" value="<?php echo $data[0]['idempresa']; ?>" name="idobjeto">
+				<label>Nombre</label>
+				<input required type="text" size="10" name="<?php echo $titulo.'[nombre]'; ?>"  value="<?php echo $data[0]['nombre'] ?>" required>
+			</li>
+			<li>
+				<label>Descripcion</label>
+				<input required type="text" size="40" name="<?php echo $titulo.'[descripcion]'; ?>"  value="<?php echo $data[0]['descripcion'] ?>" required>
+			</li>
+			<li>
+				<label >Tipo Movimiento</label>
+				<select name="<?php echo $titulo.'[idtipoempresa]'; ?>" disabled="disabled">
+						<?php $cantidadTipoEmpresa=count($tipoEmpresa) ?>
+						<?php for ($x=0; $x <$cantidadTipoEmpresa ; $x++) { 
+							if ($tipoEmpresa[$x]['idtipoempresa']==$data[0]['idtipoempresa']) { ?>
+								<option selected value="<?php echo $tipoEmpresa[$x]['idtipoempresa']; ?>"><?php echo  $tipoEmpresa[$x]['nombre']; ?></option>
+						<?php	}else{ ?>
+								<option  value="<?php echo $tipoEmpresa[$x]['idtipoempresa']; ?>"><?php echo  $tipoEmpresa[$x]['nombre']; ?></option>
+						<?php }
+						 } ?>
+				</select>
+				
+			</li>
+			
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+
+	</form>
+</fieldset>

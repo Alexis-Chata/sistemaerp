@@ -1,0 +1,34 @@
+    <script src="/javascript/reporteHistorialVentasxProducto.js"></script>
+    <fieldset>
+        <h2>Reporte de Historial Ventas x Producto</h2>
+        <form action="/pdf/reporteHistorialVentasxProducto" method="post" target="_blank" id="frmConsulta">
+            <ul>
+                <li>
+                    <label for="txtProducto">Producto</label>
+                    <input type="text" class="uppercase" id="txtProducto" style="background-color:#9FFF6A" >
+                    <input type="text" readonly="readonly" id="txtDescripcion" size="50" style="background-color:silver">
+                    <input type="hidden" id="idProducto" name="idProducto" value="0">
+                </li>
+                <li>
+                    <label for="txtVendedor">Vendedor</label>
+                    <input type="text" class="uppercase" size="50" id="txtVendedor" style="background-color:skyblue">
+                    <input type="hidden" id="idVendedor" name="idVendedor">
+                </li>
+                <li>
+                    <label for="txtCliente">Cliente</label>
+                    <input type="text" class="uppercase" size="50" id="txtCliente" style="background-color:pink">
+                    <input type="hidden" id="idCliente" name="idCliente">
+                </li>
+                
+            </ul>
+            <br>
+            <ul>
+                <li><button id="btnConsultarHTML">Consultar<img src="/imagenes/html5.png" style="vertical-align: middle" width="25" height="25"></button></li>
+                <li><button id="btnConsultarPDF">Consultar<img src="/imagenes/iconos/pdf.gif" style="vertical-align: middle" width="25" height="25"></button></li>
+                <li><button id="btnConsultarExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
+                <li><button id="btnLimpiar">Limpiar<img src="/imagenes/limpiar.png" style="vertical-align: middle" width="25" height="25"></button></li>
+                <li><button id="btnImprimir"><img src="/imagenes/html5.png" style="vertical-align: middle" width="25" height="25">Consultar<img src="/imagenes/imprimir.gif" style="vertical-align: middle" width="25" height="25"></button></li>
+            </ul>
+            
+        </form>
+    </fieldset>

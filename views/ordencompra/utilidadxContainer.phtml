@@ -1,0 +1,122 @@
+
+<br>
+<script type="text/javascript" src="/javascript/cuadroUtilidades.js"></script>
+<h2>Ventas :: Cuadro de Utilidad  por Orden de Compra</h2>
+<br>
+<ul>
+    <li>Ordenes de Compra Valorizadas</li><br>
+    <li>
+        <select id="lstxOrdenCompra">
+            <option>--Seleccione--</option>
+            <?php
+            $cantidadValorizado = count($valorizado);
+            for ($i = 0; $i < $cantidadValorizado; $i++) {
+                $fecha = $valorizado[$i]['fechacreacion'];
+                $year = date("Y", strtotime($fecha));
+                ?>
+                <option value="<?php echo $year ?>"><?php echo $year ?></option>
+            <?php } ?>
+        </select>
+    </li>
+</ul>
+<input type="hidden" id="vbimportaciones" value="<?php echo $Ordencompra[0]['vbimportaciones'] ?>">
+<input type="hidden" id="cuadroutilidad" value="<?php echo $Ordencompra[0]['cuadroutilidad'] ?>">
+<div id="contenedorImpresion">
+    <a href="#" id="imprimir" ><img src="/imagenes/imprimir.gif"></a>
+    <table>
+        <thead>
+            <tr>
+                <th  colspan="2">PROVEEDOR</th>
+                <th  colspan="2">ORDEN DE COMPRA</th>
+                <th  colspan="2">FECHA DE INGRESO</th>
+                <th  colspan="2">EMPRESA</th>
+                <th  colspan="2">CANTIDAD DE PRODUCTOS</th>
+                <th  colspan="2">UTULIDAD TOTAL(US $)</th>
+                <th  colspan="2"></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($Ordencompra); $i++) {
+                ?>
+                <tr style="height:40">
+                    <td colspan="2"><?php echo $Ordencompra[$i]['razonsocialp']; ?></td>
+                    <td colspan="2"><?php echo $Ordencompra[$i]['codigooc']; ?></td>
+                    <td colspan="2"><?php echo $Ordencompra[$i]['faproxllegada']; ?></td>
+                    <td colspan="2"><?php echo $Ordencompra[$i]['razsocalm']; ?></td>
+                    <?php
+                    $totalUtilidad = 0;
+                    $utilidadDolares = 0;
+                    $tipocambio = $Ordencompra[$i]['tipocambiovigente'];
+                    $porcentaje = (($porcifventas + 100) / 100);
+                    $cantidad = 0;
+                    $utilidadTotal = 0;
+                    for ($x = 0; $x <= count($Detalle); $x++) {
+                        if ($Ordencompra[$i]['idordencompra'] == $Detalle[$x]['idordencompra']) {
+                            if ($Detalle[$x]['precio_listadolares'] > 0) {
+                                $preciolistaDolares = $Detalle[$x]['precio_listadolares'];
+                                $cantidad += $Detalle[$x]['cantidadrecibidaoc'];
+                            } else {
+                                $preciolistaDolares = $Detalle[$x]['preciolista'] / $tipocambio;
+                                $cantidad += $Detalle[$x]['cantidadrecibidaoc'];
+                            }
+                            $cifventas = $Detalle[$x]['fobdoc'] * $porcentaje;
+                            $descuento13 = $preciolistaDolares - ($preciolistaDolares * 0.13);
+                            $descuento5 = $descuento13 - ($descuento13 * 0.05);
+                            $descuento95 = $descuento5 - ($descuento5 * 0.095);
+                            $precioVenta = $descuento95 - ($descuento95 * 0.05);
+                            //$utilidadDolaresxProducto=$precioVenta-$cifventas;
+                            $utilidadDolaresxProducto = ($precioVenta - $cifventas) * $Detalle[$x]['cantidadrecibidaoc'];
+                            $utilidadTotal += $utilidadDolaresxProducto;
+                        }
+                    }
+                    ?>
+
+                    <td colspan="2"><?php echo $cantidad; ?></td>
+                    <td colspan="2"><?php echo number_format($utilidadTotal, 2); ?></td>
+                    <td><a class="detalledelMovimiento" id="<?php echo $Ordencompra[$i]['idordencompra'] ?>" href=""><img style="margin:auto;display:block" title="ver" width="15" high="15" src="/imagenes/ver.gif"> </a> </td>
+                </tr>
+
+<?php } ?>
+            <tr><td colspan="19" style="background:white;">&nbsp</td></tr>
+
+        </tbody>
+
+    </table>
+</div>
+<div id="contenedordetallemovimiento">
+    <b>Detalle Del Container</b>
+    <table id="tablacontenedor">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Marca</th>
+                <th>QTY</th>
+                <th>UNIT</th>
+                <th colspan="2">PSC X CTN</th>
+                <th>FOB Unitario (US $)</th>
+                <th>Cif <br>Ventas (30%)<br> (US $)</th>
+                <th>Tipo de<br> Cambio <br>(US $)</th>
+                <th>Neto <br>(US $)</th>
+                <th>Precio <br>Lista<br> US $</th>
+                <th>Neto <br>(S/.)</th>
+                <th>Precio<br> Lista <br>S/.</th>
+                <th>cantidad de <br>Productos Vendidos</th>
+                <th>Utilidad Real(%)</th>
+                <th>Precio de Venta<br>(US $)</th>
+                <th>Utilidad Total<br>(US $)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+    <button id="btnCerrarDetalle">Cerrar Detalle</button>
+    <button id="btnImprimir">Imprimir</button>
+</div>

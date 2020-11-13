@@ -1,0 +1,104 @@
+<?php $idmodulo = 122;
+require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript" src="/javascript/cuadroUtilidades.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Ventas :: Cuadro de Utilidad  por Orden de Compra</h2>
+<style>
+    .GuardarNompro {
+        display: none;
+    }
+    .inputText {
+        display: none;
+    }
+    .EditarNompro, .EditarPrecioCosto {
+        display: none;
+        float: right;
+        padding-right: 7px;
+    }    
+    #tblCuadroUtilidad > tbody > tr:hover .EditarNompro {
+        display: block;       
+    }
+    #tblCuadroUtilidad > tbody > tr:hover .EditarPrecioCosto {
+        display: block;       
+    }
+</style>
+<fieldset>
+    <ul>
+        <li>
+            <label>Año:</label>
+            <select id="lstAnio">
+                <?php
+                for ($i = 2013; $i < date('Y'); $i++) {
+                    echo '<option value="' . $i . '">' . $i . '</option>';
+                }
+                echo '<option value="' . date('Y') . '" selected>' . date('Y') . '</option>';
+                ?>
+            </select>
+        </li>
+        <li>
+            <label>Orden de Compra:</label>
+            <select id="lstValorizados">
+                <option>-- Seleccione --</option>
+                <?php
+                $cantidadValorizado = count($valorizado);
+                for ($i = $cantidadValorizado - 1; $i >= 0; $i--) {
+                    echo '<option value="' . $valorizado[$i]['idordencompra'] . '">' . $valorizado[$i]['codigooc'] . '</option>';
+                }
+                ?>
+            </select>
+            <small>Ordenes de Compra Confirmadas</small>
+        </li>
+    </ul>
+</fieldset>
+<form method="post" action="/ordencompra/actualizaUtilidad">
+    <input type="hidden" id="vbimportaciones" value="<?php echo $Ordencompra[0]['vbimportaciones'] ?>">
+    <input type="hidden" id="cuadroutilidad" value="<?php echo $Ordencompra[0]['cuadroutilidad'] ?>">
+    <fieldset>
+        <div class="body" id="contenedorImpresion">
+            <table id="tblCuadroUtilidad">
+                <thead>
+                    <tr>
+                        <th colspan="2">PROVEEDOR:</th>
+                        <td colspan="2"><?php echo $Ordencompra[0]['razonsocialp']; ?></td>
+                        <th colspan="4">Orden de Compra</th>
+                        <td><?php echo $Ordencompra[0]['codigooc']; ?></td>
+                        <th colspan="2">FECHA APROX. DE LLEGADA</th>
+                        <td><?php echo $Ordencompra[0]['faproxllegada']; ?></td>
+                        <th>EMPRESA</th>
+                        <td colspan="3"><?php echo $Ordencompra[0]['razsocalm']; ?></td>
+                    </tr>
+                    <tr>
+                        <th>N°</th>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th>Marca</th>
+                        <th>QTY</th>
+                        <th>UNIT</th>
+                        <th colspan="2">PSC X CTN</th>
+                        <th>FOB Unitario<br>(US $)</th>
+                        <th>Cif <br>Ventas (30%)<br> (US $)</th>
+                        <th>Tipo de<br> Cambio <br>(US $)</th>
+                        <th>Neto <br>(US $)</th>
+                        <th>Precio <br>Lista<br> US $</th>
+                        <th>Neto <br>(S/.)</th>
+                        <th>Precio<br> Lista <br>S/.</th>					
+                        <th>Utilidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="18" style="text-align:center;">
+                            <b id="resp"></b>
+                            <input type="hidden" name="tipocambio" value="<?php echo $Ordencompra[0]['tipocambiovigente'] ?>">
+                            <input type="hidden" name="idordencompra" value="<?php echo $Ordencompra[0]['idordencompra']; ?>">
+                        </td>
+                    </tr>
+                    <?php echo $contenidoTbl; ?>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <fieldset>
+        <input id="btnAceptar" type="submit" value="Generar" disabled="disabled" style="background:red" class="c1_datashet">
+        <button id="imprimir" type="button" class="c2_datashet">Imprimir</button>
+    </fieldset>
+</form>

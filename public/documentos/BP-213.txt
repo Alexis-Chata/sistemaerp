@@ -1,0 +1,141 @@
+A;Serie;;B002
+A;Correlativo;;00000062
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;45944639
+A;RznSocRecep;;HAGLER GABRIEL REATEGUI ASIPALI
+A;DirRecep;;JR PARURO 1280 INT. 123 - LIMA - LIMA - LIMA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;17.44
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;3.14
+A;MntTotal;;20.58
+A;FchEmis;;2017-08-31
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;3.14
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;11
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;LA1005
+B;NmbItem;1;JACK CANON METAL HEMBRA C/ARO NEGRO T/NEUTRIX
+B;PrcItem;1;0.48
+B;PrcItemSinIgv;1;0.41
+B;MontoItem;1;4.47
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.07
+B;NroLinDet;2;2
+B;QtyItem;2;11
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;LA1006
+B;NmbItem;2;JACK CANON METAL MACHO C/ARO NEGRO T/NEUTRIX
+B;PrcItem;2;0.48
+B;PrcItemSinIgv;2;0.41
+B;MontoItem;2;4.47
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.07
+B;NroLinDet;3;3
+B;QtyItem;3;6
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;YK-1144 (BK)
+B;NmbItem;3;PLUG MONORAL FULL METAL 6.3 NEGRO
+B;PrcItem;3;0.39
+B;PrcItemSinIgv;3;0.33
+B;MontoItem;3;1.98
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.06
+B;NroLinDet;4;4
+B;QtyItem;4;4
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;YK-1144 (BL)
+B;NmbItem;4;PLUG MONORAL FULL METAL 6.3MM, AZUL
+B;PrcItem;4;0.39
+B;PrcItemSinIgv;4;0.33
+B;MontoItem;4;1.32
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.06
+B;NroLinDet;5;5
+B;QtyItem;5;4
+B;UnmdItem;5;NIU
+B;VlrCodigo;5;YK-1144 (GR)
+B;NmbItem;5;PLUG MONORAL FULL METAL 6.3MM, VERDE
+B;PrcItem;5;0.39
+B;PrcItemSinIgv;5;0.33
+B;MontoItem;5;1.32
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;0.06
+B;NroLinDet;6;6
+B;QtyItem;6;4
+B;UnmdItem;6;NIU
+B;VlrCodigo;6;YK-1144 (PR)
+B;NmbItem;6;PLUG MONORAL FULL METAL 6.3  LILA
+B;PrcItem;6;0.39
+B;PrcItemSinIgv;6;0.33
+B;MontoItem;6;1.32
+B;IndExe;6;10
+B;CodigoTipoIgv;6;1000
+B;TasaIgv;6;18
+B;ImpuestoIgv;6;0.06
+B;NroLinDet;7;7
+B;QtyItem;7;2
+B;UnmdItem;7;NIU
+B;VlrCodigo;7;YK-1144 (RD)
+B;NmbItem;7;PLUG MONORAL FULL METAL 6.3 ROJO
+B;PrcItem;7;0.39
+B;PrcItemSinIgv;7;0.33
+B;MontoItem;7;0.66
+B;IndExe;7;10
+B;CodigoTipoIgv;7;1000
+B;TasaIgv;7;18
+B;ImpuestoIgv;7;0.06
+B;NroLinDet;8;8
+B;QtyItem;8;1
+B;UnmdItem;8;NIU
+B;VlrCodigo;8;SW4/0.8/100G
+B;NmbItem;8;ROLLO SOLDADURA 0.8MM 100GR,60/40,POWER ACOUSTIK
+B;PrcItem;8;2.22
+B;PrcItemSinIgv;8;1.88
+B;MontoItem;8;1.88
+B;IndExe;8;10
+B;CodigoTipoIgv;8;1000
+B;TasaIgv;8;18
+B;ImpuestoIgv;8;0.34
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 361
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Veinte con 58/100 Dolares Americanos  

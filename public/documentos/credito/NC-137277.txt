@@ -1,0 +1,65 @@
+A;Serie;;F001
+A;Correlativo;;00000002
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;07
+A;TipoRutReceptor;;6
+A;RUTRecep;;20601180562
+A;RznSocRecep;;GRUPO GONMAQ PERU S.A.C.
+A;DirRecep;;CAL.MANUEL GARAY NRO. 289 (AV. LECAROS CDRA. 1-OVALO DE P. PIEDRA) - LIMA - LIMA - PUENTE PIEDRA
+A;TipoMoneda;;USD
+A;Sustento;;POR PRECIO
+A;TipoNotaCredito;;04
+A;MntNeto;;8.47
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;1.53
+A;MntTotal;;10
+A;FchEmis;;2017-07-01
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;1.53
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;SET
+B;VlrCodigo;1;NC-DP
+B;NmbItem;1;Por Diferencia de Precio
+B;PrcItem;1;10
+B;PrcItemSinIgv;1;8.47
+B;MontoItem;1;8.47
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;1.53
+D;NroLinRef;1;01
+D;TpoDocRef;1;01
+D;SerieRef;1;F001
+D;FolioRef;1;00000003
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;VEN: 310DC: OV-17000006
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;-
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Diez 00/100 Dolares Americanos  
+E;TipoAdicSunat;08;01
+E;NmrLineasAdicSunat;08;08
+E;DescripcionAdicSunat;08;2017-07-01

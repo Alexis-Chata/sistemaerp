@@ -1,0 +1,65 @@
+<script type="text/javascript" src="/javascript/estadoguia.js"></script>
+<div id="listados">
+<h2>Módulo de Ventas :: Estado Guia</h2>
+<br>
+<div id="busqueda">
+		Busqueda:<input type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+		<input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+		<button id="imprimir" >Imprimir</button>
+</div>
+<br><br>
+<div id="muestra">
+	
+		
+<style type="text/css" >
+#muestra{
+	font-style: bold;
+}
+table {
+	border: 1px solid;
+	border-collapse: collapse;
+	border-spacing:0px;
+	padding: 0px;
+	width: 100%;
+	
+
+	margin: 0px;
+}
+table tr td, table tr th{
+	font-size: 10px;
+	font-family: lucida;
+
+}
+tr:nth-child(odd){
+	background:#F5F4F7;
+	border: 1px solid;
+}
+tr:nth-child(even){
+	background:#fff;
+}
+</style>
+
+<table id="tblDetalleOrdenVenta">
+	<thead>
+
+	</thead>
+	<tbody>
+		
+	</tbody>
+</table>
+	<br>
+	<table id="tblDetalleOrdenCobro">
+		<tbody>
+			
+		</tbody>
+	</table>
+	<br>
+	<table id="tbldocumentos">
+		<tbody>
+
+		</tbody>
+	</table>
+</div>
+<div id="contenedorMotivo" title="Motivo de deshacer el Pago">
+	<label id="respMotivo"></label>
+</div>

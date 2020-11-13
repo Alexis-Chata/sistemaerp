@@ -1,0 +1,116 @@
+<script src="/javascript/editarDua.js"></script>
+<input type="hidden" id="contador" value="<?php echo count($Detalleordencompra)+1 ?>">
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>">
+<br>
+<h2>Actualizaci&oacute;n de Orden de compra respecto a la DUA</h2>
+<form action="/importaciones/actualizaDua/" method="POST" id="frmOrdenCompraActualiza">
+	<fieldset>
+            <legend>Orden de Compra</legend>
+            <?php //var_dump($Ordencompra); echo '<br>dua: '.$Ordencompra[0]['nroDua'].$Ordencompra[0]['codigooc'];?>
+                <ul>
+                    <li>
+                            <label>Nro. Orden</label>
+                            <strong style="color:#f00"><?php echo $Ordencompra[0]['codigooc']?></strong>
+                            <input type="hidden" value="<?php echo $_REQUEST['id']?>" name="idOrdenCompra">
+                    </li>
+                    <li>
+                            <label>Proveedor</label>
+                            <select id="lstProveedor" disabled>
+                                    <option value="">-- Proveedor --</option>
+                                    <?php
+                                        for($i=0;$i<count($Proveedor);$i++){
+                                            if($Ordencompra[0]['idproveedor']==$Proveedor[$i]['idproveedor']){
+                                                    echo '<option value="'.$Proveedor[$i]['idproveedor'].'" selected>'.$Proveedor[$i]['razonsocialp'];
+                                            }else{
+                                                    echo '<option value="'.$Proveedor[$i]['idproveedor'].'">'.$Proveedor[$i]['razonsocialp'];	
+                                            }
+                                        }
+                                    ?>
+                            </select>
+                    </li>
+                </ul>
+                <br>
+                <ul>
+                    <li>
+                        <label >#DUA</label>
+                        <input type="text" id="nroDua" name="nroDua" value="<?php echo $Ordencompra[0]['nroDua'] ?>">
+                    </li>
+                    <li>
+                        <label >Fecha de Compra</label>
+                        <input type="text" class="datepicker" value="<?php echo $Ordencompra[0]['fechaCompraOC'] ?>" id="fechaCompraDua" name="fechaCompraOC">
+                    </li>
+                    <li>
+                        <label >Deuda Inicial</label>
+                        <input type="text" value="<?php echo $Ordencompra[0]['costoTotal'] ?>" id="costoTotal" name="CostoTotal">
+                    </li>
+                </ul>
+                <br>       	
+	</fieldset>
+	<fieldset>
+            <legend>PAGOS REALIZADOS</legend>
+            <ul>
+                <li>
+                        <label>Código</label>
+                        <input type="text" id="txtcodigoReciboDua" style="width:250px">
+                </li>
+                <li>
+                        <label>Monto</label>
+                        <input type="text" id="txtmontoReciboDua" style="width:250px">
+                </li>
+                <li>
+                        <label>Fecha</label>
+                        <input type="text" class="datepicker" id="txtfechaReciboDua">
+                </li>
+                <li>
+                        <label>Modalidad</label>
+                        <select id="lstModalidadPago">
+                            <option value="1">Contado</option>
+                            <option value="2">Crédito</option>                                
+                        </select>
+                </li>
+                <li>
+                        <button id="btnAgregarpagoCompra">Agregar</button>
+                </li>
+            </ul>
+                <table id="tblDetallePagosDua">
+                    <thead>
+                        <tr>
+<!--                            <th>N°</th>-->
+                            <th>Codigo</th>
+                            <th>Fecha</th>
+                            <th>Modalidad</th>
+                            <th>Monto (U$S)</th>
+                            <th colspan="2">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                            for($i=0;$i<count($ListaPagosOC);$i++){
+                                ?>
+                        <tr>
+                                <!--echo '<tr>';-->
+                                <?php
+                                //echo '<td>'.($i+1).'</td>';
+                                echo '<td>'.$ListaPagosOC[$i]['codigo'].'</td>';
+                                echo '<td>'.$ListaPagosOC[$i]['fecha'].'</td>';
+                                if($ListaPagosOC[$i]['modalidad'] == 1){$modalidad = "CONTADO";}else{$modalidad = "CRÉDITO";}
+                                echo '<td>'.$modalidad.'</td>';
+                                echo '<td>'.$ListaPagosOC[$i]['monto'].'</td>';
+                                //echo '<td><a href="#" class="btnEliminarPagoCompra"><img src="/imagenes/eliminar.gif"></a></td>';
+                                echo '<td></td>';
+                                ?>
+                        </tr>
+                                <?php
+                                //echo '</tr>';
+                            }   
+                        ?>
+                        <tr></tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+	</fieldset><br>
+	<input type="submit" value="Guardar Cambios" id="btnGuardarCambios">
+	<button id="btnCancelar">Cancelar</button>
+</form>
+

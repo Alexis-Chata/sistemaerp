@@ -1,0 +1,39 @@
+
+<script src="/javascript/linea.js"></script>
+<form action="/linea/actualiza/" method="POST">
+	<fieldset>
+		<legend>Actualizaci&oacute;n de Linea</legend>
+		<ul>
+			<li>
+				<label>Nombre</label>
+				<input type="text" name="Linea[nomlin]" required size="50px" value="<?php echo $Linea[0]['nomlin'] ?>">
+			</li>
+			<!--<li>
+				<label>Descripci&oacute;n</label>
+				<input type="text" name="Linea[deslin]" value="<?php echo $Linea[0]['deslin'] ?>">
+			</li>
+			<?php  
+			if($padre==1){
+				echo "<li><input type=\"hidden\" value=\"0\" name=\"Linea[idpadre]\"></li>";
+			}else{
+				echo "<select id=\"lstLineasPadre\" name=\"Linea[idpadre]\">
+					<option value=\"\">Sin filtro de Linea";
+						$total=count($LineaPadre);
+						for($i=0;$i<$total;$i++){
+							if($LineaPadre[$i]['idpadre']==0){
+								echo "<option value=".$LineaPadre[$i]['idlinea'].
+								(($Linea[0]['idpadre']==$LineaPadre[$i]['idlinea'] and $Linea[0]['idpadre']!='')?' selected ':'')
+								.">".$LineaPadre[$i]['nomlin'];	
+							}
+						}
+				echo "</select>";
+			}
+			?>-->
+			<li>
+				<input type="hidden" name="idlinea" value="<?php echo $Linea[0]['idlinea'] ?>">
+				<input type="submit" value="Actualizar">
+				<button id="btncancelar">Cancelar</button>
+			</li>
+		</ul>
+	</fieldset>
+</form>

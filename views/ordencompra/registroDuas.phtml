@@ -1,0 +1,150 @@
+<script src="/javascript/orden-compra.js"></script>
+<script src="/javascript/registroDuas.js"></script>
+<h2>Importaciones: Listado de DUA - ORDEN COMPRA</h2>
+<br>
+<div id="listados">
+<table id="tblOrdenCompra">
+		<caption>LISTADO DE DUA - ORDEN COMPRA
+			
+		</caption>
+		<tr>
+			<th>Nro. DUA</th>
+                        <th>Orden Compra</th>
+                        <th>Fecha Compra</th>
+                        <th>Observaciones</th>
+                        <th>Proveedor</th>
+                        <th>Costo Total(U$S)</th>
+                        <th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+                $dua = 'DUA-00';
+			for($i=0;$i<count($Ordencompra);$i++){
+                            echo "<tr>";
+                                    echo "<td>".$Ordencompra[$i]['nroDua']."</td>";
+                                    echo "<td>".$Ordencompra[$i]['codigooc']."</td>";
+                                    if(!empty($Ordencompra[$i]['fechaCompraOC'])){
+                                        echo "<td>".date("d/m/Y",strtotime($Ordencompra[$i]['fechaCompraOC']))."</td>";
+                                    }else{
+                                        echo "<td></td>";
+                                    }
+                                    echo "<td>".$Ordencompra[$i]['observaciones']."</td>";
+                                    echo "<td>".$Ordencompra[$i]['razonsocialp']."</td>";
+                                    echo "<td>".$Ordencompra[$i]['costoTotal']."</td>";//echo "<td>".$Ordencompra[$i]['pagoTotal']."</td>";
+                                    //echo '<td><a href="/importaciones/detalleDua/'.$Ordencompra[$i]['idordencompra'].'" class="btnVerDetalleMovimiento" title="Ver Detalle Orden"><img src="/imagenes/detalle.jpg"></a></td>';
+                                    /*SI LA SE CANCELO TODO YA NO SE PUEDE MODIFICAR*/
+                                    //if(!$Ordencompra[$i][''] && !$Ordencompra[$i]['registrado']){
+                                            echo '<td><a href="/importaciones/editarDua/'.$Ordencompra[$i]['idordencompra'].'/'.$Ordencompra[$i]['idlinea'].'" class="btnEditar" title="Actualizar Orden"><img src="/imagenes/editar.gif"></a></td>';	
+                                    //}else{
+                                            //echo "<td></td>";
+                                    //}
+                            echo "</tr>";
+			}
+		?>
+		<tfoot>
+			<tr>
+			<td colspan="8" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/importaciones/registroDuas/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) {
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/importaciones/registroDuas/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/importaciones/registroDuas/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+                                    echo "<a href=\"/importaciones/registroDuas/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+		</tfoot>
+</table>
+</div>
+<!--<label class="inline">Proveedor:</label> <label class="inline" id="lblProveedor" style="color:#090"></label>
+<table id="tblDetalleOrdenCompra">
+		<thead>
+			<tr>
+				<th>Nro.</th>
+				<th>Codigo</th>
+				<th>Descripci&oacute;n</th>
+				<th>Fob</th>
+				<th>cantidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+</table>-->
+<form method="POST" action="/ordencompra/confirmar/" id="frmConfirmarOrden">
+	<ul class="inline-block">
+		<li>
+			<label>Fecha Aprox. Llegada:</label>
+			<input type="text" class="datepicker required" name="OrdenCompra[faproxllegada]" readonly>
+			<input type="hidden" name="idOrdenCompra" id="txtIdOrden">
+			<input type="hidden" name="OrdenCompra[vbimportaciones]" value="1">
+		</li>
+		<li>
+			<label>advalorem:</label>
+			<input type="text" name="OrdenCompra[advalorem]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>costotasadesp:</label>
+			<input type="text" name="OrdenCompra[costotasadesp]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>costoalmacengate:</label>
+			<input type="text" name="OrdenCompra[costoalmacengate]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>costoalmacenvb:</label>
+			<input type="text" name="OrdenCompra[costoalmacenvb]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>costoaduanaseg:</label>
+			<input type="text" name="OrdenCompra[costoaduanaseg]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>costoalmacenserv:</label>
+			<input type="text" name="OrdenCompra[costoalmacenserv]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>flete:</label>
+			<input type="text" name="OrdenCompra[flete]" class="required numeric" value="100">
+		</li>
+		<li>
+			<label>comisionagenteadu:</label>
+			<input type="text" name="OrdenCompra[comisionagenteadu]" class="required numeric" value="100">
+		</li>
+	</ul>
+	<ul class="block">
+		<li class="block">
+			<label>Observaci&oacute;nes:</label>
+			<input type="text" class="uppercase text-full" name="OrdenCompra[mimportaciones]">
+		</li>
+	</ul>
+</form>

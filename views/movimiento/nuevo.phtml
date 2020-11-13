@@ -1,0 +1,96 @@
+<script src="/javascript/movimiento.js"></script>
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>">
+<input type="hidden" value="1" id="contador">
+<h2>Almacenes : Movimiento Stock</h2>
+<form action="/movimiento/registra/" method="POST" id="frmMovimientoNuevo">
+ <div class="field-set">
+        <p class="title">Registro de Movimiento :: Nuevo</p>
+        <div class="body">
+            <ul>
+                <li>
+                        <label>Fecha</label>
+                        <input type="hidden" id="txtNumeroMovimiento" value="<?php echo ($numeroMovimiento + 1) ?>">
+                        <input type="hidden" name="Movimiento[fechamovimiento]" value="<?php echo date('Y/m/d')?>">
+                        <input type="hidden" name="txtCantidadDetalleMovimiento" value="0" id="txtCantidadDetalleMovimiento">
+                        <label style="color:#007F7F"><?php echo date('d/m/Y'); ?></label>
+                </li>
+                <li>
+                        <label>Tipo movimiento</label>
+                        <select name="Movimiento[tipomovimiento]" id="lstTipoMovimiento" class="required valida-submit">
+                                <option value="">-- Seleccionar uno --</option>
+                                <option value="1">INGRESO</option>
+                                <option value="2" >SALIDA</option>
+                        </select>
+                </li>
+                <li>
+                        <label>Concepto movimiento</label>
+                        <select name="Movimiento[conceptomovimiento]" id="lstConceptoMovimiento" class="required valida-submit">
+                                <option value="">-- Seleccionar uno --</option>
+                        </select>
+                </li>
+                <li>
+                        <label>Tipo Documento</label>
+                        <select name="Movimiento[iddocumentotipo]" id="lsttipodocumento">
+                                <option value="">-- Seleccionar uno --</option>
+                                <?php $cantidadDoc=count($documentoTipo); ?>
+                                <?php for ($i=0; $i <$cantidadDoc ; $i++) {  ?>
+                                <?php if ($documentoTipo[$i]['iddocumentotipo']==1 || $documentoTipo[$i]['iddocumentotipo']==2 || $documentoTipo[$i]['iddocumentotipo']==4){ ?>
+                                        <option value="<?php echo $documentoTipo[$i]['iddocumentotipo']; ?>"><?php echo $documentoTipo[$i]['nombre']; ?></option>
+                                <?php } ?>
+
+                                <?php } ?>
+                        </select>
+                </li>
+
+                <li>
+                        <label>Serie</label>
+                        <input type="text" name="Movimiento[serie]" class="numeric" maxlength="3" size="3" id="serie" readonly>
+                </li>
+                <li>
+                        <label>Nro. Doc.</label>
+                        <input type="text" name="Movimiento[ndocumento]" class="required text-100 valida-submit" id="ndocumento" readonly>
+                </li>
+                <li class="ingresoSalida">
+                        <label>Producto</label>
+                        <input type="text" id="txtCodigoProducto" class="required uppercase text-100 valida-no-submit">
+                        <input type="hidden" id="txtIdProducto">
+                </li>
+                <li class="ingresoSalida">
+                        <label>Cantidad</label>
+                        <input type="text" id="txtCantidad" style="width:60px" class="required numeric valida-no-submit">
+                </li>
+                <li class="ingresoSalida">
+                        <button id="btnAgregarDetalleMovimiento">Agregar</button>
+                </li>
+             </ul>
+            <ul class="block">
+                    <li class="block">
+                            <label>Observaci&oacute;nes</label>
+                            <input type="text" class="uppercase text-full" name="Movimiento[observaciones]">
+                    </li>
+            </ul>
+    </div>
+</div>
+<div class="field-set">
+        <p class="title">Detalle de Movimiento <?php echo $numeroMovimiento; ?>
+
+        </p>
+        <div class="body">
+                <table id="tblDetalleMovimiento">
+                        <thead>
+                                <tr>
+                                        <th>foto</th>
+                                        <th>C&oacute;digo</th>
+                                        <th>Descripci&oacute;n</th>
+                                        <th>Marca</th><th>Cantidad</th>
+                                        <th colspan="2">Acci&oacute;n</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                </table>
+        </div>
+</div>
+        <input type="submit" value="Registrar Movimiento" id="btnRegistrarMovimiento">
+        <button id="btnCancelar">Cancelar</button><b id="error" ></b>
+</form>

@@ -1,0 +1,63 @@
+<script src="/javascript/reporteCuotamensual.js"></script>
+<br><br>
+<h2>Reporte Cuota Mensual:</h2>
+
+<fielset>
+    <!-- <form id="frmParametros" action="/pdf/reporteCarteraClientes" method="post" target="_blank" > -->
+        <ul>
+            <li>
+                <label for="txtVendedor">VENDEDOR:</label>
+                <input type="text" id="txtVendedor" class="uppercase" size="40"/>
+                <input type="hidden" id="idVendedor" name="idVendedor"/>
+            </li>
+            <li>
+                <label for="lstMes">MES:</label>
+                <select id="lstMes">
+                    <option value="0">Todos</option>
+                    <?php foreach($mes as $clave=>$valor){ ?>
+                    <option value="<?php echo $clave; ?>" <?php if($clave == intval(date('m'))) echo 'selected'; ?> ><?php echo $valor; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="lstAnio">AÑO:</label>
+                <select name="lstAno" id="lstAnio">
+                    <?php for($i=2013;$i<=date('Y');$i++){ ?>
+                    <option value="<?php echo $i; ?>" <?php if($i == intval(date('Y'))) echo 'selected'; ?> ><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="lstMoneda">MONEDA:</label>
+                <select id="lstMoneda">
+                    <!--<option value="0">Todo</option>-->
+                    <option value="2">Dólares</option>
+                    <option value="1">Soles</option>
+<!--                    <option value="0">Dólares y los soles convertidos en Dólares</option>
+                    <option value="0">Soles y los dólares convertidos en Dólares</option>-->
+                </select>
+            </li>
+            <li>
+                <button id="btnConsultar">CONSULTAR</button>
+            </li>
+        </ul>
+    <!-- </form> -->
+</fielset>
+
+<div id="divCuotaMensual" style="display:none;">
+    <div id="divContenido">  
+    </div>
+    <div>
+        <ul>
+<!--            <li>
+                <button id="btnExcel">EXPORTAR EXCEL</button>
+            </li>
+            <li>
+                <button id="btnPDF">EXPORTAR PDF</button>
+            </li>-->
+            <li>
+                <button id="btnImprimir">IMPRIMIR</button>
+            </li>
+        </ul>
+    </div>
+</div>

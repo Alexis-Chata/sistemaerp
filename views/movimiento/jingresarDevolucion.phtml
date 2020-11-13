@@ -1,0 +1,90 @@
+<script src="/javascript/jingresarDevolucion.js"></script>
+<!--<script src="/javascript/orden-venta.js"></script>-->
+<style type="text/css">
+    label.inline{
+        max-width:60px;
+        text-align: left;
+    }
+</style>
+<br><br><br>
+<h2>CONTABILIDAD: INGRESAR DEVOLUCIÓN</h2> 
+<?php
+if (!empty($codigov)) {
+    echo '<input id="codigov" type="text" value="' . $codigov . '" >';
+}
+?>
+<br>
+<input type="hidden" value="1" id="txtContador">
+<form action="/movimiento/graba2/" method="POST" id="frmGeneracionOrdenVenta">
+
+    <div class="field-set">
+        <p class="title">Información de Devolución <span class="addicional-informacion"></span></p>
+        <div class="body">
+            <br>
+            <ul class="inline-block">
+                <label>Número:
+                    <input type="text" id="txtNumeroDevolucion" name="txtNumero" class="numeric uppercase" placeholder="49324" autofocus style="width:100px">
+                </label>
+                <label from="txtFechaFactura">Fecha:
+                    <input type="date" id="txtFechaFactura" name="txtFechaFactura" value="2013-01-01">
+                    <img class="ui-datepicker-trigger" src="/imagenes/calendar.png" alt="Selecciona una fecha" title="Selecciona una fecha">
+                </label>
+                <label>Serie:
+                    <input type="text" name="txtSerie" value="001" readonly>
+                    <input type="hidden" name="txttipoDoc" value="07">                
+                    <input type="hidden" name="txttipoMov" value="05">
+                    <input type="hidden" name="txtMov" value="1">
+                    <input type="hidden" name="txtTipoDocument" value="2">
+                </label>
+<!--                <label>
+                    <input type="textr">
+                </label>-->
+            </ul>
+
+            <br><br>
+
+            <ul>
+                <li>
+                    <label>Producto</label>
+                    <input type="text" class="required uppercase required-none" id="txtCodigoProductoj" style="width:100px">
+
+                    <input type="hidden" id="txtIdProducto"><!--Esto es llenado al elegir la opcion de la lista-->
+                </li>
+                <li>
+                    <label>Descripcion</label>
+                    <input type="text" id="txtTituloProducto" disabled style="width:300px">
+                </li>
+                <li>
+                    <label>Cantidad</label>
+                    <input type="text" style="width:55px" class="numeric required required-none" id="txtCantidadProducto">
+                </li>
+                <li>
+                    <button id="btnAgregarProduco">Agregar</button>
+                </li>
+            </ul>
+
+            <div id="listados">
+                <table id="tblDetalleOrdenVenta">
+                    <thead>
+                        <tr>
+                            <th>idProducto</th>
+                            <th>Codigo</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenidoProductos">
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <br><br>	
+    <input type="submit" value="Registrar" class="btnRegistrar" id="btnRegistrar" title="Registrar la Guia">
+</form>
+<div id="test"></div>

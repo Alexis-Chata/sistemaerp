@@ -1,0 +1,39 @@
+<script type="text/javascript" src="/javascript/productoInventarioPart2.js"></script>
+<h2>Inventario Parte 2</h2>
+
+<fieldset>
+
+	<ul>
+
+		<li>
+			<?php $cantidadInventario=count($inventario); ?>
+			<label>Inventario</label>
+			<select id="lstInventario">
+				<?php for ($i=0; $i <$cantidadInventario ; $i++) { ?>
+					<option value="<?php echo $inventario[$i]['idinventario'] ?>" ><?php echo $inventario[$i]['codigoinv'].'   del '.$inventario[$i]['fechainv']; ?></option>
+				<?php } ?>
+			</select>
+		</li>
+		<li>
+			<?php $cantidadBloques=count($bloques); ?>
+			<label>Bloque</label>
+			<select id="lstBloques">
+				<?php for ($i=0; $i <$cantidadBloques ; $i++) { ?>
+					<option value="<?php echo $bloques[$i]['idbloque'] ?>" ><?php echo $bloques[$i]['codigo'] ?></option>
+				<?php } ?>
+			</select>
+		</li>
+		<li>
+			<button id="btnBuscar">Buscar</button>
+		</li>
+<!--		<li>
+			<button id="BtnNuevaBusqueda">Nueva Busqueda</button>
+		</li>-->
+
+	</ul>
+</fieldset>
+<fieldset>
+	<table id="tblInventario">
+
+	</table>
+</fieldset>

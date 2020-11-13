@@ -1,0 +1,46 @@
+<script src="/javascript/cobrador.js"></script>
+<h2>Mantenimiento :<?php echo $titulo; ?></h2>
+<fieldset>
+	<?php 
+		$cantidadCategoria=count($categoria);
+		$cantidad=count($cobrador);
+		
+
+	 ?>
+	 <input type="hidden" id="idactor"  value="<?php echo $datacobrador[0]['idactor'] ?>">
+	<table>
+		<thead>
+			<tr>
+				<th>Nombres y Apellido</th><td><?php echo $datacobrador[0]['nombres'].' '.$datacobrador[0]['apellidopaterno'].' '.$datacobrador[0]['apellidomaterno'] ?></td>
+				<th>Direccion</th><td><?php echo $datacobrador[0]['direccion'] ?></td>
+			</tr>
+			<tr>
+				<th>Correo</th><td><?php echo $datacobrador[0]['email'] ?></td>
+				<th>Telefonos</th><td><?php echo $datacobrador[0]['telefono'].' / '.$datacobrador[0]['celular'] ?></td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidadCategoria ; $i++) { 
+				$valor="";
+				for ($y=0; $y <$cantidad ; $y++) { 
+
+					if ($cobrador[$y]['idzona']==$categoria[$i]['idcategoria']) {
+						$valor="checked";
+						break;
+					}
+
+				}
+				?>
+
+				<tr>
+				<td colspan="2"><?php echo $categoria[$i]['nombrec'] ?></td><td colspan="2"><input type="checkbox"  class="categoria"   <?php echo $valor; ?>  id="<?php echo $categoria[$i]['idcategoria'] ?>"></td>
+				</tr>
+
+			<?php } ?>
+			
+				
+				
+			
+		</tbody>
+	</table>
+</fieldset>

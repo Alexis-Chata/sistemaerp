@@ -1,0 +1,26 @@
+<script src="/javascript/transporte.js"></script>
+<div id="nuevoregistro">
+	<h2>Transporte : Nuevo</h2>
+	<form action="/transporte/graba/" id="frmTransporte">
+		<ul class="inline-block">
+			<li>
+				<label>Razon Social:</label>
+				<input type="text" class="text-250 uppercase required" id="txtNombreTransporte" name="Transporte[trazonsocial]" autocomplete="off" autofocus>
+			</li>
+			<li>
+				<label>R.U.C.:</label>
+				<input type="text" maxlength="11" size="11" id="txtRuc" name="Transporte[truc]" class="numeric required">
+			</li>
+			<li>
+				<label>Telefono:</label>
+				<input type="text" size="50" id="txtTelefono" name="Transporte[ttelefono]">
+			</li>
+			<li>
+				<label>Direcci&oacute;n:</label>
+				<input type="text" class="text-250 uppercase required" id="txtDireccion" name="Transporte[tdireccion]">
+			</li>
+		</ul><br>
+		<input type="submit" value="Grabar">
+		<button id="btnCancelar">Cancelar</button>
+	</form>
+</div>

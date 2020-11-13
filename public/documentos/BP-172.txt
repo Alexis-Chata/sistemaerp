@@ -1,0 +1,57 @@
+A;Serie;;B002
+A;Correlativo;;00000036
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;06211892
+A;RznSocRecep;;WALTER CAYATOPA  ORTIZ
+A;DirRecep;;JR. CHIMPU OCLLO 289 VALDIVIEZO - LIMA - LIMA - SAN MARTIN DE PORRES
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;24.95
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;4.49
+A;MntTotal;;29.44
+A;FchEmis;;2017-08-10
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;4.49
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;2
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;TYS-05B-BK/OR
+B;NmbItem;1;PEDESTAL NEGRO/NARANJA P/CAJA ACUSTICA CAP.50KG PESADO,POWER ACOUSTIK
+B;PrcItem;1;14.72
+B;PrcItemSinIgv;1;12.47
+B;MontoItem;1;24.95
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;2.25
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 322
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Veintinueve con 44/100 Dolares Americanos  

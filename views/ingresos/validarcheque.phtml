@@ -1,0 +1,88 @@
+<script type="text/javascript" src="/javascript/validacheque.js"></script>
+<br>
+<h2>Caja Banco: Validar Cheque Pendiente</h2>
+<button id="btnImprimir"><img src="/imagenes/imprimir.gif"></button>
+<fieldset id="contenedorImpresion">
+	<?php 
+		$cantidad=count($Ingresos);
+		
+	 ?>
+	<table id="tblcheques">
+		<thead>
+			<tr>
+				<th>N°</th>
+				<th>Orden de Venta</th>
+				<th>Cliente</th>
+				<th>Nro Cheque</th>
+				<th>Monto</th>
+				<th>Banco</th>
+				<th>Fecha Inicio</th>
+				<th>Fecha Vencimiento</th>
+				
+				<th colspan="2">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td><?php echo ($i+1); ?><input type="hidden" value="<?php echo $Ingresos[$i]['idingresos'] ?>" class="idingresos"></td>
+					<td><?php echo $Ingresos[$i]['codigov']; ?></td>
+					<td><?php echo $Ingresos[$i]['razonsocial']; ?></td>
+					<td><?php echo $Ingresos[$i]['nrodoc']; ?></td>
+					<td><?php echo $Ingresos[$i]['simbolo'].' '.number_format($Ingresos[$i]['montoingresado'],2); ?></td>
+					<td><?php echo $Ingresos[$i]['banco']; ?><input type="hidden" class="idbanco" value="<?php echo $Ingresos[$i]['idbanco'] ?>"></td>
+					<td><?php echo $Ingresos[$i]['finicio']; ?></td>
+					<td><?php echo $Ingresos[$i]['fvencimiento']; ?></td>
+					<td><button title="Grabar" class="btnGrabar"><a  href="#"><img src="/imagenes/grabar.gif" style="width:20"></a></button></td>
+					<td><a title="Eliminar" class="btnEliminar"  href="/ingresos/eliminarCheque/<?php echo $Ingresos[$i]['idingresos'] ?>"><img   src="/imagenes/btneliminar.gif" style="width:20"></a></td>
+				</tr>
+			<?php } ?>
+		</tbody>
+	</table>
+	
+</fieldset>
+<div id="contenedorCheques" title="validarCheque" style="display:none">
+	<table>
+		<tr>
+			<th>
+				<label>Banco</label>
+			</th>
+			<td>		
+				<select id="banco">
+					<option value="">Seleccione Banco</option>
+					<?php $cantidadBancos=count($banco); ?>
+					<?php  for ($i=0; $i <$cantidadBancos ; $i++) { ?>
+						<option value="<?php echo $banco[$i]['idbanco'] ?>"><?php echo $banco[$i]['codigo'] ?></option>
+					<?php } ?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<label>N° de Cuenta</label>
+			</th>
+			<td>		
+				<select id="numeroCuenta"></select>
+			</td>
+		</tr>
+		<tr>	
+			<th>
+				<label>Fecha de Ingreso</label>
+			</th>
+			<td>
+				<input type="text" id="fechaIngreso" class="datepicker" readonly size="30">
+			</td>
+		<tr>
+			<th>
+				<label>Nro de Operacion</label>
+			</th>
+			<td>
+				<input type="text" id="nrooperacion" size="30">
+			</td>
+			
+		</tr>
+		<tr>
+			<th colspan="2" style="background"><b id="respuesta"></b><th>
+		</tr>
+	</table>
+</div>

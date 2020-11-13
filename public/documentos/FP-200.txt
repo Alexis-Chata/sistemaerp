@@ -1,0 +1,61 @@
+A;Serie;;F002
+A;Correlativo;;00000026
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;20562700197
+A;RznSocRecep;;CORPORACION ELECTRYCOM S.A.C
+A;DirRecep;;JR.BAMBAS NRO.451 INT.203A
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;37.63
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;6.77
+A;MntTotal;;44.4
+A;FchEmis;;2017-08-23
+A;IndPercepcion;;1
+A;MntImpPercepcion;;0
+A;MntPercepcion;;0
+A;MntTotalMasPercepcion;;44.4
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;6.77
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;20
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;SW4/0.8/100G
+B;NmbItem;1;ROLLO SOLDADURA 0.8MM 100GR,60/40,POWER ACOUSTIK
+B;PrcItem;1;2.22
+B;PrcItemSinIgv;1;1.88
+B;MontoItem;1;37.63
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.34
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;LIMA - LIMA - LIMA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 336 DC: OV-17000348
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Cuarenta y Cuatro con 40/100 Dolares Americanos  

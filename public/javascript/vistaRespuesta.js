@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	$('#nuevo').click(function(e){
+		e.preventDefault();
+		window.location="/importaciones/nuevaordencompra";
+	});
+	$('#listado').click(function(e){
+		e.preventDefault();
+		window.location="/importaciones/ordencompra";
+	});
+});

@@ -1,0 +1,61 @@
+A;Serie;;F002
+A;Correlativo;;00000012
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;20566136334
+A;RznSocRecep;;ALCHEMY OF SOUND E.I.R.L
+A;DirRecep;;JR PARURO NRO 1322 INT. 113-S
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;99.86
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;17.98
+A;MntTotal;;117.84
+A;FchEmis;;2017-08-07
+A;IndPercepcion;;1
+A;MntImpPercepcion;;0
+A;MntPercepcion;;0
+A;MntTotalMasPercepcion;;117.84
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;17.98
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;4
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;LA-1590B
+B;NmbItem;1;SUBWOOFER 15" 90 ONZ,8 OHM,1250W VC 3.5" CORRUGADO, POWER ACOUSTIK
+B;PrcItem;1;29.46
+B;PrcItemSinIgv;1;24.97
+B;MontoItem;1;99.86
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;4.49
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;LIMA - LIMA - LIMA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 336 DC: OV-17000309
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Ciento Diecisiete con 84/100 Dolares Americanos  

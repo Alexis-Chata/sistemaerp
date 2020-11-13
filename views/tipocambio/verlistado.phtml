@@ -1,0 +1,39 @@
+<h2>Tipo de Cambio :: Gestionar cálculo</h2>
+<br>
+<div id="listados">
+	<table>
+		<thead>
+			<tr>
+				<td colspan="7">
+					<a href="/tipocambio/nuevo">Agregar Tipo de cambio(+)</a>
+			</tr>
+			<tr>
+				<th>Estado</th>
+				<th>Fecha</th>
+				<th>Moneda</th>
+				<th>Simbolo</th>
+				<th>Compra</th>
+				<th>Venta</th>
+				<th>Referencia</th>
+			</tr>
+		</thead>	
+		<tbody>
+<?php  for ($i=0; $i < $todos; $i++) {
+			$estado="";
+			if($tipocambio[$i]['estado']==1){
+				$estado="<h3>ACTIVO</h3>";
+			}
+?>
+			<tr>
+				<td><?php echo $estado;?></td>
+				<td><?php echo $tipocambio[$i]['fechatc'];?></td>
+				<td><?php echo $tipocambio[$i]['nombre'];?></td>
+				<td>1 <?php echo $tipocambio[$i]['simbolo'];?></td>
+				<td>S/. <?php echo $tipocambio[$i]['compra'];?></td>
+				<td>S/. <?php echo $tipocambio[$i]['venta'];?></td>
+				<td><?php echo ($tipocambio[$i]['referencia']);?></td>
+			</tr>
+<?php	} ?>
+		</tbody>
+	</table>
+</div>

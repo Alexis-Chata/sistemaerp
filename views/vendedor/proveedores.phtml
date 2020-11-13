@@ -1,0 +1,30 @@
+<script src="/javascript/lista-vendedores.js"></script>
+<h2>Listado :: Vendedores</h2>
+<fieldset>
+
+    <form id="frmConsulta" method="post">
+        <ul>
+            <li>
+                <label>Opciones</label>
+                <input type="radio" name="cbopcion" class="cbopcion" value="0" checked> Todos
+                <input type="radio" name="cbopcion" class="cbopcion" value="1"> Activos
+                <input type="radio" name="cbopcion" class="cbopcion" value="-1"> Inactivos
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+            <li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+            <li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+        </ul>
+    </form>
+</fieldset>
+
+<div id="ContenedorImpresion">
+    <table id="tblEncabezado" style="display:none;">
+        <tr><th colspan="6"><label id="lblTitulo">&nbsp;</label></th></tr>
+        <tr><th colspan="6"><img src="/imagenes/default-loader.gif" id="cargando"></th></tr>
+    </table>
+    <div id="tblConsulta">
+    </div>
+</div>

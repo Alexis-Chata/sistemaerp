@@ -1,0 +1,117 @@
+A;Serie;;B002
+A;Correlativo;;00000041
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;42962489
+A;RznSocRecep;;ROGER PAUL QUISPE DIEZ
+A;DirRecep;;JR.LADISLAO ESPINAR NRO.60 - LA LIBERTAD - PACASMAYO - PACASMAYO
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;29.07
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;5.23
+A;MntTotal;;34.3
+A;FchEmis;;2017-08-12
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;5.23
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;12
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;CT-1039-3FT
+B;NmbItem;1;CABLE 1X1 PLUG STEREO 3.5MM 1MT TRANSPARENTE
+B;PrcItem;1;0.26
+B;PrcItemSinIgv;1;0.22
+B;MontoItem;1;2.64
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.04
+B;NroLinDet;2;2
+B;QtyItem;2;3
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;CT-001B-1
+B;NmbItem;2;ADAPTADOR P/TABLET 5V PLUG DELGADO 2.5MM *0.7MM, SAMWIN
+B;PrcItem;2;1.92
+B;PrcItemSinIgv;2;1.63
+B;MontoItem;2;4.88
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.29
+B;NroLinDet;3;3
+B;QtyItem;3;12
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;EGA-115
+B;NmbItem;3;JACK CANON AEREO T/L
+B;PrcItem;3;0.25
+B;PrcItemSinIgv;3;0.21
+B;MontoItem;3;2.54
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.04
+B;NroLinDet;4;4
+B;QtyItem;4;12
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;CT-6011A
+B;NmbItem;4;ADAPTADOR MONO 6.3MM PLUG MONO 3.5MM
+B;PrcItem;4;0.11
+B;PrcItemSinIgv;4;0.09
+B;MontoItem;4;1.12
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.02
+B;NroLinDet;5;5
+B;QtyItem;5;1
+B;UnmdItem;5;NIU
+B;VlrCodigo;5;DT201D
+B;NmbItem;5;PINZA AMPERIMETRICA C/BUZZER C/PEAK HOLD,KAZO
+B;PrcItem;5;14.29
+B;PrcItemSinIgv;5;12.11
+B;MontoItem;5;12.11
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;2.18
+B;NroLinDet;6;6
+B;QtyItem;6;3
+B;UnmdItem;6;NIU
+B;VlrCodigo;6;CT-001D-2
+B;NmbItem;6;ADAPTADOR P/TV PORTATIL,12V PLUG 4.0MM 1.7MM ,SAMWIN
+B;PrcItem;6;2.27
+B;PrcItemSinIgv;6;1.92
+B;MontoItem;6;5.77
+B;IndExe;6;10
+B;CodigoTipoIgv;6;1000
+B;TasaIgv;6;18
+B;ImpuestoIgv;6;0.35
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 328
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Treinta y Cuatro con 30/100 Dolares Americanos  

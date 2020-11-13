@@ -1,0 +1,61 @@
+<script type="text/javascript" src="/javascript/wc_cliente.js"></script>
+<div id="listados">
+<h2>Clientes :: Posición crediticia </h2>
+<br>
+<div id="busqueda">
+		Busqueda:<input type="text" id="txtCliente" name="txtCliente" size="50px" placeholder="Ingrese Razón Social o Nro RUC">
+		
+</div>
+<br>
+<div id="cliente">
+	<fieldset>
+		<legend>Datos del Cliente</legend>
+		Código:<input type="text" name="codigo" readonly id="codigo" > 
+		Razon Social:<input type="text" name="razonsocial" readonly id="razonsocial" size="40"> 
+		Número de RUC:<input type="text" name="ruc" readonly id="ruc">
+		Codigo Dakkar:<input type="text" name="codantiguo" readonly id="codantiguo">
+	</fieldset>
+</div>
+
+<div>
+<table id="tblDetallePosicion">
+	<tbody>
+		
+	</tbody>
+</table>
+</div>
+
+<div id="datosposicion">
+	<form action="/cliente/registrarposicion" method="POST">
+	<fieldset>
+		<legend>Nueva Línea de Crédito</legend>
+		<input type="hidden" id="txtIdCliente" name="idcliente">
+		<input type="hidden"  name="Cliente[estado]" required="required" value="1">
+                
+		Línea de crédito US $. :<input type="text" id="nuevalineacredito" name="Cliente[lineacredito]" placeholder="Ej. 0000.00">
+		Posición crediticia:<select name="Cliente[calificacion]" id="">
+			<option value="0">Elija Calificación</option>
+			<option value="1">Cliente A1</option>
+			<option value="2">Buen Cliente</option>
+			<option value="3">Cliente en observación</option>
+			<option value="4">Cliente moroso</option>
+			<option value="5">Cliente incobrable</option>
+		</select>
+		Observaciones:<input type="text" name="Cliente[observacion]" placeholder=" Breve explicación de motivos" size="50px">
+		<input type="submit" value="Registrar">
+	</fieldset>
+	</form>
+
+	<form action="/cliente/agregarsaldo" method="POST">
+	<fieldset>
+		<legend>Agregar Saldo para una compra</legend>
+		<input type="hidden" id="txtIdCliente" name="idcliente">
+		<input type="hidden" id="txtidPosicionCliente" name="idposicioncliente">
+		Línea de crédito US $. :<input type="text" id="lineacreditoactual" name="Cliente[lineacredito]" placeholder="Ej. 0000.00" readonly>
+		<input type="hidden"  name="Cliente[estado]" required="required" value="1">
+		Nuevo Saldo US $. :<input type="text" id="nuevosaldo" name="Cliente[saldo]" placeholder="Ej. 0000.00" value="">		
+		<input type="submit" value="Registrar">
+	</fieldset>
+	</form>	
+</div>
+

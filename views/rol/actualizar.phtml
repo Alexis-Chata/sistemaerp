@@ -1,0 +1,16 @@
+<form action="/SistemasESAN/rol/actualiza/" method="POST">
+	<label>C&oacute;digo:
+		<input type="text" name="Rol[codigo]" value="<?php echo $Rol[0]['codigo'] ?>"><br>
+	</label>
+	<label>Nombre:
+		<input type="text" name="Rol[nombre]" value="<?php echo $Rol[0]['nombre'] ?>"><br>
+	</label>
+	<label>Descripci&oacute;n:
+		<input type="text" name="Rol[descripcion]" value="<?php echo $Rol[0]['descripcion'] ?>"><br>
+	</label>
+	
+	<input type="hidden" name="idRol" value="<?php echo $_REQUEST['id'];?>">
+	<label>
+		<input type="submit" value="Actualizar"><br>
+	</label>	
+</form>

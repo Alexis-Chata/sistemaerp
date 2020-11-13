@@ -1,0 +1,24 @@
+<div id="nuevoregistro">
+<h3>Registro de nueva Opción del Sistema</h3>
+<hr>
+<form action="/opciones/grabaopcion/" method="POST">
+	<p>Nombre:<br>
+		<input type="text" name="Opciones[nombre]"><br>
+	</p>
+	<p>Descripcion:<br>
+		<input type="text" name="Opciones[descripcion]"><br>
+	</p>
+	<p>Url:<br>
+		<input type="text" name="Opciones[url]"><br>
+	</p>
+	<p>Icono:<br>
+		<input type="text" name="Opciones[icono]"><br>
+	</p>
+	<p>
+	<input type="hidden" name="Opciones[idmodulo]" value="<?php echo $idModulo;?>">
+	<input type="hidden" name="Opciones[nivel]" value="<?php echo $idNivel;?>">
+	<input type="submit" value="Registrar"><br>
+	</p>
+	
+</form>
+</div>

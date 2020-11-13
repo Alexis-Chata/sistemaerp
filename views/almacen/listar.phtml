@@ -1,0 +1,79 @@
+<script src="/javascript/almacen.js"></script>
+<div id="listados">
+<table>
+	<thead>
+		<tr>
+			<th colspan="4">
+			Listado de Almacenes
+			</th>
+
+			<th><a href="/almacen/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a>
+			</th>
+		</tr>
+		<tr>
+			<th>Nombre</th>
+			<th>Direcci&oacute;n</th>
+			<th>Ruc</th>
+			<th colspan="2">Acci&oacute;n</th>
+			
+		</tr>
+		<?php
+			for($i=0;$i<count($Almacen);$i++){
+				echo "<tr>";
+					echo "<td>".$Almacen[$i]['nomalm']."</td>";
+					echo "<td>".$Almacen[$i]['diralm']."</td>";
+					echo "<td>".$Almacen[$i]['rucalm']."</td>";
+					echo "<td><a href=\"/almacen/editar/".$Almacen[$i]['idalmacen']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/almacen/eliminar/".$Almacen[$i]['idalmacen']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+		</thead>
+		<tfoot>
+		<tr><td colspan="10" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/almacen/listar/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/almacen/listar/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/almacen/listar/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/almacen/listar/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+	</tfoot>
+</table>
+
+</div>

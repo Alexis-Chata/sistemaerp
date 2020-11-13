@@ -1,0 +1,22 @@
+<div id="listados">
+    <table>
+        <caption>LISTADO DE SUB-MOTIVOS<a href="/mantenimiento/nuevosubmotivodevolucion"><img src="/imagenes/iconos/nuevo.gif" width="25" height="25" ></a></caption>
+        <tr>
+            <th><center>Nº</center></th>
+            <th><center>MOTIVO</center></th>
+            <th ><center>DESCRIPCI&Oacute;N</center></th>
+            <th colspan="2"><center>ACCI&Oacute;N</center></th>
+        </tr>
+        <?php
+        for($i=0;$i<count($SubMotivo);$i++){
+            echo "<tr>";
+                echo "<td>".($i+1)."</td>";
+                echo "<td>".$MotivoDevolucion[$SubMotivo[$i]['tipo']]."</td>";
+                echo "<td>".$SubMotivo[$i]['descripcion']."</td>";
+                echo "<td><a href=\"/mantenimiento/editarsubmotivodevolucion/".$SubMotivo[$i]['idsubmotivodevolucion']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+                echo "<td><a href=\"/mantenimiento/eliminarsubmotivodevolucion/".$SubMotivo[$i]['idsubmotivodevolucion']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
+</div>

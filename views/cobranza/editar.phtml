@@ -1,0 +1,64 @@
+<form action="/cobranza/actualiza/" method="POST">
+	<ul>
+		<li>
+			<label>Cliente</label>
+			<select name="Cuenta[idcliente]" id="lstCliente">
+				<option value="0">Seleccionar Vendedor
+				<?php 
+					$totalcli=count($Cliente);
+					for($i=0;$i<$totalcli;$i++){
+						echo "<option ".($Cliente[$i]['idactor']==$Cuenta[0]['idcliente']?'selected':'')." value=".$Cliente[$i]['idcliente'].">";
+						echo $Cliente[$i]["nombres"]." ".$Cliente[$i]["apellidopaterno"];
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>Vendedor</label>
+			<select name="Cuenta[idvendedor]" id="lstVendedor">
+				<option value="0">Seleccionar Vendedor
+				<?php 					
+					$totalven=count($Vendedor);
+					for($i=0;$i<$totalven;$i++){
+						echo "<option ".($Vendedor[$i]['idactor']==$Cuenta[0]['idvendedor']?'selected':'')." value=".$Vendedor[$i]['idactor'].">";
+						echo $Vendedor[$i]["nombres"]." ".$Vendedor[$i]["apellidopaterno"];
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>OrdenVenta</label>
+			<select name="Cuenta[idordenventa]">
+				<?php 
+					$totalgui=count($Guia);
+					for($i=0;$i<$totalgui;$i++){
+						echo "<option ".($Guia[$i]['idordenventa']==$Cuenta[0]['idordenventa']?'selected':'')." value=".$Guia[$i]['idordenventa'].">";
+						echo " ".$Guia[$i]["idordenventa"];
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>Zona</label>
+			<select name="Cuenta[idzona]">
+				<?php 
+					$totalzona=count($Zona);
+					for($i=0;$i<$totalzona;$i++){
+						echo "<option ".($Zona[$i]['idzona']==$Cuenta[0]['idzona']?'selected':'')." value=".$Zona[$i]['idzona'].">";
+						echo " ".$Zona[$i]["nombre"];
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>Numero Cuenta</label>
+			<input type="text" name="Cuenta[numerocuenta]" value="<?php echo $Cuenta[0]['numerocuenta'] ?>">
+		</li>
+		<li>
+			<label>Situaci&oacute;n pago</label>
+			<input type="text" name="Cuenta[situacionpago]" value="<?php echo $Cuenta[0]['situacionpago'] ?>">
+		</li>		
+	</ul>
+	<input type="hidden" name="idCuenta" value="<?php echo $Cuenta[0]['idcuenta']; ?>">
+	<p><input type="submit" value="..::: ACTUALIZAR :::.." ></p>
+</form>

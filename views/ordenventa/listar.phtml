@@ -1,0 +1,37 @@
+<div id="listados">
+<table>
+		<caption>Listado de Clientes</caption>
+		<tr>
+			<th>Nombres y Apellidos</th>
+			<th>Razon Social</th>
+			<th>DNI</th>
+			<th>RUC</th>
+			<th>Localidad</th>
+			<th>Direcci&oacute;n</th>
+			<th>E-mail</th>
+			<th>Tel&eacute;fono</th>
+			<th>Celular</th>
+			<th>Fax</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Cliente);$i++){
+				echo "<tr>";
+					echo "<td>".$Cliente[$i]['nombreCliente']." ".$Cliente[$i]['apaternoCliente']." ".$Cliente[$i]['amaternoCliente']."</td>";
+					echo "<td>".$Cliente[$i]['razonSocial']."</td>";
+					echo "<td>".$Cliente[$i]['dni']."</td>";
+					echo "<td>".$Cliente[$i]['ruc']."</td>";
+					echo "<td>".$Cliente[$i]['nombreDistrito']."/".$Cliente[$i]['nombreProvincia']."/".$Cliente[$i]['nombreDepartamento']."</td>";
+					echo "<td>".$Cliente[$i]['direccion']."</td>";
+					echo "<td>".$Cliente[$i]['email']."</td>";
+					echo "<td>".$Cliente[$i]['telefono']."</td>";
+					echo "<td>".$Cliente[$i]['movil']."</td>";
+					echo "<td>".$Cliente[$i]['fax']."</td>";
+					echo "<td><a href=\"/cliente/editar/".$Cliente[$i]['idcliente']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/cliente/eliminar/".$Cliente[$i]['idcliente']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+</table>
+<a href="/ordenventa/nuevo/"><img src="/imagenes/new.gif"></a>
+</div>

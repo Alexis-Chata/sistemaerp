@@ -1,0 +1,21 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller='unidadmedida';
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+
+<form action="/unidadmedida/graba/" method="POST">
+	<fieldset>
+		<legend>Registro de nueva Unidad de Medida</legend>
+		<ul>
+			<li><label>Codigo:</label><input type="text" name="Unidadmedida[codigo]"></li>
+			<li><label>Nombre</label><input type="text" name="Unidadmedida[nombre]"></li>
+			<li><input type="submit" value="Registrar"></li>
+			<li><button id="cancelar">Cancelar</button></li>
+		</ul>
+	</fieldset>
+</form>

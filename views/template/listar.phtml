@@ -1,0 +1,23 @@
+<table>
+		<caption>Listado de Templates</caption>
+		<tr>
+			<th>Nombres y Apellidos</th>
+			<th>Direcci&oacute;n</th>
+			<th>Tel&eacute;fono</th>
+			<th>Email</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Template);$i++){
+				echo "<tr>";
+					echo "<td>".$Template[$i]['nombres']." ".$Template[$i]['apaterno']." ".$Template[$i]['amaterno']."</td>";
+					echo "<td>".$Template[$i]['direccion']."</td>";
+					echo "<td>".$Template[$i]['telefono']."</td>";
+					echo "<td>".$Template[$i]['email']."</td>";
+					echo "<td><a href=\"/template/editar/".$Template[$i]['id']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/template/eliminar/".$Template[$i]['id']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+</table>
+<a href="/template/nuevo/"><img src="/imagenes/new.gif"></a>

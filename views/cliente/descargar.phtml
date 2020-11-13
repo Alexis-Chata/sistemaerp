@@ -1,0 +1,25 @@
+<h2>Descargar: Cliente
+</h2>
+<?php 
+    $fechas = explode(' ', $datos[0]['fechacreacion']);
+?>
+<fieldset>
+    <legend><h4>Ultima Descarga</h4></legend>
+    <form action="/excel/descargarclientes" method="post" target="_blank">
+    <ul class="inline-block">
+        <li>
+            <label>Ultima Descarga: </label>
+            <span><?php echo $fechas[0]; ?></span>
+        </li>
+        <li>
+            <label>Hora: </label>
+            <span><?php echo $fechas[1]; ?></span>
+        </li>
+        <li>
+            <label>Total: </label>
+            <span><?php echo $datos[0]['numero'] . " descargados."; ?></span>
+        </li>
+        <li><button type="submit">Descargar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
+    </ul>
+    </form>
+</fieldset>

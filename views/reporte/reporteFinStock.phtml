@@ -1,0 +1,29 @@
+<script type="text/javascript" src="/javascript/reporteFinStock.js"></script>
+<br><br><h2>Reporte: Fin Stock Anual</h2>
+
+<br>
+
+<fieldset >
+    <form id="frmStockAnual" >
+	<ul>
+            <li>
+                <label>Fecha Final</label>
+                <input type="text" class="datepicker" id="fechaFinal" name="fechaFinal">
+            </li>
+	</ul>
+	<br>
+	<ul>
+            <li>
+                <button id="aceptar">Aceptar</button>
+                <input type="reset" value="limpiar" id="limpiar">
+                <button  id="imprimir" title="Imprimir"><img style="vertical-align: middle;text-align:center;width:30" src="/imagenes/imprimir.gif"></button>
+            </li>
+	</ul>
+    </form>
+</fieldset>
+<fieldset>
+    <legend>RESULTADO</legend>
+    <div id="contenedorFinStockImpresion">
+        <!-- Insertar Información -->
+    </div>
+</fieldset>

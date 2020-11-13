@@ -1,0 +1,82 @@
+<script src="/javascript/reporte-productos.js"></script>
+<h2>Reporte de Productos</h2>
+<fieldset>
+	
+	<form id="frmConsulta" method="post">
+		<ul>
+			<li>
+				<label>Linea</label>
+				<select id="lstLinea" name="lstLinea">
+					<option value="">Seleccione Linea</option>
+				</select>
+			</li>
+			<li>
+				<label>Sub-Linea</label>
+				<select id="lstSubLinea" name="lstSubLinea">
+					<option value="">Seleccione Sub-Linea</option>
+				</select>
+			</li>
+			<li>
+				<label>Marca</label>
+				<select id="lstMarca" name="lstMarca">
+					<option value="">Seleccione Marca</option>
+				</select>
+			</li>
+			<li>
+				<label>Almacen</label>
+				<select id="lstAlmacen" name="lstAlmacen">
+					<option value="">Seleccione Almacen</option>
+				</select>
+			</li>
+		</ul><br>
+		<ul>
+			<li>
+				<label>Fecha Inicio</label>
+				<input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" readonly  autocomplete="off">
+			</li>
+			<li>
+				<label>Fecha Final</label>
+				<input type="text" class="datepicker" id="fechaFinal" name="fechaFinal" readonly  autocomplete="off">
+			</li>
+			<li>
+				<label>Producto</label>
+				<input type="text" id="txtProducto" name="txtProducto" class="uppercase text-250">
+				<input type="hidden" id="idProducto" name="idProducto">
+			</li>
+		
+			<li>
+				<input type="radio" name="condicion" value="agotados" checked="checked" id="agotados"> Agotados
+			</li>
+			<li>
+				<input type="radio" name="condicion" value="vendidos" id="vendidos"> Mas Vendidos
+			</li>
+
+		</ul><br>
+		<ul>
+			<li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+		<li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+		<li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+		</ul>
+	</form>
+</fieldset>
+
+<div id="ContenedorImpresion">
+	<table id="tblEncabezado" style="display:none;">
+		<tr><th colspan="6"><label id="lblTitulo">&nbsp;</label></th></tr>
+		<tr>
+			<th style="width:15%;">Linea</th><td><label id="lblLinea"></label></td>
+			<th style="width:15%;">Sub-Linea</th><td><label id="lblSubLinea"></label></td>
+			<th style="width:15%;">Marca</th><td><label id="lblMarca"></label></td>
+		</tr>
+		<tr>
+			<th style="width:15%;">Almacen</th><td><label id="lblAlmacen"></label></td>
+			<th style="width:15%;">Producto</th><td><label id="lblProducto"></label></td>
+			<th style="width:15%;">Fecha</th><td><label id="lblFecha"></label></td>
+		</tr>
+	</table>
+	<table id="tblConsulta">
+		<th>
+			<tr></tr>
+		</th>
+	</table>
+</div>

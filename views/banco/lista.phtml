@@ -1,0 +1,45 @@
+<h2>Mantenimiento: <?php echo $titulo; ?></h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
+				<th colspan="2">Acciones</th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				
+				<th>Editar</th>
+				<th>Eliminar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td><?php echo ($i+1); ?></td>
+					<td style="text-align:center;"><?php echo $data[$i]['codigo'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['descripcion'] ?> </td>
+					
+					<td><a href="/banco/editar/<?php echo $data[$i]['idbanco']; ?>"><img src="/imagenes/editar.gif"></a></td>
+					<td><a href="/banco/eliminar/<?php echo $data[$i]['idbanco']; ?>"><img src="/imagenes/eliminar.gif"></a></td>
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

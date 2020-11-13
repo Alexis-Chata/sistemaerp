@@ -1,0 +1,61 @@
+A;Serie;;F002
+A;Correlativo;;00000020
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;20494774063
+A;RznSocRecep;;ELECTRO MANTARO S.A.C.
+A;DirRecep;;AV. SAN MARTIN NRO. 275 URB. TUPAC AMARU ZONA A
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;36.51
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;6.57
+A;MntTotal;;43.08
+A;FchEmis;;2017-08-11
+A;IndPercepcion;;1
+A;MntImpPercepcion;;0
+A;MntPercepcion;;0
+A;MntTotalMasPercepcion;;43.08
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;6.57
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;LA-18100A
+B;NmbItem;1;SUBWOOFER 18" 100 ONZ,8 OHM,1450W VC 3" RIGIDO CORRUGADO, POWER ACOUSTIK
+B;PrcItem;1;43.08
+B;PrcItemSinIgv;1;36.51
+B;MontoItem;1;36.51
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;6.57
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;ICA - CHINCHA - CHINCHA ALTA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 336 DC: OV-17000325
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Cuarenta y Tres con 08/100 Dolares Americanos  

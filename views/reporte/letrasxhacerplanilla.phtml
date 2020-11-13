@@ -1,0 +1,52 @@
+<script src="/javascript/letrasxhacerplanilla.js"></script>
+<script src="/javascript/reportletras.js"></script>
+
+<input type="hidden" value="0" id="contador">
+<div id="listados">
+    <h2 style="float:left !important;padding-bottom: 20px;width:100%">SEGUIMIENTO: Letras Por Hacer Planilla</h2>
+    <br>
+    <fieldset>
+        <div class="busqueda">
+            <ul>
+                <li>
+                    <label>Busqueda</label>
+                    <input type="radio" name="rbFiltro" class="rbFiltro" value="1" checked=""> Por Orden Venta
+                    <input type="radio" name="rbFiltro" class="rbFiltro" value="2"> Por Letra
+                </li>
+                <li id="liOV">
+                    <label>Orden de Venta: </label>
+                    <input type="text"  id="txtBusquedaOV" name="txtBusqueda" size="30px" placeholder="Codigo de Orden de Venta" title="Ingrese Numero de Letra" autofocus="on">
+                </li>
+                <li id="liNL">
+                    <label>Numero de Letra: </label>
+                    <input type="text"  id="txtBusqueda" name="txtBusqueda" size="30px" placeholder="Ingrese Numero de Letra" title="Ingrese Numero de Letra" autofocus="on">
+                </li>
+                <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required"/>       
+            </ul>        
+        </div>
+    </fieldset>
+    <form action="/excel/creaplanillaexcel/" method="POST" id="frmCrearPlanilla">
+        <div class="body" style="display: none">
+            <fieldset>
+                <table id="planilla">
+                    <thead>
+                        <tr>
+                            <th>NOMBRES</th>
+                            <th>APELLIDO PATERNO</th>
+                            <th>APELLIDO MATERNO</th>
+                            <th>T.DOCUI</th>
+                            <th>Nº DE DOCUMENTO</th>
+                            <th>LETRA/FACTURA</th>
+                            <th>(DDMMAA)</th>
+                            <th>IMPORTE</th>
+                            <th>ACCION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <input type="submit" value="Descargar Planilla" id="btnDescargar" class="button"/>  
+            </fieldset>
+        </div>
+    </form>       
+</div>

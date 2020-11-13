@@ -1,0 +1,17 @@
+<script src="/javascript/categoria.js"></script>
+<form action="/zona/grabacategoria" method="POST">
+
+	<h2><p>NUEVA CATEGORIA PRINCIPAL:</p></h2>
+	<ul class="inline-block">
+		<li>
+			<label>Codigo</label>
+			<input id="codigoCategoriaPrincipal" required type="text" name="Categoria[codigoc]" class="numeric required" size="11"><b id="error"></b>
+		</li>
+		<li>
+			<label>Nombre</label>
+			<input required type="text" class="required uppercase" name="Categoria[nombrec]">
+			<input required type="hidden" name="Categoria[idpadrec]" value="0">
+		</li>
+		<li><input id="btnnuevaCategoriaPrincipal" type="submit" value="..::: REGISTRAR :::.." ><button id="btnCancelar">Cancelar</button></li>
+	</ul>
+</form>

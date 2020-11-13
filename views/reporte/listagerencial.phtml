@@ -1,0 +1,87 @@
+<script src="/javascript/lista-gerencial.js"></script>
+<h2>Reportes: Lista Gerencial</h2>
+<br>
+<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+        
+        <div style="display: none;">
+            <b>Moneda: </b>
+            <input type="radio" name="opcmoneda" class="opcionMoneda" id="IdMonedaSoles" value="1"> S/.
+            <input type="radio" name="opcmoneda" class="opcionMoneda" id="IdMonedaDolares" value="2" checked="checked"> US $.
+            <br><br>
+        </div>
+	<ul>
+		<li>
+			<label>Seleccione una de las opiones</label>
+			<input type="radio" name="rbFiltro" value="1" checked> Todo
+			<input type="radio" name="rbFiltro" value="2"> Por Almacen
+			<input type="radio" name="rbFiltro" value="3"> Por Linea
+			&nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea	
+			&nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
+		</li>
+		<li id="liAlmacen">
+			<label>Almacen</label>
+			<select id="lstAlmacen">
+				<option value="">-- Almacen --</option>
+				<?php
+					for($i=0;$i<count($Almacen);$i++){
+						echo '<option value="'.$Almacen[$i]['idalmacen'].'">'.$Almacen[$i]['nomalm'].'</option>';
+					}
+				?>
+			</select>
+		</li>
+		<li id="liLinea">
+			<label>Linea</label>
+			<select id="lstLinea">
+				<option value="">-- Linea --</option>
+				<?php
+					for($i=0;$i<count($Linea);$i++){
+						echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin'].'</option>';
+					}
+				?>
+			</select>
+		</li>
+		<li id="liSubLinea">
+			<label>Sublinea</label>
+			<select id="lstSubLinea">
+				<option value="">-- Sub Linea --</option>
+			</select>
+		</li>
+		<li id="liProducto">
+			<label>Producto</label>
+			<input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+			<input type="hidden" id="txtIdProducto">
+		</li>
+		<li id="buttomContent1">
+			<button id="btnConsultar">Consultar</button>
+		</li>
+		<li>
+			<form action="/pdf/ListaPrecios/" method="post" target="_blank" id="form-ver">
+                                <input type="hidden" name="idmoneda" value="2" id="monedaPDF">
+				<input type="submit" value="ver en Excel" id="mostrarExcel">
+                                <input type="hidden" id="idAlmacen"  name="idAlmacen">
+				<input type="hidden" id="idProducto"  name="idProducto">
+				<input type="hidden" id="idLinea" name="idLinea">
+				<input type="hidden" id="idSubLinea" name="idSubLinea">
+			</form>
+		</li>
+	</ul>
+        <br>
+        <small>*El precio neto se saca en relación al descuento 13 + 5 + 9.5 + 5 (28.94%)</small>
+</fieldset>
+<table id="dataGridReport">
+	<thead>
+		<tr>
+			<th data-field="codigo">C&oacute;digo</th>
+			<th data-field="nompro">Descripci&oacute;n</th>
+                        <th data-field="fuc">Fec. Ult. Compra</th>
+                        <th data-field="cant">Cant. Comprada</th>
+                        <th data-field="stockactual">Stock Actual</th>
+                        <th data-field="fob">FOB</th>
+                        <th data-field="cif">CIF</th>
+                        <th data-field="preciolista" id="precio">P. Lista (U$.)</th>
+                        <th data-field="precioneto" id="precio">P. Neto (U$.)</th>
+                        <th data-field="utilidad" id="precio">Utilidad</th>
+		</tr>
+	</thead>
+</table>

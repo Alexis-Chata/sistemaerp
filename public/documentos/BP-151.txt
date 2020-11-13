@@ -1,0 +1,57 @@
+A;Serie;;B002
+A;Correlativo;;00000024
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;45875412
+A;RznSocRecep;;JHOEL ANGEL VALDERA RAMIREZ
+A;DirRecep;;CHIMBOTE  - ANCASH - SANTA - CHIMBOTE
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;57.19
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;10.29
+A;MntTotal;;67.48
+A;FchEmis;;2017-08-03
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;10.29
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;2
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;LA-1590B
+B;NmbItem;1;SUBWOOFER 15" 90 ONZ,8 OHM,1250W VC 3.5" CORRUGADO, POWER ACOUSTIK
+B;PrcItem;1;33.74
+B;PrcItemSinIgv;1;28.59
+B;MontoItem;1;57.19
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;5.15
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 301
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Sesenta y Siete con 48/100 Dolares Americanos  

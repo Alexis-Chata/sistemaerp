@@ -1,0 +1,69 @@
+A;Serie;;B002
+A;Correlativo;;00000027
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;07846482
+A;RznSocRecep;;LINDER IZQUIERDO  AGUIRRE
+A;DirRecep;;AV. VILLAMARIA 383 - LIMA - LIMA - VILLA MARIA DEL TRIUNFO
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;1.81
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;0.32
+A;MntTotal;;2.13
+A;FchEmis;;2017-08-04
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;0.32
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;2
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;CT-6023.
+B;NmbItem;1;ADAPTADOR JACK RCA PLUG MONO 6.3MM
+B;PrcItem;1;0.3
+B;PrcItemSinIgv;1;0.25
+B;MontoItem;1;0.51
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.05
+B;NroLinDet;2;2
+B;QtyItem;2;1
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;CT-1041-6FT-BL TRANS
+B;NmbItem;2;CABLE AZUL TRANSPARENTE 2 RCA X1 STEREO 1.8MTS
+B;PrcItem;2;1.53
+B;PrcItemSinIgv;2;1.3
+B;MontoItem;2;1.3
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.23
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 304
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Dos con 13/100 Dolares Americanos  

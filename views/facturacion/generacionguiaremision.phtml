@@ -1,0 +1,104 @@
+<script type="text/javascript" src="/javascript/guia-remision.js"></script>
+<input type="hidden" value="1" id="txtContador">
+<h2>Facturación: Generar Guia de Remisión</h2>
+<form action="/facturacion/genguiaremi" method="POST">
+	<fieldset>
+		<legend>Busqueda de Orden de Venta</legend>
+		<ul>
+			<li>
+				<label>Nro. Orden Pedido:</label>
+				<input type="text" id="txtOrdenVenta" size="20" class="uppercase">
+				<input type="hidden" id="txtIdOrden" name="GuiaRemision[idordenventa]">
+			</li>
+			<li>
+				<label>Fecha:</label>
+				<input type="hidden" id="txtFEmision" value="<?php echo date("Y/m/d") ?>">
+				<label style="text-align:left; color:#f00"><?php echo date("d/m/Y")?></label>
+			</li>
+			<li>
+				<label>Guia Remisión Serie :</label>
+				<input type="text" maxlength="3" size="5" value="001" style="color:#f00" name="GuiaRemision[serie]" required>
+			</li>			
+			<li>
+				<label>Guia Remisión Número :</label>
+				<input type="text" maxlength="10" size="20" style="color:#f00" name="GuiaRemision[numdoc]" id="txtNGuiaRemision" autofocus required>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>Datos de la Guia de Remisi&ocirc;n</legend>
+		<ul class="inline-block">
+			<li>
+				<label>Fecha Inicio Traslado:</label>
+				<input type="text" id="txtFTraslado" value="<?php echo date("Y/m/d") ?>" name="GuiaRemision[fechadoc]" class="datePicker" maxlength="10" size="10" readonly>
+			</li>
+			<li>
+				<label>Domicilio de Partida:</label>
+				<input size="15" type="text" id="txtDireccionPartida" readonly>
+			</li>
+			<li>
+				<label>Dirección despacho:</label>
+				<input type="text" id="txtDireccionLlegada" readonly  name="ordenVenta[direccion_despacho]" required>
+				<input type="hidden" id="direccionInicial">
+			</li>
+			<li>
+				<label>Lugar:</label>
+				<input type="text" id="txtLugar" readonly>
+			</li>
+		</ul>
+		<ul class="inline-block">
+			<li>
+				<label>Cliente:</label>
+				<input type="text" id="txtCliente">
+				<input type="hidden" id="idcliente">
+			</li>
+			<li>
+				<label>RUC/DNI:</label>
+				<input type="text" id="txtRucDni" maxlength="11" size="11" readonly>
+			</li>
+			<li>
+				<br>
+				<select id="lstDespacho">
+					<option value="">Direcciones Despacho</option>
+				</select>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>Datos Transporte</legend>
+		<ul>
+			<li>
+				<label>Transporte:</label>
+				<input size="50" type="text" id="txtTransporte" readonly>
+			</li>
+			<li>
+				<label>Ruc:</label>
+				<input type="text" id="txtRucTransporte" maxlength="11" size="11" readonly>
+			</li>
+			<li>
+				<label>Direcci&oacute;n:</label>
+				<input size="50" type="text" id="txtDireccionTranspote" readonly>
+			</li>
+			
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>Productos de la Guia de Remisi&oacute;n</legend>
+			<table id="tblProductosGuia">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Codigo</th>
+						<th>Descripci&oacute;n</th>
+						<th>U.M.</th>
+						<th>Cantidad</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+	</fieldset>
+	<input type="submit" value="Guardar" class="btnGuardar" id="grabar">
+	<button id="btnCancelar">Cancelar</button>
+</form>
+<div id="test"></div>

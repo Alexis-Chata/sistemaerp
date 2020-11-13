@@ -1,0 +1,102 @@
+<script src="/javascript/guiassindocumento.js"></script>
+
+<div id="listados">
+    <h2>Listado: Guias no Facturadas</h2><br>
+    <form method="POST" action="/documento/guiassindocumento/" id="formul">
+        <ul>
+            <li>
+                <label>Desde</label>
+                <input type="text" value="<?php echo $fechaini; ?>" id="txtFechaInicio" name="txtFechaInicio" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Hasta</label>
+                <input type="text" value="<?php echo $fechafin; ?>" id="txtFechaFin" name="txtFechaFin" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Busqueda:</label>
+                <input type="text" value="<?php echo $retorno; ?>" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Orden de Venta o N° de Documento" autofocus="on">
+            </li>
+            <li>
+                <button type="submit">Buscar</button>
+                <button id="btnCancelar">Cancelar</button>
+            </li>
+        </ul>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="15">Listado de Documentos</th>
+            </tr>
+            <tr>
+                <th>Orden Venta</th>
+                <th>Fecha Reg.</th>
+                <th>Serie</th>
+                <th>Número</th>
+                <th>Cliente</th>
+                <th>Acciones</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($Factura); $i++) { ?>
+
+                <tr>
+                    <td style="text-align: center;"><?php echo $Factura[$i]['codigov']; ?></td>
+                    <td style="text-align: center;"><?php echo $Factura[$i]['fechadoc']; ?></td>
+                    <td style="text-align: center;"><?php echo str_pad($Factura[$i]['serie'], 3, '0', STR_PAD_LEFT); ?></td>
+                    <td style="text-align: center;"><?php echo $Factura[$i]['numdoc']; ?></td>
+                    <td style="text-align: left;"><?php echo $Factura[$i]['razonsocial']; ?></td>
+                    <td style="text-align: center;"><a style="color:blue;" href="<?php echo '/facturacion/generafactura/' . $Factura[$i]['idordenventa']; ?>"><img style="margin:auto;display:block" width="20" high="20" src="/public/imagenes/editar.gif"> </a></td>
+
+                </tr>
+<?php } ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="15" align="center">
+<?php
+if (empty($_REQUEST['id'])) {
+    $pagina = 1;
+} else {
+    $pagina = $_REQUEST['id'];
+}
+
+if ($blockpaginas * 10 < $paginacion) {
+    $blockpaginas = $blockpaginas + 1;
+} else {
+    $blockpaginas = $blockpaginas;
+}
+
+if ($pagina > 1) {
+    echo "<a href=\"/documento/guiassindocumento/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
+}
+
+for ($i = 1; $i <= $blockpaginas; $i++) {
+    $max = $i * 10;
+
+    for ($min = $max - 9; $min <= $max; $min++) {
+        if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+            if ($pagina == $min) {
+                echo "<a href=\"/documento/guiassindocumento/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+            } else {
+                echo "<a href=\"/documento/guiassindocumento/" . ($min) . "\"> " . ($min) . " </a>";
+            }
+        }
+    }
+}
+
+if ($pagina < $paginacion) {
+    echo "<a href=\"/documento/guiassindocumento/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
+}
+?>
+                    <select id="seleccion" >
+                        <option value=""></option>
+                    <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                    </select>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>

@@ -1,0 +1,48 @@
+<script src="/javascript/reporte-comision.js"></script>
+<h2>Reporte: Comision de Vendedores</h2>
+
+<fieldset>
+	<form>
+		<input type="text" autofocus="on" size="50" placeholder="Ingrese Nombre de Vendedor" id="txtVendedor" required>
+		<input type="hidden" id="idVendedor">
+		<select id="fechacomision" >
+			<option value="0">Seleccione Fecha Comision</option>
+		</select>
+		<button id="btnAceptar">Consultar</button>
+		<a href="#" id="btnImprimir"><img src="/imagenes/imprimir.gif"></a>
+
+		
+	</form>
+</fieldset>
+
+<fieldset id="contenedor">
+	<table>
+		<tr>
+			<th>Nombre del Vendedor</th>
+			<td><label id="nombreVendedor"></label></td>
+			<th>Fecha de comision</th>
+			<td><label id="fecha"></label></td>
+		</tr>
+	</table>
+	<table id="tblVentas">
+		<thead >
+			<tr>
+				<th>Orden<br>Venta</th>
+				<th>Fecha<br>Despacho</th>
+				<th>Fecha<br>Vencimiento</th>
+				<th>Fecha<br>Cancelado</th>
+				<th>Nombre<br> Cliente</th>
+				<th>Importe<br> OV</th>
+				<th>Total<br> Pagos</th>
+				<th>Total<br> Devolucion</th>
+				<th>Importe</th>
+				<th>Factor<br>  Comision</th>
+				<th>Comision</th>
+				<th>% Comision</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+</fieldset>

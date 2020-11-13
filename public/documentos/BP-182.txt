@@ -1,0 +1,57 @@
+A;Serie;;B002
+A;Correlativo;;00000045
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;
+A;RznSocRecep;;MAICOL IMPORT PERU S.A.C
+A;DirRecep;;JR. PARURO NRO. 1175  - LIMA - LIMA - LIMA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;34.36
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;6.18
+A;MntTotal;;40.54
+A;FchEmis;;2017-08-15
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;6.18
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;2
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;LA-1260A
+B;NmbItem;1;SUBWOOFER 12" 8 OHM 60 ONZ,VC:3" ,RIGIDO,FONDO GRIS,POWER ACOUSTIK
+B;PrcItem;1;20.27
+B;PrcItemSinIgv;1;17.18
+B;MontoItem;1;34.36
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;3.09
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 332
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Cuarenta con 54/100 Dolares Americanos  

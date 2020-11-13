@@ -1,0 +1,89 @@
+<div id="listados">
+<h2>Seguridad: Usuarios
+</h2>
+<br>
+<form method="POST" action="/actor/busqueda/">
+<div id="busqueda">
+		Busqueda: <br><input type="text" id="txtBusqueda" name="txtBusqueda" size="50px">
+		<input type="submit" value="Ver">
+
+</form>
+</div>
+	<br>
+<table>
+	<thead>
+		<tr>
+			<th colspan="9">Listado de Usuarios</th>
+			<th><a href="/actor/nuevo"><img src="/imagenes/iconos/nuevo.gif">
+				</a></th>
+		</tr>
+		<tr>
+			<th>Nombres</th>
+			<th>A. Paterno</th>
+			<th>A. Materno</th>
+			<th>Usuario</th>
+			<th>Roles</th>
+			<th>DNI</th>
+			<th>Telefono</th>
+			<th>Celular</th>
+			<th>Email</th>
+
+		<th>Contrase&ntilde;a</th>
+			<th >Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$TActor=sizeof($actor);
+		for($i=0;$i<$TActor;$i++){
+			if($actor[$i]['estado']==0){
+								
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";				
+		$fila.="<td>".$actor[$i]['nombres']."</td>";
+			$fila.="<td>".$actor[$i]['apellidopaterno']."</td>";
+			$fila.="<td>".$actor[$i]['apellidomaterno']."</td>";
+			$fila.="<td>".$actor[$i]['usuario']."</td>";
+			$fila.="<td><select><option value=''>Roles</option>";
+			for ($x=0; $x <count($actorRol) ; $x++) { 
+				if ($actor[$i]['idactor']==$actorRol[$x]['idactor']) {
+					$fila.="<option value='".$actorRol[$x]['nombre']."'>".$actorRol[$x]['nombre']."</option>";
+				}
+			}
+			$fila.="</select></td>";
+			$fila.="<td>".$actor[$i]['dni']."</td>";
+			$fila.="<td>".$actor[$i]['telefono']."</td>";
+			$fila.="<td>".$actor[$i]['celular']."</td>";
+			$fila.="<td>".$actor[$i]['email']."</td>";												
+			$fila.="<td>".$actor[$i]['contrasena']."</td>";
+			$fila.="<td width=\"100px\">
+						<a href=\"/seguridad/AsignarRoles/".$actor[$i]['idactor']."\" ><img src=\"/imagenes/iconos/rol.png\"></a>
+						<a href=\"/actor/editar/".$actor[$i]['idactor']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/actor/eliminar/".$actor[$i]['idactor']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="10" align="center">
+		<?php
+			for($i=0;$i<$paginacion;$i++){
+				echo "<a href=\"/actor/listado/".($i+1)."\">Pag.  ".($i+1)." </a>";
+				if($paginacion-$i>1){
+					echo "||";
+				}
+			}
+		?>
+		</td>
+		</tr>
+	</tfoot>
+</table>
+
+</div>

@@ -1,0 +1,73 @@
+<script src="/javascript/grabaoferta.js"></script>
+<style>
+    .preciooferta {
+        font-weight: 550;
+        font-size: 12px;
+        margin-left: 10px;
+        color: red;
+    }
+</style>
+<form action="/mantenimiento/grabaoferta/" method="POST">
+    <fieldset>
+        <legend>Registro de Oferta</legend>
+        <ul>
+            <li>
+                <label>Producto:</label>
+                <input type="text" class="required uppercase required-none" style="width:150px" id="txtCodigoProductoOferta" style="width:100px"<?php echo (isset($oferta) ? ' value="' . $oferta[0]['codigopa'] . '" disabled': ''); ?>>
+                <?php if (isset($oferta)) {
+                    echo '<input type="hidden" name="txtidOferta" value="' . $oferta[0]['idoferta'] . '">';
+                } else {
+                    echo '<input type="hidden" name="txtidproducto" id="txtIdProducto">';
+                } ?>
+            </li>
+            <li>
+                <label>Descripcion:</label>
+                <input type="text" id="txtTituloProducto" readonly="" required="" style="width:350px"<?php echo (isset($oferta) ? ' value="' . $oferta[0]['nompro'] . '"': ''); ?>>
+            </li>
+        </ul>
+        <ul id="blockOfertas">
+            <?php if (isset($oferta)) { 
+                $tam = count($ofertasproducto);
+                for ($i = 0; $i < $tam; $i++) {
+                    echo '<li><a href="/mantenimiento/oferta/' . $ofertasproducto[$i]['idoferta'] . '" class="preciooferta"> .:: Oferta ' . $arrayTipocobro[$ofertasproducto[$i]['tipocobro']] . ' ::.</a></li>';
+                }    
+            } ?>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Tipo Cobro:</label>
+                <select id="lstTipoCobro" required=""<?php echo (isset($oferta) ? ' disabled': ' name="oferta[tipocobro]"'); ?>>
+                    <option value="">Tipo Cobro</option>
+                    <?php for ($i = 1; $i <= count($arrayTipocobro); $i++) {
+                        echo '<option value="' . $i . '"' . ($oferta[0]['tipocobro'] == $i ? ' selected': '') . '>' . $arrayTipocobro[$i] . '</option>';
+                    } ?>
+                </select>
+            </li>
+            <br>
+            <li>
+                <label>Oferta Soles:</label>
+                <input type="text" required name="oferta[precio]" id="idPrecioSoles" class="uppercase numeric" min="0.01"<?php echo (isset($oferta) ? ' value="' . $oferta[0]['precio'] . '"': ''); ?>>
+                <span class="preciooferta" id="spanOfertaSoles"><?php echo (isset($oferta) ? ' Precio Lista S/ ' . $oferta[0]['preciolista'] : ''); ?></span>
+            </li>
+            <br>
+            <li>
+                <label>Oferta Dolares:</label>
+                <input type="text" required name="oferta[preciodolares]" id="idPrecioDolares" class="uppercase numeric" min="0" value="<?php echo (isset($oferta) ? $oferta[0]['preciodolares'] : '0'); ?>">
+                <span class="preciooferta" id="spanOfertaDolares"><?php echo (isset($oferta) ? ' Precio Lista US $ ' . $oferta[0]['preciolistadolares'] : ''); ?></span>
+            </li>
+            <br>
+            <li>
+                <label>Observaciones:</label>
+                <input type="text" name="oferta[descripcion]" style="width:800px" id="idObservaciones"<?php echo (isset($oferta) ? ' value="' . $oferta[0]['descripcion'] . '"': ''); ?> maxlength="100">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <input type="submit" value="Grabar">
+                <a href="/mantenimiento/oferta"><button type="button" id="btncancelar">Cancelar</button></a>
+            </li>
+        </ul>
+    </fieldset>
+</form>

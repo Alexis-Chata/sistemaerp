@@ -1,0 +1,153 @@
+A;Serie;;B002
+A;Correlativo;;00000039
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;46611134
+A;RznSocRecep;;JORGE ARMANDO TUNQUE SUYO
+A;DirRecep;;JR PARURO 1216 INT 102 - LIMA - LIMA - LIMA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;150.51
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;27.09
+A;MntTotal;;177.6
+A;FchEmis;;2017-08-12
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;27.09
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;11
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;PCYT-1.8
+B;NmbItem;1;CABLE OPTICO1.8 0.5 MM, OTTOKING
+B;PrcItem;1;1.65
+B;PrcItemSinIgv;1;1.4
+B;MontoItem;1;15.38
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.25
+B;NroLinDet;2;2
+B;QtyItem;2;21
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;PCYT-3.0
+B;NmbItem;2;CABLE OPTICO 3M 0.5MM, OTTOKING
+B;PrcItem;2;2.22
+B;PrcItemSinIgv;2;1.88
+B;MontoItem;2;39.51
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.34
+B;NroLinDet;3;3
+B;QtyItem;3;2
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;LA1005
+B;NmbItem;3;JACK CANON METAL HEMBRA C/ARO NEGRO T/NEUTRIX
+B;PrcItem;3;0.51
+B;PrcItemSinIgv;3;0.43
+B;MontoItem;3;0.86
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.08
+B;NroLinDet;4;4
+B;QtyItem;4;2
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;LA1006
+B;NmbItem;4;JACK CANON METAL MACHO C/ARO NEGRO T/NEUTRIX
+B;PrcItem;4;0.51
+B;PrcItemSinIgv;4;0.43
+B;MontoItem;4;0.86
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.08
+B;NroLinDet;5;5
+B;QtyItem;5;1
+B;UnmdItem;5;NIU
+B;VlrCodigo;5;TYS-04BP
+B;NmbItem;5;PEDESTAL P/CAJA ACUSTICA NEGRO (CAPACIDAD 50KG) LIVIANO
+B;PrcItem;5;12.29
+B;PrcItemSinIgv;5;10.42
+B;MontoItem;5;10.42
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;1.87
+B;NroLinDet;6;6
+B;QtyItem;6;8
+B;UnmdItem;6;NIU
+B;VlrCodigo;6;CT-001B-2
+B;NmbItem;6;ADAPTADOR P/TABLET 5V, PLUG STEREO 3.5MM, 1.35MM SAMWIN
+B;PrcItem;6;2.38
+B;PrcItemSinIgv;6;2.02
+B;MontoItem;6;16.14
+B;IndExe;6;10
+B;CodigoTipoIgv;6;1000
+B;TasaIgv;6;18
+B;ImpuestoIgv;6;0.36
+B;NroLinDet;7;7
+B;QtyItem;7;1
+B;UnmdItem;7;NIU
+B;VlrCodigo;7;CPS-2112
+B;NmbItem;7;CABLE VULCANIZADO 2X12 ROLLO 100MTS POWER ACOUSTIK,
+B;PrcItem;7;62.04
+B;PrcItemSinIgv;7;52.58
+B;MontoItem;7;52.58
+B;IndExe;7;10
+B;CodigoTipoIgv;7;1000
+B;TasaIgv;7;18
+B;ImpuestoIgv;7;9.46
+B;NroLinDet;8;8
+B;QtyItem;8;1
+B;UnmdItem;8;NIU
+B;VlrCodigo;8;CPS-216
+B;NmbItem;8;CABLE P/PARLANTE SILICONADO ROJO Y NEGRO 2X16,POWER ACOUSTIK
+B;PrcItem;8;16.76
+B;PrcItemSinIgv;8;14.2
+B;MontoItem;8;14.2
+B;IndExe;8;10
+B;CodigoTipoIgv;8;1000
+B;TasaIgv;8;18
+B;ImpuestoIgv;8;2.56
+B;NroLinDet;9;9
+B;QtyItem;9;2
+B;UnmdItem;9;NIU
+B;VlrCodigo;9;JTA174
+B;NmbItem;9;JACK SPEAKON 4 PINES PLASTICO
+B;PrcItem;9;0.33
+B;PrcItemSinIgv;9;0.28
+B;MontoItem;9;0.56
+B;IndExe;9;10
+B;CodigoTipoIgv;9;1000
+B;TasaIgv;9;18
+B;ImpuestoIgv;9;0.05
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 326
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Ciento Setenta y Siete con 60/100 Dolares Americanos  

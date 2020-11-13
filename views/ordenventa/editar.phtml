@@ -1,0 +1,32 @@
+<form action="/ordenventa/actualiza/" method="POST">
+	<ul>
+		<li><label>Apellido Paterno:</label><input type="text" name="Cliente[apaternoCliente]" value="<?php echo $Cliente[0]['apaternoCliente'] ?>"></li>
+		<li><label>Apellido Materno:</label><input type="text" name="Cliente[amaternoCliente]" value="<?php echo $Cliente[0]['amaternoCliente'] ?>"></li>
+		<li><label>Nombres:</label><input type="text" name="Cliente[nombreCliente]" value="<?php echo $Cliente[0]['nombreCliente'] ?>"></li>
+		<li><label>Razon social:</label><input type="text" name="Cliente[razonSocial]" value="<?php echo $Cliente[0]['razonSocial'] ?>"></li>
+		<li><label>DNI:</label><input type="text" name="Cliente[dni]" value="<?php echo $Cliente[0]['dni'] ?>"></li>
+		<li><label>RUC:</label><input type="text" name="Cliente[ruc]" value="<?php echo $Cliente[0]['ruc'] ?>"></li>
+		<li>
+			<label>Localidad:</label>
+			<select>
+				<option>Departamento</option>
+			</select>
+			<select>
+				<option>Provincia</option>
+			</select>
+			<select name="Cliente[iddistrito]">
+				<option>Distrito</option>
+				<?php for($i=0;$i<count($Distrito);$i++){
+					echo '<option value="'.$Distrito[$i]['iddistrito'].'">'.$Distrito[$i]['nombreDistrito']."</option>";
+				}?>
+			</select>
+		</li>
+		<li><label>Direcci&oacute;n:</label><input type="text" name="Cliente[direccion]" value="<?php echo $Cliente[0]['direccion'] ?>"></li>
+		<li><label>E-mail:</label><input type="text" name="Cliente[email]" value="<?php echo $Cliente[0]['email'] ?>"></li>
+		<li><label>Tel&eacute;fono:</label><input type="text" name="Cliente[telefono]" value="<?php echo $Cliente[0]['telefono'] ?>"></li>
+		<li><label>Celular:</label><input type="text" name="Cliente[movil]" value="<?php echo $Cliente[0]['movil'] ?>"></li>
+		<li><label>Fax:</label><input type="text" name="Cliente[fax]" value="<?php echo $Cliente[0]['fax'] ?>"></li>
+		<input type="hidden" name="idCliente" value="<?php echo $_REQUEST['id'] ?>">
+		<li><input type="submit" value="Actualizar"></li>
+	</ul>
+</form>

@@ -1,0 +1,66 @@
+<script src="/javascript/seguimiento-letras.js"></script>
+<h2>Seguimiento de letras</h2>
+<div id="tabs">
+	<ul id="ulTabs">
+		<li><a href="#tabs-1">Cancelar Letra</a></li>
+		<li><a href="#tabs-2">Renovar Letra</a></li>
+		<li><a href="#tabs-3">Anular Letra</a></li>
+		<li><a href="#tabs-4">Mandar a Cartera</a></li>
+	</ul>
+	<div id="tabs-1">
+		<fieldset id="fsBusquedaLetras">
+			<legend>Busqueda de Letras</legend>
+			<ul>
+				<li id="porGuia">
+					<input type="checkbox" id="chkFiltro" checked> <label style="display:inline" id="lblFiltro">Por Guia</label>
+					<input type="text" id="txtIdGuia">
+					<input type="text" id="txtNombreCliente" class="text-large" placeholder="Ingrese nombre o razon social del cliente">
+				</li>
+				<li>
+					<button id="btnBuscar">Buscar</button>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Letras</legend>
+			<ul>
+				<li>
+					<label>Guia</label>
+					<select>
+						<option value="">-- Guia --
+						
+					</select>
+				</li>
+				<li>
+					<label>Condicion de Letra</label>
+					<label>20/40</label>
+				</li>
+				<li>
+					<label>Cant. Letras</label>
+					<label>2</label>
+				</li>
+				<li>
+					<label>Letras Pendientes</label>
+					<select>
+						<option value="">-- Letras Pendientes --
+					</select>
+				</li>
+			</ul>
+			<table id="tblLetras">
+					<thead>
+						<tr>
+							<th>Fec. Vencimiento</th>
+							<th>Importe</th>
+							<th>Seleccione<br>Letra</th>
+						</tr>
+						<tbody>
+							
+						</tbody>
+					</thead>
+				</table>
+		</fieldset>
+	</div>
+	<div id="tabs-2"></div>
+	<div id="tabs-3"></div>
+	<div id="tabs-4"></div>
+</div>

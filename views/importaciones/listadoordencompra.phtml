@@ -1,0 +1,169 @@
+<?php $idmodulo = 73;
+require_once 'evalcredenciales.php'; ?>
+<script src="/javascript/orden-compra.js"></script>
+<h2>Importaciones: Listado de Órdenes de Compra</h2>
+<br>
+<div id="listados">
+    <table id="tblOrdenCompra">
+        <caption>Listado de Ordenes de Compra
+            <a href="/importaciones/nuevaordencompra" class="c5_datashet"><img src="/imagenes/iconos/nuevo.gif"></a>
+        </caption>
+        <tr>
+            <th><center>Nro. Orden</center></th>
+            <th><center>Fecha Compra</center></th>
+            <th><center>Proveedor</center></th>
+            <th><center>Observaciones</center></th>
+            <th colspan="5" align="center"><center>Acci&oacute;n</center></th>
+        </tr>
+        <?php
+        for ($i = 0; $i < count($Ordencompra); $i++) {
+            echo "<tr>";
+            if (!$Ordencompra[$i]['vbimportaciones'] && !$Ordencompra[$i]['registrado']) {
+                echo "<td>" . $Ordencompra[$i]['codigooc'] . "</td>";
+            } else {
+                echo "<td><a href='#' data-id='" . $Ordencompra[$i]['idordencompra'] . "' class='classConsultaPDF'>" . $Ordencompra[$i]['codigooc'] . "</a></td>";
+            }
+            
+            echo "<td>" . date("d/m/Y", strtotime($Ordencompra[$i]['fordencompra'])) . "</td>";
+            echo "<td>" . $Ordencompra[$i]['razonsocialp'] . "</td>";
+            echo "<td>" . $Ordencompra[$i]['observaciones'] . "</td>";
+            echo '<td><a href="/ordencompra/detalle/' . $Ordencompra[$i]['idordencompra'] . '" class="btnVerDetalleMovimiento c1_datashet" title="Ver Detalle Orden"><img src="/imagenes/detalle.jpg"></a></td>';
+            if (!$Ordencompra[$i]['vbimportaciones'] && !$Ordencompra[$i]['registrado']) {
+                echo '<td><a href="/ordencompra/editar/' . $Ordencompra[$i]['idordencompra'] . '/' . $Ordencompra[$i]['idlinea'] . '" class="btnEditar c2_datashet" title="Actualizar Orden"><img src="/imagenes/editar.gif"></a></td>';
+            } else {
+                echo "<td></td>";
+            }
+            echo '<td><a href="/ordencompra/valorizarOrden/' . $Ordencompra[$i]['idordencompra'] . '/' . $Ordencompra[$i]['idlinea'] . '" class="btnEditar c3_datashet" title="Valorizar Orden"><img src="/imagenes/iconos/valorizar.png" width="24px"></a></td>';
+            if ($Ordencompra[$i]['valorizado'] == 1) {
+                echo '<td><a href="/ordencompra/actualizado/' . $Ordencompra[$i]['idordencompra'] . '" class="btnActualizar c6_datashet"><img src="/imagenes/iconos/oc_' . ($Ordencompra[$i]['actualizado'] == 0 ? 'pendiente' : 'ok') . '.png"></a></td>';                
+            } else {
+                echo "<td></td>";
+            }
+            if (!$Ordencompra[$i]['vbimportaciones'] && !$Ordencompra[$i]['registrado']) {
+                echo "<td><a href=\"/ordencompra/elimina/" . $Ordencompra[$i]['idordencompra'] . "\" class=\"btnEliminar c4_datashet\"><img src=\"/imagenes/eliminar.gif\" title=\"Eliminar Orden\"></a></td>";
+            } else {
+                echo "<td></td>";
+            }
+            echo "</tr>";
+        }
+        ?>
+        <tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <?php
+                    $pagina = $_REQUEST['id'];
+                    if ($blockpaginas * 10 < $paginacion) {
+                        $blockpaginas = $blockpaginas + 1;
+                    } else {
+                        $blockpaginas = $blockpaginas;
+                    }
+
+                    if ($pagina > 1) {
+                        echo "<a href=\"/importaciones/ordenCompra/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
+                    }
+
+                    for ($i = 1; $i <= $blockpaginas; $i++) {
+                        $max = $i * 10;
+
+                        for ($min = $max - 9; $min <= $max; $min++) {
+                            if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                if ($pagina == $min) {
+                                    echo "<a href=\"/importaciones/ordenCompra/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                } else {
+                                    echo "<a href=\"/importaciones/ordenCompra/" . ($min) . "\"> " . ($min) . " </a>";
+                                }
+                            }
+                        }
+                    }
+
+                    if ($pagina < $paginacion) {
+                        echo "<a href=\"/importaciones/ordenCompra/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
+                    }
+                    ?>
+                    <select id="seleccion">
+                        <option value=""></option>
+                        <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+            </tr>
+        </tfoot>
+    </table>
+    <a id="imprimir" href="#"><img src="/imagenes/imprimir.gif"></a><br><br>
+    <div id="blockOrdendecompra">
+        <table id="tblMostrarEncabezado">
+            <thead>
+            </thead>
+        </table>
+        <table id="tblDetalleOrdenCompra">
+            <thead>
+                <tr>
+                    <th>Nro.</th>
+                    <th>Codigo</th>
+                    <th>Descripci&oacute;n</th>
+                    <th>Fob</th>
+                    <th>cantidad<br>Solicitada</th>
+                    <th>cantidad<br>Recibida</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>        
+    </div>
+    <script>
+        $('#imprimir').hide();
+        $('#tblDetalleOrdenCompra').hide();
+        $('#tblMostrarEncabezado').hide(); 
+    </script>
+</div>
+<form method="post" action="/pdf/reporteOrdenCompra" id="idPDfOcconsulta" target="_blank">
+    <input type="hidden" name="idOrdenCompra" id="ididOrdenCompraDirecto" value="">
+</form>
+<form method="POST" action="/ordencompra/confirmar/" id="frmConfirmarOrden">
+    <ul class="inline-block">
+        <li>
+            <label>Fecha Aprox. Llegada:</label>
+            <input type="text" class="datepicker required" name="OrdenCompra[faproxllegada]" readonly>
+            <input type="hidden" name="idOrdenCompra" id="txtIdOrden">
+            <input type="hidden" name="OrdenCompra[vbimportaciones]" value="1">
+        </li>
+        <li>
+            <label>advalorem:</label>
+            <input type="text" name="OrdenCompra[advalorem]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>costotasadesp:</label>
+            <input type="text" name="OrdenCompra[costotasadesp]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>costoalmacengate:</label>
+            <input type="text" name="OrdenCompra[costoalmacengate]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>costoalmacenvb:</label>
+            <input type="text" name="OrdenCompra[costoalmacenvb]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>costoaduanaseg:</label>
+            <input type="text" name="OrdenCompra[costoaduanaseg]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>costoalmacenserv:</label>
+            <input type="text" name="OrdenCompra[costoalmacenserv]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>flete:</label>
+            <input type="text" name="OrdenCompra[flete]" class="required numeric" value="100">
+        </li>
+        <li>
+            <label>comisionagenteadu:</label>
+            <input type="text" name="OrdenCompra[comisionagenteadu]" class="required numeric" value="100">
+        </li>
+    </ul>
+    <ul class="block">
+        <li class="block">
+            <label>Observaci&oacute;nes:</label>
+            <input type="text" class="uppercase text-full" name="OrdenCompra[mimportaciones]">
+        </li>
+    </ul>
+</form>

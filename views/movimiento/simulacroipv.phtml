@@ -1,0 +1,81 @@
+<script src="/javascript/inventariopermanentevalorizado.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">SIMULACRO :: Inventario Permanente Valorizado</h2>
+<br>
+<style>
+    #msjprd {
+        padding: 8px;
+        background: #ffb2b2;
+        width: 70%;
+    }
+    #msjprd > a {
+        font-weight: bold;
+        color: #cc0d15;
+        font-size: 15px;
+    }
+    #msjprd > a:hover {
+        color: black;
+    }
+    .errorcb {
+        color: red;
+        border: 1px solid red;
+    }
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 5px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 5px 3px 5px;
+        text-align: center;
+    }
+    table tbody td{
+        border: 1px solid #ddddde;
+    }
+</style>
+
+<fieldset>
+    <form action="/excel/simulacroinventariovalorizado" method="POST" target="_blank" id="frmInventarioValorizado">
+        <div id="msjprd">        
+        </div>
+        <ul>
+            <li>
+                <label>Producto: </label>
+                <input autofocus="on" type="text" id="txtproductosimulacro" size="20" placeholder="Codigo del producto">
+                <input type="hidden" id="idProducto" name="txtidproducto">
+                <input type="text" id="txtDescripcion" placeholder="Descripcion del Producto" size="60px" disabled="">
+                <a href="#" title="Deshacer Seleccion" id="deshacerPrd"><img src="/imagenes/error.jpg" width="16px"></a>
+            </li>
+            <li>
+                <label>Periodo: </label>
+                <select id="periodoInicial" name="txtidsaldoinicial">
+                    <option value=""> --- Desde --- </option>
+                </select>
+                -
+                <select id="mesFinal" name="txtmesfinal" disabled="">
+                    <option value=""> --- Hasta --- </option>
+                    <?php
+                    $m = count($mes);
+                    for ($i = 1; $i <= $m; $i++) {
+                        echo '<option value="' . $i . '">' . $mes[$i] . '</option>';
+                    }
+                    ?>
+                </select>
+            </li>
+            <br>
+            <li>
+                <button type="button" id="btnSimulacroHTML" class="button">Consultar <img style="vertical-align:middle" src="/imagenes/consultar.png" width="20"></button>
+                <button type="button" id="btnSimulacro" class="button">Simulacro <img style="vertical-align:middle" src="/imagenes/excel.png" width="20"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>
+<fieldset id="blockSimulacro">
+</fieldset>

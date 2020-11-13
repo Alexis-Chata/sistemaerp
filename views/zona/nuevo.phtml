@@ -1,0 +1,28 @@
+<script src="/javascript/zona.js"></script>
+<form action="/zona/graba/" method="POST">
+	<h2><p>NUEVA ZONA:</p></h2>
+	<ul class="inline-block">
+		<li>
+			<label>Codigo Zona</label>
+			<input id="codigoZona" class="numeric required" type="text" required name="Zona[codigoz]" maxlength="11"><b id="error"></b>
+		</li>
+		<li>
+			<label>Nombre</label>
+			<input type="text" class="required uppercase" required name="Zona[nombrezona]">
+		</li>
+		<li>
+			<label>Observaci&oacute;n</label>
+			<input type="text" required name="Zona[observacion]">
+		</li>
+		<li>
+			<label>Categor&iacute;a</label>
+			<select required id="lstCategoria" name="Zona[idcategoria]">
+				<option value="">Seleccione una Categoria</option>
+				<?php foreach ($categoriapadre as $categoria) { ?>
+					<option value="<?php echo $categoria['idcategoria']; ?>"> <?php echo $categoria['nombrec']; ?></option>
+				<?php }?>
+			</select>
+		</li>
+	</ul>	
+	<p><input id="btnNuevaZona" type="submit" value="..::: REGISTRAR :::.." ><button id="btnCancelar">Cancelar</button></p>
+</form>

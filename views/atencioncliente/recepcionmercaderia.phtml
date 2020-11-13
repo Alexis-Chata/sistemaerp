@@ -1,0 +1,253 @@
+<script type="text/javascript" src="/javascript/recepcionmercaderia.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Recepcion :: Mercaderia</h2>
+<?php if (!isset($dataRecepcion[0]['idrecepcion'])) { ?>
+<br>
+Busqueda: <input type="text" id="txtCliente" name="txtCliente" size="50px" placeholder="Ingrese Razón Social o Nro RUC">
+<?php } ?>
+<br><br>
+<style type="text/css">
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
+</style>
+<div id="cliente">
+    <fieldset>
+        <legend><b>Datos del Cliente</b></legend>
+        <ul>
+            <li>
+                <label>Código: </label>
+                <input type="text" id="idCodigo"<?php echo (isset($dataCliente[0]['codcliente']) ? ' value="' . $dataCliente[0]['codcliente'] . '"' : ''); ?> readonly> 
+            </li>
+            <li>
+                <label>Razon Social: </label>
+                <input type="text" id="idRazonsocial"<?php echo (isset($dataCliente[0]['razonsocial']) ? ' value="' . $dataCliente[0]['razonsocial'] . '"' : ''); ?> size="50" readonly> 
+            </li>
+            <li>
+                <label>R.U.C.: </label>
+                <input type="text" id="idRuc"<?php echo (isset($dataCliente[0]['rucdni']) ? ' value="' . $dataCliente[0]['rucdni'] . '"' : ''); ?> readonly>
+            </li>
+            <li>
+                <label>Telf./Cel.: </label>
+                <input type="text" id="idCelular"<?php echo (isset($dataCliente[0]['celular']) ? ' value="' . $dataCliente[0]['celular'] . '"' : ''); ?> readonly>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Dirección: </label>
+                <input type="text" id="idDireccion"<?php echo (isset($dataCliente[0]['direccion']) ? ' value="' . $dataCliente[0]['direccion'] . '"' : ''); ?> size="50" readonly> 
+            </li>
+            <li>
+                <label>Ubicación: </label>
+                <input type="text" id="idUbicacion"<?php echo (isset($dataCliente[0]['ubigeo']) ? ' value="' . $dataCliente[0]['ubigeo'] . '"' : ''); ?> size="40" readonly>
+            </li>
+            <li>
+                <label>Zona: </label>
+                <input type="text" id="idZona"<?php echo (isset($dataCliente[0]['zonacategoria']) ? ' value="' . $dataCliente[0]['zonacategoria'] . '"' : ''); ?> size="27" readonly>
+            </li>
+        </ul>
+    </fieldset>
+</div>
+<style type="text/css">
+        table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 10px 0px;
+    }
+    table thead th, tbody th {
+        background: #87c2f5;
+        font-weight: bold;
+        text-align: center;
+        font-size: 14px;
+    }
+    table tbody td {
+        border: 1px solid #e2e0e6;
+    }
+    table tr td, table tr th{
+        font-size: 12px;
+    }
+    .tblDetalleOrdenVenta thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    .tblDetalleOrdenVenta thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 10px 3px 10px;
+        text-align: center;
+    }   
+    .AnadirProducto {
+        cursor: pointer;
+    }
+    .eliminarDRM {
+        cursor: pointer;
+    }
+    #classNumero {
+        padding: 5px;
+        font-weight: bold;
+        color: red;
+    }
+</style>
+<div id="datosingreso">
+    <form action="/atencioncliente/grabarecepcion" method="POST" id="frmRecepcion">
+        <fieldset>
+            <legend>Registro de Recepcion de Mercaderia</legend>            
+            <table class="tblDetalleOrdenVenta">
+                <thead>
+                    <tr>
+                        <?php if (isset($dataRecepcion[0]['idrecepcion'])) { ?>
+                        <th>N° Recojo</th>
+                        <td><input type="text" value="<?php echo $dataRecepcion[0]['idrecepcion']; ?>" name="txtIdRrecepcion" readonly></td>
+                        <td colspan="2"></td>
+                        <?php } else { ?>
+                        <td colspan="4"></td>    
+                        <?php } ?>                        
+                        <th style="color: red;">Nro. Documento:</th>
+                        <td><input id="classNumero" <?php echo (isset($dataRecepcion[0]['numero']) ? ' value="' . $dataRecepcion[0]['numero'] . '"' : ''); ?>  name="Recepcion[numero]" size="6"></td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Recepcion: </th>
+                        <td>
+                            <input type="hidden" id="txtIdCliente"<?php echo (isset($dataCliente[0]['idcliente']) ? ' value="' . $dataCliente[0]['idcliente'] . '"' : ''); ?> name="Recepcion[idcliente]">
+                            <input type="text" required class="datepicker"<?php echo (isset($dataRecepcion[0]['fregistro']) ? ' value="' . DateTime::createFromFormat('Y-m-d', $dataRecepcion[0]['fregistro'])->format('Y/m/d') . '"' : ''); ?> readonly name="Recepcion[fregistro]">
+                        </td>
+                        <th>Recogido Por: </th>
+                        <td>
+                        <select name="Recepcion[idrecogido]">
+                            <option> --- Seleccionar --- </option>
+                        <?php 
+                            $tamRe = count($Recogedor);
+                            for ($i = 0; $i < $tamRe; $i++) {
+                                echo '<option value="' . $Recogedor[$i]['idactor'] . '"' . ($dataRecepcion[0]['idrecogido'] == $Recogedor[$i]['idactor'] ? ' selected' : '' ) . '>' . $Recogedor[$i]['nombres'] . ' ' . $Recogedor[$i]['apellidopaterno'] . ' ' . $Recogedor[$i]['apellidomaterno'] . '</option>';
+                            }
+                        ?>                            
+                        </select>
+                        </td>
+                        <th>Motivo: </th>
+                        <td>
+                            <select required name="Recepcion[tipomotivo]" id="lstMotivo" data-seleccion="<?php echo $dataRecepcion[0]['tipomotivo']; ?>" class="deposito">
+                            </select>
+                            <input type="button" class="button" id="NuevoMotivo" value="+">
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <th>Observaciones: </th>
+                        <td colspan="3">
+                            <input placeholder="Sin Observaciones"<?php echo (isset($dataRecepcion[0]['observaciones']) ? ' value="' . $dataRecepcion[0]['observaciones'] . '"' : ''); ?> size="100" id="txtObservaciones" type="text" name="Recepcion[observaciones]">
+                        </td>
+                        <th>Agencia: </th>
+                        <td>
+                            <input type="checkbox" id="chkHabilitar"<?php echo (!empty($dataRecepcion[0]['idagencia']) ? ' checked' : ''); ?>> Habilitar
+                        </td>
+                    </tr>
+                    <tr class="blockAgencia">
+                        <th colspan="6">
+                            <h4>DATOS DE LA AGENCIA DE ENVIO</h4>
+                        </th>
+                    </tr>
+                    <tr class="blockAgencia">
+                        <th>Razon Social Agencia: </th>
+                        <td>
+                            <input type="hidden" id="idAgencia"<?php echo (isset($dataRecepcion[0]['idagencia']) ? ' value="' . $dataRecepcion[0]['idagencia'] . '"' : ''); ?> name="Recepcion[idagencia]">
+                            <input type="text" name="razonsocial"<?php echo (isset($dataTransporte[0]['trazonsocial']) ? 'value="' . $dataTransporte[0]['trazonsocial'] . ' ' . $dataTransporte[0]['truc'] . '"' : ''); ?> id="txtagencia" size="50"> 
+                        </td>
+                        <th>Direccion Agencia: </th>
+                        <td id="direccionAgencia"><?php echo (isset($dataTransporte[0]['tdireccion']) ? $dataTransporte[0]['tdireccion'] : ''); ?></td>
+                        <th>Guia de Remision: </th>
+                        <td>
+                            <input type="text" name="Recepcion[serie]"<?php echo (isset($dataRecepcion[0]['idagencia'])&&isset($dataRecepcion[0]['serie']) ? ' value="' . $dataRecepcion[0]['serie'] . '"' : ''); ?> id="serieguia" size="3"> -
+                            <input type="text" name="Recepcion[correlativo]"<?php echo (isset($dataRecepcion[0]['idagencia'])&&isset($dataRecepcion[0]['correlativo']) ? ' value="' . $dataRecepcion[0]['correlativo'] . '"' : ''); ?> id="correlativoguia" size="10"> 
+                        </td>
+                    </tr>
+                    <tr class="blockAgencia">
+                        <th>Costo de Envio: </th>
+                        <td>
+                            S/ <input type="number" name="Recepcion[importe]"<?php echo (isset($dataRecepcion[0]['idagencia'])&&isset($dataRecepcion[0]['importe']) ? ' value="' . round($dataRecepcion[0]['importe'], 2) . '"' : ''); ?> id="Idimporte"> 
+                            <input type="number" id="IdDiferencia"<?php echo (isset($dataRecepcion[0]['idagencia'])&&isset($dataRecepcion[0]['importe']) ? ' value="' . round($dataRecepcion[0]['importe']*($dataRecepcion[0]['porcentaje']/100), 2) . '"' : ''); ?> disabled="">
+                        </td>
+                        <th>Porcentaje: </th>
+                        <td>
+                            <input type="number" name="Recepcion[porcentaje]" value="<?php echo (isset($dataRecepcion[0]['idagencia'])&&isset($dataRecepcion[0]['porcentaje']) ? round($dataRecepcion[0]['porcentaje'], 2) : '100'); ?>" id="IdPorcentaje"> %
+                        </td>
+                        <th class="DCPblock">Diferencia Cubierta Por: </th>
+                        <td class="DCPblock">
+                            <select required name="Recepcion[responsable]" id="responsable">
+                                <option> --- Elegir Responsable --- </option>
+                                <?php $tamR = count($Responsables);
+                                    for ($i = 1; $i <= $tamR; $i++) {
+                                        echo '<option value="' . $i . '"' . (isset($dataRecepcion[0]['idagencia'])&&isset($dataRecepcion[0]['responsable']) ? ' selected' : '') . '>' . $Responsables[$i] . '</option>';
+                                    } ?>
+                            </select>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+            <br>
+            <ul>
+                <li>
+                    <label>Codigo o Descripcion del Producto: </label>
+                    <input type="text" class="required uppercase required-none ui-autocomplete-input" id="txtCodigoProducto" style="width:500px" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                </li>
+            </ul>
+            <table id="tblResultados">
+                <thead>
+                    <tr>
+                        <th colspan="8">Resultados de Busqueda</th>
+                    </tr>
+                    <tr>
+                        <th>Vendedor</th>
+                        <th>Orden Venta</th>
+                        <th>Fecha</th>
+                        <th>Codigo</th>
+                        <th>Descripción</th>  
+                        <th>Precio Venta (Uni.)</th>
+                        <th>Cantidad</th>
+                        <th>Cantidad Recogida</th>
+                    </tr>
+                </thead>
+                <tbody>                
+                </tbody>
+            </table>
+            <br><hr><br>
+            <table class="tblDetalleOrdenVenta" id="tblDetalleRecepcion">
+                <thead>
+                    <tr>
+                        <th colspan="8">DETALLE DE RECEPCION DE MERCADERIA</th>
+                    </tr>
+                    <tr>
+                        <th>Vendedor</th>
+                        <th>Cantidad</th>
+                        <th>Codigo</th>
+                        <th>Descripción</th>                          
+                        <th>Referencia</th>
+                        <th style="width: 1%;">Garantia</th>
+                        <th>Observaciones</th>                        
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody><?php 
+                    if (isset($dataDetalle)) {
+                        echo $dataDetalle;
+                    }
+                ?></tbody>
+            </table>
+            <input type="submit" value="Registrar" id="Registrar">
+        </fieldset>
+    </form>
+</div>
+
+<div id="contenedorMotivos">
+    <ul>
+        <li>
+            Nuevo Motivo:
+            <input type="text" value="" id="idNombreMotivo">
+        </li>
+    </ul>
+</div>

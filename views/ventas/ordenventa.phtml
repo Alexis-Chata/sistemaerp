@@ -1,0 +1,289 @@
+<script src="/javascript/transporte.js"></script>
+<script src="/javascript/orden-venta.js"></script>
+<style type="text/css">
+    label.inline{
+        max-width:60px;
+        text-align: left;
+    }
+</style>
+<h2>Ventas: Crear Guia de Pedido</h2>
+<?php
+if (!empty($codigov)) {
+    echo '<input id="codigov" type="hidden" value="' . $codigov . '" >';
+}
+?>
+<br>
+<input type="hidden" value="1" id="txtContador">
+<form action="/ordenventa/graba/" method="POST" id="frmGeneracionOrdenVenta">
+    <div class="field-set">
+        <p class="title">Cliente <span class="addicional-informacion"></span></p>
+        <div class="body">
+            <ul class="inline-block">
+                <!-- 			<li>
+                                                <label>Nombre o Raz&oacute;n Social:</label><br>
+                                                <input type="text" id="txtCodigoCliente" class="required uppercase important" autofocus style="width:300px">
+                                                <input type="hidden" id="txtIdCliente"  name="OrdenVenta[idclientezona]">
+                                        </li>
+                                        <li><label>Nuevo Codigo: </label><input type="text" id="txtCodCliente" readonly disabled></li>
+                                        <li><label>Codigo Antiguo: </label><input type="text" id="txtCodAntiguo" readonly disabled></li>
+                                        <li><label>R.U.C. / D.N.I.:</label><input type="text" id="txtRucDni" maxlength="11" readonly disabled></li>
+                                        <li><label>Tel&eacute;fono:</label><input type="text" id="txtTelefono" readonly disabled></li>
+                                        <li><label>Direcci&oacute;n:</label><input type="text" id="txtDireccion" readonly  disabled style="width:300px"></li>
+                                        <li><label>Distrito/Ciudad:</label><input type="text" id="txtDistritoCiudad" readonly disabled></li>
+                                        <li>
+                                                <label>Emp.Transporte:</label>
+                                                <select name="OrdenVenta[idclientetransporte]" id="lstTransporte" class="required">
+                                                        <option value="">-- Transporte --</option>
+                                                </select>
+                                                <button title="Agregar Nuevo Transporte" id="btnNuevoTransporte" class="small-button">...</button>
+                                        </li>
+                                </ul> -->
+                <input type="hidden" id="txtCabeceraCliente" class="important">
+                <label>Nombre o Raz&oacute;n Social:</label>
+
+                <input type="text" id="txtCodigoCliente" class="required uppercase" autofocus style="width:300px">
+                <input type="hidden" id="txtIdClienteZona"  name="OrdenVenta[idclientezona]" >
+                <input type="hidden" id="txtidclientesucursal" name="OrdenVenta[idclientesucursal]">
+                <input type="hidden" id="txtdireccionenvio" name="OrdenVenta[direccion_envio]">
+                <input type="hidden" id="txtdirecciondespacho" name="OrdenVenta[direccion_despacho]">
+                <input type="hidden" id="txtnombrecontacto" name="OrdenVenta[contacto]">
+                <input type="hidden" id="txtIdCliente"  name="OrdenVenta[idcliente]" ><br><br>
+                <label>Codigo Antiguo: </label><input type="text" id="txtCodAntiguo" readonly disabled>
+                <label>R.U.C. / D.N.I.:</label><input type="text" id="txtRucDni" maxlength="11" readonly disabled>
+                <label>Emp.Transporte:</label>
+                <select name="OrdenVenta[idclientetransporte]" id="lstTransporte" class="required">
+                    <option value="">-- Transporte --</option>
+                </select>
+                <button title="Agregar Nuevo Transporte" id="btnNuevoTransporte" class="small-button">...</button><br>
+                <div id="clienteposicion"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="field-set">
+        <p class="title">Condiciones de Pedido <span class="addicional-informacion"></p>
+        <div class="body">
+            <ul class="inline-block ul1">
+
+                <li>
+                    <label>Fecha:</label>
+                    <span style="color:#f00"><?php echo date('d/m/Y') ?></span>
+                    <input type="hidden" name="OrdenVenta[fordenventa]" value="<?php echo date('Y-m-d') ?>">
+                </li>
+                <li>
+                    <label>Moneda</label>
+                    <select name="OrdenVenta[IdMoneda]" id="txtMoneda">
+                        <option value="-1">Seleccione Moneda</option>
+                        <option value="1">Soles (S/.)</option>
+                        <option value="2">Dolares (US $)</option>
+                    </select>
+                    <input type="text" id="txtvalorventa">
+                    <input type="hidden" id="txtidTipoCambio" name="OrdenVenta[IdTipoCambioVigente]">
+                    <input type="hidden" id="txtTipoCambioValor" name="OrdenVenta[MontoTipoCambioVigente]">
+                </li>
+                <li>
+                    <label>Forma de Pago:</label>
+                    <input type="checkbox" id="chkContado" name="OrdenVenta[es_contado]" value="1"> <label for="chkContado" class="inline">Contado</label>
+                    <input type="checkbox" id="chkCredito" name="OrdenVenta[es_credito]" value="1"> <label for="chkCredito" class="inline">Credito</label>
+                    <input type="checkbox" id="chkLetras" name="OrdenVenta[es_letras]" value="1"> <label for="chkLetras" class="inline">Letras</label>
+                </li>
+                <li id="liMontoContado">
+                    <label>Monto al contado:</label>
+                    <input type="text" name="" id="txtMontoContado" size="6">
+                </li>
+                <li id="liMontoCredito">
+                    <labeL>Monto al Credito:</label>
+                    <input type="text" id="txtMontoCredito" name="montoContado" class="numeric" size="6">
+                </li>
+                <li id="liMontoLetras">
+                    <label>Monto a Letras:</label>
+                    <input type="text" id="txtMontoLetras" class="numeric" size="6">
+                </li>
+            </ul>
+            <ul class="inline-block ul2">
+                <li id="liCreditoDias">
+                    <label for="txtCreditoDias">Credito Dias:</label>
+                    <input type="text" name="" id="txtCreditoDias" size="2" class="credito">
+                </li>
+                <li class="gbLetras condicionLetra">
+                    <label>Condici&oacute;n de letra:</label>
+                    <select id="lstCondicionLetra" name="condicionLetra">
+                        <option value="">-- Cond.Letra. --
+                            <?php
+                            $totalC = count($CondicionLetra);
+                            for ($i = 0; $i < $totalC; $i++) {
+                                echo '<option value="' . $CondicionLetra[$i]['idcondicionletra'] . '">' . $CondicionLetra[$i]['nombreletra'];
+                            }
+                            ?>
+                    </select>
+                    <a href="/letras/nuevo">.:Nueva Condicion Letra:.</a>
+                </li>
+                <li class="gbLetras">
+                    <label>Tipo Letra:</label>
+                    <select id="lstTipoLetra" name="tipoLetra">
+                        <option value="">--Tipo Letra--
+                            <?php
+                            for ($i = 1; $i <= count($TipoLetra); $i++) {
+                                echo '<option value="' . $i . '">' . $TipoLetra[$i];
+                            }
+                            ?>
+                    </select>
+                </li>
+                <li>
+                    <label>Documento:</label>
+                    <select name="OrdenVenta[tipodoccli]" id="lstTipoDocumento" class="required">
+                        <option value="">-- Doc. --
+                            <?php
+                            for ($i = 1; $i < 4; $i++) {
+                                echo '<option value="' . $i . '">' . $Documento[$i];
+                            }
+                            ?>
+                    </select>
+                    <strong class="gbPorcentajeFacturacion"> Porcentaje:</strong>
+                    <input type="text" id="txtPorcentajeFacturacion" maxlength="3" class="text-30 gbPorcentajeFacturacion" class="numeric" readonly><strong class="gbPorcentajeFacturacion"> %</strong>
+                    <button class="small-button gbPorcentajeFacturacion" id="btnCambiarPorcentaje">...</button>
+                </li>
+                <li id="liModoFacturacion">
+                    <label>Modo Facturacion</label>
+                    <select id="lstModoFacturacion" name="modoFacturacion">
+                        <option value="">-- Modo --
+                            <?php
+                            for ($i = 1; $i <= count($ModoFacturacion); $i++) {
+                                echo '<option value="' . $i . '">' . $ModoFacturacion[$i];
+                            }
+                            ?>
+                    </select>
+                </li>
+                <style type="text/css">
+                    .ocultar_etiqueta{
+                        display: none !important;
+                    }
+
+                </style>
+                <li id="liVendedor">
+                    <label>Vendedor:</label>
+                    <select name="OrdenVenta[idvendedor]" id="lstVendedor" class="required">
+                        <option value="">-- Seleccionar uno --</option>;
+                        <?php
+                        for ($i = 0; $i < count($VendedorRanking); $i++) {
+                            $activo = ($VendedorRanking[$i]['idactor'] == $_SESSION['idactor']) ? ' selected' : '';
+                            echo '<option  value="' . $VendedorRanking[$i]['idactor'] . '"' . $activo . '>' . $VendedorRanking[$i]['nombreconcat'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <span id="btnVerMas" style="cursor:pointer !important;color:blue;">ver_mas</span>
+                </li>
+                <li>
+                    <textarea id="txtObservaciones" name="OrdenVenta[observaciones]"></textarea>
+                </li>
+                <input type="hidden" id="txtFormaPago" class="important">
+            </ul>
+        </div>
+    </div>
+    <div class="field-set">
+        <p class="title">Productos</p>
+        <div class="body">
+            <ul>
+                <li>
+                    <label>Producto</label>
+                    <input type="text" class="required uppercase required-none" id="txtCodigoProducto" style="width:100px">
+
+                    <input type="hidden" id="txtIdProducto"><!--Esto es llenado al elegir la opcion de la lista-->
+                </li>
+                <li>
+                    <label>Descripcion</label>
+                    <input type="text" id="txtTituloProducto" disabled style="width:300px">
+                </li>
+                <li>
+                    <label>Cantidad</label>
+                    <input type="text" style="width:55px" class="numeric required required-none" id="txtCantidadProducto">
+                </li>
+                <li>
+                    <label>Por:</label>
+                    <select id="lstPrecio" class="required">
+                        <option value="1">-- Precio --</option>
+                        <option value="2">-- Descuento --</option>
+                    </select>
+                </li>
+                <li class="liDescuento">
+                    <label>Descuento</label>
+                    <!-- <input type="text" class="numeric text-100" id="txtDescuento"> -->
+<!--				<select id="lstDescuento" class="required">
+                            <option value="">-- Descuento --</option>
+                    </select>-->
+                    <input type="text" style="width:55px" class="numeric required required-none" id="txtNuevoDescuento">
+                </li>
+
+                <li class="liPrecio">
+                    <label>Precio:</label>
+                    <input type="text" style="width:100px" class="numeric" id="txtPrecioOferta2">
+                    <b class="inline-block"><input type="checkbox" id="chkVale"> Vale</b>
+                </li>
+                <li>
+                    <button id="btnAgregarProduco">Agregar</button>
+                </li>
+            </ul>
+            <div id="listados">
+                <table id="tblDetalleOrdenVenta">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>P.Soles</th>
+                            <th>Cantidad</th>
+                            <th>P.Lista</th>
+                            <th>Dscto</th>
+                            <th>Precio Dscto</th>
+                            <th>Dscto Oferta</th>
+                            <th>Precio Final</th>
+                            <th>Total</th>
+                            <th colspan="4">Acci&oacute;n</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="9" style="text-align:right;" class="right bold">Importe Total:</td>
+                            <td class="center"><input type="text" Id="lblMoneda" value=""  disabled size="10px"><input type="text" value="0.00" name="OrdenVenta[importeov]" class="required right text-100" id="txtImporteTotal" min="0.01" readonly></td>
+                            <td colspan="4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><br>
+    <input type="hidden" id="txtSaldoDisponible" class="required">
+    <br><br>
+    <input type="submit" value="Registrar" class="btnRegistrar" id="btnRegistrar" title="Registrar la Guia">
+    <button id="btnCalcelar" title="Cancelar la Guia">Cancelar</button>
+</form>
+<div id="test"></div>
+<div id="contenedorOfertas" title="Lista de Ofertas" style="display:none">
+    <table id="tblOfertas">
+        <thead>
+            <tr>
+                <th colspan="3">Producto: </th>
+                <th colspan="3" id="titleOfertas"></th>
+            </tr>
+            <tr>
+                <th>Tipo Cobro</th>
+                <th colspan="2">Precio S/</th>
+                <th colspan="2">Precio US $</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div id="contenedorPrecioreferencial" title="Precio Referencial" style="display:none">
+    <table id="tblPrecioReferencial">
+        <thead>
+            <tr>
+                <th>Producto: </th>
+                <th colspan="3" id="titlePodReferencial"></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

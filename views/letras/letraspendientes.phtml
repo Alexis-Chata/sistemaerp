@@ -1,0 +1,112 @@
+<script src="/javascript/letraspendientes.js"></script>
+<style type="text/css">
+    .entrada{
+        display: inline-block;
+        vertical-align: top;
+        border: solid 1px #A4A5A7;
+    }
+    .seguimiento2, .seguimiento3{
+        display: none;
+
+    }
+    .seguimientoShow{
+        display: block;
+    }
+    .separador{
+        /*border-bottom: solid 1px #908F92;*/
+        padding-top: 12px;
+    }       
+</style>
+
+<div id="listados">
+    <h2> Cobranzas : Letras Pendientes </h2><br>
+
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Letras en el Banco</a></li>
+            <li><a href="#tabs-2">Buscador de Letras</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <a href="/pdf/letraspendientes" target="_blank"><img src="/public/imagenes/iconos/pdf.gif" title="Exportar a PDF" width="30px"></a>
+            <div class="contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="14">Reporte de Letras Pendientes</th>
+                        </tr>
+                        <tr>
+                            <th>Nro Letra</th>
+                            <th>Monto</th>
+                            <th>Saldo</th>
+                            <th>Fecha Giro</th>
+                            <th>Fecha Vencimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php echo $resp; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="15" align="center">
+                                <?php
+                                if (empty($_REQUEST['id'])) {
+                                    $pagina = 1;
+                                } else {
+                                    $pagina = $_REQUEST['id'];
+                                }
+
+                                if ($blockpaginas * 10 < $paginacion) {
+                                    $blockpaginas = $blockpaginas + 1;
+                                } else {
+                                    $blockpaginas = $blockpaginas;
+                                }
+
+                                if ($pagina > 1) {
+                                    echo "<a href=\"/letras/LETRASPENDIENTES/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
+                                }
+
+                                for ($i = 1; $i <= $blockpaginas; $i++) {
+                                    $max = $i * 10;
+
+                                    for ($min = $max - 9; $min <= $max; $min++) {
+                                        if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                            if ($pagina == $min) {
+                                                echo "<a href=\"/letras/LETRASPENDIENTES/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                            } else {
+                                                echo "<a href=\"/letras/LETRASPENDIENTES/" . ($min) . "\"> " . ($min) . " </a>";
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($pagina < $paginacion) {
+                                    echo "<a href=\"/letras/LETRASPENDIENTES/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
+                                }
+                                ?>
+                                <select id="seleccion" >
+                                    <option value=""></option>
+                                <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <?php } ?>
+                                </select>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>  
+        </div>
+        <div id="tabs-2">
+            <fieldset>
+                <b>Numero de Letra: </b>
+                <input type="text" id="idnroletra" placeholder="Numero de Letra">
+            </fieldset>
+            <div id="contenedor">
+                <table id="tblnumeroletra">
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

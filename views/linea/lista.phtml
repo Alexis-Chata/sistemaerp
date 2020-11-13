@@ -1,0 +1,98 @@
+<script src="/javascript/linea.js"></script>
+
+<div id="listados">
+<h2>Linea :: Listado</h2><br>
+<form method="POST" action="/linea/buscar/">
+	<div id="busqueda">
+			Busqueda: </br>
+			<input type="text" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese un Nombre">
+			<input type="submit" value="Ver"/>
+	</div>
+</form>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="2">Listado de Linea</th>
+			<th><a href="/linea/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a>
+			</th>
+		</tr>
+		<tr>
+			<th>Código</th>
+			<th>Nombre</th>
+			<th>Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$TLinea=sizeof($linea);
+		for($i=0;$i<$TLinea;$i++){
+			if($linea[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/linea/editar/".$linea[$i]['idlinea']."\">".STRTOUPPER($linea[$i]['idlinea'])."</a></td>";
+			$fila.="<td>".$linea[$i]['nomlin']."</td>";
+			$fila.="<td width=\"100px\">
+						<a href=\"/linea/editar/".$linea[$i]['idlinea']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a class='eliminaLinea' href=\"/linea/elimina/".$linea[$i]['idlinea']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/linea/lista/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/linea/lista/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/linea/lista/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/linea/lista/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+	</tfoot>
+</table>
+*Sino puede eliminar una linea es porque esta enlazado
+</div>

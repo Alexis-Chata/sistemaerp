@@ -1,0 +1,12 @@
+<form action="/template/actualiza/" method="POST">
+	<ul>
+		<li><label>:</label><input type="text" name="Template[apaterno]" value="<?php echo $Template[0]['apaterno'] ?>"></li>
+		<li><label>:</label><input type="text" name="Template[amaterno]" value="<?php echo $Template[0]['amaterno'] ?>"></li>
+		<li><label>:</label><input type="text" name="Template[nombres]" value="<?php echo $Template[0]['nombres'] ?>"></li>
+		<li><label>:</label><input type="text" name="Template[direccion]" value="<?php echo $Template[0]['direccion'] ?>"></li>
+		<li><label>:</label><input type="text" name="Template[telefono]" value="<?php echo $Template[0]['telefono'] ?>"></li>
+		<li><label>:</label><input type="text" name="Template[email]" value="<?php echo $Template[0]['email'] ?>"></li>
+		<input type="hidden" name="idTemplate" value="<?php echo $_REQUEST['id'] ?>">
+		<li><input type="submit" value="Actualizar"></li>
+	</ul>
+</form>

@@ -1,0 +1,34 @@
+<script src="/javascript/zona.js"></script>
+<form action="/zona/actualiza/" method="POST">
+	<h2><p>EDITAR ZONA:</p></h2>
+	<ul>		
+		<li>
+			<label>C&oacute;digo</label>
+			<input required class="numeric required" type="text" readonly name="Zona[idzona]" value="<?php echo $Zona[0]['idzona']; ?>">
+		</li>
+		<li>
+			<label>Nombre</label>
+			<input required class="required uppercase"  type="text" name="Zona[nombrezona]" value="<?php echo $Zona[0]['nombrezona']; ?>">
+		</li>
+		<li>
+			<label>Observaci&oacute;n</label>
+			<input  required type="text" name="Zona[observacion]" value="<?php echo $Zona[0]['observacion']; ?>">
+		</li>
+		<li>
+			<label>Categoria</label>
+			<select required name="Zona[idcategoria]">
+				<option value=''>Selecciona la categoria</option>
+				<?php 
+				$total=count($Categoria);
+				for($i=0;$i<$total;$i++){
+					echo "<option value=".$Categoria[$i]['idcategoria'].
+						($Zona[0]['idcategoria']==$Categoria[$i]['idcategoria']?' selected ':'')
+					.">".$Categoria[$i]['codigoc']."-".$Categoria[$i]['nombrec'];
+				}
+				?>
+			</select>
+		</li>
+	</ul>
+	<input type="hidden" name="idZona" value="<?php echo $Zona[0]['idzona']; ?>">
+	<p><input type="submit" value="..::: ACTUALIZAR :::.." ><button id="btnCancelar">Cancelar</button></p>
+</form>

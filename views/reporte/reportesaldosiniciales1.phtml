@@ -1,0 +1,64 @@
+<script src="/javascript/reporteSaldosIniciales1.js"></script>
+<fieldset>
+    <h2>REPORTE DE SALDOS INICIALES</h2>
+    <form action="" method="post" target="_blank" id="frmConsulta">
+        <ul>
+<!--                <li>
+                    <label for="txtFechaInicio">Fecha Inicio:</label>
+                    <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+                </li>
+                <li>
+                    <label for="txtFechaFinal">Fecha Fin:</label>
+                    <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+                </li>-->
+                <li>
+                    <label for="txtFiltros">AÑO:</label>
+                    <select id="cmbAnio" name="cmbAnio">
+                        <option value="todos">Todos</option>
+                        <?php $anio=2013;
+                        while ($anio<=date('Y')){ ?>
+                                <option value="<?php echo $anio; ?>"><?php echo $anio; ?></option>
+                        <?php  $anio=$anio+1; } ?>
+                    </select>
+                </li>
+                <li>
+                    <label for="txtFiltros">Filtros:</label>
+                    <select id="cmbFiltro1" name="cmbFiltro1">
+                        <option value="1">Simulacro</option>
+                        <option value="2">Final</option>
+                    </select>
+
+                    <select id="cmb_positivos_negativos" name="cmb_positivos_negativos">
+                        <option value="todos">Todos</option>
+                        <option value="1">Positivos</option>
+                        <option value="2">Negativos</option>
+                        <option value="3">En Cero</option>
+
+                    </select>
+                </li>
+                <span id="etiquetaAvanzado" class="ocultar_etiqueta">
+                    <li>
+                        <label for="txtProducto_label">Producto</label>
+                        <input type="text" class="uppercase" id="txtProducto" style="background-color:#9FFF6A" >
+                        <input type="text" readonly="readonly" id="txtDescripcion" size="35" style="background-color:silver">
+                        <input type="hidden" id="idProducto" name="idProducto" value="0">
+                    </li>
+<!--                    <li>
+                        <label for="txtVendedor_label">Vendedor</label>
+                        <input type="text" class="uppercase" size="35" id="txtVendedor" style="background-color:skyblue">
+                        <input type="hidden" id="idVendedor" name="idVendedor">
+                    </li>
+                    <li>
+                        <label for="txtCliente_label">Cliente</label>
+                        <input type="text" class="uppercase" size="55" id="txtCliente" style="background-color:pink">
+                        <input type="hidden" id="idCliente" name="idCliente">
+                    </li>-->
+                </span>
+            </ul>
+        <br>
+        <ul>
+            <li><button id="btnExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
+            <li><button id="btnLimpiar">Limpiar<img src="/imagenes/limpiar.png" style="vertical-align: middle" width="25" height="25"></button></li>
+        </ul>
+    </form>
+</fieldset>

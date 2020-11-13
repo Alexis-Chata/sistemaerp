@@ -1,0 +1,20 @@
+<script src="/javascript/marca.js"></script>
+<form action="/marca/actualiza/" method="POST">
+	<fieldset>
+	<legend>Editar Marca</legend>
+		<ul>
+			<li>
+				<label>Codigo</label>
+				<input type="text"  name="codigo" value="<?php echo $marca[0]['idmarca']?>" readonly="readonly" size="15px"/>
+			</li>
+			<li>
+				<label>Nombre</label>
+				<input  type="text" autofocus required value="<?php echo $marca[0]['nombre']?>" name="marca[nombre]" class="uppercase" size="35px"/>
+			</li>
+			<li>
+				<input type="submit" value="Registrar">
+				<button id="btncancelar">Cancelar</button>
+			</li>
+		</ul>
+	</fieldset>
+</form>

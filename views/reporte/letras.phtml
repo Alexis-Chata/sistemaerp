@@ -1,0 +1,33 @@
+<h2>Reporte: Letras</h2>
+<input type="hidden" id="urlpagination" value="/reporte/letras/">
+<div class="field-set">
+	<p class="title">POR CLIENTE</p>
+	<div class="body">
+	<ul>
+		<li><input type="text" id="txtBusqueda" name="txtBusqueda" size="50px" value="<?php echo $Busqueda ?>" class="uppercase" autofocus></li>
+		<li><button id="btnSeleccionarCliente">Seleccionar Cliente</button>
+			<input type="hidden" name="urlautocomplete" id="urlautocomplete" value="/cliente/autocomplete/"></li>
+			<input type="hidden" name="pagina" id="txtPagina">
+	</ul>
+	<input type="hidden" id="idcliente" name="idcliente" value="">
+	<div id="datosCliente">
+	</div>
+</div>
+</div>
+<h3>ESTADOS DE CUENTA</h3>
+<table id="datagrid">
+	<thead>
+		<tr>
+			<th data-field="codigov">Codigo</th>
+			<th data-field="importeov">Importe</th>
+			<th data-field="idcondicionletra">Condici&oacute;n</th>
+			<th data-field="situacion">Situacion Orden Venta</th>
+			<th data-field="fvencimiento">Vencimiento Orden Venta</th>
+			<th data-field="saldo">Saldo Orden Venta</th>
+			<th data-field="importedoc">Importe</th>
+			<th data-field="formacobro">Forma Cobro</th>
+			<th data-field="situacionc">Situacion Cuenta</th>
+			<th data-field="fvencimientoc">Vencimiento Cuenta</th>
+		</tr>
+	</thead>
+</table>

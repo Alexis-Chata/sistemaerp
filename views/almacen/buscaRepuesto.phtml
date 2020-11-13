@@ -1,0 +1,113 @@
+<script src="/javascript/movimiento.js"></script>
+<h2>Almacenes: Busqueda Movimiento de Stock</h2>
+<br>
+<div id="listados">
+	<form method="POST" action="/almacen/buscaRepuesto/">
+	<div id="busqueda">
+			Busqueda: </br>
+			<input autofocus="on" value="<?php echo $retorno ?>" type="text" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese una fecha en Formato año/mes/dia o ingrese N° de Orden de Compra">
+			<input type="submit" value="Ver"/>
+	</div>
+	</form>
+
+	<form method="POST" action="/almacen/movstockrep/">
+		<input type="submit" value="Cancelar">
+	</form>
+
+	<table >
+		<thead>
+			<tr>
+				<th colspan="5">Movimiento de Stock</th>
+				<th><a href="/movimiento/repuesto/"><img src="/imagenes/iconos/nuevo.gif" style="float:center"></a></th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Tipo</th>
+				<th>Fecha</th>
+				<th>Orden Compra</th>
+				<th>Observaciones</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <count($valores) ; $i++) { ?>
+
+			<tr>
+				<td style="text-align: center;"><?php echo $valores[$i]['idrepuesto']; ?></td>
+				<td style="text-align: center;"><?php echo $valores[$i]['tipomovimiento']; ?></td>
+				<td style="text-align: center;"><?php echo $valores[$i]['fechamovimiento']; ?></td>
+				<td style="text-align: center;"><?php echo $valores[$i]['codigooc']; ?></td>
+				<td ><?php echo $valores[$i]['observaciones']; ?></td>
+				<td ><a class="detalleRepuesto" id="<?php echo $valores[$i]['idrepuesto'] ?>" href=""><img style="margin:auto;display:block" title="ver" width="15" high="15" src="/imagenes/ver.gif"> </a> </td>
+			</tr>
+			<?php	} ?>
+		</tbody>
+		<tfoot>
+			<tr>
+			<td colspan="7" align="center">
+				<?php
+				
+				$pagina=$_REQUEST['id'];
+				if (empty($_REQUEST['id'])) {
+					$pagina=1;
+				}
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/almacen/buscaRepuesto/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/almacen/buscaRepuesto/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/almacen/buscaRepuesto/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/almacen/buscaRepuesto/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+		?>
+		
+		</tr>
+			
+		</tfoot>
+	</table>
+
+
+</div>
+<div id="contenedordetallemovimiento">
+	<p>Detalle de Movimiento</p>
+	<table id="tablacontenedor">
+		<thead>
+			<tr>
+				<th>Codigo Producto</th>
+				<th>Nombre Producto</th>
+				<th>Observacion</th>
+				<th>Cantidad</th>
+			</tr>
+		</thead>
+		<tbody>
+
+
+		</tbody>
+		<tfoot>
+
+		</tfoot>
+	</table>
+	<button id="btnCerrarDetalle">Cerrar Detalle</button>
+</div>

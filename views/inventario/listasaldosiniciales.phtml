@@ -1,0 +1,146 @@
+
+
+<script type="text/javascript"src="/javascript/saldosiniciales.js" ></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Registro de Saldos Iniciales</h2>
+<fieldset>
+    <form action="../../inventario/grabarSaldoInicial" method="post" name="frmSaldosIniciales" id="frmSaldosIniciales">
+    <ul>
+        <li>
+			<label>Codigo</label>
+			<input type="text" size="13" id="txtProductoInventario" class="uppercase" autofocus="on">
+			<input type="hidden" id="txtIdProducto" name="txtIdProducto">
+		</li>
+		<li>
+			<label>Descripcion</label>
+			<input type="text" id="txtDescripcion" size="45" readonly style="background:silver;">
+		</li>
+        <li>
+        <label>STOCK INICIO 2013</label>
+			<input type="text" id="txtCantidad1" name="txtCantidad1" size="15">
+		</li>
+        <li>
+        <label>STOCK JULIO 2013</label>
+			<input type="text" id="txtCantidad2" name="txtCantidad2" size="15">
+		</li>
+        <li>
+        <label>C.Unitario</label>
+			<input type="text" id="txtCunitario" name="txtCunitario" size="15">
+		</li>
+        <li style="display: none;">
+        <label>T.cambio</label>
+        <input type="text" id="txtTcambio" name="txtTcambio" size="10" >
+		</li>
+        <?php
+
+        if(isset($_REQUEST['stock'])){ $atributo="checked"; }else{ $atributo=""; }
+        ?>
+		<li>
+		<button id="btnGrabar" name="btnGrabar">Registrar</button>&nbsp;<input type="checkbox" id="chkStock" <?php echo $atributo; ?> >STOCK 0
+        </li>
+
+        <li style="text-align: center !important;width: 100% !important;">
+                <span id="lblRespuestaGrabado" style="font-size: 19px;font-weight: 800;color:greenyellow;"></span>
+        </li>
+	</ul>
+    </form>
+</fieldset>
+
+
+<div id="listados">
+<table id="tblSaldosIniciales">
+		<caption>Listado de saldos Iniciales
+
+		</caption>
+    <tr >
+			<th style="text-align: center !important;">IDPRODUCTO</th>
+			<th style="text-align: center !important;">CODIGO</th>
+            <th style="text-align: center !important;">NOMBRE</th>
+            <th style="text-align: center !important;">FECHA DE STOCK</th>
+            <th style="text-align: center !important;">STOCK</th>
+            <th style="text-align: center !important;">COSTO UNIT.</th>
+            <th style="text-align: center !important;">USUARIO QUE REGISTRA</th>
+            <th style="text-align: center !important;">FECHA.REG</th>
+            <th colspan="4" style="text-align: center !important;">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($saldosiniciales);$i++){
+                if($saldosiniciales[$i]['nombrecompleto']!==""){
+                    $usuariocreacion=$saldosiniciales[$i]['nombrecompleto'];
+                }else{
+                    $usuariocreacion=$saldosiniciales[$i]['nombres'].' '.$saldosiniciales[$i]['apellidopaterno'].' '.$saldosiniciales[$i]['apellidomaterno'];
+                }
+				echo "<tr>";
+                echo "<td>".$saldosiniciales[$i]['idproducto']."</td>";
+                echo "<td>".$saldosiniciales[$i]['codigopa']."</td>";
+                echo "<td>".$saldosiniciales[$i]['nompro']."</td>";
+                echo "<td>".$saldosiniciales[$i]['fechasaldo']."</td>";
+                echo "<td>".$saldosiniciales[$i]['cantidad1']."</td>";
+                echo "<td>".$saldosiniciales[$i]['costounitario']."</td>";
+                echo "<td>".$usuariocreacion."</td>";
+                echo "<td>".$saldosiniciales[$i]['fecha_creacion_saldoinicial']."</td>";
+                echo '<td><a href="/inventario/editarSaldoInicial/'.$saldosiniciales[$i]['idsaldo'].'|'.$saldosiniciales[$i]['idproducto'].'" class="btnEditarSaldoInicial c1_datashet" title="Editar Saldo Inicial"><img src="/imagenes/detalle.jpg"></a></td>';
+                echo "</tr>";
+			}
+		?>
+		<tfoot>
+			<tr>
+			<td colspan="9" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1)
+				{
+					echo "<a href=\"/inventario/saldosiniciales/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+
+				for ($i=1; $i <=$blockpaginas ; $i++) {
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) {
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/inventario/saldosiniciales/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/inventario/saldosiniciales/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion)
+				{
+					echo "<a href=\"/inventario/saldosiniciales/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+		</tfoot>
+</table>
+</div>
+<label class="inline">Modificacion:</label> <label class="inline" id="lblProveedor" style="color:#090"></label>
+<table id="tblDetalleSaldoInicial">
+		<thead>
+			<tr>
+                <th style="text-align: center !important;">CODIGO</th>
+                <th style="text-align: center !important;">NOMBRE</th>
+                <th style="text-align: center !important;">FECHA DE STOCK</th>
+                <th style="text-align: center !important;">STOCK</th>
+                <th style="text-align: center !important;">COSTO UNIT.</th>
+                <th style="text-align: center !important;">T.Cambio</th>
+                <th colspan="4" style="text-align: center !important;">&nbsp;</th>
+			</tr>
+		</thead>
+    <tbody>
+    </tbody>
+</table>

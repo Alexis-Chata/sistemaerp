@@ -1,0 +1,263 @@
+<script src="/javascript/producto.js"></script>
+<h2>Productos :: Editar información </h2>
+<style>
+	#imgimgProductos:hover {
+		transition: all .5s ease-in-out;
+		border-radius: 10%;
+		-webkit-border-radius: 10%;
+		box-shadow: 0px 0px 7px 7px #76a5db;
+		-webkit-box-shadow: 0px 0px 7px 7px #76a5db;
+		transform: rotate(360deg);
+		-webkit-transform: rotate(360deg)
+	}
+</style>
+<form action="/producto/actualiza/" method="POST" id="frmProductoActualiza" enctype="multipart/form-data">
+	<fieldset style="position:relative;">
+		<legend> Datos de Productos </legend>
+		<ul>
+			<li>
+				<label>C&oacute;digo</label>
+				<input type="text" class="required cod-pro uppercase" name="Producto[codigop]" value="<?php echo $Producto[0]['codigop'] ?>" readonly>
+			</li>
+			<li>
+				<label>Codigo Fábrica:</label>
+				<input type="text" maxlength="20" name="Producto[codigofabrica]" value="<?php echo $Producto[0]['codigofabrica'] ?>" class="uppercase" autofocus autocomplete="off">
+			</li>
+			<li>
+                            <label>Codigo Sunat:</label>
+                            <input type="text" maxlength="8" name="Producto[codigosunat]" class="input-number" value="<?php echo $Producto[0]['codigosunat'] ?>" required="" pattern=".{8,8}" required title="8 caracteres necesarios"> 
+                        </li>
+			<li>
+				<label>Partida Arancelaria:</label>
+				<input type="text" maxlength="10" name="Producto[partidaarancelaria]" value="<?php echo $Producto[0]['partidaarancelaria'] ?>" class="uppercase">
+			</li>
+			<li>
+				<label>C&oacute;digo CPA</label>
+				<input type="text" class="required cod-pro uppercase" name="Producto[codigopa]" value="<?php echo $Producto[0]['codigopa'] ?>" readonly>
+				<input type="hidden" name="idProducto" value="<?php echo $Producto[0]['idproducto']; ?>">
+			</li>
+			<li>
+				<label>Descripci&oacute;n</label>
+				<input type="text" maxlegth="100" class="required nom-pro uppercase text-large" name="Producto[nompro]" value="<?php echo $Producto[0]['nompro'] ?>" autofocus>
+
+			</li>
+			<li>
+				<div style="position:absolute;right:40px;top:30px;width:180px;text-align:right">
+					<span id="imgProductos" style="cursor:pointer !important;" title="CLICK PARA MAXIMIZAR">
+						<?php $imagenReal = ROOT . "imagenes" . DS . "productos" . DS . $Producto[0]['codigopa'] . DS . $Producto[0]['imagen']; ?>
+						<?php $imagenAlterna = $RutaImagen . "/sin-imagen.png"; ?>
+						<?php $imagenproducto = (!empty($Producto[0]['imagen']) && is_readable($imagenReal) ? ($RutaImagen . $Producto[0]['codigopa'] . '/' . $Producto[0]['imagen']) : $imagenAlterna); ?>
+						<img id="imgimgProductos" src="<?php echo "/imagenes/productos/" . (!empty($Producto[0]['imagen']) ? $Producto[0]['codigopa'] . "/" . $Producto[0]['imagen'] : "sin-imagen.png"); ?>" width="180px">
+
+					</span>
+					<p><input type="checkbox" id="chkCambiarFoto"> Cambiar foto</p>
+					<input type="file" name="foto" id="fotoProducto" disabled>
+				</div>
+				<input type="hidden" value="<?php echo $Producto[0]['codigopa']; ?>" name="Producto[codigopa]">
+			</li>
+		</ul>
+
+		<ul>
+			<li>
+				<label>Almacen</label>
+				<select class="required" name="Producto[idalmacen]">
+					<?php
+					for ($i = 0; $i < count($Almacen); $i++) {
+						if ($Almacen[$i]['idalmacen'] == $Producto[0]['idalmacen']) {
+							echo '<option selected value="' . $Almacen[$i]['idalmacen'] . '">' . $Almacen[$i]['nomalm'] . '</option>';
+						} else {
+							echo '<option value="' . $Almacen[$i]['idalmacen'] . '">' . $Almacen[$i]['nomalm'] . '</option>';
+						}
+					}
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Linea Productos</label>
+				<select id="lstLineaEditar">
+					<?php
+					for ($i = 0; $i < count($Linea); $i++) {
+						if ($Linea[$i]['idlinea'] == $Sublinea[0]['idpadre']) {
+							echo '<option value="' . $Linea[$i]['idlinea'] . '" selected>' . $Linea[$i]['nomlin'] . '</option>';
+						} else {
+							echo '<option value="' . $Linea[$i]['idlinea'] . '">' . $Linea[$i]['nomlin'] . '</option>';
+						}
+					}
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Sublinea</label>
+				<select class="required" id="lstSublineaEditar" name="Producto[idlinea]">
+					<?php
+					for ($i = 0; $i < count($Sublinea); $i++) {
+						if ($Sublinea[$i]['idlinea'] == $Producto[0]['idlinea']) {
+							echo '<option value="' . $Sublinea[$i]['idlinea'] . '" selected>' . $Sublinea[$i]['nomlin'] . '</option>';
+						} else {
+							echo '<option value="' . $Sublinea[$i]['idlinea'] . '">' . $Sublinea[$i]['nomlin'] . '</option>';
+						}
+					}
+					?>
+				</select>
+			</li>
+		</ul>
+		<ul id="col3" class="inline">
+			<li>
+				<label>Empaque</label>
+				<select class="required" name="Producto[empaque]">
+					<option value="">Seleccione Empaque
+						<?php
+						for ($i = 0; $i < count($Empaque); $i++) {
+							if ($Empaque[$i]['idempaque'] == $Producto[0]['empaque']) {
+								echo '<option selected value="' . $Empaque[$i]['idempaque'] . '">' . $Empaque[$i]['codempaque'] . '</option>';
+							} else {
+								echo '<option value="' . $Empaque[$i]['idempaque'] . '">' . $Empaque[$i]['codempaque'] . '</option>';
+							}
+						}
+						?>
+				</select>
+			</li>
+			<li>
+				<label>Medida</label>
+				<select class="required" name="Producto[unidadmedida]">
+					<option value="">Seleccione UM
+						<?php
+						for ($i = 0; $i < count($Unidadmedida); $i++) {
+							if ($Unidadmedida[$i]['idunidadmedida'] == $Producto[0]['unidadmedida']) {
+								echo '<option selected value="' . $Unidadmedida[$i]['idunidadmedida'] . '">' . $Unidadmedida[$i]['nombre'] . '</option>';
+							} else {
+								echo '<option  value="' . $Unidadmedida[$i]['idunidadmedida'] . '">' . $Unidadmedida[$i]['nombre'] . '</option>';
+							}
+						}
+						?>
+				</select>
+			</li>
+			<li>
+				<label>Marca</label>
+				<select class="required" name="Producto[idmarca]">
+					<option value="">Seleccione Marca</option>
+					<?php for ($i = 0; $i < count($marca); $i++) {
+						if ($Producto[0]['idmarca'] == $marca[$i]['idmarca']) { ?>
+							<option value="<?php echo $marca[$i]['idmarca']; ?>" selected> <?php echo $marca[$i]['nombre']; ?> </option>
+						<?php	} else { ?>
+							<option value="<?php echo $marca[$i]['idmarca']; ?>"> <?php echo $marca[$i]['nombre']; ?> </option>
+					<?php }
+					} ?>
+				</select>
+			</li>
+
+			<?php
+			//var_dump($Productospadre);
+			$mostrar = "hide";
+			if ($Producto[0]['idtipoproducto'] == 1) {
+				$repuestosi = "checked";
+				$mostrar = null;
+			}
+			$requerido = "required";
+			if (isset($Productospadre)) {
+				$requerido = null;
+			}
+			?>
+			<style>
+				.ui-icon {
+					display: inline-block;
+				}
+
+				.hide {
+					display: none;
+				}
+
+				.mr_4 {
+					margin-right: 4px;
+				}
+			</style>
+			<li>
+				<th><label>Repuesto: </label></th>
+				<td>
+					<p class="inline">No </p><input style="margin: 0 15px 0 5px;" id="repuestono" type="radio" name="Producto[idtipoproducto]" value="0" checked>
+				</td>
+				<td>
+					<p class="inline">Si </p><input style="margin: 0 15px 0 5px;" id="repuestosi" type="radio" name="Producto[idtipoproducto]" value="1" <?php echo $repuestosi ?>>
+				</td>
+			</li>
+			<div id="repuestoproducto" class="<?php echo $mostrar ?>">
+				<fieldset class="inline-block" style="width: fit-content; margin-left: 140px;">
+					<li id="produc">
+						<label>Producto</label>
+						<input type="text" class="<?php echo $requerido ?> uppercase required-none" id="txtCodigoProducto" style="width:100px">
+					</li>
+					<li>
+						<label>Descripcion</label>
+						<input type="text" id="txtTituloProducto" disabled style="width:300px">
+						<input type="hidden" name="productospadres[]" id="txtIdProducto">
+						<!--Esto es llenado al elegir la opcion de la lista-->
+					</li>
+					<?php foreach ($Productospadre as $Producpadre) {
+						echo '<li>
+				<label>Descripcion</label>
+				<input type="text" id="txtTituloProducto" value="' . $Producpadre[0]['nompro'] . '" disabled style="width:300px">
+				<input type="hidden" name="productospadres[]" id="txtIdProducto" value="' . $Producpadre[0]['idproducto'] . '">
+						<!--Esto es llenado al elegir la opcion de la lista-->
+				<span class="ui-icon ui-icon-closethick">close</span>
+				</li>';
+					} ?>
+				</fieldset>
+			</div>
+
+		</ul>
+		<!--
+		<ul>
+			<li>
+				<label>Precio Lista</label>
+				<input type="text"  class="required cod-pro uppercase" name="Producto[preciolista]" value="<?php echo $Producto[0]['preciolista'] ?>" >
+			</li>
+			<li>
+				<label>Precio Costo</label>
+				<input type="text"  class="required cod-pro uppercase" name="Producto[preciocosto]" value="<?php echo $Producto[0]['preciocosto'] ?>" >
+			</li>
+			<li>
+				<label>FOB</label>
+				<input type="text"  class="required cod-pro uppercase" name="Producto[fob]" value="<?php echo $Producto[0]['fob'] ?>" >
+			</li>
+			<li>
+				<label>CIF</label>
+				<input type="text"  class="required cod-pro uppercase" name="Producto[cif]" value="<?php echo $Producto[0]['cif'] ?>" >
+			</li>
+			<li>
+				<label>Stock Actual</label>
+				<input size="8" type="text"  class="required cod-pro uppercase" name="Producto[stockactual]" value="<?php echo $Producto[0]['stockactual'] ?>" >
+			</li>
+			<li>
+				<label>Stock Disponible</label>
+				<input size="8"  class="required cod-pro uppercase" name="Producto[stockdisponible]" value="<?php echo $Producto[0]['stockdisponible'] ?>" >
+			</li>
+		</ul><br>
+		|-->
+		<br>
+		<ul>
+			<li>
+				<input type="submit" value="Actualizar">
+				<button id="btnCancelar">Cancelar</button>
+			</li>
+		</ul>
+
+
+	</fieldset>
+</form>
+
+<div id="contenedorModal">
+	<div id="modal">
+		<tbody>
+			<center>
+				<H4><?php echo $Producto[0]['codigopa']; ?></H4>
+				<H4><?php echo $Producto[0]['nompro']; ?></H4><br>
+
+				<?php $imagenReal = ROOT . "imagenes" . DS . "productos" . DS . $Producto[0]['codigopa'] . DS . $Producto[0]['imagen']; ?>
+				<?php $imagenAlterna = $RutaImagen . "/sin-imagen.png"; ?>
+				<?php $imagenproducto = (!empty($Producto[0]['imagen']) && is_readable($imagenReal) ? ($RutaImagen . $Producto[0]['codigopa'] . '/' . $Producto[0]['imagen']) : $imagenAlterna); ?>
+				<img src="<?php echo "/imagenes/productos/" . (!empty($Producto[0]['imagen']) ? $Producto[0]['codigopa'] . "/" . $Producto[0]['imagen'] : "sin-imagen.png"); ?>" width="550px">
+			</center>
+		</tbody>
+	</div>
+	<button id="imprimirProducto"><img src="/imagenes/imprimir.gif"></button>
+</div>

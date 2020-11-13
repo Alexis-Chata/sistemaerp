@@ -1,0 +1,13 @@
+<script src="/javascript/empaque.js"></script>
+<form action="/empaque/graba/" method="POST">
+	<fieldset>
+		<legend>Registro de Nuevo Empaque</legend>
+		<ul>
+		<li><label>Codigo</label><input type="text" required name="Empaque[codempaque]"></li>
+		<li><label>Nombre</label><input type="text" name="Empaque[nombre]"></li>
+		<li><label>Decripcion</label><input type="text" name="Empaque[descripcion]"></li>
+		<li><input id="btnGrabar" type="submit" value="Registrar"></li>
+		<li><button id="btnCancelar">Cancelar</button></li>
+	</ul>
+	</fieldset>
+</form>

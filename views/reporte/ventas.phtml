@@ -1,0 +1,70 @@
+<script src="/javascript/reporte-ventas.js"></script>
+<h2>Reporte : Ventas</h2>
+<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+	<form action="/reporte/ventas/" id="frmbusqueda">
+		<ul>
+			<li>
+				<label>Seleccione una de las opiones</label>
+				<input type="radio" name="rbFiltro" value="1" id="rbLinea" checked> Por Linea
+				&nbsp;<input type="radio" name="rbFiltro" value="2" id="rbVendedor"> Por Vendedor	
+				&nbsp;<input type="radio" name="rbFiltro" value="3" id="rbRangoFecha"> Por Rango Fecha
+			</li>
+			<li id="liLinea">
+				<label>Linea</label>
+				<select id="lstLinea" name="linea">
+					<option value="">-- Seleccionar uno --</option>
+					<?php
+						for($i=0;$i<count($linea);$i++){
+							echo '<option value="'.$linea[$i]['idlinea'].'">'.$linea[$i]['nomlin'].'</option>';
+						}
+					?>
+				</select>
+			</li>
+			<li id="liVendedor">
+				<label>Vendedor</label>
+				<select id="lstVendedor" name="vendedor">
+					<option value="">-- Seleccionar uno --</option>
+					<?php
+						for($i=0;$i<count($vendedor);$i++){
+							echo '<option value="'.$vendedor[$i]['idactor'].'">'.$vendedor[$i]['nombreconcat'].'</option>';
+						}
+					?>
+				</select>
+			</li>
+			<li id="liRangoFecha">
+				<label for="">Rango de fecha</label>
+				<input type="text" name="fechaInicial" id="txtFechaInicial" class="datepicker">
+				<input type="text" name="fechaFinal" id="txtFechaFinal" class="datepicker">
+			</li>
+			<li>
+				<input type="submit" value="Consultar" id="btnConsultar">
+			</li>
+
+		</ul>
+	</form>
+	<form action="/pdf/ventas/" method="post" target="_blank">
+		<input type="submit" value="ver en pdf" id="mostrarPDF">
+		<input type="hidden" id="valorLinea"  name="linea">
+		<input type="hidden" id="valorVendedor"  name="vendedor">
+		<input type="hidden" id="valorFechaI" name="fechaInicial">
+		<input type="hidden" id="valorFechaF" name="fechaFinal">
+	</form>	
+	
+</fieldset>
+<table id="dataGridReport">
+	<thead>
+		<tr>
+			<th data-field="fordenventa">Fecha</th>
+			<th data-field="codigov">Orden Venta</th>
+			<th data-field="razonsocial">cliente</th>
+			<th data-field="importeordencobro">Importe</th>
+			<!--<th data-field="">Devolución</th>-->
+			<th data-field="importedoc">Saldo</th>
+			<th data-field="condicion">Condición</th>
+			<th data-field="vendedor">Vendedor</th>
+			<!--<th data-field="">Estado</th>-->
+			<th data-field="fvencimiento">Vencimiento</th>
+		</tr>
+	</thead>
+</table>

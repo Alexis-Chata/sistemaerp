@@ -1,0 +1,63 @@
+<script src="/javascript/clientesregistrados.js"></script>
+<br>
+<h2>Listado :: Clientes Registrados</h2>
+
+<fieldset style="position:relative">
+    <form id="frmRegistrados" action="" method="post" target="_blank" >
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Desde</label>
+                <input type="text" class="datepicker" id="txtFechaInicio" name="txtFechaInicio" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+            <li>
+                <label for="txtFechaFin">Hasta</label>
+                <input type="text" class="datepicker" id="txtFechaFin" name="txtFechaFin" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+            <li>
+                <label>Zona Geografica</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal">
+                    <option value="">Seleccione Zona Geografica</option>
+                    <?php $cantidadCategoriaPrincipal = count($categoriaPrincipal); ?>
+                    <?php for ($i = 0; $i < $cantidadCategoriaPrincipal; $i++) { ?>
+                        <option value="<?php echo $categoriaPrincipal[$i]['idcategoria']; ?>"><?php echo $categoriaPrincipal[$i]['nombrec'] ?></option>
+                    <?php } ?>
+                </select>	  	
+            </li>
+            <li>
+                <label>Region de Cobranza</label>
+                <select name="lstRegionCobranza" id="lstRegionCobranza">
+                    <option value="">Zona Cobranza-Categoria</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstZona">Zona</label>
+                <select name="lstZona" id="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label for="txtVendedor">Nombre Vendedor</label>
+                <input type="text" id="txtVendedor" class="uppercase" size="50" style="background-color: skyblue;" />
+                <input type="hidden" id="idVendedor" name="idVendedor"/>
+            </li>            
+            <li>
+                <label for="lstOrden">Ordenar por</label>
+                <select name="lstOrden" id="lstOrden">
+                    <option value="1">Registro</option>
+                    <option value="2">Dirección</option>                  
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button id="btnConsultarExcel">Consultar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>
+<hr>
+<div id="carteraCliente"></div>

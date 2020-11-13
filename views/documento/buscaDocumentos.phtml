@@ -1,0 +1,150 @@
+<script src="/javascript/documento.js"></script>
+
+<div id="listados">
+<h2>Seguridad: Documentos</h2><br>
+<form method="POST" action="/documento/buscaDocumentos/">
+	<div id="busqueda">
+			Busqueda: </br>
+			<input type="text" value="<?php echo $retorno ?>" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Orden de Venta o N° de Documento" autofocus="on">
+			<input type="submit" value="Ver"/>
+	</div>
+</form>
+<button id="btnCancelar">Cancelar</button>
+<table>
+	<thead>
+		<tr>
+			<th colspan="15">Listado de Documentos</th>
+		</tr>
+		<tr>
+			<th>Orden Venta</th>
+			<th>Documento</th>
+			
+			<th>Importe. Documento</th>
+			
+			
+			<th>Factura</th>
+			<th>Boleta</th>
+			<th>Recibo</th>
+			<th>Guia</th>
+			<th>N.Credito</th>
+			<th>N.Debito</th>
+			<th>Letra</th>
+			<th title="Es Impreso?">Imp</th>
+			
+			<th colspan="3" title="Acciones">Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php for ($i=0; $i <count($Factura) ; $i++) { ?>
+
+		<tr>
+			<td style="text-align: center;"><?php echo $Factura[$i]['codigov']; ?></td>
+			<td style="text-align: center;"><?php echo str_pad($Factura[$i]['serie'],3,'0',STR_PAD_LEFT)." - ".$Factura[$i]['numdoc']; ?></td>
+		
+			<td style="text-align: right;"><?php echo number_format($Factura[$i]['importeov'],2); ?></td>
+			
+			
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==2?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==3?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==4?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==5?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==6?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['nombredoc']==7?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['esimpreso']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<?php 
+			$link="";
+			$imprimir=""; 
+			switch ($Factura[$i]['nombredoc']) {
+			    case 1:
+			        $link='/pdf/generaFactura/';
+			        $imprimir='/documento/imprimirDocumento/';
+			        break;
+			    case 2:
+			        $link='#';
+			        $imprimir='#';
+			        break;
+			    case 3:
+			        $link='#';
+			        $imprimir='#';
+			        break;
+			    case 4:
+			        $link='/pdf/generaGuiaRemision/';
+			        $imprimir='/documento/imprimirDocumento/';
+			        break;
+			    case 5:
+			        $link='#';
+			        $imprimir='#';
+			        break;
+			    case 6:
+			        $link='#';
+			        $imprimir='#';
+			        break;
+			    case 7:
+			        $link='#';
+			        $imprimir='#';
+			        break;
+			    default:
+			    	$link='#';
+			    	$imprimir='#';
+			}
+					
+			
+
+			?>
+			
+			<td style="text-align: center;"><?php echo $Factura[$i]['esimpreso']==0?'<a class="imprimir"  style="color:blue;" href="'.$imprimir.$Factura[$i]['iddocumento'].'"><img style="margin:auto;display:block" width="20" high="20" src="/public/imagenes/imprimir.gif"></a>':'<img style="margin:auto;display:block" width="20" high="20" src="/public/imagenes/transp.png">' ?></td>
+			<td style="text-align: center;"><?php echo '<a target="_blank" style="color:blue;" href="'.$link.$Factura[$i]['iddocumento'].'"><img style="margin:auto;display:block" width="20" high="20" src="/public/imagenes/ver.gif"> </a>'  ?></td>
+			<td style="text-align: center;"><a  style="color:blue;" href="<?php echo '/documento/editarDocumento/'.$Factura[$i]['iddocumento']; ?>"><img style="margin:auto;display:block" width="20" high="20" src="/public/imagenes/editar.gif"> </a></td>
+			
+		</tr>
+		<?php } ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="15" align="center">
+		<?php
+				if (empty($_REQUEST['id'])) {
+					$pagina=1;
+				}else{
+					$pagina=$_REQUEST['id'];	
+				}
+				
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/documento/listaDocumentos/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/documento/listaDocumentos/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/documento/listaDocumentos/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/documento/listaDocumentos/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+		?>
+		
+		</tr>
+	</tfoot>
+</table>
+
+</div>

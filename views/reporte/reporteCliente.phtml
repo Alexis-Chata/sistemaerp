@@ -1,0 +1,39 @@
+<script src="/javascript/reporte-cliente.js"></script>
+<h2>Reporte: Cliente</h2>
+
+<fieldset>
+	<input id="txtCliente" type="text" placeholder="Ingrese Razon Social o Nro RUC" size="50" autofocus="on" >
+	
+	<input type="hidden" id="txtIdCliente" name="idcliente">
+<br><br>
+		Código:<input type="text" name="codigo" readonly id="codigo" disabled> 
+		Razon Social:<input type="text" name="razonsocial" readonly id="razonsocial" size="40" disabled> 
+		Número de RUC:<input type="text" name="ruc" readonly id="ruc" disabled>
+		Codigo Dakkar:<input type="text" name="codantiguo" readonly id="codantiguo" disabled>
+	
+</fieldset>
+<fieldset>
+	Fecha Inicio
+	<input id="fechaInicio" readonly type="text" class="datepicker" placeholder="Fecha Inicio" size="12">
+	Fecha Final
+	<input id="fechaFinal" readonly type="text" class="datepicker" placeholder="Fecha Final" size="12">
+	<select id="lstSituacion">
+		<option value="0">Situacion</option>
+		<option value="pendiente">Pendiente</option>
+		<option value="cancelado">Cancelado</option>
+	</select>
+	<select id="lstTipoCobro">
+		<option value="0">Tipo Cobro</option>
+		<option value="1">Contado</option>
+		<option value="2">Credito</option>
+		<option value="3">Letra Banco</option>
+		<option value="4">Letra Cartera</option>
+	</select>
+	<button id="btnConsultar">Consultar</button>
+	<a id="btnImprimir" href="#"><img src="/imagenes/imprimir.gif"></a>
+</fieldset>
+<div id="contenedor">
+	<table id="tblcontenedor">
+
+	</table>
+</div>

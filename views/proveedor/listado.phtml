@@ -1,0 +1,75 @@
+<?php $idmodulo=29; require_once 'evalcredenciales.php'; ?>
+<div id="listados">
+<h2>Mantenimiento : Proveedor</h2>
+<form method="POST" action="/proveedor/busqueda/">
+<div id="busqueda">Busqueda: <input type="text" id="txtBusqueda" name="txtBusqueda" size="50px">
+		<input type="submit" value="Ver">
+</form>
+</div>
+<table>
+	<thead>
+		<tr>
+			<th colspan="8">Listado de Proveedores</th>
+			<th><a href="/proveedor/nuevo" class='c3_datashet'><img src="/imagenes/iconos/nuevo.gif">
+				</a></th>
+		</tr>
+		<tr>
+			<th>Razon Social</th>
+			<th>RUC/NIF</th>
+			<th>Rep. Legal</th>
+			<th>Contacto</th>
+			<th>Telefono 01</th>
+			<th>Telefono 02</th>
+			<th>Email</th>
+			<th>Fax</th>
+
+		<!--	<th>Contrase&ntilde;a</th> -->
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$TActor=sizeof($proveedor);
+		for($i=0;$i<$TActor;$i++){
+			if($proveedor[$i]['estado']==0){
+								
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";				
+		$fila.="<td>".$proveedor[$i]['razonsocialp']."</td>";
+			$fila.="<td>".$proveedor[$i]['rucp']."</td>";
+			$fila.="<td>".$proveedor[$i]['rlegal']."</td>";
+			$fila.="<td>".$proveedor[$i]['contacto']."</td>";
+			$fila.="<td>".$proveedor[$i]['telefonop']."</td>";
+			$fila.="<td>".$proveedor[$i]['telefonop2']."</td>";
+			$fila.="<td>".$proveedor[$i]['emailp']."</td>";
+			$fila.="<td>".$proveedor[$i]['faxp']."</td>";												
+		/*	$fila.="<td>".$actor[$i]['contrasena']."</td>";*/	
+			$fila.="<td width=\"100px\">
+						<a href=\"/proveedor/editar/".$proveedor[$i]['idproveedor']."\" class='c1_datashet'><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/proveedor/eliminar/".$proveedor[$i]['idproveedor']."\" class='c2_datashet'><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="9" align="center">
+		<?php
+			for($i=0;$i<$paginacion;$i++){
+				echo "<a href=\"/proveedor/listado/".($i+1)."\">Pag.  ".($i+1)." </a>";
+				if($paginacion-$i>1){
+					echo "||";
+				}
+			}
+		?>
+		</td>
+		</tr>
+	</tfoot>
+</table>
+</div>

@@ -1,0 +1,22 @@
+<script src="/javascript/categoria.js"></script>
+<form action="/zona/actualizacategoria/" method="POST">
+		<h2><p>EDITAR CATEGORIA PRINCIPAL:</p></h2>
+	<ul>	
+
+		<li>
+			<label>C&oacute;digo</label>
+			<input type="text" readonly name="Categoria[codigoc]" value="<?php echo $Categoria[0]['codigoc']; ?>">
+		</li>
+		<li>
+			<label>Nombre</label>
+			<input class="required uppercase" required type="text" name="Categoria[nombrec]" value="<?php echo $Categoria[0]['nombrec']; ?>">
+		</li>
+	</ul>
+	<input id="valorId" type="hidden" name="idcategoria" value="<?php echo $Categoria[0]['idcategoria']; ?>">
+	<p><input type="submit" value="..::: ACTUALIZAR :::.." ><button id="btnCancelar">Cancelar</button>
+		
+		<button id="eliminacategoria">Eliminar Categoria</button>
+		<b id="error"></b>
+	</p>
+		
+</form>

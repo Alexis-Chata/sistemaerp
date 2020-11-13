@@ -1,0 +1,88 @@
+<script src="/javascript/orden-compra.js"></script>
+<h2>Almacenes: Verificación de Entradas</h2>
+
+<br>
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>">
+<input type="hidden" value="1" id="contador">
+<form action="/ordencompra/registra/" method="POST" id="frmRegistroOrdenCompra">
+		<div class="field-set">
+			<p class="title">Ordenes de Compra</p>
+			<div class="body">
+			<ul>
+				<label>Fecha</label>
+				<input type="hidden" id="txtNumeroMovimiento" value="<?php echo ($numeroMovimiento + 1) ?>">
+				<input type="hidden" name="Movimiento[tipomovimiento]" value="1">
+				<input type="hidden" name="Movimiento[conceptomovimiento]" value="1">
+				<input type="hidden" name="Movimiento[fechamovimiento]" value="<?php echo date('Y/m/d')?>">
+				<input type="hidden" name="cantidadDetalle" value="0" id="txtCantidadDetalle">
+				<label style="color:#007F7F"><?php echo date('d/m/Y'); ?></label>
+			</li>
+				<li class="ingresoCompras">
+					<label>Orden de compra</label>
+					<select name="Movimiento[idordencompra]" id="lstOrdenCompra" class="required">
+						<option value="">-- Seleccionar uno --</option>
+						<?php
+							for($i=0;$i<count($Ordencompra);$i++){
+								echo '<option value="'.$Ordencompra[$i]['idordencompra'].'">'.$Ordencompra[$i]['codigooc']." - ".$Ordencompra[$i]['razonsocialp'].'</option>';	
+							}
+						?>
+					</select>
+				</li>
+				<li>
+					<label>Tipo Documento</label>
+					<select name="Movimiento[tipodoc]" id="lstTipoDocumento" class="required">
+						<option value="">-- Seleccionar uno --</option>
+						<?php
+							for($i=1;$i<=count($Tipodocumento);$i++){
+								echo '<option value="'.$i.'">'.$Tipodocumento[$i];
+							}
+						?>
+					</select>
+				</li>
+				<li>
+					<label>Serie.</label>
+					<input type="text" name="Movimiento[serie]" class="numeric text-100 required" maxlength="3">
+				</li>
+				<li>
+					<label>Nro. Doc.</label>
+					<input type="text" name="Movimiento[ndocumento]" class="numeric text-100 required">
+				</li>
+			</ul>
+			<ul class="block">
+				<li class="block">
+					<label>Observaci&oacute;nes</label>
+					<input type="text" class="uppercase text-full" name="Movimiento[observaciones]">
+				</li>
+			</ul>
+		</div>
+		</div>
+		<div class="field-set">
+			<p class="title">Productos</p>
+			<div class="body">
+			<div id="listados">
+			<table id="tblDetalleOrdenCompra">
+				<thead>
+					<tr>
+						<th rowspan="2">foto</th>
+						<th rowspan="2">C&oacute;digo</th>
+						<th rowspan="2">Empaque</th>
+						<th rowspan="2">Marca</th>
+						<th colspan="2">Cantidad</th>
+						<th rowspan="2">Unidad</th>
+						<th rowspan="2">Stock<br>Actual</th>
+						<th rowspan="2" colspan="2">Verificaci&oacute;n</th>
+					</tr>
+					<tr>
+						<th>Solicitada</th>
+						<th>Recibida</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		</div>
+		<input type="submit" value="Registrar Entradas Verificadas" id="btnRegistrarOrdenCompra">
+		<button id="btnCancelarRegistro">Cancelar</button>
+	</form>

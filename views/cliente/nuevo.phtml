@@ -1,0 +1,172 @@
+<script src="/javascript/transporte.js"></script>
+<script src="/javascript/mantenimiento-cliente.js"></script>
+<h2>Registro de Cliente Nuevo</h2>
+<form action="/cliente/graba/" method="POST">
+	<fieldset>
+		<legend>Datos del Cliente</legend>
+		<ul class="inline-block">
+			<li>
+				<label>Codigo de Dakkars</label>
+				<input type="text" id="codigoCliente" name="Cliente[codantiguo]" class="numeric" maxlength="12"  autocomplete="off">
+				<b id="error"></b>
+			</li>
+			<li>
+				<label>Tipo de Cliente</label>
+				<select name="Cliente[tipocliente]" id="lstTipoCliente" required>
+					<option value="">-- Tipo --</option>
+					<?php
+						for($i=1;$i<=count($TipoCliente);$i++){
+							echo '<option value="'.$i.'">'.$TipoCliente[$i];
+						}
+					?>
+				</select>
+			</li>
+
+			<li class="pnatural">
+				<label>Apellido Paterno:</label>
+				<input type="text" id="apellido1" name="Cliente[apellido1]" class="required uppercase" >
+			</li>
+			<li class="pnatural">
+				<label>Apellido Materno:</label>
+				<input type="text" id="apellido2" name="Cliente[apellido2]" class="required uppercase" >
+			</li>
+			<li class="pnatural">
+				<label>Nombres:</label>
+				<input type="text" id="nombrecli" name="Cliente[nombrecli]" class="required uppercase" >
+			</li>
+			<li class="pjuridica">
+				<label>Razon Social:</label>
+				<input type="text" id="razonsocial" name="Cliente[razonsocial]" class="txtRSocial uppercase" size="40">
+			</li>
+			<li class="pnatural">
+				<label>DNI:</label>
+				<input type="text" id="dni" name="Cliente[dni]" size="8" maxlength="8" class="required numeric">
+			</li>
+			<li >
+				<label>RUC:</label>
+				<input type="text" id="ruc" name="Cliente[ruc]" size="11" minlength="11" maxlength="11" class="numeric" >
+			</li>
+			<li>
+				<label>Nombre Comercial</label>
+				<input type="text" name="Cliente[nombrecomercial]" size="40" class="uppercase">
+			</li>
+			<li>
+				<label>Nombre Contacto</label>
+				<input type="text" name="Cliente[nombre_contacto]" required class="uppercase" size="40">
+			</li>
+			<li>
+				<label>Nombre Aval</label>
+				<input type="text" name="Cliente[nombreaval]"  class="uppercase" size="40">
+			</li>
+			<li>
+				<label>Pagina Web</label>
+				<input type="text" placeholder="https://www.miPaginaWeb.com" name="Cliente[paginaweb]" size="40">
+			</li>
+		
+			<li>
+				<label>Localidad:</label>
+				<select id="lstDepartamento" class="required" required>
+					<option value="">Departamento</option>
+					<?php
+						for($i=0;$i<count($Departamento);$i++){
+							echo '<option value="'.$Departamento[$i]['iddepartamento'].'">'.$Departamento[$i]['nombredepartamento'];
+						}
+					?>
+				</select>
+				<select id="lstProvincia" class="required" required>
+					<option value="">Provincia</option>
+				</select>
+				<select name="Cliente[iddistrito]" class="lstDistrito required" id="lstDistrito" required>
+					<option value="">Distrito</option>
+				</select>
+			</li>
+			<li>
+				<label>Direcci&oacute;n:</label>
+				<input type="text" name="Cliente[direccion]" class="required uppercase" required size="40"> 
+			</li>
+			<li>
+				<label>Dirección de despacho:</label>
+				<input type="text" name="Cliente[direccion_despacho_cliente]" class="required uppercase" required size="40"> 
+			</li>
+			<li>
+				<label>Horario de Atención:</label>
+				<input type="text" name="Cliente[horarioatencion]" class="required uppercase" required size="40"> 
+			</li>
+			<li>
+				<label>E-mail 1:</label>
+				<input type="email" name="Cliente[email]" class="email" >
+			</li>
+                        <li>
+				<label>E-mail 2:</label>
+				<input type="email" name="Cliente[email2]" class="email" >
+			</li>
+			<li>
+				<label>Teléfono Fijo:</label>
+				<input type="text" name="Cliente[telefono]"> <!-- class="numeric"-->
+			</li>
+			<li>
+				<label>Teléfono Movil: </label>
+				<input type="text" name="Cliente[celular]"><!-- class="numeric"-->
+			</li>
+			<li>
+				<label>Fax:</label>
+				<input type="text" name="Cliente[fax]" maxlength="7" ><!-- class="numeric"-->
+			</li>
+			<li>
+				<label>Transporte</label>
+				<select id="lstTransporte" name="idTransporte" required>
+					<option value="">-- Transporte --
+					<?php
+						for($i=0;$i<count($Transporte);$i++){
+							echo '<option value="'.$Transporte[$i]['idtransporte'].'">'.$Transporte[$i]['trazonsocial'];
+						}
+					?>
+				</select>
+				<button class="small-button" id="btnNuevoTransporte">...</button>
+			</li>
+			<li>
+				<label>Zona</label>
+				<!--<input type="text" id="txtzona" name="txtzona" required>-->
+				<select id="listazona" name="Cliente[zona]" required>
+					<option value="">Seleccione una Zona</option>
+					<?php 
+					for ($i=0; $i <count($Zona) ; $i++) { ?>
+						<option value="<?php echo $Zona[$i]['idzona']; ?>"><?php echo $Zona[$i]['nombrezona']; ?></option>
+				<?php	}?>
+				</select>
+
+
+				<input type="hidden" id="idzona" name="idzona">
+			</li>
+			<li>
+				<label>Vendedor</label>
+				<select id="listaVendedor" name="valorVendedor" required>
+					<option value="">Seleccione un Vendedor</option>
+					<?php 
+					for ($i=0; $i <count($Vendedor) ; $i++) { ?>
+						<option value="<?php echo $Vendedor[$i]['idactor']; ?>"><?php echo $Vendedor[$i]['nombreconcat']; ?></option>
+				<?php	}?>
+				</select>
+			</li>
+                        <li>
+                            <label>Linea:</label>
+                            <select id="lstLineaNuevo" name="Cliente[idlinea]" required>
+                                <option value="">Seleccione Linea</option>
+                                <?php
+                                for ($i = 0; $i < count($Linea); $i++) {
+                                    echo '<option value="' . $Linea[$i]['idlinea'] . '">' . $Linea[$i]['nomlin'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </li>
+                        <li>
+                            <label>Sublinea:</label>
+                            <select name="Cliente[idsublinea]" id="lstSublineaNuevo" required>
+                                <option value="">Seleccione Sublinea</option>
+                            </select>
+                        </li>
+		</ul>
+	</fieldset>
+	<input type="submit" id="nuevoCliente" value="Registrar" class="btnRegistrar">
+	<button id="btnCancelar">Cancelar</button>
+</form>

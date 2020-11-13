@@ -1,0 +1,23 @@
+<div id="listados">
+<table>
+		<caption>Listado de Almacenes</caption>
+		<tr>
+			<th>Nombre</th>
+			<th>Direcci&oacute;n</th>
+			<th>Ruc</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Almacen);$i++){
+				echo "<tr>";
+					echo "<td>".$Almacen[$i]['nomalm']."</td>";
+					echo "<td>".$Almacen[$i]['direccion']."</td>";
+					echo "<td>".$Almacen[$i]['ruc']."</td>";
+					echo "<td><a href=\"/almacen/editar/".$Almacen[$i]['idalmacen']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/almacen/elimina/".$Almacen[$i]['idalmacen']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+</table>
+<a href="/almacen/nuevo/"><img src="/imagenes/new.gif"></a>
+</div>

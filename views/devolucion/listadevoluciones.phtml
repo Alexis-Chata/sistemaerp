@@ -1,0 +1,62 @@
+<script src="/javascript/devolucion.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Lista de Devoluciones [Por Registrar]</h2>
+<fieldset>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="6"></th>
+                <th><a href="/devolucion/devolucion"><img src="/public/imagenes/iconos/nuevo.gif"> </a> </th>
+            </tr>
+            <tr>
+                <th rowspan="2">N° de Devolucion</th>
+                <th rowspan="2">OrdenVenta</th>
+                <th rowspan="2">Importe ToTal</th>
+                <th rowspan="2">Estado</th>
+                <th colspan="3">Acciones</th>
+            </tr>
+            <tr>
+                <th>Ver</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($devolucion); $i++) { ?>
+                <tr>
+                    <td style="text-align: center;"><?php echo $devolucion[$i]['iddevolucion']; ?> </td>
+                    <td style="text-align: center;"><?php echo $devolucion[$i]['codigov']; ?> </td>
+                    <td style="text-align: right;">S/.<?php echo number_format($devolucion[$i]['importetotal'], 2); ?> </td>
+                    <td style="text-align: center;"><?php echo $devolucion[$i]['aprobado'] == 1 ? 'Aprobado' : 'Pendiente'; ?> </td>
+                    <td ><a class="verdetalle" id="<?php echo $devolucion[$i]['iddevolucion']; ?>" href=""><img style="margin:auto;display:block" src="/public/imagenes/ver.gif" ></a></td>
+                    <td><a href="/devolucion/devolucion/<?php echo $devolucion[$i]['iddevolucion'] ?> "><img style="margin:auto;display:block" src="/public/imagenes/editar.gif" ></a></td>
+                    <td><a class="devEliminar"  href="/devolucion/eliminarDevolucion/<?php echo $devolucion[$i]['iddevolucion'] ?> "><img style="margin:auto;display:block" src="/public/imagenes/eliminar.gif" ></a></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+        <tfoot>
+        
+        </tfoot>
+    </table>
+    <div id="detalle">
+        <b id="mensaje"></b>
+        <table id="tbldetalles">
+            <thead>
+                <tr>
+                    <th>Numero de Devolucion</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Importe</th>
+                </tr>			
+            </thead>
+            <tbody>
+            <td></td>
+            </tbody>
+            <tfoot>
+            <td></td>
+            </tfoot>
+        </table>
+        <button id="btncerrar">Cerrar Detalle</button>
+    </div>
+</fieldset>

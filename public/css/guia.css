@@ -1,0 +1,80 @@
+article{
+	font-size: 6px;
+	
+}
+section{
+	width:750px;
+	min-height:1060px ;
+}
+#muestra{
+	width:750px;
+	min-height:1200px ;
+	
+
+}
+
+#encabezado{
+	position: relative;
+	top:200px;
+	left:35px;
+	width:692px;
+
+}
+#cuerpoFactura{
+	position: relative;
+	top:250px;
+	left:22px;
+	width:692px;
+	
+}
+#piepagina{
+	position: relative;
+	top:990px;
+	left: 65px;
+	width: 655px;
+
+}
+.td1{
+	
+	width:64px; 
+	    
+}
+.td2{
+	
+	width:320px; 
+	    
+}
+.td3{
+	
+	width:125px; 
+	    
+}
+.td4{
+	
+	width:178px; 
+	    
+}
+.tc1{
+	width: 35px;
+	text-align: center;
+}
+.tc2{
+	width: 64px;
+	text-align: center;
+}
+.tc3{
+	width: 335px;
+	text-align: left;
+}
+.tc4{
+	width: 75px;
+	text-align: center;
+}
+.tc5{
+	width: 85px;
+	text-align: right;
+}
+.tc6{
+	width: 78px;
+	text-align: right;
+}

@@ -1,0 +1,105 @@
+<script type="text/javascript"src="/javascript/codigosgenerados.js" ></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">LISTADO :: Códigos de Verificación</h2>
+<style>
+    .blockVer {
+        background: #9cd4e2; 
+        border-right: 2px double black;
+    }
+    .classTdFila {
+            background: #015586;
+    color: #e8f1fc;
+    }
+</style>
+<fieldset>
+    <ul>
+        <li>
+            <input type="checkbox" id="chkUsar"> Pendiente
+        </li>
+        <li>
+            <input type="checkbox" id="chkProceso"> En proceso
+        </li>
+        <li>
+            <input type="checkbox" id="chkUsadas"> Usadas
+        </li>
+        <li>
+            <input type="checkbox" id="chkVencidas"> Vencidas
+        </li>
+        <br>
+        <li>
+            <label>Fecha Inicio</label>
+            <input style="background:pink;" type="text" id="txtFechaInicio" class="datepicker">
+        </li>
+        <li>
+            <label>Fecha Fin</label>
+            <input style="background:pink;" type="text" id="txtFechaFin" class="datepicker">
+        </li>
+        <li>
+            <label>Usuario: </label>
+            <select id="cmbUsuario" required>
+                <option Value=""> -- Seleccione Usuario -- </option>
+                <?php
+                $cantidad = count($UsuariosVerificacion);
+                for ($i = 0; $i < $cantidad; $i++) {
+                    ?>
+                    <option value="<?php echo $UsuariosVerificacion[$i]['idactor'] ?>"><?php echo $UsuariosVerificacion[$i]['nombres'] . ' ' . $UsuariosVerificacion[$i]['apellidopaterno'] . ' ' . $UsuariosVerificacion[$i]['apellidomaterno'] . ' :: ' . $UsuariosVerificacion[$i]['usuario']; ?></option>
+                <?php } ?>
+            </select>
+        </li>
+        <li>
+            <label>Módulo: </label>
+            <select id="cmbModulo" required>
+                <option Value=""> -- Seleccione Usuario -- </option>
+                <?php
+                $cantidad = count($OpcionesValidacion);
+                for ($i = 0; $i < $cantidad; $i++) {
+                    ?>
+                    <option value="<?php echo $OpcionesValidacion[$i]['idopciones'] ?>"><?php echo $OpcionesValidacion[$i]['nombre'] . ' :: ' . $OpcionesValidacion[$i]['url']; ?></option>
+                <?php } ?>
+            </select>
+        </li>
+        <li>
+            <label>Motivo: </label>
+            <select id="idMotivo" required>
+                <option Value=""> -- Seleccione Motivo -- </option>
+                <?php
+                $cantidad = count($MotivoReprogramacion);
+                for ($i = 1; $i <= $cantidad; $i++) {
+                ?>
+                    <option value="<?php echo $i ?>"><?php echo $MotivoReprogramacion[$i]; ?></option>
+                <?php } ?>
+            </select>
+        </li>
+        <li>
+            <label>Orden de Venta: </label>
+            <input type="text" id="txtOrdenVenta" placeholder="Orden de Venta">
+            <input type="hidden" id="txtIdordenventa">
+            <a href="#" style="color: red" id="limpiarOv">[ Limpiar ]</a>
+        </li>
+    </ul>
+    <br>
+    <ul>
+        <li>
+            <button id="btnFiltrar">Filtrar Busqueda</button>
+        </li>
+    </ul>
+    <table id="tblCodigosVerificacion">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Cuenta</th>
+                <th>Módulo</th>
+                <th>Orden Venta</th>
+                <th>Motivo</th>
+                <th>Código</th>
+                <th>Fecha<br>Solicitado</th>
+                <th>Fecha<br>Vencimiento</th>
+                <th>Estado</th>
+                <th colspan="2">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</fieldset>

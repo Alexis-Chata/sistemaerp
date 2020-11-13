@@ -1,0 +1,109 @@
+<script src="/javascript/categoria.js"></script>
+<div id="listados">
+	<h2>Seguridad: Categoria</h2>
+<br>
+	<form method="POST" action="/zona/buscacategoria/">
+		<div id="busqueda">
+			Busqueda: <br><input type="text" id="txtBusqueda" name="txtBusqueda" title="Seleccione una Categoria Principal y presione ver" size="25px"/>
+			<input type="submit" value="Ver"/>
+			<label>Categorias:</label>
+			<select id="lstCategorias" name="lstCategorias">
+				<option value="">Categoria Principal
+				<?php
+					$total=count($CategoriaPrincipal);
+					for($i=0;$i<$total;$i++){ ?>
+						<option value="<?php echo $CategoriaPrincipal[$i]['idcategoria']; ?>"> <?php echo $CategoriaPrincipal[$i]['codigoc']." ".$CategoriaPrincipal[$i]['nombrec']?> </option>
+					<?php }
+				?>
+			</select>
+		</div>
+		</br>
+	</form>
+	<form method="POST" action="/zona/listacategoria/">
+		<input type="submit" value="Cancelar">
+	</form>
+<table>
+	<thead>
+		<tr>
+			<th colspan="4">Listado de Categorias</th>
+			<th><a href="/zona/nuevacategoria">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a></th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Nombre Categoria</th>
+			<th>Categoria Principal</th>
+			<th>Codigo Categoria</th>
+			<th>Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$Tcategoria=sizeof($categoria);
+		for($i=0;$i<$Tcategoria;$i++){
+			if($categoria[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/zona/editarcategoria/".$zona[$i]['idcategoria']."\">".STRTOUPPER($categoria[$i]['idcategoria'])."</a></td>";
+			$fila.="<td>".$categoria[$i]['nombrec']."</td>";
+			$fila.="<td>".$categoria[$i]['idpadrec']."</td>";
+			$fila.="<td>".$categoria[$i]['codigoc']."</td>";
+			
+	
+			$fila.="<td width=\"100px\">
+						<a href=\"/zona/editarcategoria/".$categoria[$i]['idcategoria']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/zona/eliminacategoria/".$categoria[$i]['idcategoria']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="5" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/zona/buscacategoria/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/zona/buscacategoria/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/zona/buscacategoria/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/zona/buscacategoria/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+		?>
+		
+		</tr>
+	</tfoot>
+</table>
+<b>*Sino puede eliminar una Categoria es porque esta enlazado</b>
+</div>

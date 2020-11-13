@@ -1,0 +1,112 @@
+<script src="/javascript/zona.js"></script>
+<div id="listados">
+	<h2>Seguridad: Zona</h2>
+<br>
+	<form method="POST" action="/zona/busca/">
+		<div id="busqueda">
+			Busqueda: <br>
+			<input type="text" id="txtBusqueda" name="txtBusqueda" size="25px" title="Seleccione una Categoria y presione ver" value="<?php echo $retorno;?>"/>
+			<input type="submit" value="Ver"/>
+			<select id="lstCategorias" name="lstCategorias">
+				<option value="">Sin filtro de Categoria
+				<?php
+					$total=count($Categoria);
+					for($i=0;$i<$total;$i++){
+						echo "<option value=".$Categoria[$i]['idcategoria'].
+							(($idcategoria==$Categoria[$i]['idcategoria'] and $idcategoria!='')?' selected ':'')
+							.">".$Categoria[$i]['codigoc']."-".$Categoria[$i]['nombrec'];
+					}
+				?>
+			</select>
+
+		</div>
+	</form>
+	<form method="POST" action="/zona/lista/">
+		<input type="submit" value="Cancelar">
+	</form>
+<table>
+	<thead>
+		<tr>
+			<th colspan="5">Busqueda de Zonas por Categoria</th>
+			<th><a href="/zona/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a></th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Nombre </th>
+			<th>Codigo Zona</th>
+			<th>Observacion</th>
+			<th>Categoria</th>
+			<th>Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$Tzona=sizeof($zona);
+		for($i=0;$i<$Tzona;$i++){
+			if($zona[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/zona/editar/".$zona[$i]['idzona']."\">".STRTOUPPER($zona[$i]['idzona'])."</a></td>";
+			$fila.="<td>".$zona[$i]['nombrezona']."</td>";
+			$fila.="<td>".$zona[$i]['codigoz']."</td>";
+			$fila.="<td>".$zona[$i]['observacion']."</td>";
+			$fila.="<td>".$zona[$i]['nombrec']."</td>";
+			
+	
+			$fila.="<td width=\"100px\">
+						<a href=\"/zona/editar/".$zona[$i]['idzona']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/zona/elimina/".$zona[$i]['idzona']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="10" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/zona/busca/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/zona/busca/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/zona/busca/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/zona/busca/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+		?>
+		
+		</tr>
+	</tfoot>
+</table>
+</div>

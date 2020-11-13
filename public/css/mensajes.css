@@ -1,0 +1,46 @@
+BODY{
+	background-color:#000;
+	background-image:url('../imagenes/____fondo_registro.png');
+	background-repeat: no-repeat;
+	background-position: center top;
+	color:#343435;
+}
+
+.mensajes
+	{
+		background-image:url('../imagenes/transp.png');
+		position: absolute;
+		/*nos posicionamos en el centro del navegador*/
+		top:50%;
+		left:50%;
+		/*determinamos una anchura*/
+		width:300px;
+		/*indicamos que el margen izquierdo, es la mitad de la anchura*/
+		margin-left:-200px;
+		/*determinamos una altura*/
+		height:auto;
+		/*indicamos que el margen superior, es la mitad de la altura*/
+		margin-top:-100px;
+		/*border:3px solid #808080;*/
+		border-radius: 20px;
+		padding:0px;
+		text-align: center;
+		font-family: Georgia, 'Times New Roman', serif;
+		color: #CC0000;
+	}
+p {
+text-align: right;
+padding-right: 30px;
+}
+
+#form{
+	width: 80%;
+	padding: 20px 20px;
+}
+
+#header{
+	background:url("../imagenes/celestiumlogo.png") no-repeat;
+	width:900px;
+	height:100px;
+	margin:auto;
+}

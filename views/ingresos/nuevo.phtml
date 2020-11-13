@@ -1,0 +1,192 @@
+<script type="text/javascript" src="/javascript/wc_ordenventa.js"></script>
+
+<div id="listados">
+    <h2>Módulo de Caja - Bancos :: Registro de Ingresos </h2>
+    <br>
+    <?php $cantidadBanco = count($dataBanco); ?>
+    <div id="busqueda">
+        Busqueda:<input required type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+        <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+    </div>
+
+    <div id="cliente">
+        <fieldset>
+            <legend>Datos del Cliente</legend>
+            Código:<input type="text" name="codigo" readonly id="codigo" >
+            Razon Social:<input type="text" name="razonsocial" readonly id="razonsocial" size="40">
+            Número de RUC:<input type="text" name="ruc" readonly id="ruc">
+            Codigo Dakkar:<input type="text" name="codantiguo" readonly id="codantiguo">
+        </fieldset>
+    </div>
+    <div id="datosingreso">
+        <form action="/ingresos/registrar" method="POST">
+            <fieldset>
+                <legend>Registro de Ingreso</legend>
+                <table>
+                    <tr>
+                        <th>
+                            <input type="hidden" name="Ingreso[idcliente]" readonly id="idcliente" >
+                            <input type="hidden" id="idOrdenVenta" name="Ingreso[idOrdenVenta]" >
+                            <input type="hidden" id="esvalidado" name="Ingreso[esvalidado]" value="1">
+                            Fecha de Pago:
+                        </th>
+                        <td>
+                            <input type="text" class="datepicker" readonly required="required" name="Ingreso[fcobro]" id="fechapago">
+                        </td>
+                        <th>Fecha y Hora de registro</th>
+                        <td><b><?php echo date("d/M/Y h:m:s") ?></b></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Nombre del cobrador :
+                        </th>
+                        <td>
+                            <select  name="Ingreso[idcobrador]" required>
+                                <option value="">Elija cobrador</option>
+                                <?php
+                                $totalcobradores = count($cobrador);
+                                for ($i = 0; $i < $totalcobradores; $i++) {
+                                    ?>
+                                    <option value="<?php echo $cobrador[$i]['idactor']; ?>"><?php echo $cobrador[$i]['nombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <th colspan="2">Use Celestium para Bancos</th>
+<!-- 				<td>
+                                <select required name="Ingreso[IdMoneda]" id="txtMoneda">
+                                        <option value="-1">Elija moneda</option>
+                                        <option value="1">Nuevos Soles (S/.)</option>
+                                        <option value="2">Dolares Americanos (US $)</option>
+                                </select>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <th>
+                            Tipo de cobro:
+                        </th>
+                        <td>
+                            <select required name="Ingreso[tipocobro]" id="tipocobro">
+                                <option value="">Tipo Ingreso</option>
+                                <?php
+                                $cantidadIngreso = count($tipoIngreso);
+                                for ($i = 1; $i <= $cantidadIngreso; $i++) {
+                                    if ($i != 10) {
+                                        ?>
+                                        <option value="<?php echo $i; ?>"><?php echo $tipoIngreso[$i]; ?></option>
+                                    <?php }
+                                } ?>
+                            </select>
+                            <select name="Ingreso[tipo]" id="cmbTipo" style="display: none;">
+                                <option value="">-- Tipo --</option>
+                                <?php for ($inu = 0; $inu < count($numerosunicos); $inu++) {
+                                    echo '<option value="' . $numerosunicos[$inu]['codigo'] . '">' . $numerosunicos[$inu]['nombre'] . '</option>';
+                                } ?>
+                            </select>
+                        </td>
+                        <th>Monto de ingreso :</th>
+                        <td><input required class="numeric" type="text" name="Ingreso[montoingresado]" placeholder="Ej. 0000.00"></td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:white;" colspan="4">&nbsp</th>
+                    </tr>
+                    <tr class="cheque deposito">
+                        <th class="deposito">
+                            Nro Deposito:
+                        </th>
+                        <td class="deposito">
+                            <input class=" deposito" type="text" name="Ingreso[nrooperacion]" required id="nrooperacion">
+                        </td>
+                        <th class="cheque">
+                            Nro Cheque:
+                        </th>
+                        <td class="cheque">
+                            <input class="cheque" type="text" name="Ingreso[nrodoc]" required id="nrodoc">
+                        </td>
+                        <th>Banco</th>
+                        <td class="deposito">
+                            <select required name="Ingreso[idbanco]" id="lstbanco"  class="deposito">
+                                <option value="">Elija Banco del Deposito</option>
+                                <?php for ($i = 0; $i < $cantidadBanco; $i++) { ?>
+                                    <option value="<?php echo $dataBanco[$i]['idbanco']; ?>"><?php echo $dataBanco[$i]['codigo']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td class="cheque">
+                            <select required name="Ingreso[idbancocheque]" id="lstbancocheque"  class="cheque">
+                                <option value="">Elija Banco del Cheque</option>
+                                <?php for ($i = 0; $i < $cantidadBanco; $i++) { ?>
+                                    <option value="<?php echo $dataBanco[$i]['idbanco']; ?>"><?php echo $dataBanco[$i]['codigo']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="deposito">
+                        <th>
+                            Cuenta Corriente
+                        </th>
+                        <td>
+                            <select required name="Ingreso[ctaCorriente]" id="lstCtaCorriente" class="deposito">
+                                <option value="">Cuenta Corriente</option>
+                            </select>
+                        </td>
+                        <th>
+                            Fecha Deposito
+                        </th>
+                        <td>
+                            <input type="text" class="datepicker deposito" name="Ingreso[foperacion]" id="fdeposito" required>
+                        </td>
+                    </tr>
+                    <tr class="cheque">
+                        <th>Fecha de Inicio</th>
+                        <td>
+                            <input type="text" class="datepicker cheque" id="finicio" required class="cheque" name="Ingreso[finicio]">
+                        </td>
+                        <th>Fecha de Vencimiento</th>
+                        <td>
+                            <input type="text" class="datepicker cheque" name="Ingreso[fvencimiento]" id="fvencimiento" required class="cheque">
+                        </td>
+                    </tr>
+                    <tr class="efectivo  cheque">
+                        <th>
+                            Número de recibo :
+                        </th>
+                        <td>
+                            <input class="uppercase efectivo  cheque" id="nrorecibo" required type="text" name="Ingreso[nrorecibo]"  autocomplete="off">
+                        </td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+<!--			<tr class="notacredito">
+                            <th>Serie - N° Documento</th>
+            <td><input type="text" name="Ingreso[nrodoc]" autocomplete="off" class="notacredito" required></td>
+                    </tr>-->
+                    <tr>
+                        <th >Observaciones: </th><td colspan="3"><input placeholder="Sin Observaciones" size="120" type="text" name="Ingreso[observaciones]"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="4"><input type="submit" value="Registrar" id="Registrar"><b id="respuesta123"></b></th>
+
+                    </tr>
+                    <tr><th colspan="4" style="text-align:center;"><b id="respGeneral"></b></th></tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <table id="tblDetalleOrdenCobro">
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+<?php
+$totalingresos = count($ingresos);
+for ($i = 0; $i < $totalingresos; $i++) {
+    $monto += $ingresos[$i]['montoingresado'];
+    $ultimo = $ingresos[$i]['montoingresado'];
+}
+//echo "Total ingresos del dia: ".number_format($monto,2)."<br>";
+echo "último monto ingresado: " . number_format($ultimo, 2) . "<br>";
+?>
+    </div>

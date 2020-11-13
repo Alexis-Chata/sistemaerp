@@ -1,0 +1,213 @@
+<script src="/javascript/cuotamensual.js"></script>
+<h2>Ingresar cuota mensual</h2>
+
+<fielset>
+    <form id="frmParametros" action="/pdf/reporteCarteraClientes" method="post" target="_blank" >
+        <ul>
+            <!--li>
+                <label>Linea de Productos</label>
+                <select name="lstLineaProductos" id="lstLineaProductos">
+                    <option value="">Seleccione Linea</option>
+                    <?php $totalLineas = count($linea); ?>
+                    <?php for ($i = 0; $i < $totalLineas; $i++) { ?>
+                        <option value="<?php echo $linea[$i]['idlinea']; ?>"><?php echo $linea[$i]['nomlin'] ?></option>
+                    <?php } ?>
+                </select>	  	
+            </li-->
+            <li>
+                <label for="txtVendedor">Nombre Vendedor</label>
+                <input type="text" id="txtVendedor" class="uppercase" size="40"/> <!-- style="background-color:pink ;" --> 
+                <input type="hidden" id="idVendedor" name="idVendedor"/>
+            </li>
+            
+            <?php $años = [
+                    "1" => "2013",
+                    "2" => "2014",
+                    "3" => "2015",
+                    "4" => "2016",
+                    "5" => "2017",
+                    "6" => "2018",
+                    "7" => "2019",
+                    "8" => "2020",
+                    "9" => "2021",
+                    "10" => "2022"
+                    ];
+            ?>
+            <li>
+                <label for="lstMostrar">AÑO</label>
+                <select name="lstMostrar" id="lstMostrar">
+                    <?php foreach($años as $clave=>$valor){ ?>
+                    <option value="<?php echo $clave; ?>" <?php if($valor == date('Y')) echo 'selected'; ?> ><?php echo $valor; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            
+            <?php $meses = [
+                "1" => "Enero",
+                "2" => "Febrero",
+                "3" => "Marzo",
+                "4" => "Abril",
+                "5" => "Mayo",
+                "6" => "Junio",
+                "7" => "Julio",
+                "8" => "Agosto",
+                "9" => "Setiembre",
+                "10" => "Octubre",
+                "11" => "Noviembre",
+                "12" => "Diciembre"
+                ];
+            ?>
+            <li>
+                <label for="lstMostrar">MES</label>
+                <select name="lstMostrar" id="lstMostrar">
+                    <?php foreach($meses as $clave=>$valor){ ?>
+                    <option value="<?php echo $clave; ?>" <?php if($clave == intval(date('m'))) echo 'selected'; ?> ><?php echo $valor; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            
+            <li>
+                <label for="txtVendedor">Cuota</label>
+                <input type="text" id="txtVendedor" class="uppercase" size="10"/> <!-- style="background-color:pink ;" --> 
+            </li>
+            
+            <li>
+                <label for="txtVendedor">Cuota</label>
+                <button>Registrar</button>
+            </li>
+            
+            <!--
+            <li>
+                <label for="lstCondicion">Condicion</label>
+                <select name="lstCondicion" id="lstCondicion">
+                    <option value="">Seleccione Condicion</option>
+                    <?php //$cantidadCondicionVenta = count($condicionVenta); ?>
+                    <?php //for ($i = 1; $i <= $cantidadCondicionVenta; $i++) { ?>
+                        <option value="<?php //echo $i; ?>"><?php //echo $condicionVenta[$i] ?></option>
+                    <?php //} ?>
+                </select>
+            </li>
+            -->
+        </ul>		  
+        
+        <!--
+        <ul>
+            <li>
+                <label>Zona Geografica</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal">
+                    <option value="">Seleccione Zona Geografica</option>
+                    <?php //$cantidadCategoriaPrincipal = count($categoriaPrincipal); ?>
+                    <?php //for ($i = 0; $i < $cantidadCategoriaPrincipal; $i++) { ?>
+                        <option value="<?php //echo $categoriaPrincipal[$i]['idcategoria']; ?>"><?php //echo $categoriaPrincipal[$i]['nombrec'] ?></option>
+                    <?php //} ?>
+                </select>	  	
+            </li>
+            <li>
+                <label>Region de Cobranza</label>
+                <select name="lstRegionCobranza" id="lstRegionCobranza">
+                    <option value="">Zona Cobranza-Categoria</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstZona">Zona</label>
+                <select name="lstZona" id="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                </select>
+            </li>
+            <li>
+                <label for="txtFechaInicio">Desde</label>
+                <input type="text" class="datepicker" id="txtFechaInicio" name="txtFechaInicio" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+            <li>
+                <label for="txtFechaFin">Hasta</label>
+                <input type="text" class="datepicker" id="txtFechaFin" name="txtFechaFin" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+
+        </ul>
+        -->
+        <!--
+        <br>
+        
+        
+        <ul>
+            <li>
+                <label for="lstMostrar">Mostrar</label>
+                <select name="lstMostrar" id="lstMostrar">
+                    <option value="">TODOS</option>
+                    <option value="D">ATENDIDOS</option>
+                    <option value="N">NO ATENDIDOS</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstOrden">Ordenar por</label>
+                <select name="lstOrden" id="lstOrden">
+                    <option value="d">Dirección</option>
+                    <option value="u">Ultima Orden</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstAprobados">Filtro</label>
+                <select name="lstAprobados" id="lstAprobados">
+                    <option value="1">Todos</option>
+                    <option value="2">Aprobados</option>
+                    <option value="3">Pendientes</option>
+                    <option value="4">Desaprobados</option>
+                </select>
+            </li>
+        </ul>
+        -->
+        <!--
+        <br/>
+        <ul>
+            <li>
+                <button type="button" id="btnConsultar">Consultar <img style="vertical-align:middle" src="/imagenes/html5.png" width="25" height="25" /></button>
+                <button id="btnConsultarPdf">Consultar <img style="vertical-align:middle" src="/imagenes/iconos/pdf.gif" width="25" height="25" /></button>
+                <button id="btnConsultarExcel">Consultar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+                <button id="btnLimpiar">Limpiar <img style="vertical-align:middle" src="/imagenes/limpiar.png" width="25" height="25" /></button>
+            </li>
+        </ul> -->
+    </form>	
+</fielset>
+
+<?php $lstCuota= [
+   "1" =>
+    [
+        "id" => "1",
+        "vendedor" => "wilmer chincha",
+        "anio" => "2016",
+        "mes" => "Setiembre",
+        "montocuota" => "3800000",
+    ],
+    "2" =>
+    [
+        "id" => "2",
+        "vendedor" => "wilmer chincha",
+        "anio" => "2016",
+        "mes" => "Octubre",
+        "montocuota" => "4000000",
+    ]
+]; 
+?>
+
+<div id="divCuotaMensual">
+    <table id="tblCuotaMensual">
+        <thead>
+            <th>ID</th>
+            <th>VENDEDOR</th>
+            <th>AÑO</th>
+            <th>MES</th>
+            <th>CUOTA</th>
+        </thead>
+        <tbody>
+            <?php foreach($lstCuota as $valor){ ?>
+            <tr>
+                <td><?php echo $valor['id']; ?></td>
+                <td><?php echo $valor['vendedor']; ?></td>
+                <td><?php echo $valor['anio']; ?></td>
+                <td><?php echo $valor['mes']; ?></td>
+                <td><?php echo $valor['montocuota']; ?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

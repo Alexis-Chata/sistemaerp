@@ -1,0 +1,38 @@
+<div id="nuevoregistro">
+	<form action="/opciones/actualiza/" method="POST">
+		<label>Nombre:<br>
+			<input type="text" name="Opciones[nombre]" value="<?php echo $opciones[0]['nombre'] ?>"><br>
+		</label>
+		<label>Descripcion:<br>
+			<input type="text" name="Opciones[descripcion]" value="<?php echo $opciones[0]['descripcion'] ?>"><br>
+		</label>		
+		<label>Url:<br>
+			<input type="text" name="Opciones[url]" value="<?php echo $opciones[0]['url'] ?>"><br>
+		</label>
+		<label>Icono:<br>
+			<input type="text" name="Opciones[icono]" value="<?php echo $opciones[0]['icono'] ?>"><br>
+		</label>
+		<label>Orden:<br>
+			<input type="text" name="Opciones[orden]" value="<?php echo $opciones[0]['orden'] ?>"><br>
+		</label>
+		<label>Módulo:<br>
+		<select name="Opciones[idmodulo]">
+			<option value="">Elija Módulo</option>
+			<?php
+				$tmodulos=count($modulos);
+				for($i=0;$i<$tmodulos;$i++){
+					if($modulos[$i]['idmodulo']==$opciones[0]['idmodulo']){
+						echo "<option value=\"".$modulos[$i]['idmodulo']."\" selected>".$modulos[$i]['nombre']."</option>";	
+					}else{
+						echo "<option value=\"".$modulos[$i]['idmodulo']."\">".$modulos[$i]['nombre']."</option>";
+					}
+				}
+			?>
+		</select>
+		</label>
+		<input type="hidden" name="idOpciones" value="<?php echo $_REQUEST['id'];?>">
+		<label>
+			<input type="submit" value="Actualizar"><br>
+		</label>	
+	</form>
+</div>

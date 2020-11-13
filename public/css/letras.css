@@ -1,0 +1,55 @@
+*{
+	margin: 0px;
+	margin-left: 2px;
+	padding: 0px;
+	letter-spacing: 0.3mm;
+	
+	font-weight: bold;
+	position: relative;
+}
+
+body{
+	
+	font-family: arial;
+	border: 0px;
+	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 0px;
+	border-right: 0px;
+}
+
+section{
+	min-height: 800px;
+}
+
+#encabezado{
+	position: absolute;
+	top:75px;
+	left:199px;
+	width:600px;
+	
+
+}
+#cuerpoFactura{
+	position: relative;
+	top:120px;
+	left:220px;
+	width:540px;
+	
+}
+
+table tr td{
+	padding: 0px;
+	font-size:9px;
+
+	
+	
+}
+table tr th{
+	
+	font-size:10px;
+	margin: 0px;
+	height: 5px;
+	padding: 1px;
+	
+}

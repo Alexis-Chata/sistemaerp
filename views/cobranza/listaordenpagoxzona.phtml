@@ -1,0 +1,42 @@
+<div id="listados">
+<fieldset>
+<legend><b>ZONAS</b></legend>
+<select id="lstZonas">
+	<option value="0">Seleccionar Zona		
+<?php
+	$tot=count($Zonas);
+	for($i=0;$i<$tot;$i++){
+		echo "<option value=".$Zonas[$i]['idzona'].">".$Zonas[$i]['nombre'];
+	}
+?>
+</select>
+<a href="/zona/listar">LISTADO DE ZONAS</a>
+</fieldset>
+<table id="tblCuentasxZona">
+	<caption>Cuentas Por Zona: </caption>
+	<thead>
+	<tr>
+		<th>Numero Cuenta</th>
+		<th>Orden de Venta</th>
+		<th>Cliente</th>
+		<th>Vendedor</th>
+		<th>Situacion Pago</th>		
+		<th>Zona</th>		
+		<th colspan="2">Acci&oacute;n</th>
+	</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+</div>
+<a href="/cobranza/nuevo/"><img src="/imagenes/new.gif"></a>
+<div id="paginacion">
+	<a href="/cobrranza/reportzonageografica/1" id="btnPrimero">&lt;&lt;Primero</a>
+	<a href="/cobranza/reportzonageografica/" id="btnAnterior">&lt;Anterior</a>
+	<span class="bold"> P&aacute;gina</span>
+	<input type="text" value="<?php echo $Paginacion['Paginas'] ?>" readonly style="width:30px" class="center" id="txtPaginaActual">
+	<input type="hidden" value="<?php echo $Paginacion['Paginas'] ?>" id="txtNumeroPaginas">
+	<span class="bold"> de <?php echo $Paginacion['Paginas'] ?> </span>
+	<a href="/cobranza/reportzonageografica/" id="btnSiguiente">Siguiente&gt;</a>
+	<a href="/cobranza/reportzonageografica/<?php echo $Paginacion['Paginas'] ?>" id="btnUltimo">Ultimo&gt;&gt;</a>
+</div>

@@ -1,0 +1,614 @@
+<?php $idmodulo=100; require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript" src="/javascript/dietario.js"></script>
+<div id="listados">
+<h2>Módulo de Caja - Bancos :: Registro de Dietario </h2>
+<br>
+<div id="busqueda">
+		Busqueda:<input type="text" id="txtOrdenVenta2" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de Letra">
+		<input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+		<a id="imprimir"  href="#"><img src="/imagenes/imprimir.gif"></a>
+</div>
+<div id="muestra">
+	<div id="imprimirCliente" style="diplay:none"></div>
+		
+		<style type="text/css">
+			*{
+
+			}
+			table {
+				border: 1px solid;
+				border-collapse: collapse;
+				border-spacing:0px;
+				padding: 0px;
+				
+
+				margin: 0px;
+			}
+			table tr td, table tr th{
+				
+			}
+		</style>
+	<div id="cliente">
+		<fieldset>
+			<legend>Datos del Cliente</legend>
+			<ul>
+				<li>Orden de Venta: </li>
+				<li><input type="text" id="codigov"  readonly></li>
+				<li>Código:</li>
+				<li><input type="text" name="codigo" readonly id="codigo" ></li> 
+				<li>Razon Social:</li>
+				<li><input type="text" name="razonsocial" readonly id="razonsocial" size="40"></li> 
+			</ul>
+			<ul>	
+				<li>N° de RUC:</li>
+				<li><input type="text" name="ruc" readonly id="ruc"></li>
+				<li>Codigo Dakkar:</li>
+				<li><input type="text" name="codantiguo" readonly id="codantiguo" size="15"></li>
+				
+			</ul>
+		</fieldset>
+		<div id="imprimirCliente" style="diplay:none"></div>
+	</div>
+	<fieldset>
+	<div id="datosingreso">
+		<form action="" method="POST">
+		
+			
+			<input type="hidden" name="Ingreso[idcliente]" readonly id="idcliente" >
+			<input type="hidden" id="idOrdenVenta" name="Ingreso[idOrdenVenta]">
+			
+			
+		
+		</form>
+	</div>
+
+	<div>
+		<table id="tblDetalleOrdenCobro">
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<div>
+	<?php 
+	$totalingresos=count($ingresos);
+	for ($i=0; $i < $totalingresos; $i++) { 
+		$monto+=$ingresos[$i]['montoingresado'];
+		$ultimo=$ingresos[$i]['montoingresado'];
+	}
+	// echo "Total ingresos del dia: S/.".number_format($monto,2)."<br>";
+	// echo "último monto ingresado: S/.".number_format($ultimo,2)."<br>";
+	?>
+</div>
+
+<div id="detalleprotesto">
+	Tipo de cobro:<select name="Ingreso[tipocobro]" id="">
+			<option value="1">Efectivo</option>
+			<option value="2">Cheque</option>
+			<option value="3">Deposito</option>
+			<option value="4">Otros</option>
+		</select>
+</div>
+
+<div id="contenerdorProtestado" title="Protestar la Letra">
+	<table>
+		<tr>
+			<th colspan="3" style="background-color:black;color:white;">Gastos Adicionales
+			</th>
+		</tr>
+			<tr>
+				<th >
+					
+					<label for="" >Flete</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="fleteProtestado" id="fleteProtestado"  autocomplete="off" autofocus="on">
+					
+				</td>
+				
+
+			</tr>
+			<tr>
+				<th >
+					<label for="">Envio Sobre</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="envioSobreProtestado" id="envioSobreProtestado" autocomplete="off">
+					
+				</td>
+				
+			</tr>
+			<tr>
+				<th >
+					<label for="">Gasto Bancarios</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="gastoBancarioProtestado" id="gastoBancarioProtestado" autocomplete="off">
+				</td>
+				
+			</tr>
+			<tr>
+				<th >
+					<label for="">Costo Mantenimiento</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="costoMantenimientoProtestado" id="costoMantenimientoProtestado" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th colspan="3" style="background-color:white;color:white;">&nbsp</th>
+			</tr>
+			<tr>
+				<th colspan="3" style="background-color:black;color:white;">Protesto</th>
+			</tr>
+			<tr>
+				<th><label for="pagoAcuenta">Pago a Cuenta</label></th>
+				<td><input class="numeric" type="text" id="pagoAcuenta" placeholder="Pago a cuenta"></td>
+			</tr>
+			<tr>
+				<th><label for="montoadicional">Monto Protesto</label></th>
+				<td>
+                                    <input class="numeric" type="text" id="montoadicional" placeholder="Monto protesto">
+                                    <input type="checkbox" id="idPandemiaProtesto"> Pandemia
+                                </td>
+			</tr>
+			<tr>
+				<th><label for="lblDias">Dias de Vencimiento</label></th>
+				<td><input class="numeric required" id="lblDias" type="text" ></td>
+			</tr>
+			<tr><th colspan="2"><b id="respProtestado"></b></th></tr>
+	</table>
+</div>
+
+<div id="contenedorRenovado" title="Renovacion de Letras">
+	
+	<table>
+		<tr>
+			<th colspan="3" style="background-color:black;color:white;">Gastos Adicionales
+			</th>
+		</tr>
+			<tr>
+				<th >
+					
+					<label for="" >Flete</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric classPandemia" size="10" type="text" name="fleteRenovado" id="fleteRenovado"  autocomplete="off" autofocus="on">
+					
+				</td>
+				
+
+			</tr>
+			<tr>
+				<th >
+					<label for="">Envio Sobre</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric classPandemia" size="10" type="text" name="envioSobreRenovado" id="envioSobreRenovado" autocomplete="off">
+					
+				</td>
+				
+			</tr>
+			<tr>
+				<th >
+					<label for="">Gasto Bancarios</label>
+				</th>
+				<td>
+					<input class="numeric classPandemia" size="10" type="text" name="gastoBancarioRenovado" id="gastoBancarioRenovado" autocomplete="off">
+				</td>
+				
+			</tr>
+			<tr>
+				<th >
+					<label for="">Costo Mantenimiento</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric classPandemia" size="10" type="text" name="costoMantenimientoRenovado" id="costoMantenimientoRenovado" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th colspan="3" style="background-color:black;color:white;">Renovacion</th>
+			</tr>
+			<tr>
+				<th ><label for="montoadicional">Gastos por Renovacion</label></th>
+				<td colspan="2">
+                                    <input class="numeric" type="text" id="montorenovado" placeholder size="10">
+                                    <input type="checkbox" id="idPandemia"> Pandemia
+                                </td>
+			</tr>
+			<tr>
+				<th><label for="diasVencimiento">Dias s Vencer</label></th>
+				<td colspan="2"><input type="text" id="diasVencimiento" class="numeric" size="10"></td>
+			</tr>
+			<tr>
+				<th><label for="tipoPago">Tipo Pago</label></th>
+				<td>
+				<select id="tipoPago">
+					<option value="1">Por Porcentaje</option>
+					<option value="2">Por monto</option>
+				</select>
+				</td><td>
+				<input class="numeric" id="montoporcentaje" type="text" size="5">
+				</td>
+			
+			</tr>
+                        <tr>
+                            <td colspan="3"><small><b>Chk Pandemia</b> solo se ejecutará si la fecha de vencimiento esta dentro del rango de la pandemia</small></td>
+                        </tr>
+	</table>
+	<b></b>
+
+</div>
+<div id="CPVariasLetras" title="convertir a varias letras" style="display:none;">
+	<table>
+		<tr>
+			<th colspan="3" style="background-color:black;color:white;">Gastos Adicionales
+			</th>
+		</tr>
+			<tr>
+				<th >
+					
+					<label for="" >Flete</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="fleteVariasLetras" id="fleteVariasLetras"  autocomplete="off" autofocus="on">
+					
+				</td>
+				
+
+			</tr>
+			<tr>
+				<th >
+					<label for="">Envio Sobre</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="envioSobreVariasLetras" id="envioSobreVariasLetras" autocomplete="off">
+					
+				</td>
+				
+			</tr>
+			<tr>
+				<th >
+					<label for="">Gasto Bancarios</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="gastoBancarioVariasLetras" id="gastoBancarioVariasLetras" autocomplete="off">
+				</td>
+				
+			</tr>
+			<tr>
+				<th >
+					<label for="">Costo Mantenimiento</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="costoMantenimientoVariasLetras" id="costoMantenimientoVariasLetras" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th colspan="3" style="background-color:white;color:white;">&nbsp</th>
+			</tr>
+			<tr>
+				<th colspan="3" style="background-color:black;color:white;">Protesto</th>
+			</tr>
+			<tr>
+				<th><label>Pago a Cuenta</label></th>
+				<td><input type="text" class="numeric" id="pagoAcuentaVariasLetras" autocomplete="off"></td>
+			</tr>
+			<tr>
+				<th><label>Monto Protesto</label></th>
+				<td><input class="numeric" type="text" id="montoadicional_2"></td>
+			</tr>
+			<tr>
+				<th><label>Condicion de Letra</label></th>
+				<td>
+					<select id="condicionLetra">
+						<?php
+						$cantidadLetras=count($letras); 
+						for ($i=0; $i <$cantidadLetras ; $i++) { ?>
+							<option value="<?php echo $letras[$i]['idcondicionletra']; ?>"><?php echo $letras[$i]['nombreletra']; ?></option>
+						<?php	} ?>
+					</select>
+				</td>
+			</tr>
+			<tr><th colspan="2"><b id="respVariasLetras"></b></th></tr>	
+		</table>
+		
+		
+		
+	
+</div>
+<div id="contenedorPreguntas" title="Seleccione una alternativa" style="display:none;" >
+
+</div >
+
+<div id="contenedorPreguntaExtornado" title="Seleccione un Tipo de Extornacion" style="display:none;" >
+
+</div>
+
+<div id="contenedorExtornado" title="Extornacion por Porcentaje o Monto" style="display:none;" >
+	<label for="nuevoTipoPago">Tipo Pago</label>
+	<select id="nuevoTipoPago">
+		<option value="1">Por Porcentaje</option>
+		<option value="2">Por monto</option>
+	</select>
+	
+	<input type="text" size="15" class="numeric" id="nuevoMontoPorcentaje">
+</div>
+</fieldset>
+
+<div id="contendorAutorizacion" title="Autorizacion de Accion" style="display:none;" >
+	<label for="usuario">Usuario</label>
+	<input type="text" id="usuario" autocomplete="off" >
+	<label for="contrasena">Contraseña</label>
+	<input type="password" id="contrasena" autocomplete="off" >
+	<br>
+	<b id="respVerificacion"></b>
+</div>
+<div id="contenedorModificar" style="display:none;" title="Modificacion">
+	<table>
+
+		<form id="formularioModificar" method="post" >
+			<tr><th colspan="4" style="background-color:black;color:white;">Gastos Adicionales</th></tr>
+			<tr>
+				<th >
+					<input type="hidden" id="idModificar" name="idModificar">
+					<label for="" >Flete</label>
+				</th>
+				<td >
+					<input class="numeric " size="10" type="text" name="flete" id="flete"  autocomplete="off" autofocus="on">
+					
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasFlete" id="diasFlete" autocomplete="off">
+				</td>
+
+			</tr>
+			<tr>
+				<th >
+					<label for="">Envio Sobre</label>
+				</th>
+				<td >
+					<input class="numeric " size="10" type="text" name="envioSobre" id="envioSobre" autocomplete="off">
+					
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasEnvioSobre" id="diasEnvioSobre" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th >
+					<label for="">Gasto Bancarios</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="gastoBancario" id="gastoBancario" autocomplete="off">
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasGastoBancario" id="diasGastoBancario" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th >
+					<label for="">Costo Mantenimiento</label>
+				</th>
+				<td >
+					<input class="numeric " size="10" type="text" name="costoMantenimiento" id="costoMantenimiento" autocomplete="off">
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasCostoMantenimiento" id="diasCostoMantenimiento" autocomplete="off">
+				</td>
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr><th colspan="4" style="background-color:black;color:white;">Tipo de Cobro : Contado</th></tr>
+			
+			<tr>
+				<th colspan="2">
+					<label for="montoContado">Monto Contado</label>
+				</th>
+				<td colspan="2">
+					<input class="numeric " size="10" type="text" name="montoContado" id="montoContado" autocomplete="off">
+				</td>
+				
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr><th colspan="4" style="background-color:black;color:white;">Tipo de Cobro : Credito</th></tr>
+			
+			<tr>
+				<th>
+					<label for="montoCredito0">Monto Credito</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="montoCredito0" id="montoCredito0" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito0">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito0" id="diasCredito0" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito1">Monto Credito</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="montoCredito1" id="montoCredito1" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito1">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito1" id="diasCredito1" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito2">Monto Credito</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="montoCredito2" id="montoCredito2" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito2">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito2" id="diasCredito2" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito3">Monto Credito</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="montoCredito3" id="montoCredito3" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito3">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito3" id="diasCredito3" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito4">Monto Credito</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="montoCredito4" id="montoCredito4" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito4">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito4" id="diasCredito4" autocomplete="off">
+				</td>
+			</tr>
+
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr><th colspan="4" style="background-color:black;color:white;">Tipo de Cobro : Letra</th></tr>
+			<tr>
+				<th colspan="4" >
+					<select id="cantidadLetras">
+						<option value="">Cantidad Letras</option>
+						<option value="1">Una Letra</option>
+						<option value="2">Varias Letras</option>
+					</select>
+				</th>
+			</tr>
+			<tr>
+				<th >Monto Letra</th>
+				<td >
+					<input type="text" size="10" class="numeric" id="montoLetra" name="montoLetra" autocomplete="off" disabled="disabled">
+				</td>
+				<th >Dias a Vencer</th>
+				<td >
+					<input type="text" size="10" class="numeric" id="diasMontoLetra" name="diasMontoLetra" disabled="disabled" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				
+				<th>Monto Letra</th>
+				<td><input type="text" size="10" class="numeric" autocomplete="off" id="montoLetraNueva" name="montoLetraNueva" disabled="disabled"></td>
+				<th >Condicion Letra</th>
+				<td >
+					<select id="nuevaLetra" name="nuevaLetra" disabled="disabled">
+						<option value="">Letras</option>
+						<?php
+						 
+						for ($i=0; $i <$cantidadLetras ; $i++) { ?>
+							<option value="<?php echo $letras[$i]['idcondicionletra']; ?>"><?php echo $letras[$i]['nombreletra']; ?></option>
+						<?php	} ?>
+					</select>
+				</td>
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr>
+				<th colspan="2">
+					<label>Nueva Fecha de Giro</label>
+				</th colspan="2">
+				<td>
+					<input type="text" class="datepicker" readonly name="nuevaFecha" id="nuevaFecha">
+				</td>
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+
+			<tr>
+				<th colspan="3">	
+					<input type="submit" value="enviar" id="prueba" >
+				</th>
+				<td style="color:white;background:red;vertical-align: center;align-text:center;">
+					<label id="valorModificar"></label>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<b id="respModificar"></b>
+				</th>
+			</tr>
+
+		</form>
+	</table>
+</div>
+<div id="contenedorPago" title="Verificacion de Recibo">
+	<table>
+		<tr>
+			<th><label>Numero de Recibo</label></th>
+			<td><input type="text" class="uppercase" id="numeroRecibo" autocomplete="off"></td>
+			
+		</tr>
+                <tr>
+			<th><label>Observaciones</label></th>
+			<td><input type="text" id="idobservacionrecibo"></td>
+		</tr>
+                
+		<tr>
+			<th><label>Fecha de Pago</label></th>
+			<td><input type="text" class="datepicker" id="fechaPago" readonly></td>
+		</tr>
+                <tr>
+                    <th><label>Cobrador</label></th>
+			<td><select required id="lstcobrador" name="Ingreso[idcobrador]" >
+				<option value="">Cobrador por defecto</option>
+				<?php 
+				$totalcobradores=count($cobrador);
+				for ($i=0; $i <$totalcobradores; $i++) { 
+					if ($cobrador[$i]['idactor']>=469 && $cobrador[$i]['idactor']<=471) { ?>
+					 	<option value="<?php echo $cobrador[$i]['idactor'];?>"><?php echo $cobrador[$i]['nombre']; ?></option>
+					<?php }
+                                } ?>
+				</select>
+                        </td>
+				
+                </tr>
+		<tr>
+			<th colspan="2"><b id="respRecibo"></b></th>
+		</tr>
+	
+</table>
+</div>
+<div id="contenedorDeshacerPago" title="Motivo para deshacer el pago">
+	<table>
+		<tr>
+			<th>Motivo</th><td><textarea id="motivo"></textarea></td>
+		</tr>
+		<tr>
+			<th colspan="2"><b id="respDeshacerPago"></b></th>
+		</tr>	
+	</table>
+	
+	
+</div>

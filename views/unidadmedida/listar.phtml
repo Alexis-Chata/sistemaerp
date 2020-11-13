@@ -1,0 +1,21 @@
+<div id="listados">
+<table>
+		<caption>Listado de Unidades de Medida <a href="/unidadmedida/nuevo/"><img src="/imagenes/iconos/nuevo.gif"></a></caption>
+		<tr>
+			<th>Codigo</th>
+			<th>Nombre</th>
+			<th colspan="2">Acci&oacute;nes</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Unidadmedida);$i++){
+				echo "<tr>";
+					echo "<td>".$Unidadmedida[$i]['codigo']."</td>";
+					echo "<td>".$Unidadmedida[$i]['nombre']."</td>";
+					echo '<td><a href="/unidadmedida/editar/'.$Unidadmedida[$i]['idunidadmedida'].'" class="btnEditar"><img src="/imagenes/editar.gif"></a></td>';
+					echo '<td><a href="/unidadmedida/elimina/'.$Unidadmedida[$i]['idunidadmedida'].'" class="btnEliminar"><img src="/imagenes/eliminar.gif"></a></td>';
+				echo "</tr>";
+			}
+		?>
+</table>
+
+</div>

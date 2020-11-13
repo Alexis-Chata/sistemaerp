@@ -1,0 +1,111 @@
+<?php $idmodulo = 198; require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript" src="/javascript/reporteProductoBloque.js" ></script>
+<script src="/javascript/stockproducto.js"></script>
+<script src="/javascript/cuadregeneral-inventario.js"></script>
+<br><br>
+<h2>CUADRE GENERAL DE INVENTARIO</h2>
+<form action="/excel/cuadregeneral" method="post" target="_blank">
+    <fieldset style="background: skyblue;">
+        <ul>
+            <li>
+                <?php $cantidadInventario = count($inventario); ?>
+                <label>Inventario</label>
+                <select id="lstInventario" name="lstInventario" style="padding:5px;" >
+                    <?php if($evaluarCredenciales==1){ ?>
+                        <?php if($c15_datashet!=$c14_datashet){ ?>
+                            <?php for ($i=0; $i <$cantidadInventario ; $i++) { ?>
+                                <?php  if ($c14_datashet==1 and  $inventario[$i]['invagrupamiento']==1){ ?>
+                                    <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'].'  del  '.$inventario[$i]['fechainv']; ?></option>
+                                <?php } ?>
+                                <?php  if ($c14_datashet==0){ ?>
+                                    <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'].'  del  '.$inventario[$i]['fechainv']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                    <?php if($evaluarCredenciales==0){ ?>
+                        <?php for ($i=0; $i <$cantidadInventario ; $i++) { ?>
+                            <?php  if ($inventario[$i]['invagrupamiento']==1){ ?>
+                                <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'].'  del  '.$inventario[$i]['fechainv']; ?></option>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+				</select>
+            </li>
+            <li>
+                <label>Productos</label>
+                <select name="cmbTipo" id="idcmbTipo" style="padding: 5px;">
+                    <option value="1">INVENTARIADOS</option>
+                    <option value="2">NO INVENTARIADOS</option>
+                    <option value="3">NO CARGADOS EN SISTEMA</option>
+                </select>
+            </li>
+            <li class="blocDetalles">
+                <?php $cantidadBloques = count($bloques); ?>
+                <label>Anaquel</label>
+                <select id="lstBloques" name="lstBloques" style="padding: 5px;">
+                    <option value="0">-- Sin Especificar --</option>
+                    <?php for ($i = 0; $i < $cantidadBloques; $i++) { ?>
+                        <option value="<?php echo $bloques[$i]['idbloque'] ?>" ><?php echo $bloques[$i]['codigo'] ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="blocDetalles">
+                <label>Stock</label>
+                <select name="FilStock" style="padding: 5px;">
+                    <option value="0">-- Sin Especificar --</option>
+                    <option value="1">A FAVOR</option>
+                    <option value="2">EN CONTRA</option>
+                    <option value="3">EQUIVALENTES</option>
+                </select>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset style="background: #E0EDFF;">
+        <ul>
+            <li>
+                <label>Filtro:</label>
+                <input type="radio" name="rbFiltro" value="1" checked> Todo
+                <input type="radio" name="rbFiltro" value="2"> Por Almacen
+                <input type="radio" name="rbFiltro" value="3"> Por Linea
+                &nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea
+                &nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
+            </li>
+            <li id="liAlmacen">
+                <label>Almacen</label>
+                <select id="lstAlmacen" name="cmbAlmacen">
+                    <option value="">-- Almacen --</option>
+                    <option value="8">CORPORACION POWER ACOUSTIK S.A.C</option>
+                </select>
+            </li>
+            <li id="liLinea">
+                <label>Linea</label>
+                <select id="lstLinea" name="cmbLinea">
+                    <option value="">-- Linea --</option>
+                    <?php
+                    for ($i = 0; $i < count($Linea); $i++) {
+                        echo '<option value="' . $Linea[$i]['idlinea'] . '">' . $Linea[$i]['nomlin'] . '</option>';
+                    }
+                    ?>
+                </select>
+            </li>
+            <li id="liSubLinea">
+                <label>Sublinea</label>
+                <select id="lstSubLinea" name="cmbSublinea">
+                    <option value="">-- Sub Linea --</option>
+                </select>
+            </li>
+            <li id="liProducto">
+                <label>Producto</label>
+                <input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+                <input type="hidden" id="txtIdProducto" name="txtIdproducto">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button type="submit" id="btnEXCEL" style="font-size: 18px;" class="button">Ver EXCEL <img style="vertical-align: middle;text-align: center;" width="20" heigth="20" src="/imagenes/excel.png"> </button>
+            </li>
+        </ul>
+    </fieldset>
+</form>

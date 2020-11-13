@@ -1,0 +1,117 @@
+*{
+	margin: 0px;
+	margin-left: 5px;
+	padding: 0px;
+	letter-spacing: 0mm;
+	font-size: 5px;
+	font-weight: none;
+	position: relative;
+}
+header{
+	display: none;
+
+}
+footer{
+	display: none;
+}
+body{
+	
+	font-family: fixedsys, consolas, monospace;
+	border: 0px;
+	border-top: 0px;
+	border-left: 0px;
+	border-bottom: 0px;
+	border-right: 0px;
+}
+
+section{
+	border: 0px;
+}
+
+.td1{
+	
+	width:67px;
+	color: white;
+	    
+}
+.td2{
+	
+	width:379px;
+	text-align: left; 
+	    
+}
+.td3{
+	
+	width:110px; 
+	color: white;    
+}
+.td4{
+	
+	width:199px; 
+	    
+}
+.td5{
+	
+	width:220px; 
+	letter-spacing: 2px;    
+        font-size: 12px;
+}
+article{
+	width:750px;
+	min-height:1060px ;
+	
+
+}
+
+.tc1{
+	width: 15px;
+	text-align: center;
+}
+.tc2{
+	width: 110px;
+	text-align: left;
+}
+.tc3{
+	width: 352px;
+	text-align: left;
+}
+.tc4{
+	width: 45px;
+	text-align: center;
+}
+.tc5{
+	width: 80px;
+	text-align: right;
+}
+.tc6{
+	width: 80px;
+	text-align: right;
+}
+#encabezado{
+	position: relative;
+	top:223px;
+	left:10px;
+	width:692px;
+
+}
+#cuerpoFactura{
+	position: relative;
+	top:270px;
+	left:-2px;
+	width:692px;
+	
+}
+#piepagina{
+	position: absolute;
+	top:992px;
+	left: 42px;
+	width: 655px;
+
+}
+table tr td, table tr th{
+	padding: 1px;
+	font-size:10px;
+
+	
+	
+}

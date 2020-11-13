@@ -1,0 +1,56 @@
+<!--<script src="/javascript/reporte-productos.js"></script>-->
+<script src="/javascript/reporte-productosTop.js"></script>
+<h2>Reporte de Productos</h2>
+<fieldset>	
+	<form id="frmProductosTop" method="post">
+		<ul>
+			<li>
+                            <label>Linea</label>
+                            <select id="lstLinea" name="lstLinea">
+                                <option value="">Seleccione Linea</option>
+                            </select>
+                        </li>
+                        <li>
+				<label>Marca</label>
+				<select id="lstMarca" name="lstMarca">
+					<option value="">Seleccione Marca</option>
+				</select>
+			</li>
+		</ul>
+                <br>
+		<ul>
+			<li>
+				<label>Fecha Inicio</label>
+				<input type="text" class="datepicker" id="fechaInicio" name="fechaInicio" readonly  autocomplete="off">
+			</li>
+			<li>
+				<label>Fecha Final</label>
+				<input type="text" class="datepicker" id="fechaFinal" name="fechaFinal" readonly  autocomplete="off">
+			</li>			
+<!--                    <li>
+				<label>Producto</label>
+				<input type="text" id="txtProducto" name="txtProducto" class="uppercase text-250">
+				<input type="hidden" id="idProducto" name="idProducto">
+			</li>
+		
+			<li>
+				<input type="radio" name="condicion" value="agotados" checked="checked" id="agotados"> Agotados
+			</li>
+			<li>
+				<input type="radio" name="condicion" value="vendidos" id="vendidos"> Mas Vendidos
+			</li>-->
+		</ul><br>
+		<ul>
+		<li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+		<!--<li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>-->
+		<li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+                <li><button id="btnConsultarExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
+		</ul>
+	</form>
+</fieldset>
+<fieldset>
+    <legend>RESULTADOS</legend>
+    <div id="contenidoProductosTop">
+        Aquí va el contenido..
+    </div>
+</fieldset>

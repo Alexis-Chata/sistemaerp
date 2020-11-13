@@ -1,0 +1,152 @@
+<script src="/javascript/wc_cliente.js"></script>
+<script src="/javascript/aprobacion-pedido-cobranzas.js"></script>
+
+<!--<h3>Total de Pedidos por aprobar: <?php echo count($ordenVenta)?></h3>-->
+<div id="divPedidos">
+<h2>COBRANZA: APROBAR PEDIDO</h2>
+<div class="field-set">
+	<p class="title">Pedidos <span class="addicional-informacion"></span></p>
+	<div class="body">
+		<input type="hidden" id="codigov"  class="important" >
+	<table id="tblOrdenes">
+		<thead>
+			<tr>
+				<th>Nro. Pedido</th>
+				<th>Forma<br>Pago</th>
+				<th>Fecha</th>
+				<th>Cliente</th>
+				<th>Vendedor</th>
+				<th>Acci&oacute;n</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				for($i=0;$i<count($ordenVenta);$i++){
+					$fOrdenVenta = date("d-m-Y",strtotime($ordenVenta[$i]['fordenventa']));
+					$cliente=($ordenVenta[$i]['razonsocial'])?$ordenVenta[$i]['razonsocial']:$ordenVenta[$i]['nombrecli']." ".$ordenVenta[$i]['apellido1']." ".$ordenVenta[$i]['apellido2'];
+					echo "<tr>";
+						echo '<td>'.$ordenVenta[$i]['codigov'].
+						'<input type="hidden" value="' . $ordenVenta[$i]['codigov'] . " - " . $fOrdenVenta . '" class="important">'.
+						'<input type="hidden" value="'.$ordenVenta[$i]['idordenventa'].'" class="txtIdOrden"></td>';
+						echo '<td>'.$FormaPago[($ordenVenta[$i]['formapagoov'])].'</td>';
+						echo "<td>". $fOrdenVenta ."</td>";
+						echo "<td>".$cliente."</td>";
+						echo "<td>".$ordenVenta[$i]['nombres'].' '.$ordenVenta[$i]['apellidopaterno'].' '.$ordenVenta[$i]['apellidomaterno']."</td>";
+						echo '<td><a href="/ordenventa/listadetalleparacobranzas/'.$ordenVenta[$i]['idordenventa'].'" class="btnVerDetalle">Ver</a></td>';
+					echo "</tr>";
+				}
+			?>
+		</tbody>
+	</table>
+</div>
+</div>
+<form action="/cobranza/aprobarpedido/" id="frmApruebaOrden" method="POST">
+	<div class="field-set">
+		<p class="title">Datos del Cliente <span class="addicional-informacion"></span></p>
+		<div class="body">
+		<ul class="inline-block">
+			<li>
+				<label>Cliente:</label>
+				<input type="text" id="txtCliente" readonly class="important text-250" disabled>
+				<input type="hidden" id="txtIdOrden" name="idOrden">
+				<input type="hidden" id="txtIdCliente" name="idCliente">
+				<input type="hidden" name="estadoOrden" value="1" id="txtEstadoOrden">
+			</li>
+			<li>
+				<label>RUC / DNI:</label>
+				<input type="text" id="txtRucDni" size="11" maxlength="11" class="text-250" readonly disabled>
+			</li>						
+			<li>
+				<label>Direccion:</label>
+				<input type="text" id="txtDireccion" class="text-250" readonly disabled>
+			</li>
+			<li>
+				<label>Telefono:</label>
+				<input type="text" id="txtTelefono" size="7" maxlength="10" class="text-250" readonly disabled>
+			</li>
+		</ul>
+
+		<ul>
+			<li><div id="clienteultimaorden"></div></li>
+		</ul>
+		<ul>
+			<li><div id="clientedeudatotal"></div></li>
+		</ul>
+		<ul >
+			<li><div id="clienteposicion"></div></li>
+		</ul>			
+		<br>		
+		<ul>			
+			<li><label>Requerido para esta Orden de Venta:</label><br>
+				<div id="divCondicionPedido"></div>
+			</li>
+		</ul>
+		<ul>			
+			<li>
+				<br>
+				<label>Observaci&oacute;nes de Ventas</label><br>
+				<textarea class="text-300 uppercase" id="mventas" readonly></textarea>
+			</li>
+		</ul>
+		<ul>			
+			<li>
+				<br>
+				<label>Mis Observaci&oacute;nes</label><br>
+				<textarea name="Orden[mcobranzas]" class="text-300 uppercase" value="" placeholder="Ingrese sus observaciones"></textarea>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="field-set">
+		<p class="title">Productos</p>
+		<div class="body">
+		<table id="tblProductosGuia">
+			<thead>
+				<tr>
+					<th rowspan="2">Codigo</th>
+					<th rowspan="2">Descripci&oacute;n</th>
+					<th colspan="2">CANTIDAD</th>
+					<th colspan="5">PRECIO</th>
+					<th rowspan="2">TOTAL</th>
+				</tr>
+				<tr>
+					<th>SOLICITADA</th>
+					<th>APROBADA</th>
+					<th>Lista</th>
+					<th>Oferta</th>
+					<th>Aprobado</th>
+					<th>Dscto.</th>
+					<th>Descontado</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+	<input type="submit" value="Aprobar" class="btnRegistrar" id="btnAprobar">
+	<button id="btnDesaprobar">Desaprobar</button>
+	<button id="btnretornar">Retornar Ventas</button>
+</form>
+</div>
+<div id="tablaMostrar">
+		<p ></p>
+		<div >
+		<table >
+			<thead>
+				<tr>
+					<th>Nro. Orden</th>
+					<th>Forma<br>Pago</th>
+					<th>Fecha</th>
+					<th>Cliente</th>
+					<th>Vendedor</th>
+					<th colspan="2">Acci&oacute;n</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="8" aling="center">No hay Ordenes por Aprobar</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>

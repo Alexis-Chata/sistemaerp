@@ -1,0 +1,91 @@
+<script src="/javascript/producto.js"></script>
+<form action="/producto/actualiza/" method="POST" id="frmProductoActualiza" enctype="multipart/form-data">
+    <style>
+        .ui-icon {
+            display: inline-block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .mr_4 {
+            margin-right: 4px;
+        }
+    </style>
+    <fieldset id="fieldsetRepuesto" style="position:relative;">
+        <legend>ASIGNAR REPUESTO</legend>
+        <ul>
+            <li>
+                <label style="width: 131px;">Repuesto</label>
+                <input type="text" class="required uppercase required-none" id="txtCodigoProductoRepuesto" style="width:100px">
+            </li>
+            <li>
+                <label style="width: 131px;">Descripcion</label>
+                <input type="text" id="txtTituloProductoRepuesto" disabled style="width:300px">
+                <input type="hidden" name="idProducto" id="txtIdProductoRepuesto">
+                <input type="hidden" name="Producto[codigopa]" id="codigopaRepuesto">
+                <!--Esto es llenado al elegir la opcion de la lista-->
+				</li>
+				
+            <li>
+				<div style="position:absolute;right:40px;top:30px;width:180px;text-align:right">
+					<span id="imgProductos" style="cursor:pointer !important;" title="CLICK PARA MAXIMIZAR">
+						<img id="imgimgProductos" src="/imagenes/productos/sin-imagen.png" style="width: auto;height: 210px;">
+					</span>
+					<p><input type="checkbox" id="chkCambiarFoto"> Cambiar foto</p>
+					<input type="file" name="foto" id="fotoProducto" disabled>
+				</div>
+
+			</li>
+			
+            <div id="repuestoproducto">
+                <fieldset class="inline-block" style="width: fit-content; margin-left: 140px;">
+                    <li id="produc">
+                        <label>Producto</label>
+                        <input type="text" class="uppercase required-none" id="txtCodigoProducto" style="width:100px">
+                    </li>
+                    <li>
+                        <label id="labelDescripcion">Descripcion</label>
+                        <input type="text" id="txtTituloProducto" disabled style="width:300px">
+                        <input type="hidden" name="productospadres[]" id="txtIdProducto">
+                    </li>
+                    <?php foreach ($Productospadre as $Producpadre) {
+                        echo '<li>
+                        <label>Descripcion</label>
+                        <input type="text" id="txtTituloProducto" value="' . $Producpadre[0]['nompro'] . '" disabled style="width:300px">
+                        <input type="hidden" name="productospadres[]" id="txtIdProducto" value="' . $Producpadre[0]['idproducto'] . '">
+                                <!--Esto es llenado al elegir la opcion de la lista-->
+                        <span class="ui-icon ui-icon-closethick">close</span>
+                        </li>';
+                    } ?>
+                </fieldset>
+            </div>
+            
+            <li>
+                <!--<label>Descripcion</label>
+			<input type="text" name="Sublinea[deslin]" class="uppercase">
+		</li>-->
+            <li style="text-align: center;">
+                <button id="btnCancelar">Cancelar</button></li>
+        </ul>
+    </fieldset>
+</form>
+
+<!-- ventana de dialogo -->
+<div id="mensajeModal" title="Error de validacion">
+    <b>Codigo Incorrecto</b>
+</div>
+
+<div id="contenedorModal">
+	<div id="modal">
+		<tbody>
+			<center>
+				<H4><?php echo $Producto[0]['codigopa']; ?></H4>
+				<H4><?php echo $Producto[0]['nompro']; ?></H4><br>
+				<img src="/imagenes/productos/sin-imagen.png" width="550px">
+			</center>
+		</tbody>
+	</div>
+	<button id="imprimirProducto"><img src="/imagenes/imprimir.gif"></button>
+</div>

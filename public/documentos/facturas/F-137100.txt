@@ -1,0 +1,277 @@
+A;Serie;;F001
+A;Correlativo;;00000001
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;10181090630
+A;RznSocRecep;;GRACIELA CONDORI ACERO
+A;DirRecep;;AV. AVIACION 1025
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;572.57
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;103.06
+A;MntTotal;;675.63
+A;FchEmis;;2017-06-30
+A;IndPercepcion;;1
+A;MntImpPercepcion;;2
+A;MntPercepcion;;13.51
+A;MntTotalMasPercepcion;;689.14
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;103.06
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;25
+B;UnmdItem;1;SET
+B;VlrCodigo;1;SUT-149-18&#039;&#039;
+B;NmbItem;1;PLUMILLA METALICA 18'', AUTOTECH
+B;PrcItem;1;1.2
+B;PrcItemSinIgv;1;1.02
+B;MontoItem;1;25.42
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.18
+B;NroLinDet;2;2
+B;QtyItem;2;25
+B;UnmdItem;2;SET
+B;VlrCodigo;2;SUT-405-18&#39;&#39;
+B;NmbItem;2;PLUMILLA METALICA PESADA 18'', AUTOTECH
+B;PrcItem;2;1.77
+B;PrcItemSinIgv;2;1.5
+B;MontoItem;2;37.5
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.27
+B;NroLinDet;3;3
+B;QtyItem;3;25
+B;UnmdItem;3;C62
+B;VlrCodigo;3;MC-902-18
+B;NmbItem;3;PLUMILLA ERGONOMICA 18", AUTOTECH
+B;PrcItem;3;1.2
+B;PrcItemSinIgv;3;1.02
+B;MontoItem;3;25.42
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.18
+B;NroLinDet;4;4
+B;QtyItem;4;10
+B;UnmdItem;4;C62
+B;VlrCodigo;4;SUT-902-20&#039;&#039;
+B;NmbItem;4;PLUMILLA ERGONOMICA 20'', AUTOTECH
+B;PrcItem;4;1.31
+B;PrcItemSinIgv;4;1.11
+B;MontoItem;4;11.1
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.2
+B;NroLinDet;5;5
+B;QtyItem;5;10
+B;UnmdItem;5;C62
+B;VlrCodigo;5;SUT-902-16&#39;&#39;
+B;NmbItem;5;PLUMILLA ERGONOMICA 16'' , AUTOTECH
+B;PrcItem;5;1.2
+B;PrcItemSinIgv;5;1.02
+B;MontoItem;5;10.17
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;0.18
+B;NroLinDet;6;6
+B;QtyItem;6;10
+B;UnmdItem;6;C62
+B;VlrCodigo;6;MC-902-24
+B;NmbItem;6;PLUMILLA ERGONOMICA 24", AUTOTECH
+B;PrcItem;6;1.37
+B;PrcItemSinIgv;6;1.16
+B;MontoItem;6;11.61
+B;IndExe;6;10
+B;CodigoTipoIgv;6;1000
+B;TasaIgv;6;18
+B;ImpuestoIgv;6;0.21
+B;NroLinDet;7;7
+B;QtyItem;7;20
+B;UnmdItem;7;SET
+B;VlrCodigo;7;MC-1001-4 CB
+B;NmbItem;7;PISO METALICO COCIDO X4PCS CARBON,AUTOTECH
+B;PrcItem;7;5.61
+B;PrcItemSinIgv;7;4.75
+B;MontoItem;7;95.08
+B;IndExe;7;10
+B;CodigoTipoIgv;7;1000
+B;TasaIgv;7;18
+B;ImpuestoIgv;7;0.86
+B;NroLinDet;8;8
+B;QtyItem;8;20
+B;UnmdItem;8;SET
+B;VlrCodigo;8;MC-1001-4 SL
+B;NmbItem;8;PISO METALICO COCIDO X4PCS SILVER,AUTOTECH
+B;PrcItem;8;5.61
+B;PrcItemSinIgv;8;4.75
+B;MontoItem;8;95.08
+B;IndExe;8;10
+B;CodigoTipoIgv;8;1000
+B;TasaIgv;8;18
+B;ImpuestoIgv;8;0.86
+B;NroLinDet;9;9
+B;QtyItem;9;8
+B;UnmdItem;9;SET
+B;VlrCodigo;9;SUT-1001-5 BL
+B;NmbItem;9;PISO METALICO 5PCS C/AZUL, AUTOTECH
+B;PrcItem;9;7.03
+B;PrcItemSinIgv;9;5.96
+B;MontoItem;9;47.66
+B;IndExe;9;10
+B;CodigoTipoIgv;9;1000
+B;TasaIgv;9;18
+B;ImpuestoIgv;9;1.07
+B;NroLinDet;10;10
+B;QtyItem;10;8
+B;UnmdItem;10;SET
+B;VlrCodigo;10;SUT-1001-5 BK
+B;NmbItem;10;PISO METALICO 5PCS C/NEGRO, AUTOTECH
+B;PrcItem;10;7.03
+B;PrcItemSinIgv;10;5.96
+B;MontoItem;10;47.66
+B;IndExe;10;10
+B;CodigoTipoIgv;10;1000
+B;TasaIgv;10;18
+B;ImpuestoIgv;10;1.07
+B;NroLinDet;11;11
+B;QtyItem;11;20
+B;UnmdItem;11;C62
+B;VlrCodigo;11;H4-12V 100/90W P43T
+B;NmbItem;11;FOCO  H4 12V 100/90W P43T IODO, AUTOTECH
+B;PrcItem;11;0.55
+B;PrcItemSinIgv;11;0.47
+B;MontoItem;11;9.32
+B;IndExe;11;10
+B;CodigoTipoIgv;11;1000
+B;TasaIgv;11;18
+B;ImpuestoIgv;11;0.08
+B;NroLinDet;12;12
+B;QtyItem;12;10
+B;UnmdItem;12;SET
+B;VlrCodigo;12;H4-12V 100/90W XENON
+B;NmbItem;12;FOCO  H4 12V 100/90W P43T XENON BLISTER, AUTOTECH
+B;PrcItem;12;2.58
+B;PrcItemSinIgv;12;2.19
+B;MontoItem;12;21.86
+B;IndExe;12;10
+B;CodigoTipoIgv;12;1000
+B;TasaIgv;12;18
+B;ImpuestoIgv;12;0.39
+B;NroLinDet;13;13
+B;QtyItem;13;3
+B;UnmdItem;13;SET
+B;VlrCodigo;13;SUT-628
+B;NmbItem;13;CLAXON 2 CORNETAS 12V, AUTOTECH
+B;PrcItem;13;8.17
+B;PrcItemSinIgv;13;6.92
+B;MontoItem;13;20.77
+B;IndExe;13;10
+B;CodigoTipoIgv;13;1000
+B;TasaIgv;13;18
+B;ImpuestoIgv;13;1.25
+B;NroLinDet;14;14
+B;QtyItem;14;10
+B;UnmdItem;14;C62
+B;VlrCodigo;14;ES4116-BL
+B;NmbItem;14;LUZ INTERIOR NEON CIRCULAR 12V C/AZUL, AUTOTECH
+B;PrcItem;14;2.2
+B;PrcItemSinIgv;14;1.86
+B;MontoItem;14;18.64
+B;IndExe;14;10
+B;CodigoTipoIgv;14;1000
+B;TasaIgv;14;18
+B;ImpuestoIgv;14;0.34
+B;NroLinDet;15;15
+B;QtyItem;15;3
+B;UnmdItem;15;C62
+B;VlrCodigo;15;CRX421414 BL
+B;NmbItem;15;FLASHER AZUL 12V, AUTOTECH
+B;PrcItem;15;2.18
+B;PrcItemSinIgv;15;1.85
+B;MontoItem;15;5.54
+B;IndExe;15;10
+B;CodigoTipoIgv;15;1000
+B;TasaIgv;15;18
+B;ImpuestoIgv;15;0.33
+B;NroLinDet;16;16
+B;QtyItem;16;2
+B;UnmdItem;16;C62
+B;VlrCodigo;16;CRX421414 WH
+B;NmbItem;16;FLASHER BLANCO 12V, AUTOTECH
+B;PrcItem;16;2.21
+B;PrcItemSinIgv;16;1.87
+B;MontoItem;16;3.75
+B;IndExe;16;10
+B;CodigoTipoIgv;16;1000
+B;TasaIgv;16;18
+B;ImpuestoIgv;16;0.34
+B;NroLinDet;17;17
+B;QtyItem;17;2
+B;UnmdItem;17;RO
+B;VlrCodigo;17;TXBY2050
+B;NmbItem;17;ROLLO CINTA REGLAMENTADA P/TAXI 50MT AMARILLO/NEGRO, 3K
+B;PrcItem;17;21.21
+B;PrcItemSinIgv;17;17.97
+B;MontoItem;17;35.95
+B;IndExe;17;10
+B;CodigoTipoIgv;17;1000
+B;TasaIgv;17;18
+B;ImpuestoIgv;17;3.24
+B;NroLinDet;18;18
+B;QtyItem;18;10
+B;UnmdItem;18;C62
+B;VlrCodigo;18;SUT-565
+B;NmbItem;18;ANTENA DECORATIVA UNICORNIO, BLANCO, AUTOTECH
+B;PrcItem;18;0.98
+B;PrcItemSinIgv;18;0.83
+B;MontoItem;18;8.31
+B;IndExe;18;10
+B;CodigoTipoIgv;18;1000
+B;TasaIgv;18;18
+B;ImpuestoIgv;18;0.15
+B;NroLinDet;19;19
+B;QtyItem;19;7
+B;UnmdItem;19;SET
+B;VlrCodigo;19;SUT-1001-5 SL
+B;NmbItem;19;PISO METALICO 5PCS C/PLATEADO, AUTOTECH
+B;PrcItem;19;7.03
+B;PrcItemSinIgv;19;5.96
+B;MontoItem;19;41.7
+B;IndExe;19;10
+B;CodigoTipoIgv;19;1000
+B;TasaIgv;19;18
+B;ImpuestoIgv;19;1.07
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;LETRAS
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;96819
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;LIMA - LIMA - LA VICTORIA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 322 DC: OV-17005859
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;324*940 / 964545174/971438949-3243312
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Seiscientos Setenta y Cinco con 63/100 Dolares Americanos  

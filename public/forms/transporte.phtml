@@ -1,0 +1,27 @@
+<script language="javascript">
+	$('.inline-block').each(function(){
+		var maxWidth = $(this).find('label').maxWidth() + "px";
+		$(this).find('label').css('width',maxWidth);
+	});
+</script>
+<form action="/cliente/agregatransporte/" id="frmTransporte">
+	<ul class="inline-block">
+		<li>
+			<label>Razon Social:</label>
+			<input type="hidden" id="txtIdTransporte" name="Transporte[idtransporte]">
+			<input type="text" class="text-250 uppercase" id="txtTransporte" name="Transporte[trazonsocial]" autocomplete="off">
+		</li>
+		<li>
+			<label>R.U.C.:</label>
+			<input type="text" maxlength="11" size="11" id="txtRucTransporte" name="Transporte[truc]" class="numeric">
+		</li>
+		<li>
+			<label>Telefono:</label>
+			<input type="text" maxlength="10" size="10" id="txtTelefonoTransporte" name="Transporte[ttelefono]" class="numeric">
+		</li>
+		<li>
+			<label>Direcci&oacute;n:</label>
+			<input type="text" class="text-250 uppercase" id="txtDireccionTransporte" name="Transporte[tdireccion]">
+		</li>
+	</ul>
+</form>

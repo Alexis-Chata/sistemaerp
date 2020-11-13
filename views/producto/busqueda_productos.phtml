@@ -1,0 +1,38 @@
+<script type="text/javascript" src="/javascript/busqueda_productos.js"></script>
+<h2>Productos:: busqueda</h2>
+<fieldset>
+<label> Productos: </label>
+<input type="text" size="30" id="txtproducto" class="precioreferencia" placeholder="Ingrese el Nombre del producto">
+<button id="imprimir" style="margin-left:50;" >Imprimir <img style="vertical-align: middle;text-align:center;" src="/imagenes/imprimir.gif"></button>
+</fieldset>
+<div id="contenedorImpresion">
+	<form id="frmProducto">
+		<input type="hidden" id="idProducto" name="idProducto">
+		<table>
+			<caption></caption>
+			<tr>
+				<th>Imagén</th>			
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Marca</th>
+				<th>Precio Lista Actual</th>
+				<th>Stock Actual</th>
+				<th>Stock Disponible</th>
+				
+
+				
+			</tr>
+			<tr>
+				<td style="vertical-align: middle;text-align:center;"><img src="" width="50" height="50" id="rutaImagenProducto"></td>			
+				<td style="vertical-align: middle;text-align:center;"><label id="codigoProducto"></label></td>
+				<td style="vertical-align: middle;text-align:center;"><label id="txtDescripcion"></label></td>
+				<td style="vertical-align: middle;text-align:center;"><label id="marca"></label></td>
+				<td style="vertical-align: middle;text-align:center;"><label id="preciolista"></label></td>
+				<td style="vertical-align: middle;text-align:center;"><label id="stockActual"></label></td>
+				<td style="vertical-align: middle;text-align:center;"><label id="stockDisponible"></label></td>
+				
+			</tr>
+			
+		</table>
+	</form>
+</div>

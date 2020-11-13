@@ -1,0 +1,35 @@
+<script src="/javascript/diseniojs.js"></script>
+<h2>Reportes: Stock de Productos</h2>
+<br>
+<fieldset style="display:inline-block">
+    <legend>Filtro</legend>
+    <ul>
+        <form id="idForm" action="/excel/disenioExcel/" method="post"> 
+        <li id="liProducto">
+            <label>Producto</label>
+            <input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+            <input name="idProducto" type="hidden" id="txtIdProducto">
+        </li>
+                
+        <li id="buttomContent1">  
+            <button id="btnConsultar">Consultar</button>
+            <button id="btnExportarExcel">Exportar <img src="/imagenes/excel.png" alt="" width="14" height="14" style="vertical-align: middle"></button>
+        </li>
+        </form>  
+    </ul>
+</fieldset>
+<table id="dataGridReport">
+    <thead>
+        <tr>
+            <th data-field="codigo">C&oacute;digo</th>
+            <th data-field="nompro">Descripc&oacute;n</th>
+            <th data-field="unidm">Unidad de medida</th>
+            <th data-field="codigooc">Orden compra</th>
+            <th data-field="fordencompra">Fecha</th>			
+            <th data-field="stockactual">Stock Actual</th>
+            <th data-field="stockdisponible">Stock Disponible</th>
+            <th data-field="responsable">Responsable</th>
+            <th data-field="codempaque">Empaque</th>
+        </tr>
+    </thead>
+</table>

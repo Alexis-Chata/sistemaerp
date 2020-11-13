@@ -1,0 +1,56 @@
+<script src="/javascript/reporteventasfacturadonofacturado.js"></script>
+<style type="text/css">
+    .ocultar_etiqueta{
+        display:none !important;
+    }
+</style>
+<fieldset>
+    <h2>REPORTE DE VENTAS DE LO FACTURADO Y NO FACTURADO</h2>
+    <form action="" method="post" target="_blank" id="frmConsulta">
+            <ul>
+                <li>
+                    <label for="txtFechaInicio">Fecha Inicio:</label>
+                    <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+                </li>
+                <li>
+                    <label for="txtFechaFinal">Fecha Fin:</label>
+                    <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+                </li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="cmbEstado" name="cmbEstado" class="ocultar_etiqueta">
+                    <option value="todos">GUIAS + COMPROBANTES ACTIVOS Y ANULADOS</option>
+                    <option value="0">GUIAS + COMPROBANTES ACTIVOS</option>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li>
+                    <label for="cmbMoneda">Moneda:</label>
+                    <select id="cmbMoneda" name="cmbMoneda">
+                        <option value="">- Seleccione -</option>
+                        <option value="1">Soles</option>
+                        <option value="2">Dolares</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="cmbFiltro">Filtro:</label>
+                    <select id="cmbFiltro" name="cmbFiltro">
+                        <option value="0">Todos</option>
+                        <option value="1">Facturados</option>
+                        <option value="2">No Facturados</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="cmbSituacion">Situacion de venta:</label>
+                    <select id="cmbSituacion" name="cmbSituacion">
+                        <option value="">- Seleccione -</option>
+                        <option value="1">Pendiente</option>
+                        <option value="2">Cancelado</option>
+                    </select>
+                </li>
+            </ul>
+        <br>
+        <ul>
+            <li><button id="btnExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
+            <li><button id="btnPdf">Consultar<img src="/imagenes/iconos/pdf.gif" style="vertical-align: middle" width="25" height="25"></button></li>
+            <li><button id="btnLimpiar">Limpiar<img src="/imagenes/limpiar.png" style="vertical-align: middle" width="25" height="25"></button></li>
+        </ul>
+    </form>
+</fieldset>

@@ -1,0 +1,66 @@
+<div id="listados">
+	<h2>Seguridad: Master de Permisos</h2>
+	<br>
+<?php
+$total=count($Listado);
+?>
+<table>
+<thead>
+		<tr>
+		<th colspan="5"><h2>MAESTRO OPCIONES DEL SISTEMA</h2></th>
+		<th><a href="/opciones/agregaropcion/<?php  echo $total+1;?>/1">Crear Módulo<br><img src="/imagenes/iconos/nuevo.gif" title="Crear M�dulo"></a></th>
+	</tr>
+</thead>
+<tbody>
+	<?php
+
+	
+		for($i=0;$i<$total;$i++){
+			$totalrow=count($Listado[$i]);
+			//print_r($Listado[0][0]);
+			for($j=0;$j<$totalrow;$j++){
+				//if($Listado[$i][$j]['estado']==1){
+						echo "<tr valign=\"center\">";
+						if($Listado[$i][$j]['nivel']==1){
+						echo "<th rowspan=\"$totalrow\">".$Listado[$i][$j]['nombre']."
+								<br><br><br>
+								<a href=\"/opciones/agregaropcion/".$Listado[$i][$j]['idmodulo']."/2\"><img src=\"/imagenes/iconos/nuevo.gif\" title=\"Agregar  Opción\"></a>
+								<a href=\"/opciones/editar/".$Listado[$i][$j]['idopciones']."\"><img src=\"/imagenes/iconos/editar.gif\" title=\"Editar M�dulo\" border=\"0\"></a>
+							</th>
+							<th>Opciones</th>
+							<th>URL</th>
+							<th>Icono</th>
+							<th>Orden</th>
+							<th>Acciones</th>
+							";
+							}else{
+							if($Listado[$i][$j]['estado']==1){
+								$img="check-box.gif";
+							}
+							else{
+								$img="check-gris-blanco.png";
+							}
+							echo "";
+							echo "<td>".$Listado[$i][$j]['nombre']."</td>";
+							echo "<td>".$Listado[$i][$j]['url']."</td>";
+							echo "<td>".$Listado[$i][$j]['icono']."</td>";
+							echo "<td>".$Listado[$i][$j]['orden']."</td>";
+							echo "<td>
+								<a href=\"editar/".$Listado[$i][$j]['idopciones']."\"><img src=\"/imagenes/iconos/editar.gif\" border=\"0\"></a>
+								<a href=\"cambiaestado/".$Listado[$i][$j]['idopciones']."\"><img src=\"/imagenes/iconos/".$img."\" border=\"0\"></a>
+								<a href=\"eliminar/".$Listado[$i][$j]['idopciones']."\"><img src=\"/imagenes/iconos/eliminar.gif\" border=\"0\"></a>
+								</td>";
+						}
+		
+					echo "</tr>";
+					
+				//}
+
+			}
+
+		}
+	?>
+</tbody>
+
+</table>	
+</div>

@@ -1,0 +1,81 @@
+<script src="/javascript/uploadImgActor.js"></script>
+<form action="/actor/actualiza/" method="POST">
+<div id="nuevoregistro">
+<h3>Editar Usuario:</h3>
+<hr>
+
+
+<div class="cuadro">
+	<h4>Datos Personales</h4>
+	<p>Usuario:<br>
+		<input type="text" name="Actor[usuario]" value="<?php echo $actor[0]['usuario'];?>"></p>	
+	<p>Clave:<br>
+		<input type="password" name="Actor[contrasena]" value="<?php echo $actor[0]['contrasena'];?>"></p>		
+	<p>Nombre:<br>
+		<input type="text" name="Actor[nombres]" value="<?php echo $actor[0]['nombres'];?>"></p>
+			
+	<p>Apellido Paterno:<br>
+		<input type="text" name="Actor[apellidopaterno]" value="<?php echo $actor[0]['apellidopaterno'];?>"></p>
+	
+	<p>Apellido Materno:<br>
+		<input type="text" name="Actor[apellidomaterno]" value="<?php echo $actor[0]['apellidomaterno'];?>"></p>
+	<p>
+		<input type="hidden" name="idActor" value="<?php echo $_REQUEST['id'];?>">
+	</p>
+	<p>Nro DNI:<br>
+		<input type="text" name="Actor[dni]" value="<?php echo $actor[0]['dni'];?>">
+	</p>	
+</div>
+
+<div class="cuadro">
+	<h4>Datos de contacto</h4>
+		
+	<p>Teléfono Fijo:<br>
+		<input type="text" name="Actor[telefono]" value="<?php echo $actor[0]['telefono'];?>">
+	</p>
+	<p>Teléfono Móvil:<br>
+		<input type="text" name="Actor[celular]" value="<?php echo $actor[0]['celular'];?>"></p>
+	<p>
+	<p>RPM:<br>
+		<input type="text" name="Actor[rpm]" value="<?php echo $actor[0]['rpm'];?>"></p>
+	<p>
+	<p>Email:<br>
+		<input type="text" name="Actor[email]" value="<?php echo $actor[0]['email'];?>"></p>
+	<p>
+	<p>Dirección:<br>
+		<input type="text" name="Actor[direccion]" value="<?php echo $actor[0]['direccion'];?>"></p>
+	<p>
+	<p>Referencia:<br>
+		<input type="text" name="Actor[referencia]" value="<?php echo $actor[0]['referencia'];?>"></p>
+	<p>					
+</div>
+<div class="cuadro">
+	<h4>Fotograf&iacute;a</h4>
+	<?php 
+		$ruta=ROOT."imagenes".DS."actorfoto".DS.$actor[0]['foto'];
+		if(is_file($ruta)){
+			$foto="/imagenes/actorfoto/".$actor[0]['foto'];
+		}else{
+			$foto="/imagenes/actorfoto/user20.jpg";
+		}
+	?>
+	
+	<p>Cambiar foto:<br>
+            
+        <div id="contenedorImagen">
+	    	<img id="fotografia" class="fotografia" src="<?php echo $foto;?>" width="100px">	
+	</div>    
+	
+        <div>
+                    <input type="hidden" name="Actor[foto]" id="nombreimagen">
+        </div>
+	<button class="boton" id="addImage">Cambiar Imagen</button>
+                    
+	<div class="loaderAjax" id="loaderAjax">
+		   <img src="/imagenes/actorfoto/default-loader.gif">
+	       	  <span>Publicando Fotografía...</span>
+         </div>
+</div>
+		<input type="submit" value=":::Grabar:::">
+</form>
+</div>

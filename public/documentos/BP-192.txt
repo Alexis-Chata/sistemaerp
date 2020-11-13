@@ -1,0 +1,105 @@
+A;Serie;;B002
+A;Correlativo;;00000048
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;44122367
+A;RznSocRecep;;YURY APAZA  MAMANI
+A;DirRecep;;JR.JUNIN NRO.524  - PUNO - SAN ROMAN - JULIACA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;287.03
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;51.66
+A;MntTotal;;338.69
+A;FchEmis;;2017-08-19
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;51.66
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;4
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;MP-508U
+B;NmbItem;1;MEGAFONO C/USB,SD CARD C/ENTRADA JACK, AMERICAN DAKKARS
+B;PrcItem;1;21.47
+B;PrcItemSinIgv;1;18.19
+B;MontoItem;1;72.78
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;3.28
+B;NroLinDet;2;2
+B;QtyItem;2;2
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;MP-508.
+B;NmbItem;2;MEGAFONO C/BATERIA LION RECARGABLE POWER ACOUSTIK
+B;PrcItem;2;9.2
+B;PrcItemSinIgv;2;7.8
+B;MontoItem;2;15.59
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;1.4
+B;NroLinDet;3;3
+B;QtyItem;3;1
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;MP-508B
+B;NmbItem;3;MEGAFONO C/SIRENA AMERICAN SOUND
+B;PrcItem;3;21.47
+B;PrcItemSinIgv;3;18.19
+B;MontoItem;3;18.19
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;3.28
+B;NroLinDet;4;4
+B;QtyItem;4;12
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;THD-1260S-GR
+B;NmbItem;4;BOCINA 12", C/DRIVER 60W C/VERDE POWER ACOUSTIK
+B;PrcItem;4;12.27
+B;PrcItemSinIgv;4;10.4
+B;MontoItem;4;124.78
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;1.87
+B;NroLinDet;5;5
+B;QtyItem;5;5
+B;UnmdItem;5;NIU
+B;VlrCodigo;5;PA-306
+B;NmbItem;5;SET MICROFONO INALAMBRICO ALCANCE 15-20MTS VHF,220V 60HZ SEMIPROFESIONAL,ASTRID
+B;PrcItem;5;13.14
+B;PrcItemSinIgv;5;11.14
+B;MontoItem;5;55.68
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;2
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 340
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Trescientos Treinta y Ocho con 69/100 Dolares Americanos  

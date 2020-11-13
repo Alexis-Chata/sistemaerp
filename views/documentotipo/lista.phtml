@@ -1,0 +1,45 @@
+<h2>Mantenimiento: Tipo Documento</h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="2">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
+				<th >Acciones</th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				
+				<th>Editar</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td><?php echo $data[$i]['iddocumentotipo'] ?></td>
+					<td style="text-align:center;"><?php echo $data[$i]['codigotipodocumento'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['nombre'] ?> </td>
+					
+					<td ><a  href="/<?php echo $titulo ?>/editar/<?php echo $data[$i]['iddocumentotipo']; ?>"><img style="margin:auto;display:block;" src="/imagenes/editar.gif"></a></td>
+					
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

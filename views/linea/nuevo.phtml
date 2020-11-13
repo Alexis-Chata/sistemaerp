@@ -1,0 +1,32 @@
+<script src="/javascript/linea.js"></script>
+<form action="/linea/graba/" method="POST">
+	<fieldset>
+	<legend>Registro de Nueva Linea</legend>
+		<ul>
+			<li>
+				<label>Nombre</label>
+				<input type="text" required name="Linea[nomlin]" class="uppercase" size="50px"></li>
+			
+			<?php  /*
+			if($padre==1){
+				echo "<li><input type=\"hidden\" value=\"0\" name=\"Linea[idpadre]\"></li>";
+			}else{
+				echo "<select id=\"lstLineasPadre\" name=\"Linea[idpadre]\">
+					<option value=\"\">Sin filtro de Linea";
+						$total=count($LineaPadre);
+						for($i=0;$i<$total;$i++){
+							echo "<option value=".$LineaPadre[$i]['idlinea'].
+								(($idlineapadre==$LineaPadre[$i]['idlinea'] and $idlineapadre!='')?' selected ':'')
+								.">".$LineaPadre[$i]['nomlin'];	
+						}
+				echo "</select>";
+			}*/
+			?>
+			<li>
+				<input type="hidden" name="valorProducto" id="valorProducto" value="<?php  ?>">
+				<input type="submit" value="Registrar">
+				<button id="btncancelar">Cancelar</button>
+			</li>
+		</ul>
+	</fieldset>
+</form>

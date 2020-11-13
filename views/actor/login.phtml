@@ -1,0 +1,36 @@
+<?php
+session_start();
+if(!empty($_SESSION['mensaje_login'])){ ?>
+<h5><?php echo utf8_encode($_SESSION['mensaje_login']); ?></h5>
+<?php }?>
+
+  <form id="acceso" name="acceso"  class="form-horizontal" action="/actor/valida/" method="post"  role="form">
+                                    
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control" name="usuario" value="" placeholder="usuario">                                        
+                                    </div>
+                                
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="contrasena" placeholder="password" maxlength="10">
+                                    </div>
+                            <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <input type="submit" id="btn-fblogin" value="ENTRAR" class="btn btn-primary btn-block">
+                                      
+
+                                    </div>
+                                </div>
+
+
+                               
+                            </form>  
+
+<!--<form id="acceso" name="acceso" action="/actor/valida/" method="post" >
+	Usuario :<br><input id="username" name="usuario" type="text" autofocus/><br>
+	Clave :<br><input id="password" name="contrasena" type="password"/>
+	<p><input type="submit" value=".::ENTRAR::." /></p>
+</form>-->

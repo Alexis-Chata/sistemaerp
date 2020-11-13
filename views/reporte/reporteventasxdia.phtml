@@ -1,0 +1,74 @@
+<script type="text/javascript" src="/javascript/reporteventasxdia.js"></script>
+<br><br>
+<h2>Reporte :: Ventas por Dia</h2>
+<fieldset>
+<legend></legend>
+<form id="Parametros" action="/pdf/listaReporteVentasXdiaPDF/" method="post" target="_blank">
+    <ul>
+            <li>
+                <label>Mes</label>
+                <select id="opcmes" name="opcmes">
+                    <option value="01">ENERO</option>
+                    <option value="02">FEBRERO</option>
+                    <option value="03">MARZO</option>
+                    <option value="04">ABRIL</option>
+                    <option value="05">MAYO</option>
+                    <option value="06">JUNIO</option>
+                    <option value="07">JULIO</option>
+                    <option value="08">AGOSTO</option>
+                    <option value="09">SEPTIEMBRE</option>
+                    <option value="10">OCTUBRE</option>
+                    <option value="11">NOVIEMBRE</option>
+                    <option value="12">DICIEMBRE</option>
+                </select>
+            </li>
+            <li>
+                <label>Año</label>
+                <select id="opcanio" name="opcanio">
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                </select>
+            </li>
+            <li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+            <li><button id="btnPDF" style="font-size: 18px;">Ver PDF <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/iconos/pdf.gif"> </button></li>
+    </ul>
+</form>
+
+</fieldset>
+<fieldset>
+    <table id="contenidoTabla" style="display: none">
+        <thead>
+            <tr>
+                <th style="background:#B4D1F7;color:#830E0E;" colspan="8">
+                    REPORTE TOTAL DE VENTAS POR DIA
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">Fecha Consulta: </th> 
+                <td colspan="4" id="fconsulta"></td> 
+                <th>Moneda: </th>
+                <td>DOLARES (U$ $.)</td>
+            </tr>
+            <tr>
+                <th rowspan="2">Item</th>
+                <th rowspan="2">Fecha</th>
+                <th>Ventas</th>
+                <!--th rowspan="2" id="con">Contado</th>
+                <th rowspan="2" id="cre">Credito</th>
+                <th rowspan="2" id="lb">Letras Banco</th>
+                <th rowspan="2" id="lc">Letras Cartera</th-->
+                <th colspan="4">Cobranza </th>
+                <th>Totales</th> 
+            </tr>
+            <tr>
+                <th id="iapro">Imp. Aprobado (U$ $.)</th>
+                <th id="fac">Facturado (U$ $.)</th>
+                <th id="nfac">No Facturado (U$ $.)</th>
+                <th id="efcdepo">Efect./Depo. (U$ $.)</th>
+                <th id="letrs">Letras (U$ $.)</th>
+                <th id="idesp">Imp. Despachado (U$ $.)</th>
+            </tr>
+        </thead>
+        <tbody id="tblVentas"></tbody>
+    </table>
+</fieldset>

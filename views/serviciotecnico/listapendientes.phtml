@@ -1,0 +1,198 @@
+<script type="text/javascript" src="/javascript/serviciotecnico_pendientes.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Listado :: Notificaciones Pendientes</h2>
+<br>
+
+<style type="text/css">
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 10px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 5px 3px 5px;
+        text-align: center;
+    }
+    table tbody td {
+        border: 1px solid #e2e0e6;
+    }
+    .tblDetalleAtendido {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 10px 0px 10px 0px;
+    }
+    .tblDetalleAtendido thead th{
+        background: #085496;
+        color: white;
+        font-weight: bold;
+        border: 1px solid white;
+    }
+    .tblDetalleAtendido tbody th{
+        background: #191919;
+        color: white;
+        font-weight: bold;
+        border: 1px solid white;
+    }
+    .classNumero {
+        text-align: center;
+        font-weight: bold;
+        color: red;
+    }
+    #eliminarTecnico {
+        cursor: pointer;
+    }
+    #classNumero {
+        font-weight: bold;
+        color: red;
+    }
+    .prioridad {
+        display: block;
+        margin: 2px;
+        padding: 3px 7px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+    .prioridad-1 {
+        background: skyblue;
+    }
+    .prioridad-2 {
+        background: green;
+    }
+    .prioridad-3 {
+        background: orange;
+    }    
+    .prioridad-4 {
+        background: red;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
+    .FormatoNumero {
+        width: 45px;
+        text-align: right;
+    }
+    .FormatoNumero-2 {
+        width: 80px;
+    }
+    #msjCantidad {
+        font-size: 11px;
+        color: #666;
+    }
+    .DetalleReparado {
+        cursor: pointer;
+    }
+</style>
+<fieldset>
+    <input type="hidden" id="textTipo" value="PENDIENTE">
+    <table id="tblPendientes">
+        <thead>
+            <tr>
+                <th>Id.</th>
+                <th>Documento</th>
+                <th>Cliente</th>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Fecha Llegada</th>
+                <th>Motivo</th>
+                <th>Garantia</th>
+                <th>Prioridad</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $tam = count($pendientes);
+            for ($i = 0; $i < $tam; $i++) {
+                echo '<tr>' .
+                        '<td>' . $pendientes[$i]['codigost']  . '</td>' .
+                        '<td class="classNumero">' . $pendientes[$i]['numero'] . '</td>' .
+                        '<td>' . html_entity_decode($pendientes[$i]['razonsocial'], ENT_QUOTES, 'UTF-8') . '</td>' .
+                        '<td><b>' . $pendientes[$i]['codigopa'] . '</b></td>' .
+                        '<td>' . html_entity_decode($pendientes[$i]['nompro'], ENT_QUOTES, 'UTF-8') . '</td>' .
+                        '<td><b>' . $pendientes[$i]['cantidad'] . '</b>/' . ($pendientes[$i]['cantreparado'] + $pendientes[$i]['cantdescartado'] + $pendientes[$i]['cantseparado']) . '</td>' .
+                        '<td>' . $pendientes[$i]['fremision'] . '</td>' .
+                        '<td>' . $pendientes[$i]['nombremotivo'] . '</td>' .
+                        '<td style="text-align: center;">' . ($pendientes[$i]['garantia'] == 1 ? '<img src="/imagenes/correcto.png">' : '') . '</td>' .
+                        '<td><span class="prioridad prioridad-' . $pendientes[$i]['prioridad'] . '">' . $ArrayPrioridad[$pendientes[$i]['prioridad']] . '</span></td>' .
+                        '<td>'
+                        . '<a class="verdetalle" data-id="' . $pendientes[$i]['idrecepcion'] . '" href=""><img src="/public/imagenes/ver.gif"></a>'
+                        . '</td>'
+                        . '<td>'
+                        . '<input type="button" value="Atender" class="button btnAtender" data-id="' . $pendientes[$i]['iddetallerecepcion'] . '" data-cantidad="' . ($pendientes[$i]['cantidad'] - ($pendientes[$i]['cantreparado'] + $pendientes[$i]['cantdescartado'] + $pendientes[$i]['cantseparado'])) . '">'
+                        . '</td>' .
+                     '</tr>';
+            }
+            ?>
+        </tbody>
+    </table>
+    <div id="detalle" style="display: none;">
+        <a id="imprimir" href="#"><img src="/imagenes/imprimir.gif"></a>
+        </style>
+        <b id="mensaje"></b>
+        <table id="tblcabecera">
+            <thead>                
+            </thead>
+        </table>
+        <table id="tbldetalles">
+            <thead>
+                <tr>
+                    <th>Vendedor</th>
+                    <th>Orden Venta</th>
+                    <th>Fecha</th>
+                    <th>Codigo</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Cantidad Atendida</th>
+                    <th>Garantia</th>
+                    <th colspan="2">Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="btncerrar" class="button">Cerrar Detalle</button>
+    </div>
+</fieldset>
+
+<div id="contenedorAtender">
+    <form action="/serviciotecnico/atendernotificacion" method="post" id="frmAtender">
+        <ul>
+            <li>
+                Tecnico:
+                <input type="text" id="idPersonal" name="txtPersonal" class="text-300">
+                <img src="/imagenes/eliminar.gif" id="eliminarTecnico">
+                <input type="hidden" id="txtIdDetalleRecepcion" name="drt[iddetallerecepcion]">
+                <input type="hidden" id="txtidPersonal" name="drt[idtecnico]">
+            </li>
+            <li>
+                Contraseña:
+                <input type="password" id="idPassword" name="txtidPassword">
+            </li>
+            <li>
+                Fecha: 
+                <input style="background:skyblue; width: 150px" type="text" id="txtFechaInicio" name="drt[fecha]" class="datepicker">
+            </li>
+            <li>
+                Cantidad a Reparar:
+                <input type="number" id="idCantidadReparar" data-cantidad="0" class="FormatoNumero-2" name="drt[cantidad]">
+                <small id="msjCantidad">Desde 1 hasta 10</small>
+            </li>
+        </ul>
+    </form>
+</div>

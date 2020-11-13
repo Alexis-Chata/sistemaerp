@@ -1,0 +1,110 @@
+<script type="text/javascript" src="/javascript/reporteCobranzaxEmpresa.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/css/select.css">
+<h2>REPORTE::COBRANZA x EMPRESA</h2>
+<fieldset>
+	<form id="frmConsulta" method="post" target="_blank">
+	<ul>
+		<li>
+			<label>Zona Geografica</label>
+			<select id="lstCategoriaPrincipal" name="lstCategoriaPrincipal" class="style">
+				<option value="">----Zona Geografica----</option>
+				<?php $cantidadZona=count($padre); ?>
+				<?php for ($i=0; $i <$cantidadZona ; $i++) { ?>
+				<option value="<?php echo $padre[$i]['idcategoria'] ?>"><?php echo $padre[$i]['nombrec'] ?></option>	
+				<?php } ?>
+			</select>
+		</li>
+		<li><p>
+			<label>Zona Cobranza-Categoria</label>
+			<select id="lstZonaCobranza" name="lstZonaCobranza" class="style">
+				<option value="">Zona Cobranza-Categoria</option>
+			</select></p>
+		</li>
+		<li>
+			<label>Zona Cobranza-Detalle</label>
+			<select id="lstZona" name="lstZona" class="style">
+				<option value="">Zona Cobranza-Detalle</option>
+			</select>
+		</li>
+		<li>
+			<label>Fecha Inicio</label>
+			<input type="text" style="background-color:skyblue" id="txtFechaInicio" name="txtFechaInicio" class="datepicker" readonly="readonly" placeholder="F. Cancelado" >
+		</li>
+		<li>
+			<label>Fecha Fin</label>
+			<input type="text" style="background-color:skyblue" id="txtFechaFinal" name="txtFechaFinal" class="datepicker" readonly="readonly" placeholder="F. Cancelado" >
+		</li>
+        </ul>
+        <br>
+        <ul>
+		<li>
+			<label>Tipo Cobranza</label>
+			<select id="lstTipoCobranza" name="lstTipoCobranza">
+				<option value="">TipoCobranza</option>
+				<?php $cantidadTipocobranza=count($tipocobranza); ?>
+				<?php for ($i=0; $i <$cantidadTipocobranza ; $i++) { ?>
+				<option value="<?php echo $tipocobranza[$i]['idtipocobranza'] ?>"><?php echo $tipocobranza[$i]['nombre'] ?></option>	
+				<?php } ?>
+			</select>
+		</li>
+                <li>
+			<label>Empresa</label>
+			<select id="lstEmpresa" name="lstEmpresa">
+				<option value="">Empresa</option>
+				<?php $cantidadEmpresa=count($empresa); ?>
+				<?php for ($i=0; $i <$cantidadEmpresa ; $i++) { ?>
+				<option value="<?php echo $empresa[$i]['idalmacen'] ?>"><?php echo $empresa[$i]['nomalm'] ?></option>	
+				<?php } ?>
+			</select>
+		</li>
+                <li>
+			<label>Situacion</label>
+			<select id="lstSituacion" name="lstSituacion">
+				<option value="">Seleccione Situacion</option>
+				<option value="pendiente">Pendiente</option>
+				<option value="cancelado">Cancelado</option>
+				<option value="anulado">Anulado</option>
+			</select>
+		</li>
+	</ul>
+        <br>
+	<ul>
+		<li>
+			<label>Vendedor</label>
+			<input type="text" id="txtVendedor"  placeholder="Nombre Vendedor" size="50">
+			<input type="hidden" id="idVendedor" name="idVendedor">
+		</li>
+		<li>
+			<label>Orden Venta</label>
+			<input type="text" id="txtOrdenVenta" placeholder="Orden Venta" >
+			<input type="hidden" id="idOrdenVenta" name="idOrdenVenta">
+		</li>
+		<li>
+			<label>Cliente</label>
+			<input type="text" id="txtCliente" placeholder="Nombre Cliente" size="45">
+			<input type="hidden" id="idCliente" name="idCliente">
+		</li>
+	</ul><br>
+	<ul>
+		<li><button id="btnConsultarHTML" style="font-size: 18px;">Consultar<img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/html5.png"></button></li>
+                <li><button id="btnConsultarPDF" style="font-size: 18px;">Consultar<img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/iconos/pdf.gif"> </button></li>
+                <li><button id="btnConsultarExcel" style="font-size: 18px;">Consultar<img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button></li>
+		<li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+		<li><button id="btnImprimir" style="font-size: 18px;"><img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/html5.png">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+		<li style="display:none">
+			<input type="hidden" id="lblCategoriaPrincipal" class="encabezado" name="encabezado[categoriaPrincipal]">
+			<input type="hidden" id="lblZonaCobranza" class="encabezado" name="encabezado[zonaCobranza]">
+			<input type="hidden" id="lblZona" class="encabezado" name="encabezado[zona]">
+			<input type="hidden" id="lblOrdenVenta" class="encabezado" name="encabezado[ordenVenta]">
+			<input type="hidden" id="lblVendedor" class="encabezado" name="encabezado[vendedor]">
+			<input type="hidden" id="lblCliente" class="encabezado" name="encabezado[cliente]">
+			<input type="hidden" id="lblTipoCobranza" class="encabezado" name="encabezado[tipoCobranza]">
+			<input type="hidden" id="lblSituacion" class="encabezado" name="encabezado[situacion]">
+			<input type="hidden" id="lblFecha" class="encabezado" name="encabezado[fecha]">
+			
+		</li>
+	</ul>
+		
+	</form>
+</fieldset>

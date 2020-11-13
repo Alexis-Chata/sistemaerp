@@ -1,0 +1,25 @@
+<div id="listados">
+<table>
+		<caption>Listado de Personales</caption>
+		<tr>
+			<th>Nombres y Apellidos</th>
+			<th>Direcci&oacute;n</th>
+			<th>Tel&eacute;fono</th>
+			<th>Email</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Personal);$i++){
+				echo "<tr>";
+					echo "<td>".$Personal[$i]['nombres']." ".$Personal[$i]['apaterno']." ".$Personal[$i]['amaterno']."</td>";
+					echo "<td>".$Personal[$i]['direccion']."</td>";
+					echo "<td>".$Personal[$i]['telefono']."</td>";
+					echo "<td>".$Personal[$i]['email']."</td>";
+					echo "<td><a href=\"/personal/editar/".$Personal[$i]['id']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/personal/eliminar/".$Personal[$i]['id']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+</table>
+<a href="/personal/nuevo/"><img src="/imagenes/new.gif"></a>
+</div>

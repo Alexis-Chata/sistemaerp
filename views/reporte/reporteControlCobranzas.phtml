@@ -1,0 +1,47 @@
+<script type="text/javascript" src="/javascript/reporteControlCobranzas.js"></script>
+<div id="listados">
+<br><br>
+<h2>REPORTE :: CONTROL COBRANZAS POR CLIENTE</h2>
+<br>
+<?php //echo phpinfo(); ?>
+<div id="busqueda">
+	Busqueda:<input type="text" id="txtClienteGlobal" name="txtCliente" size="50px" placeholder="Ingrese Razón Social o Nro RUC">
+	<input type="hidden" id="txtIdCliente" name="idcliente">
+	<br><br>
+		Código:<input type="text" name="codigo" readonly id="codigo" disabled> 
+		Razon Social:<input type="text" name="razonsocial" readonly id="razonsocial" size="40" disabled> 
+		Número de RUC:<input type="text" name="ruc" readonly id="ruc" disabled>
+		Codigo Dakkar:<input type="text" name="codantiguo" readonly id="codantiguo" disabled>
+</div>
+<br>
+<fieldset>
+        <a href="#" id="btnImprimir2"><img src="/imagenes/imprimir.gif"></a>
+        <br>
+        <div id="contenedorOrdendes">
+            <h2><b id="BCliente" ></b></h2>
+            <table id="tblControlCobranzas">
+                <thead>
+                    <tr><th colspan="10">LETRAS</th></tr>
+                    <tr>
+                        <th>ITM</th>
+                        <th>ORDEN VENTA</th>
+                        <th>GUIA REM N°</th>
+                        <th>FACTURA</th>
+                        <th>F.E</th>
+                        <th>SOLES</th>
+                        <th>DOLARES</th>
+                        <th>TIPO CAMBIO</th>
+                        <th>TOTAL</th>
+                        <th>F.Vcmt.</th>	
+                        <th>L/1</th>
+                        <th>F.Vcmt</th>
+                        <th>L/2</th>
+                        <th>F.Vcmt</th>
+                        <th>L/3</th>
+                    </tr>
+                </thead>	
+                <tbody>
+                </tbody>
+            </table>			
+        </div>
+</fieldset>

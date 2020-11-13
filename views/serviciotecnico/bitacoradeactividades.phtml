@@ -1,0 +1,82 @@
+<script type="text/javascript" src="/javascript/bitacoradeactividades.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Bitacora de Actividades</h2>
+
+<style type="text/css">
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 10px 0px;
+    }
+    table thead th, tbody th {
+        background: #87c2f5;
+        font-weight: bold;
+        text-align: center;
+        font-size: 15px;
+    }
+    table tbody td {
+        border: 1px solid #e2e0e6;
+    }
+</style>
+<fieldset>
+    <form id="frmBitacora" action="" method="post" target="_blank">
+        <ul>
+            <li>
+                <label>Fecha: </label>
+                <input style="background:skyblue;" type="text" id="txtFechaInicio" name="txtFechaInicio" class="datepicker">
+            </li>         
+            <li>
+                <label>Situacion de Control Interno: </label>
+                <select name="situacionDRT" id="situacionDRT">
+                    <option value="">Todos</option>
+                    <option value="En Proceso">En Proceso</option>
+                    <option value="Finalizado">Finalizado</option>
+                </select>
+            </li>
+            <li>
+                <label>Referencia: </label>
+                <input type="text" id="txtReferencia" class="uppercase text-100 ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                <input type="hidden" id="idRecepcion" name="idRecepcion">
+            </li>
+            <li>
+                <label>Tecnico: </label>
+                <input type="text" id="txtIdTecnico" class="uppercase text-300 ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                <input type="hidden" id="idTecnico" name="txtTecnico">
+            </li>
+        </ul>
+        <br>
+        <ul>            
+            <li>
+                <label>Producto: </label>
+                <input type="text" size="15" id="txtProducto">
+                <input type="text" size="55" id="txtDescripcion" disabled="disabled">
+                <input type="hidden" id="idProducto" name="txtProducto">
+            </li>
+            <li>
+                <label>Situacion de Actividad: </label>
+                <select name="SituacionCI" id="SituacionCI">
+                    <option value="0">Todos</option>
+                    <?php
+                    $tam = count($SituacionReparacion);
+                    for ($i = 1; $i <= $tam; $i++) {
+                        echo '<option value="' . $i . '">' . $SituacionReparacion[$i] . '</option>';
+                    }
+                    ?>    
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li><button id="btnConsultar" style="font-size: 18px;" class="button">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+            <li><button id="btnConsultaExcel" style="font-size: 18px;" class="button">Consultar <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"> </button></li>
+            <li><button id="btnLimpiar" style="font-size: 18px;" class="button">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+            <li><button id="btnImprimir" style="font-size: 18px;" class="button">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+        </ul>
+    </form>
+</fieldset>
+
+<fieldset id="fdcontenedor">
+    <div id="contenedor">
+    </div>
+</fieldset>

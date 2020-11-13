@@ -1,0 +1,81 @@
+<script src="/javascript/reportletras.js" type="text/javascript"></script>
+<script type="text/javascript" src="/javascript/protestadaspordia.js"></script>
+<h2>Letras Protestadas :: Por Dia</h2>
+<?php 
+    $cantidadpadre = count($padre);
+    $cantidadhijo = count($hijo);
+    $cantidadzona = count($zona);
+?>
+<fieldset>
+    <form id="frmProtestadas" action="/pdf/reporteventas/" method="post" target="_blank">
+        <ul>
+            <li>
+                <label>Fecha Inicio:</label>
+                <input style="background:skyblue;" type="text" value="" name="txtFechaInicio" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Fecha Fin:</label>
+                <input style="background:skyblue;" type="text" value="" name="txtFechaFin" class="datepicker" readonly>
+            </li>
+            <li class="cls_power">
+                <label for="">Zona Geografica:</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal" >
+                    <option value="">Zona Geografica</option>
+                    <?php for ($i = 0; $i < $cantidadpadre - 1; $i++) { ?>
+                        <option value="<?php echo $padre[$i]['idcategoria']; ?>"><?php echo $padre[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Region Cobranza:</label>
+                <select id="lstCategoria"  name="lstCategoria" >
+                    <option value="">Zona Cobranza-Categoria</option>
+                    <?php for ($i = 0; $i < $cantidadhijo; $i++) { ?>
+                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Zona:</label>
+                <select id="lstZona"  name="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                    <?php for ($i = 0; $i < $cantidadzona; $i++) { ?>
+                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="">Moneda:</label>
+                <select name="lstMoneda" id="lstMoneda">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Soles</option>
+                    <option value="2">Dolares</option>
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Orden de Venta</label>
+                <input type="text" id="txtOrdenVenta" name="txtOrdenVenta" class="uppercase text-150">
+                <input type="hidden" id="idOrdenVenta" name="idOrdenVenta">
+            </li>
+            <li>
+                <label>Cliente</label>
+                <input type="text" id="txtCliente" name="txtCliente" class="uppercase text-300" >
+                <input type="hidden" id="idCliente" name="idCliente">
+            </li>
+            <li>
+                <label>Vendedor</label>
+                <input type="text" id="txtVendedor" name="txtVendedor" class="uppercase text-300" >
+                <input type="hidden" id="idVendedor" name="idVendedor">
+            </li>
+        </ul>
+        <br>
+        <ul>        
+<!--            <li><button id="btnPDF" style="font-size: 18px;">Descargar <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/iconos/pdf.gif"> </button></li>-->
+            <li><button id="btnEXCEL" style="font-size: 18px;">Descargar <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"> </button></li>
+            <li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+        </ul>
+    </form>
+</fieldset>

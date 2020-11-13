@@ -1,0 +1,54 @@
+<script src="/javascript/stock-valorizado.js"></script>
+<h1>Reporte de Stock Valorizado</h1>
+<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+	<ul>
+		<li>
+			<label>Seleccione una de las opiones</label>
+			<input type="radio" name="rbFiltro" value="1" checked> Por Sub Linea
+			&nbsp;<input type="radio" name="rbFiltro" value="2"> Por Linea	
+		</li>
+	</ul>
+</fieldset>
+<fieldset style="display:inline-block">
+	<legend>Linea y Sub Linea</legend>
+		<ul>
+			<li>
+				<label>Linea</label>
+				<select id="lstLinea">
+					<option value="0">Seleccione Linea</option>
+					<?php
+						for($i=0;$i<count($Linea);$i++){
+							echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin'].'</option>';
+						}
+					?>
+				</select>
+			</li>
+			<li id="subLinea">
+				<label>Sub Linea</label>
+				<select id="lstSubLinea">
+					<option value="0" id="zeroRow">Seleccione Sub Linea</option>
+				</select>
+			</li>
+			<li>
+				<button id="btnConsultar">Consultar</button>
+			</li>
+		</ul>
+</fieldset>
+<table id="dataGridReport">
+	<thead>
+		<tr>
+			<th data-field="codigo">C&oacute;digo</th>
+			<th data-field="nompro">Descripci&oacute;n</th>
+			<th data-field="nomalm">Almacen</th>
+			<th data-field="nomlin">Linea</th>
+			<th data-field="unidadmedida">Unidad<br>Medida</th>
+			<th data-field="stock">Stock</th>
+			<th data-field="precio">Precio</th>
+			<th data-field="preciototal">Precio<br>Total</th>
+		</tr>
+	</thead>
+</table>
+<div id="totales">
+	
+</div>

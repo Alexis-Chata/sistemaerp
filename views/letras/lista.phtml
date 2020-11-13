@@ -1,0 +1,43 @@
+<?php  $idmodulo = 104;
+require_once 'evalcredenciales.php'; ?>
+<h2>Mantenimiento: <?php echo $titulo; ?></h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo" class='c1_datashet'><img src="/imagenes/iconos/nuevo.gif">
+					</a></th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td style="text-align:center;"><?php echo $data[$i]['idcondicionletra'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['nombreletra'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['cantidadletra'] ?> </td>
+					<td style="width:10%"><a class='c2_datashet' href="/letras/eliminar/<?php echo $data[$i]['idcondicionletra']; ?>"><img src="/imagenes/eliminar.gif"></a></td>
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

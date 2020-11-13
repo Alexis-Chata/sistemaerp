@@ -1,0 +1,18 @@
+<fieldset>
+    <h2>REPORTE :: Record de Documentos de Ventas</h2>
+    <form action="/pdf/reporteguiasydocumentos" method="post" target="_blank" id="frmConsulta">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Final</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li>
+            <li>
+                <button type="submit">Consulta <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

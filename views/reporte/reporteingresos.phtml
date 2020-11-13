@@ -1,0 +1,172 @@
+<?php $idmodulo=120; require_once 'evalcredenciales.php'; ?>
+﻿<script type="text/javascript" src="/javascript/reporteingresos.js"></script>
+<br><br><h2>Reporte: Ingresos</h2>
+
+<br>
+<form id="frmingresos" action="/excel/rankingingresos" target="_blank" method="post">
+    <fieldset>
+        <ul>
+            <li>
+                <label >Fecha Inicio</label>
+                <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio">
+            </li>
+            <li>
+                <label>Fecha Final</label>
+                <input type="text" class="datepicker" id="fechaFinal" name="fechaFinal">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Cliente</label>
+                <input type="text" id="txtCliente"   size="50">
+            </li>
+            <li>
+                <label>Orden  de Venta</label>
+                <input type="text" id="txtOrdenVenta">
+            </li>
+            <li>
+                <label>Cobrador</label>
+                <input type="text" id="txtCobrador"  size="50">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Tipo Cobro</label>
+                <select id="idTipoCobro" name="idTipoCobro">
+                    <option value="">Tipo Ingreso</option>
+                    <?php
+                    $cantidadIngreso = count($tipoIngreso);
+
+                    for ($i = 1; $i <= $cantidadIngreso; $i++) {
+                        ?>
+                        <option value="<?php echo $i; ?>"><?php echo $tipoIngreso[$i]; ?></option>
+                    <?php } ?>
+                </select>
+                <select name="cmbTipo" id="cmbTipo" style="display: none;">
+                    <option value="">-- Tipo --</option>
+                    <option value="R-BBVA">R-BBVA</option>
+                    <option value="R-BCP">R-BCP</option>
+                    <option value="R-CL">R-CL</option>
+                </select>
+                
+                <input type="hidden" id="idOrdenVenta" name="idOrdenVenta">
+                <input type="hidden" id="idCliente" name="idCliente">
+                <input type="hidden" id="idCobrador" name="idCobrador">
+            </li>
+            <li>
+                <label id="textNroRecibo" style="display: none">N° Recibo</label>
+                <input type="text" style="display: none" class="" id="nroRecibo" name="nroRecibo"  >
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <select id="simbolo" name="simbolo">
+                    <option value="">Condicion</option>
+                    <option value="=">=</option>
+                    <option value=">">></option>
+                    <option value=">=">>=</option>
+                    <option value="<"><</option>
+                    <option value="<="><=</option>
+                </select>
+                <input type="text" id="monto" name="monto" placeholder="Ingrese Monto" class="numeric" readonly="readonly">
+                <button id="aceptar">Aceptar</button>
+                <button id="aceptarContabilidad" class="c1_datashet">Contabilidad</button>
+                <button id="aceptarExcel">Aceptar&nbsp;&nbsp;<img width="20" height="20" style="vertical-align: middle;text-align: center;" src="/imagenes/excel.png"></button>
+                
+                <input type="reset" value="limpiar" id="limpiar">
+                <button id="ranking">
+                    <img style="vertical-align: middle;text-align: center;" width="18px" src="/imagenes/ranking.png">
+                    Ranking
+                </button>
+                <button  id="imprimir" title="Imprimir"><img style="vertical-align: middle;text-align:center;width:30" src="/imagenes/imprimir.gif"></button>
+            </li>
+        </ul>
+    </fieldset>
+</form>
+
+<?php $tamano = 10; ?>
+<div id="contenedorImpresion">
+    <table style="border-collapse: collapse;">
+        <thead>
+            <tr><th colspan="9"> <h2>Reporte de Ingresos </h2></th></tr>
+            <tr>
+                <th id="lbl">Del : </th><td style="background:white;"><label id="txtFechaInicio">&nbsp</label></td>
+                <th>Al : </th><td style="background:white;"><label id="txtFechaFinal">&nbsp</label></td>
+                <th>Cliente : </th><td colspan="2" style="background:white;"><label id="lblCliente">&nbsp</label></td>
+                <th>Orden de Venta: </th><td style="background:white;"><label id="lblOrdenVenta">&nbsp</label></td>
+            </tr>
+            <tr>
+                <th>Cobrador: </th><td colspan="2" style="background:white;"><label id="lblCobrador">&nbsp</label></td>
+                <th id="textRecibolbl">N° Recibo : </th><td style="background:white;"><label id="lblRecibo">&nbsp</label></td>
+                <th>Tipo Ingreso: </th><td style="background:white;"><label id="lblTipoIngreso">&nbsp</label></td>
+                <th>Monto: </th><td style="background:white;"><label id="lblMonto">&nbsp</label></td>
+            </tr>
+            <tr><td style="background:white;" colspan="9">&nbsp</td></tr>
+        </thead>
+    </table>
+    <table id="tblOrden" style="display:none;">
+        <thead>
+            <tr>
+                <th>Fecha Despacho</th>
+                <th>Fecha Vencimiento</th>
+                <th>Fecha Cancelado</th>
+                <th>Total Guia</th>
+                <th>Importe Pagado</th>
+                <th>Deuda</th>
+                <th>Situacion</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <table id="tblingresos" style="display:none; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Fecha Pago</th>
+                <th>Tipo Ingreso</th>
+                <th>Cliente</th>
+                <th>Orden Venta</th>
+                <th>Cobrador</th>
+                <th>N° Recibo </th>
+                <th>N° Operacion </th>
+                <th>M. Ingresado </th>
+                <th>M. asignado </th>
+                <th>Saldo F.</th>
+                <th>M. Anulado</th>
+                <th>M. Liberado</th>
+                <th>Observaciones</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <table id="tblingresosContabilidad" style="display:none; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Fecha Pago</th>
+                <th>Tipo Ingreso</th>
+                <th>Cliente</th>
+                <th>Orden Venta</th>
+                <th>Letra</th>
+                <th>Cobrador</th>
+                <th>N° Recibo </th>
+                <th>N° Operacion </th>
+                <th>M. Ingresado </th>
+                <th>M. asignado </th>
+                <th>Saldo F.</th>
+                <th>M. Anulado</th>
+                <th>M. Liberado</th>
+                <th>Observaciones</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>

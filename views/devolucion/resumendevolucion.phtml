@@ -1,0 +1,61 @@
+<script type="text/javascript" src="/javascript/resumendevolucion.js"></script>
+
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Reporte ::: Resumen de Devolución</h2>
+
+<form action="" method="POST" target="_blank" id="frmResumenDevolucion">
+    <fieldset>
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Aprobado Inicio:</label>
+                <input style="background:skyblue" type="text" name="txtFechaInicio" placeholder="Fecha Desde" class="datepicker" readonly>
+            </li>
+            <li>
+                <label for="txtFechaFin">Aprobado Fin:</label>
+                <input style="background:skyblue" type="text" name="txtFechaFin" placeholder="Fecha Hasta" class="datepicker" readonly>
+            </li>
+            <li>
+                <label for="txtClientexIdCliente">Razon Social Cliente:</label>
+                <input type="text" id="txtClientexIdCliente" size="50">
+                <input type="hidden" id="txtIdCliente" name="txtIdCliente">
+                <a href="#" id="btnLimpiarCliente">[ Limpiar ]</a>
+            </li>
+            <li>
+                <label for="txtOrdenVentaxId">Orden de Venta:</label>
+                <input type="text" id="txtOrdenVentaxId" size="20">
+                <input type="hidden" id="txtIdOrdenVenta" name="txtIdOrdenVenta">
+                <a href="#" id="btnLimpiarOV">[ Limpiar ]</a>
+            </li>
+            <li>
+                <label>Vendedor:</label>
+                <select id="lstvendedor" name="lstvendedor">
+                    <option value="0">Seleccione una opcion</option>
+                    <?php $cantidadvendedor = count($vendedor);
+                    for ($i = 0; $i < $cantidadvendedor; $i++) { ?>
+                        <option value="<?php echo $vendedor[$i]['idactor']; ?>"><?php echo $vendedor[$i]['nombres'] . ' ' . $vendedor[$i]['apellidopaterno'] . ' ' . $vendedor[$i]['apellidomaterno']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label>Motivo: </label>
+                <select name="idmotivo" id="idmotivodevolucion">
+                    <option value="0">Seleccione una opcion</option>
+                    <?php
+                          for($i=1;$i<=count($MotivoDevolucion); $i++) { ?>
+                             <option value="<?php echo $i ?>"><?php echo $MotivoDevolucion[$i]; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li id="blockSubMotivo">
+                <label>Sub-Motivo: </label>
+                <select class="required" name="idsubmotivo" id="idsubmotivodevolucion">
+                    <option value="0">Seleccione una opcion</option>
+                </select>
+            </li>
+        </ul>
+        <ul>
+            <button type="button" id="btnDevoluciones">Devoluciones <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"></button>
+            <button type="button" id="btnResumen">Resumen por Motivo <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"></button>
+            <button type="button" id="btnResumenVendedor">Resumen por Vendedor <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"></button>
+        </ul>
+    </fieldset>
+</form>

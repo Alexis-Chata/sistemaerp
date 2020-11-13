@@ -1,0 +1,101 @@
+
+*{
+	padding:0px;
+	margin:0px;
+
+	
+}
+body{
+	position: absolute;
+	width: 219mm;
+	margin-left: 0mm;
+	top:5mm;
+	padding: 0px;
+	
+	
+	font-weight: bold;
+	
+	font-family: arial;
+	
+}
+#impresion{
+
+	position: relative;
+	width: 219mm;
+	margin: 0px;
+	padding: 0px;
+	
+	font-size: 5px;
+	border:0px solid; 
+	min-height: 165mm;
+	top:-5mm;
+
+}
+
+#encabezado{
+	position: absolute;
+	top:55mm;
+	left:16mm;
+	width:189mm;
+	margin: 0mm;
+}
+#cuerpo{
+	position: absolute;
+	top:73mm;
+	left:16mm;
+	width:189mm;
+	margin: 0mm;
+	
+}
+#piepagina{
+	position: absolute;
+	top:124.5mm;
+	left: 16mm;
+	width: 189mm;
+	margin-top: 0mm;
+}
+table tr td,table tr th{
+	
+	font-family: fixedsys, consolas, monospace;
+	font-size: 11px;
+	
+	
+}
+.td1{
+	width: 5mm;
+	text-align: center;
+}
+.td2{
+	width: 12mm;
+	text-align: center;
+}
+.td3{
+	width: 25mm;
+}
+.td4{
+	width: 102mm;
+}
+.td5{
+	width: 20mm;
+	text-align: right;
+}
+.td6{
+	width: 25mm;
+	text-align: right;
+}
+
+.tp1{
+	width: 159mm;
+}
+.tp2{
+	width: 25mm;
+	text-align: right;
+}
+.tp3{
+	width: 5mm;
+	text-align: right;
+}
+
+table{
+	
+}

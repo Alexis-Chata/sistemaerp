@@ -1,0 +1,166 @@
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Clientes :: Linea de Crédito</h2>
+<script src="/javascript/lineadecredito.js"></script>
+<style>
+    .blockForm {
+        border: 1px solid #343435;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .blockCliente {
+        border: 1px solid #343435;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .blockCliente > li {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+        border-right: 1px solid #343435;
+        border-bottom: 1px solid #343435;
+    }
+    .blockCliente > li > label {
+        color: #2d69a9 !important;
+    }
+</style>
+<ul class="blockCliente">
+    <li>
+        <label>Razon Social:</label>
+        <?php echo $Cliente[0]['razonsocial'] ?>
+    </li>
+    <li>
+        <label>RUC:</label>
+        <?php echo $Cliente[0]['ruc'] ?>
+    </li>
+
+    <li>
+        <label>Nombre Comercial</label>
+        <?php echo (!empty($Cliente[0]['nombrecomercial']) ? $Cliente[0]['nombrecomercial'] : '<br>'); ?>
+    </li>
+    <li>
+        <label>Nombre Contacto</label>
+        <?php echo (!empty($Cliente[0]['nombre_contacto']) ? $Cliente[0]['nombre_contacto'] : '<br>'); ?>
+    </li>
+    <li>
+        <label>Teléfono Fijo:</label>
+        <?php echo (!empty($Cliente[0]['telefono']) ? $Cliente[0]['telefono'] : '<br>'); ?>
+    </li>
+    <li>
+        <label>Teléfono Movil:</label>
+        <?php echo (!empty($Cliente[0]['celular']) ? $Cliente[0]['celular'] : '<br>'); ?>
+    </li>
+<?php
+    $tam = count($Deudas);
+    $LineaUtilizada = 0;
+    if ($tam > 0) {
+        //echo '<ul class="blockCliente">';
+        echo '<li><label>Deuda Soles: </label>';
+        if (isset($Deudas[1])) {
+            echo 'S/' . number_format($Deudas[1], 2) . '</li>';
+            $LineaUtilizada = $Deudas[1];
+        } else {
+            echo '0.00</li>';
+        }
+        if (isset($Deudas[2])) {
+            echo '<li><label>Deuda Dolares: </label>';
+            echo 'US $ ' . number_format($Deudas[2], 2) . '</li>';
+            echo '<li><label>T/C Compra: </label>';
+            echo 'S/ ' . number_format($tccompra, 2) . '</li>';
+            echo '<li><label>Deuda Total en Soles: </label>';
+            $LineaUtilizada += ($tccompra*$Deudas[2]);
+            echo 'S/ ' . number_format($LineaUtilizada, 2) . '</li>';
+        }
+        echo '</ul>';
+    }
+?>
+<br>
+<ul class="blockForm">
+    <form action="/cliente/grabalineadecredito/" id="frmLineaCredito" method="POST">
+    <li>
+        <label>Linea de Crédito S/:</label>
+        <input type="hidden" name="txtidcliente" value="<?php echo $Cliente[0]['idcliente']; ?>">
+        <input type="number" id="idLcredito" step="0.01" placeholder="<?php echo round($LineaUtilizada, 2); ?>" value="" name="txtlineacredito" class="required uppercase" required="">
+    </li>
+    <li>
+        <label>Linea Utilizada S/:</label>
+        <input type="number" id="idLutilizada" value="<?php echo round($LineaUtilizada, 2); ?>" class="uppercase" readonly="">
+    </li>
+    <li>
+        <label>Linea Disponible S/:</label>
+        <input type="number" id="idLdisponible" step="0.01" placeholder="0.00" value="" class="required uppercase">
+    </li>
+    <li>
+        <label>Calificación:</label>
+        <select name="cmbCalificacion" required>
+            <option value="">-- Seleccione --</option>
+            <?php 
+            for ($i = 0; $i < count($Calificaciones); $i++) {
+                $arrayCalificacion[$Calificaciones[$i]['idcalificacion']] = $Calificaciones[$i]['nombre'];
+                echo '<option value="' . $Calificaciones[$i]['idcalificacion'] . '"' . ($i == 2 ? ' selected' : '') . '>' . $Calificaciones[$i]['nombre'] . '</option>';
+            } ?>
+        </select>
+    </li>
+    <li>
+        <label>Condicion:</label>
+        <input type="checkbox" name="chkContado" id="chkContado" checked> Contado
+        <input type="checkbox" name="chkCredito" id="chkCredito"> Credito
+        <input type="checkbox" name="chkLetra" id="chkLetra"> Letras
+    </li>
+    <br>
+    <li>
+        <label>Observacion:</label>
+        <textarea class="text-600 uppercase" rows="3" name="taObservaciones"></textarea>
+    </li>
+    <br>
+    <li>
+        <input type="submit" value="Registrar">
+    </li>
+    </form>
+    <table>
+        <caption>Historial de linea de credito del cliente</caption>
+        <thead>
+            <tr>
+                <th rowspan="2">Fecha Registro</th>
+                <th rowspan="2">Linea Crédito</th>
+                <th rowspan="2">Linea Utilizada</th>
+                <th rowspan="2">Linea Disponible</th>
+                <th colspan="3">Condicion</th>
+                <th rowspan="2">Calificación</th>
+                <th rowspan="2">Observacion</th>
+                <th rowspan="2">Acción</th>
+            </tr>
+            <tr>
+                <th>Contado</th>
+                <th>Crédito</th>
+                <th>Letras</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            $Moneda[1] = 'S/ ';
+            $Moneda[2] = 'US $ ';
+            for ($j = 0; $j < count($lineacredito); $j++) {
+                echo '<tr>' .
+                        '<td style="text-align: center">' . $lineacredito[$j]['fregistro'] . '</td>' .
+                        '<td style="text-align: right">' . $Moneda[$lineacredito[$j]['idmoneda']] . ' ' . number_format($lineacredito[$j]['lineacredito'], 2) . '</td>';
+                if ($j > 0) {
+                    echo '<td style="text-align: right">' . $Moneda[$lineacredito[$j]['idmoneda']] . ' ' . number_format($lineacredito[$j]['deuda'], 2) . '</td>' .
+                         '<td style="text-align: right">' . $Moneda[$lineacredito[$j]['idmoneda']] . ' ' . number_format($lineacredito[$j]['lineadisponible'], 2) . '</td>';
+                } else {
+                    echo '<td style="text-align: right">' . $Moneda[$lineacredito[$j]['idmoneda']] . ' ' . number_format($LineaUtilizada, 2) . '</td>' .
+                         '<td style="text-align: right">' . $Moneda[$lineacredito[$j]['idmoneda']] . ' ' . number_format($lineacredito[$j]['lineacredito'] - $LineaUtilizada, 2) . '</td>';
+                }
+                echo    '<td style="text-align: center">' . ($lineacredito[$j]['contado'] == 1 ? 'Apto' : 'No Apto') . '</td>' .
+                        '<td style="text-align: center">' . ($lineacredito[$j]['credito'] == 1 ? 'Apto' : 'No Apto') . '</td>' .
+                        '<td style="text-align: center">' . ($lineacredito[$j]['letras'] == 1 ? 'Apto' : 'No Apto') . '</td>' .
+                        '<td style="text-align: center">' . $arrayCalificacion[$lineacredito[$j]['calificacion']] . '</td>' .
+                        '<td style="text-align: center">' . $lineacredito[$j]['observacion'] . '</td>';
+                if ($j > 0) {
+                    echo '<td></td>';
+                } else {
+                    echo '<td style="text-align: center"><a href="/cliente/eliminarlineadecredito/' . $lineacredito[$j]['idlineacredito'] . '"><b>[ Eliminar ]</b></a></td>';
+                }
+                echo '<tr>';
+            } ?>
+        </tbody>
+    </table>
+</ul>

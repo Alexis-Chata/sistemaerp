@@ -1,0 +1,86 @@
+<script src="/javascript/devolucion.js"></script>
+<h2>Lista de Devoluciones Por Aprobar</h2>
+<style type="text/css">
+    .inhabilitar_elemento {
+        pointer-events: none !important;
+        cursor: default !important;
+        opacity: 0.6 !important;
+    }
+</style>
+<fieldset>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">N° de Devolucion</th>
+                <th rowspan="2">ordenVenta</th>
+                <th rowspan="2">Importe ToTal</th>
+                <th rowspan="2">Condicion</th>
+                <th colspan="4">Acciones</th>
+            </tr>
+            <tr>
+                <th>Ver</th>
+                <th>Desaprobar</th>
+                <th>Confirmar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($devolucion); $i++) { ?>
+                <tr>
+                    <td style="text-align: center;"><?php echo $devolucion[$i]['iddevolucion']; ?> </td>
+                    <td style="text-align: center;"><?php echo $devolucion[$i]['codigov']; ?> </td>
+                    <td style="text-align: right;"><?php echo $devolucion[$i]['simbolo']; ?><?php echo number_format($devolucion[$i]['importetotal'], 2); ?> </td>
+                    <td style="text-align: center;"><?php echo $devolucion[$i]['registrado'] == 1 ? 'Registrado' : 'Pendiente'; ?> </td>
+                    <td><a class="verdetalle" id="<?php echo $devolucion[$i]['iddevolucion']; ?>" href=""><img style="margin:auto;display:block" src="/public/imagenes/ver.gif" ></a></td>
+                    <td><a href="/devolucion/desaprobarDevolucion/<?php echo $devolucion[$i]['iddevolucion'] ?> "><img style="margin:auto;display:block" width="25"  high="25" src="/public/imagenes/desaprobar.jpg" ></a></td>
+                    <td><a class="devregistrada" href="#" data-id="<?php echo $devolucion[$i]['iddevolucion']; ?>"><img style="margin:auto;display:block" src="/public/imagenes/check-gris-blanco.png" ></a></td>
+                    <td><a class="devEliminar" href="/devolucion/eliminarDevolucionesAprobadas/<?php echo $devolucion[$i]['iddevolucion'] ?> "><img style="margin:auto;display:block" src="/public/imagenes/eliminar.gif" ></a></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+    <div id="detalle">
+        <a id="imprimir" href="#" ><img src="/imagenes/imprimir.gif"></a>
+
+        <style type="text/css">
+            *{
+
+            }
+            table {
+                border: 1px solid;
+                border-collapse: collapse;
+                border-spacing:0px;
+                padding: 0px;
+
+
+                margin: 0px;
+            }
+            table tr td, table tr th{
+
+            }
+        </style>	
+        <b id="mensaje"></b>
+        <table id="tblEncabezado" sytle="magin-botton:0px"></table>
+        <table id="tbldetalles">
+            <thead>
+                <tr>
+                    <th>Numero de Devolucion</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Importe</th>
+                </tr>
+            </thead>
+            <tbody>
+            <td></td>
+            </tbody>
+            <tfoot>
+            <td></td>
+            </tfoot>
+        </table>
+        <button id="btncerrar">Cerrar Detalle</button>
+    </div>
+</fieldset>

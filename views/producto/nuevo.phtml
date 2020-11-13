@@ -1,0 +1,310 @@
+<?php
+session_start();
+$Producto = $_SESSION['Producto'];
+?>
+<script src="/javascript/producto.js"></script>
+<form action="/producto/graba/" method="POST" id="frmProductoNuevo" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Registro de Producto Nuevo</legend>
+        <ul class="inline-block">
+            <li>
+                <label>Fecha Ingreso:</label>
+                <input type="hidden" value="<?php echo date("Y-m-d") ?>" name="Producto[fechaingreso]">
+                <strong style="color:#00f"><?php echo date("d/m/Y") ?></strong>
+            </li>
+            <li>
+                <label>Codigo Fábrica:</label>
+                <input type="text" maxlength="20" name="Producto[codigofabrica]" class="uppercase" autofocus autocomplete="off">
+            </li>
+            <li>
+                <label>Codigo Sunat:</label>
+                <input type="text" maxlength="8" name="Producto[codigosunat]" class="input-number" id="idSunat" pattern=".{8,8}" required title="8 caracteres necesarios"> 
+            </li>
+
+            <li>
+                <label>Partida Arancelaria:</label>
+                <input type="text" maxlength="10" name="Producto[partidaarancelaria]" class="uppercase">
+            </li>
+            <li>
+                <label>Codigo CPA:</label>
+                <input id="codigoCPA" type="text" maxlength="20" name="Producto[codigopa]" class="required cod-pro uppercase" autocomplete="off" title="Ingrese y luego Verifique el Codigo">
+                <button id="verificaCodigo">Verificar Codigo</button><b id="error"></b>
+            </li>
+            <li>
+                <label>Descripcion:</label>
+                <input Maxlength="100" type="text" class="required uppercase" name="Producto[nompro]" size="50px" value="<?php echo $nompro; ?>">
+            </li>
+            <style>
+                .ui-icon {
+                    display: inline-block;
+                }
+
+                .hide {
+                    display: none;
+                }
+                .mr_4{
+                    margin-right: 4px;
+                }
+            </style>
+            <li>
+                <th><label>Repuesto: </label></th>
+                <td>
+                    <p class="inline">No </p><input style="margin: 0 15px 0 5px;" id="repuestono" type="radio" name="Producto[idtipoproducto]" value="0" checked>
+                </td>
+                <td>
+                    <p class="inline">Si </p><input style="margin: 0 15px 0 5px;" id="repuestosi" type="radio" name="Producto[idtipoproducto]" value="1">
+                </td>
+            </li>
+            <div id="repuestoproducto" class="hide">
+                <fieldset class="inline-block" style="width: fit-content; margin-left: 140px;">
+                    <li id="produc">
+                        <label>Producto</label>
+                        <input type="text" class="uppercase required-none" id="txtCodigoProducto" style="width:100px">
+                    </li>
+                    <li>
+                        <label>Descripcion</label>
+                        <input type="text" id="txtTituloProducto" disabled style="width:300px">
+                        <input type="hidden" name="productospadres[]" id="txtIdProducto">
+                        <!--Esto es llenado al elegir la opcion de la lista-->
+                    </li>
+                </fieldset>
+            </div>
+            <div id="registroProducto">
+            <li>
+                <label>Almacen:</label>
+                <select id="lstAlmacen" class="required" name="Producto[idalmacen]">
+                    <option value="">Seleccione Almacen</option>
+                    <?php
+                    for ($i = 0; $i < count($Almacen); $i++) {
+                        echo '<option value="' . $Almacen[$i]['idalmacen'] . '">' . $Almacen[$i]['nomalm'] . '</option>';
+                    }
+                    ?>
+                </select>
+                <div id="agregarAlmacen"> Nuevo Almacen</div>
+            </li>
+            <li>
+                <label>Linea:</label>
+                <select id="lstLineaNuevo" class="required" name="idlineapadre">
+                    <option value="">Seleccione Linea</option>
+                    <?php
+                    for ($i = 0; $i < count($Linea); $i++) {
+                        echo '<option value="' . $Linea[$i]['idlinea'] . '">' . $Linea[$i]['nomlin'] . '</option>';
+                    }
+                    ?>
+                </select>
+                <div id="agregarLinea">Nueva Linea</div>
+            </li>
+            <li>
+                <label>Sublinea:</label>
+                <select class="required" name="Producto[idlinea]" id="lstSublineaNuevo">
+                    <option value="">Seleccione Sublinea</option>
+                </select>
+                <div id="agregarSublinea"> Nuevo Sub Linea</div>
+            </li>
+
+            <li>
+                <label>Proveedor:</label>
+                <select class="required" name="ProductoProveedor[idproveedor]" id="lstProveedor">
+                    <option value="">-- Proveedor --</option>
+                    <?php
+                    for ($i = 0; $i < count($Proveedor); $i++) {
+                        echo '<option value="' . $Proveedor[$i]['idproveedor'] . '">' . $Proveedor[$i]['razonsocialp'] . ' ' . $Proveedor[$i]['nombrep'] . '</option>';
+                    }
+                    ?>
+                </select>
+                <div id="agregarProveedor">Nuevo Proveedor</div>
+            </li>
+            <li>
+                <label>Empaque:</label>
+                <select class="required" name="Producto[empaque]">
+                    <option value="">Selecione Empaque</option>
+                    <?php
+                    for ($i = 0; $i < count($Empaque); $i++) {
+                        echo '<option value="' . $Empaque[$i]['idempaque'] . '">' . $Empaque[$i]['codempaque'] . '</option>';
+                    }
+                    ?>
+                </select>
+
+            </li>
+            <li>
+                <label>Medida:</label>
+                <select class="required" name="Producto[unidadmedida]" id="lstUnidadMedida">
+                    <option value="">Seleccione Medida</option>
+                    <?php
+                    for ($i = 0; $i < count($Unidadmedida); $i++) {
+                        echo '<option value="' . $Unidadmedida[$i]['idunidadmedida']  . '">' . $Unidadmedida[$i]['nombre'] . '</option>';
+                    }
+                    ?>
+                </select>
+                <div id="agregarUnidad">Nuevo Unidad Medida</div>
+            </li>
+            <li>
+                <label>Marca:</label>
+                <select class="required" name="Producto[idmarca]" id="lstMarca">
+                    <option value="">Seleccione Marca</option>
+                    <?php for ($i = 0; $i < count($marca); $i++) { ?>
+
+                        <option value="<?php echo $marca[$i]['idmarca']; ?>"> <?php echo $marca[$i]['nombre']; ?> </option>
+                    <?php } ?>
+                </select>
+                <!-- <button id="nuevaMarca">Nueva Marca</button> -->
+                <div id="agregarMarca">Nueva Marca</div>
+            </li>
+            </div>
+            <li>
+                <label>Imagen:</label>
+                <input type="file" name="foto" id="imagenProducto">
+            </li>
+        </ul>
+    </fieldset>
+    <input id="btnEnviar" type="submit" value="Registrar">
+    <button id="btnCancelar">Cancelar</button>
+    <input id="btnLimpiar" type="reset" value="Limpiar">
+</form>
+<!-- ventana de dialogo -->
+<div id="mensajeModal" title="Error de validacion">
+    <b>Codigo Incorrecto</b>
+</div>
+
+<!-- ***************** Para Formulario Almacen ************************************* -->
+<div id="nuevoAlmacenPrueba" title="Crear Nuevo Almacen">
+    <p class="validateTips">Todos los campos son requiridos.</p>
+    <form id="frmAlmacen" name="frmAlmacen" method="post">
+        <fieldset id="datosAlmacen">
+            <label for="nombreAlmacen">Nombre</label>
+            <input type="text" name="nombreAlmacen" id="nombreAlmacen" size="35">
+            <label for="razonSocialAlmacen">Razon Social</label>
+            <input type="text" name="razonSocialAlmacen" id="razonSocialAlmacen" size="35">
+            <label for="direccionAlmacen">Direccion</label>
+            <input type="text" name="direccionAlmacen" id="direccionAlmacen" size="35">
+            <label for="rucAlmacen">RUC</label>
+            <input type="text" name="rucAlmacen" id="rucAlmacen" size="35">
+        </fieldset>
+    </form>
+    <p id="respAlmacen"></p>
+</div>
+
+<!-- ***************** Para Formulario Linea ************************************* -->
+<div id="nuevaLinea" title="Crear Nueva Linea">
+    <p class="validateTips">Todos los campos son requiridos.</p>
+    <form id="frmLinea">
+        <fieldset>
+            <label for="nombreLinea">Nombre</label>
+            <input type="text" name="nomlin" id="nombreLinea" size="35" />
+        </fieldset>
+    </form>
+    <p id="respLinea"></p>
+</div>
+
+<!-- ***************** Para Formulario Sublinea ************************************* -->
+<div id="nuevaSublineaModal" title="Crear Nueva Sublinea">
+    <p class="validateTips">Todos los campos son requeridos.</p>
+    <form id="frmSublinea">
+        <fieldset>
+            <label for="lstLineaModal">Linea</label>
+            <select id="lstLineaModal">
+                <option value="">Seleccione Linea</option>
+                <?php
+                for ($i = 0; $i < count($Linea); $i++) {
+                    echo '<option value="' . $Linea[$i]['idlinea'] . '">' . $Linea[$i]['nomlin'] . '</option>';
+                }
+                ?>
+            </select>
+
+            <label for="nombreSublinea">Nombre de Sublinea</label>
+            <input type="text" id="nombreSublinea" size="35">
+        </fieldset>
+    </form>
+    <p id="respSublinea"></p>
+</div>
+
+<!-- ***************** Para Formulario Proveedor ************************************* -->
+<div id="nuevoProveedorModal" title="Crear Nuevo Proveedor">
+
+    <form id="frmProveedor">
+
+        <table>
+            <tr>
+                <th><label for="razsocProveedor">Razon Social</label></th>
+                <td><input type="text" id="razsocProveedor" name="razsocProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="repreProveedor">Representante Legal</label></th>
+                <td><input type="text" id="repreProveedor" name="repreProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="percontactoProveedor">Persona Contacto</label></th>
+                <td><input type="text" id="percontactoProveedor" name="percontactoProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="direccionProveedor">Direccion</label></th>
+                <td><input type="text" id="direccionProveedor" name="direccionProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="descripcionProveedor">Descripcion</label></th>
+                <td><input type="text" id="descripcionProveedor" name="descripcionProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="rucProveedor">RUC</label></th>
+                <td><input type="text" id="rucProveedor" name="rucProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="emailPrincipalProveedor">E-mail Principal</label></th>
+                <td><input type="text" id="emailPrincipalProveedor" name="emailPrincipalProveedor" size="35" placeholder="micorreo@ejemplo.com"></td>
+            </tr>
+            <tr>
+                <th><label for="emailAltenativoProveedor">E-mail Alternativo</label></th>
+                <td><input type="text" id="emailAltenativoProveedor" name="emailAltenativoProveedor" size="35" placeholder="micorreo@ejemplo.com"></td>
+            </tr>
+            <tr>
+                <th><label for"paginaProveedor">Pagina Web</label></th>
+                <td><input type="text" id="paginaProveedor" name="paginaProveedor" size="35" placeholder="www.lawebdelaempresa.com"></td>
+            </tr>
+            <tr>
+                <th><label for="telefonoprincipalProveedor">Telefono Principal</label></th>
+                <td><input type="text" id="telefonoprincipalProveedor" name="telefonoprincipalProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="telefonoalternativoProveedor">Telefono Alternativo</label></th>
+                <td><input type="text" id="telefonoalternativoProveedor" name="telefonoalternativoProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th><label for="faxProveedor">Fax</label></th>
+                <td><input type="text" id="faxProveedor" name="faxProveedor" size="35"></td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <p class="validateTips">* Todos los Campor son requeridos</p>
+                </th>
+            </tr>
+        </table>
+
+    </form>
+    <p id="respProveedor"></p>
+</div>
+
+<!-- *********************************** Para Formulario Marca *******************************-->
+<div id="nuevaMarcaModal" title="Crear Nueva Marca">
+    <p class="validateTips">Todos los campos son requiridos.</p>
+    <form id="frmMarca">
+        <fieldset>
+            <label for="nombreMarca">Nombre Marca</label>
+            <input type="text" name="nombreMarca" id="nombreMarca" size="35" title="Ingrese nombre de la marca" />
+        </fieldset>
+    </form>
+    <p id="respMarca"></p>
+</div>
+
+<!-- *********************************** Para Formulario Marca *******************************-->
+<div id="nuevaUnidadModal" title="Crear Nueva Unidad de Medida">
+    <p class="validateTips">Todos los campos son requiridos.</p>
+    <form id="frmUnidadMedida">
+        <fieldset>
+            <label for="codigoUnidad">Codigo Unidad</label>
+            <input type="text" name="codigoUnidad" id="codigoUnidad" size="35" />
+            <label for="nombreUnidad">Nombre Unidad</label>
+            <input type="text" name="nombreUnidad" id="nombreUnidad" size="35" />
+        </fieldset>
+    </form>
+    <p id="respUnidad"></p>
+</div>

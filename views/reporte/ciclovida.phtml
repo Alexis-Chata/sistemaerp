@@ -1,0 +1,50 @@
+<br>
+<script type="text/javascript" src="/javascript/utilidadxproducto.js"></script>
+<h2>Reporte de Utilidades por Container</h2>
+<br>
+
+<fieldset style="display:inline-block">
+    <ul>
+        <li id="liProducto">
+            <label>Orden de Compra:</label>
+            <input type="text" class="text-large required uppercase" placeholder="CODIGO DE ORDEN DE COMPRA" id="txtOrdenCompra">
+        </li>
+    </ul>
+</fieldset>
+
+<fieldset>
+    <table id="imprimirtabla">
+        <thead>
+            <tr>
+                <th colspan="20" style="background:#B4D1F7;color:#830E0E;" id="conCab">ORDEN DE COMPRA</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Descripcion</th>
+                <th>QTY</th>
+                <th>FOB<br>UNI. ($.)</th>
+                <th>CIF<br>VENTAS<br>($.)</th>
+                <th>T.C.<br>($.)</th>
+                <th>Neto<br>($.)</th>
+                <th>Precio<br>Lista<br>($.)</th>
+                <th>Neto<br>(S/.)</th>
+                <th>Precio<br>Lista<br>(S/.)</th>
+                <th style="background:#6C91FB">CANTIDAD<br>VENDIDA</th>
+                <th style="background:#6C91FB">STOCK</th>
+                <th style="background:#0AC557">TOTAL<br>CONTADO<br>($.)</th>
+                <th style="background:#0AC557">TOTAL<br>CREDITO<br>($.)</th>
+                <th style="background:#0AC557">TOTAL<br>LETRAS<br>($.)</th>
+                <th style="background:#0AC557">TOTAL<br>DEUDA<br>($.)</th>
+                <th style="background:#cabb0f">Utilidad<br>Real(%)</th>
+                <th style="background:#cabb0f">PRECIO<br>VENTA<br>($.)</th>
+                <th style="background:#cabb0f">Utilidad<br>Total ($.)</th>
+            </tr>
+        </thead>
+        <tbody id="conBody">
+        </tbody>
+        <tfoot id="conFoot">
+        </tfoot>
+    </table>
+    <button id="imprimir" ><img width="30" src="/imagenes/imprimir.gif"></button>
+</fieldset>

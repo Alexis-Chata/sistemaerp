@@ -1,0 +1,38 @@
+<h2>Mantenimiento: Nuevo <?php echo $titulo ?></h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/grabar">
+		<ul class="inline-block">
+			<li>
+				<label>Nombre</label>
+				<input required type="text" name="<?php echo $titulo.'[nombre]'; ?>">
+			</li>
+			<li>
+				<label>Descripcion</label>
+				<input required type="text" name="<?php echo $titulo.'[descripcion]'; ?>">
+			</li>
+			<li>
+				<label>Dias Inicio Situacion</label>
+				<input required type="text" name="<?php echo $titulo.'[diaini]'; ?>">
+			</li>		
+			<li>
+				<label>Dias Fin Situacion</label>
+				<input required type="text" name="<?php echo $titulo.'[diafin]'; ?>">
+			</li>					
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+
+	</form>
+</fieldset>

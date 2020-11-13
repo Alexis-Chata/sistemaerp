@@ -1,0 +1,194 @@
+<script src="/javascript/orden-compra.js"></script>
+<input type="hidden" id="contador" value="<?php echo count($Detalleordencompra)+1 ?>">
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>">
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Actualizaci&oacute;n de Orden de compra</h2>
+<style>
+    .HabilitarA {
+        font-size: 12px;
+        font-weight: 600;
+        color: #d61313
+    }
+    .HabilitarA:hover {
+        color: #ad1111;
+    }
+    .inputBorder:hover {
+         border: 2px solid #9e9e9e;
+    }
+    .inputBorder {
+        cursor: pointer;
+    }
+</style>
+<form action="/ordencompra/actualiza/" method="POST" id="frmOrdenCompraActualiza">
+	<fieldset>
+        <ul>
+            <li>
+                <label>Nro. Orden</label>
+                <strong style="color:#f00"><?php echo $Ordencompra[0]['codigooc'] ?></strong>
+                <input type="hidden" value="<?php echo $_REQUEST['id'] ?>" name="idOrdenCompra">
+            </li>
+            <li>
+                <label>Fecha</label>
+                <label style="color:#007F7F"><?php echo substr($Ordencompra[0]['fordencompra'], 0, 10) ?></label>
+            </li>
+            <li>
+                <label>Moneda: </label>
+                <?php 
+                if ($Ordencompra[0]['monedaordencompra'] == 1) {
+                    echo 'Soles (S/.)';
+                } else if ($Ordencompra[0]['monedaordencompra'] == 2) {
+                    echo 'Dolares Americanos <b>(T.C: S/ ' . $Ordencompra[0]['tipocambiovigente'] . ')</b>';
+                }
+                ?>
+            </li>
+            <li>
+                <label>Empresa</label>
+                <select id="lstEmpresa" disabled>
+                    <option value="">Seleccione Empresa</option>
+                    <?php
+                    for ($i = 0; $i < count($Empresa); $i++) {
+                        if ($Empresa[$i]['idalmacen'] == $Ordencompra[0]['idalmacen']) {
+                            echo '<option value="' . $Empresa[$i]['idalmacen'] . '" selected>' . $Empresa[$i]['nomalm'] . '</option>';
+                        } else {
+                            echo '<option value="' . $Empresa[$i]['idalmacen'] . '">' . $Empresa[$i]['nomalm'] . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+                <a href="#" title="Seleccionar Empresa" class="HabilitarA" id="btnCambiarEmpresa">[Habilitar]</a>
+            </li>
+            <li>
+                <label>Fecha Aprox. Llegada:</label>
+                <input type="text" class="datepicker" value="<?php echo (!empty($Ordencompra[0]['faproxllegada'])&&$Ordencompra[0]['faproxllegada']!='0000-00-00' ? date('Y/m/d', strtotime($Ordencompra[0]['faproxllegada'])) : ''); ?>" name="Ordencompra[faproxllegada]" required>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <label>Jefe de Linea: </label>
+                <input type="hidden" name="Ordencompra[jefelinea]" value="<?php echo $Ordencompra[0]['jefelinea']; ?>" id="idjefelinea" required>
+                <input type="text" size="40" placeholder="Ingrese Nombre de Vendedor" id="txtVendedor" value="<?php echo $JefeLinea; ?>"<?php echo (!empty($Ordencompra[0]['jefelinea']) ? ' disabled' : ''); ?>>
+                <a href="#" title="Cambiar Jefe de Linea" class="HabilitarA" id="btnCambiarJefe">[Habilitar]</a>
+                <?php if (empty($Ordencompra[0]['jefelinea'])) {
+                    echo "<script>$('#btnCambiarJefe').hide();</script>";
+                } ?>
+            </li>
+            <li>
+                <label>Proveedor</label>
+                <select id="lstProveedor" disabled>
+                    <option value="">-- Proveedor --</option>
+                    <?php
+                    for ($i = 0; $i < count($Proveedor); $i++) {
+                        if ($Ordencompra[0]['idproveedor'] == $Proveedor[$i]['idproveedor']) {
+                            echo '<option value="' . $Proveedor[$i]['idproveedor'] . '" selected>' . $Proveedor[$i]['razonsocialp'];
+                        } else {
+                            echo '<option value="' . $Proveedor[$i]['idproveedor'] . '">' . $Proveedor[$i]['razonsocialp'];
+                        }
+                    }
+                    ?>
+                </select>
+                <button title="Cambiar Proveedor" class="small-button" id="btnCambiarProveedor" disabled>...</button>
+            </li>
+        </ul>
+        <br>
+        <ul id="blockColaboradores">
+            <li>
+                <label>Colaboradores: </label>
+                <input type="text" size="40" placeholder="Ingrese Nombre de Vendedor" id="txtColaborador" data-estado="0">
+            </li>
+            <?php echo $Colaboradores; ?>
+        </ul>
+        <ul class="block">
+            <li class="block">
+                <label>Observaciones:</label>
+                <input type="text" value="<?php echo $Ordencompra[0]['observaciones'] ?>" class="uppercase text-full" name="Ordencompra[observaciones]" autofocus>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <div class="body">
+            <ul>
+                <li>
+                    <label>Producto:</label>
+                    <input type="text" class="required uppercase" id="txtCodigoProductoCompras" size="20">
+                    <input type="text" disabled="" size="50" id="txtTituloProducto">
+                    <input type="hidden" id="txtIdProducto"> 
+                    <a href="/producto/nuevo/" title="Nuevo Producto" target="_blank" class="HabilitarA"> .:: Nuevo Producto ::.</a>
+                </li>
+                <li>
+                    <label>Cantidad:</label>
+                    <input type="text" style="width:75px" class="numeric required" id="txtCantidadProducto">                    
+                </li>
+                <li>
+                    <button id="btnAgregarDetalleOrdenCompra" title="Agregar Producto">Añadir</button>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+	<div class="field-set">
+        <p class="title">Detalle Orden Compra</p>
+        <div class="body">
+        <table id="tblDetalleOrdenCompra">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Codigo</th>
+                    <th>Descripci&oacute;n</th>
+                    <th>Marca</th>
+                    <th>Empaque</th>
+                    <th colspan="2">Cant/Uni</th>
+                    <th>FOB</th>
+                    <th>Total</th>
+                    <th colspan="2">Pcs x Ctn</th>
+                    <th colspan="2">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $archivoConfig = parse_ini_file("config.ini", true);
+                $importeTotal = 0;
+                $totalCmb = 0;
+                for ($i = 0; $i < count($Detalleordencompra); $i++) {
+                    $total = $Detalleordencompra[$i]['cantidadsolicitadaoc'] * $Detalleordencompra[$i]['fobdoc'];
+                    $cbm = $Detalleordencompra[$i]['cbm'];
+                    if (empty($Detalleordencompra[$i]['imagen'])) {
+                        $rutaCompleta = '/public/imagenes/sinFoto.jpg';
+                    } else {
+                        $rutaCompleta = "/imagenes/productos/" . $Detalleordencompra[$i]['codigopa'] . '/' . $Detalleordencompra[$i]['imagen'];
+                    }
+                    echo '<tr class="ocultar">';
+                    echo '<td class="foto">'
+                    . '<img src="' . $rutaCompleta . '" width="50" height="40">'
+                    . '<input type="hidden" value="' . $Detalleordencompra[$i]['idproducto'] . '" name="Detalleordencompra[' . ($i + 1) . '][idproducto]">'
+                    . '<input type="hidden" value="' . $Detalleordencompra[$i]['cantidadsolicitadaoc'] . '" name="Producto[' . ($i + 1) . '][cantidad]">'
+                    . '<input type="hidden" value="1" name="Detalleordencompra[' . ($i + 1) . '][estado]" class="txtEstado">'
+                    . '<input type="hidden" value="' . $Detalleordencompra[$i]['iddetalleordencompra'] . '" name="Detalleordencompra[' . ($i + 1) . '][iddetalleordencompra]" class="txtNumOrden">'
+                    . '</td>';
+                    echo '<td class="codigo">' . $Detalleordencompra[$i]['codigopa'] . "</td>";
+                    echo '<td class="center">' . $Detalleordencompra[$i]['nompro'] . "</td>";
+                    echo '<td class="center">' . $Detalleordencompra[$i]['marca'] . "</td>";
+                    echo '<td class="center">' . $archivoConfig['Empaque'][($Detalleordencompra[$i]['empaque'])] . "</td>";
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][cantidadsolicitadaoc]" value="' . $Detalleordencompra[$i]['cantidadsolicitadaoc'] . '" class="txtCantidadDetalle numeric required" style="width:50px" readonly></td>';
+                    echo '<td>' . $archivoConfig['UnidadMedida'][($Detalleordencompra[$i]['unidadmedida'])] . "</td>";
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][fobdoc]" value="' . $Detalleordencompra[$i]['fobdoc'] . '" class="txtFob numeric required" style="width:50px"></td>';
+                    echo '<td class="right"><input type="text" value="' . number_format($total, 2, ',', '') . '" class="txtTotal numeric required" style="width:80px" readonly></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][piezas]" value="' . $Detalleordencompra[$i]['piezas'] . '" class="txtPiezas numeric required" style="width:50px"></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][carton]" value="' . $Detalleordencompra[$i]['carton'] . '" class="txtCarton required" style="width:50px" readonly></td>';
+                    echo '<td><a href="#" class="btnEditarDetalleOrdenCompra"><img src="/imagenes/editar.gif"></a></td>';
+                    echo '<td><a href="#" class="btnEliminarDetalleOrdenCompra"><img src="/imagenes/eliminar.gif"></a></td>';
+                    echo '</tr>';
+                    $importeTotal += $total;
+                    $totalCmb += $cbm;
+                }
+                ?>
+                <tr>
+                    <td colspan="8" class="right bold">Total:</td>
+                    <td class="center">
+                        <input type="text" value="<?php echo number_format($importeTotal, 2, ',', '') ?>" name="Ordencompra[importeordecompra]" class="right text-100" id="txtMontoTotal" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div> 
+	<input type="submit" value="Actualizar Orden" id="btnRegistrarOrden">
+	<button id="btnCancelar">Cancelar</button>
+</form>

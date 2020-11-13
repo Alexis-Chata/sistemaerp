@@ -1,0 +1,93 @@
+<script src="/javascript/ofertas.js"></script>
+<?php 
+$base_url = explode('?', $_SERVER["REQUEST_URI"]);
+if (isset($base_url[1])) {
+    $urlBusqueda = '/?' . $base_url[1];
+} else {
+    $urlBusqueda = '';
+}
+?>
+<div id="listados">
+    <h2 style="float:left !important;padding-bottom: 20px;width:100%">Ofertas :: Listado</h2><br>
+    <form method="GET" action="/mantenimiento/ofertas/">
+        <div id="busqueda">
+            Busqueda: <br>
+            <input type="text" id="txtBusqueda" value="<?php echo $_REQUEST['txtBusqueda']; ?>" name="txtBusqueda" title="Ingrese un Nombre" size="50px">
+            <input type="submit" value="Ver"/>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="6">Listado de Ofertas</th>
+                <th colspan="2"><a href="/mantenimiento/oferta">
+                        <img src="/imagenes/iconos/nuevo.gif">
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Tipo Cobro</th>
+                <th>Precio Soles</th>
+                <th>Precio Dolares</th>
+                <th>Descripcion</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $tam = count($ofertas);
+            for ($i = 0; $i < $tam; $i++) {
+                echo '<tr>' .
+                            '<td>' . $ofertas[$i]['codigopa'] . '</td>' .
+                            '<td>' . $ofertas[$i]['nompro'] . '</td>' .
+                            '<td>' . $arrayTipocobro[$ofertas[$i]['tipocobro']] . '</td>' .
+                            '<td>S/ ' . $ofertas[$i]['precio'] . '</td>' .
+                            '<td>US $ ' . $ofertas[$i]['preciodolares'] . '</td>' .
+                            '<td>' . $ofertas[$i]['descripcion'] . '</td>' .
+                            '<td><a href="/mantenimiento/oferta/' . $ofertas[$i]['idoferta'] . '"><img src="/imagenes/iconos/editar.gif"></a></td>' .
+                            '<td><a href="/mantenimiento/ofertaeliminar/' . $ofertas[$i]['idoferta'] . '" class="eliminarOferta"><img src="/imagenes/iconos/eliminar.gif"></a></td>' .
+                     '</tr>';   
+            }?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" align="center">
+                    <?php
+                    $pagina = $_REQUEST['id'];
+                    if ($blockpaginas * 10 < $paginacion) {
+                        $blockpaginas = $blockpaginas + 1;
+                    } else {
+                        $blockpaginas = $blockpaginas;
+                    }
+                    if ($pagina > 1) {
+                        echo "<a href=\"/mantenimiento/ofertas/" . ($pagina - 1) . $urlBusqueda . "\"> " . "Anterior" . " </a>";
+                    }
+
+                    for ($i = 1; $i <= $blockpaginas; $i++) {
+                        $max = $i * 10;
+                        for ($min = $max - 9; $min <= $max; $min++) {
+                            if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                if ($pagina == $min) {
+                                    echo "<a href=\"/mantenimiento/ofertas/" . ($min) . $urlBusqueda . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                } else {
+                                    echo "<a href=\"/mantenimiento/ofertas/" . ($min) . $urlBusqueda . "\"> " . ($min) . " </a>";
+                                }
+                            }
+                        }
+                    }
+                    if ($pagina < $paginacion) {
+                        echo "<a href=\"/mantenimiento/ofertas/" . ($pagina + 1) . $urlBusqueda . "\"> " . "Siguiente" . " </a>";
+                    }
+                    ?>
+            <select id="seleccion" data-url="<?php echo $urlBusqueda; ?>">
+                    <option value=""></option>
+                    <?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+            </select>
+            </tr>
+	</tfoot>
+    </table>
+</div>

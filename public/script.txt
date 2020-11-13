@@ -1,0 +1,3 @@
+UPDATE `wc_ordenventa` SET `IdMoneda`=1, `IdTipoCambioVigente`=0,`MontoTipoCambioVigente`=1
+WHERE `IdMoneda`=0
+

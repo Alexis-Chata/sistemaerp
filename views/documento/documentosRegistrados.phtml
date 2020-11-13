@@ -1,0 +1,23 @@
+<script src="/javascript/documento.js"></script>
+<fieldset>
+    <h2>Reporte de Documentos Registrados</h2>
+    <form>
+        <ul>
+            <li>
+                <label for="txtFecha">Fecha</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha" readonly="readonly" id="txtFecha" name="txtFecha" value="<?php echo date('Y/m/d'); ?>">
+            </li>
+            <li>
+                <select class="required" id="idDocumento" required="">
+                    <?php for ($i = 0; $i < count($TipoDocumentoOjalaDe); $i++) { ?>
+                        <option value="<?php echo $i ?>"><?php echo '' . $TipoDocumentoOjalaDe[$i]; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <button type="button" id="btnConsultarDocumentoRegistrado">Consultar</button>
+            </li>
+        </ul>
+    </form>
+</fieldset>
+<div id="documentosRegistradosHtml"></div>

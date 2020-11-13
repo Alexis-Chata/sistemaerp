@@ -1,0 +1,259 @@
+<script type="text/javascript" src="/javascript/reporte_cobranzas.js"></script>
+<script src="/javascript/wc_cliente.js"></script>
+<script src="/javascript/wc_ordenventa.js"></script>
+<br><br>
+<h2>Reporte de Resultados de Cobranzas</h2>
+<!-- tblreportesCobra -->
+<form action="" id="report_cobra" method="POST" target="_blank">
+<fieldset id="listas">
+	
+        <?php 
+                $cantidadpadre=count($padre);
+                $cantidadhijo=count($hijo);
+                $cantidadzona=count($zona);
+                $cantidadtipo=count($tipocobranza);
+                $cantidadvendedor=count($vendedor);
+                $cantidadcobrador=count($cobrador);
+         ?>
+        <ul>
+                <li>
+                        <select id="lstCategoriaPrincipal" >
+                                <option value="">Zona Geografica</option>
+                                <?php for ($i=0; $i <$cantidadpadre ; $i++) { ?>
+                                        <option value="<?php echo $padre[$i]['idcategoria']; ?>"><?php echo $padre[$i]['nombrec']; ?></option>
+                                <?php } ?>
+                        </select>
+                </li>
+                <li>
+                        <select id="lstCategoria" >
+                                <option value="">Zona Cobranza-Categoria</option>
+                                <?php for ($i=0; $i <$cantidadhijo ; $i++) { ?>
+                                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                                <?php } ?>
+                        </select>
+                </li>
+                <li>
+                        <select id="lstZona" >
+                                <option value="">Zona Cobranza-Detalle</option>
+                                <?php for ($i=0; $i <$cantidadzona ; $i++) { ?>
+                                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                                <?php } ?>
+                        </select>
+                </li>
+                <li>
+                        <select id="lstcobrador" >
+                                <option value="">Cobrador</option>
+                                <?php for ($i=0; $i <$cantidadcobrador ; $i++) { ?>
+                                        <option value="<?php echo $cobrador[$i]['idactor']; ?>"><?php echo $cobrador[$i]['nombres'].' '.$cobrador[$i]['apellidopaterno'].' '.$cobrador[$i]['apellidomaterno']; ?></option>
+                                <?php } ?>
+                        </select>
+                </li>
+        </ul>
+        <br>
+        <ul>
+<!--			<li>
+                        <select id="lstTipoCobranza" >
+                                <option value="">Tipo Cobranza</option>
+                                <?php for ($i=0; $i <$cantidadtipo ; $i++) { ?>
+                                        <option value="<?php echo $tipocobranza[$i]['idtipocobranza']; ?>"><?php echo $tipocobranza[$i]['nombre']; ?></option>
+                                <?php } ?>
+                        </select>-->
+                </li>
+                <li>
+                        <select id="lstvendedor" >
+                                <option value="">Vendedor</option>
+                                <?php for ($i=0; $i <$cantidadvendedor ; $i++) { ?>
+                                        <option value="<?php echo $vendedor[$i]['idactor']; ?>"><?php echo $vendedor[$i]['nombres'].' '.$vendedor[$i]['apellidopaterno'].' '.$vendedor[$i]['apellidomaterno']; ?></option>
+                                <?php } ?>
+                        </select>
+                </li>
+<!--			<li>
+                        <select id="lstTipoCobro" >
+                                <option value="">Tipo Cobro</option>
+                                <option value="1">Contado</option>
+                                <option value="2">Credito</option>
+                                <option Value="3">Letras Banco</option>
+                                <option Value="4">Letras Cartera</option>
+                                <option Value="5">Letras Protestadas</option>
+                        </select>
+                </li>
+                <li>
+                        <select id="lstRecepcionLetras" disabled="disabled">
+                                <option value="">Estado</option>
+                                <option value="1">con PA</option>
+                                <option value="2">sin PA</option>
+                        </select>
+                </li>-->
+
+                <li>
+                        <label for="txtClientexIdCliente">Razon Social Cliente</label>
+                        <input type="text" id="txtClientexIdCliente" size="50">
+                        <input type="hidden" id="txtIdCliente">
+                </li>
+
+        </ul>
+        <ul>
+<!--			<li>
+                        <label for="txtClientexIdCliente">Razon Social Cliente</label>
+                        <input type="text" id="txtClientexIdCliente" size="50">
+                        <input type="hidden" id="txtIdCliente">
+                </li>		-->
+<!--			<li>
+                        <label for="txtOrdenVentaxId">Orden de Venta</label>
+                        <input type="text" id="txtOrdenVentaxId" size="20">
+                        <input type="hidden" id="txtIdOrdenVenta">
+                </li>	-->
+        </ul>
+<!--		<ul>
+                <li>
+                        <input style="background:pink" type="text" id="fechaInicio" placeholder="Fecha Vencimi. Inicio">
+                </li>
+                <li>
+                        <input style="background:pink" type="text" id="fechaFinal" placeholder="Fecha Vencimi. Final">
+                        <input type="hidden" value="1" id="valoropcional">
+                </li>
+                <li>
+                        <input disabled="disabled" style="background:silver" type="text" id="fechaPagoInicio" placeholder="Fecha Pago Inicio" readonly autocomplete="off" >
+                </li>
+                <li>    
+                        <input disabled="disabled" style="background:silver" type="text" id="fechaPagoFinal" placeholder="Fecha Pago Final" readonly autocomplete="off" >
+                </li>
+        </ul>-->
+        <br>
+        <ul>
+            <li>
+                <button id="enviar" >Aceptar</button>
+            </li>
+        </ul>
+	
+</fieldset>
+<!--<fieldset>
+
+	<ul>
+            <li>
+                <button id="enviar" >Aceptar</button>
+            </li>
+	</ul>
+	
+</fieldset>	-->
+</form>
+<fieldset id="muestra">
+
+<style type="text/css">
+*{
+
+}
+
+table tr td, table tr th{
+	font-size: 10px;
+	/*font-family: fixedsys, consolas, monospace;*/
+	margin: 0px;
+	border-collapse: collapse;
+}
+table tr td, table tr th{
+	font-weight: 2px;
+}
+#tblreportes tr td,tblreportes thead th{
+    font-size: 13px;
+}
+#tblreportes th{
+    font-size: 14px !important;
+    
+}
+.tblchildren,.filaOculta{
+
+background-color : rgb(124, 180, 224);
+border : none ;
+/*font-family: fixedsys, consolas, monospace;*/
+border-collapse: collapse;
+
+font-size : 7px;
+padding-left : 5px;
+padding-right : 5px;
+}
+
+</style>
+<!--<table id="tblreportesHead">
+		<tr><th colspan="5"><h2>Reporte de Resultados de Cobranzas</h2></th><th>Fecha Impresion: <?php echo date('d-m-Y'); ?></th></tr>
+		<tr>
+			
+			<th>Zona Geografica : </th><td style="background:white;"><label id="txtZonaGeografica"></label></td>
+			<th>Zona Cobranza - Categoria : </th><td style="background:white;"><label id="txtZonaCobranza"></label></td>
+			<th>Zona Cobranza - Detalle : </th><td style="background: white;"><label id="txtZona"></label></td>
+		</tr>
+		<tr>
+			<th>Tipo Cobranza : </th><td  style="background:white;"><label id="txtTipoCobranza"></label></td>
+			<th>Vendedor : </th><td style="background:white;"><label  class="txtVendedor" ></label></td>
+			<th>Cobrador : </th><td style="background:white;"><label  id="txtCobrador" ></label></td>
+		</tr>
+		<tr>
+			<th>Tipo Cobro : </th><td style="background: white;"><label id="txtTipoCobro"></label></td>
+			<th>Del : </th><td style="background: white;"><label id="txtFechaInicio"></label></td>
+			<th>Al : </th><td style="background: white;"><label id="txtFechaFinal"></label></td>
+		</tr>
+		<tr>
+			<th>Situacion : </th>
+			<td ><label id="txtOctavas"></label><label id="txtNovenas"></label><label id="txtPendiente"></label><label id="txtCancelado"></label></td>
+			<th>Cliente</th><td><label id="txtCliente"></td>
+			<th>Orden de Venta</th><td><label id="txtOrdenVenta"></td>
+		</tr>
+	</table>-->
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan="2">ZONA</th>        
+            <th colspan="6">CONTADO</th>
+            <th colspan="6">CREDITOS</th>
+            <th colspan="6">LETRAS</th>
+            <th rowspan="2">TOTAL CLIENTES</th>
+        </tr>
+        <tr>
+            <th>N°</th>
+            <th>PAGARON</th>
+            <th>N°</th>
+            <th>PENDIENTES</th>
+            <th>N°</th>
+            <th>MOROSOS</th>
+            <th>N°</th>
+            <th>PAGARON</th>
+            <th>N°</th>
+            <th>PENDIENTES</th>
+            <th>N°</th>
+            <th>MOROSOS</th>
+            <th>N°</th>
+            <th>BANCO</th>
+            <th>N°</th>
+            <th>L X FIRMAR</th>
+            <th>N°</th>
+            <th>L X VENCER</th>
+        </tr>
+    </thead>
+    <tbody id="tblreportesCobra" style="width:100%;">
+        
+    </tbody>
+</table>
+</fieldset>
+
+<form id="from-mostrar" target="_blank" method="POST">
+    <input type="hidden" name="FM-idzona" id="idFM-idzona" value="">
+    <input type="hidden" name="FM-idcategoriaprincipal" id="idFM-idcategoriaprincipal" value="">
+    <input type="hidden" name="FM-idcategoria" id="idFM-idcategoria" value="">
+    <input type="hidden" name="FM-idvendedor" id="idFM-idvendedor" value="">
+    <input type="hidden" name="FM-idtipocobranza" id="idFM-idtipocobranza" value="">
+    <input type="hidden" name="FM-fechaInicio" id="idFM-fechaInicio" value="">
+    <input type="hidden" name="FM-fechaFinal" id="idFM-fechaFinal" value="">
+    <input type="hidden" name="FM-idtipocobro" id="idFM-idtipocobro" value="">
+    <input type="hidden" name="FM-titulo" id="idFM-titulo" value="">
+    <input type="hidden" name="FM-pendiente" id="idFM-pendiente" value="">
+    <input type="hidden" name="FM-cancelado" id="idFM-cancelado" value="">
+    <input type="hidden" name="FM-octava" id="idFM-octava" value="">
+    <input type="hidden" name="FM-novena" id="idFM-novena" value="">
+    <input type="hidden" name="FM-idcobrador" id="idFM-idcobrador" value="">
+    <input type="hidden" name="FM-fechaPagoFinal" id="idFM-fechaPagoFinal" value="">
+    <input type="hidden" name="FM-fechaPagoInicio" id="idFM-fechaPagoInicio" value="">
+    <input type="hidden" name="FM-IdCliente" id="idFM-IdCliente" value="">
+    <input type="hidden" name="FM-IdOrdenVenta" id="idFM-IdOrdenVenta" value="">
+    <input type="hidden" name="FM-vendedor" id="idFM-vendedor" value="">
+    <input type="hidden" name="FM-tipocobro" id="idFM-tipocobro" value="">
+</form>

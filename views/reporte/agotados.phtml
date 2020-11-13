@@ -1,0 +1,57 @@
+<script src="/javascript/agotados.js"></script>
+<h2>Reportes: Agotados</h2> 
+<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+	<ul>
+		<li>
+			<label>Seleccione una de las opiones</label>
+			<input type="radio" name="rbFiltro" value="1" checked> Todos
+			&nbsp;<input type="radio" name="rbFiltro" value="2"> Por Fecha	
+			&nbsp;<input type="radio" name="rbFiltro" value="3"> Por Rango Fecha
+			&nbsp;<input type="radio" name="rbFiltro" value="4"> Por Producto
+		</li>
+		<li id="liFecha">
+			<label>Seleccione Fecha</label>
+			<input type="text"  id="txtFecha" class="datepicker" >
+		</li>
+		<li class="liRangoFecha">
+			<label>Fecha Inicio</label>
+			<input type="text" id="txtFechaInicio" class="datepicker" >
+		</li>
+		<li class="liRangoFecha">
+			<label>Fecha Final</label>
+			<input type="text" id="txtFechaFinal" class="datepicker" >
+		</li>
+		<li id="liProducto">
+			<label>Producto</label>
+			<input type="text" id="txtCodigoProducto" class="text-large required uppercase">
+			<input type="hidden" id="txtIdProducto" value="">
+		</li>
+		<li>
+			<button id="btnConsultar">Consultar</button>
+		</li>
+		<li>
+			<form action="/pdf/agotados/" method="post" target="_blank">
+				<input type="submit" value="ver en pdf" id="mostrarPDF">
+				<input type="hidden" id="fecha"  name="fecha">
+				<input type="hidden" id="fechaInicio"  name="fechaInicio">
+				<input type="hidden" id="fechaFinal" name="fechaFinal">
+				<input type="hidden" id="idProducto" name="idProducto">
+			</form>
+		</li>
+	</ul>
+</fieldset>
+
+<table id="dataGridReport">
+	<thead>
+		<tr>
+			<th data-field="fechapenultima">Pen&uacute;ltima</th>
+			<th data-field="cantidadpenultima">Cantidad</th>
+			<th data-field="fechaultima">&Uoacute;ltima</th>
+			<th data-field="cantidadultima">Cantidad</th>
+			<th data-field="codigo" rowspan="2">C&oacute;digo</th>
+			<th data-field="nompro" rowspan="2">Descripci&oacute;n</th>
+			<th data-field="nomlin" rowspan="2">Sublinea</th>
+		</tr>
+	</thead>
+</table>

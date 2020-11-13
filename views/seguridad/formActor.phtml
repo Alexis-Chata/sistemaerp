@@ -1,0 +1,28 @@
+<div class="centrarregistro">
+
+	<h3>Ingrese un usuario nuevo</h3>
+
+	<form action="/seguridad/grabausuario/" method="post" enctype="multipart/form-data" >
+		<fieldset>
+			<legend>Datos Del Usuario</legend>
+				<p>Nombres: 
+					<input type="text" name="Actor[nombres]" size="25" />
+				</p>
+				<p>Apellido Paterno: 
+					<input type="text" name="Actor[apellidopaterno]" size="25" />
+				</p>
+				<p>Apellido Materno: 
+					<input type="text" name="Actor[apellidomaterno]" size="25" />
+				</p>
+
+				<p>Email Personal: 
+					<input type="text" name="Actor[emailprincipal]" size="25" />
+				</p>
+				<p>Usuario: 
+					<input type="text" name="Actor[usuario]" size="25" />
+				</p>
+			<input  type="submit" id="enviar" value="Grabar">
+		</fieldset>
+	</form>
+</div>
+

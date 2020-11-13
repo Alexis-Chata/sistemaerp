@@ -1,0 +1,86 @@
+<script src="/javascript/sublinea.js"></script>
+<div id="listados">
+	<h2>SubLinea:: Listado
+	</h2>
+	<form method="POST" action="/sublinea/buscar/">
+		<div id="busqueda">
+				Busqueda: <br><input type="text" id="txtBusqueda" name="txtBusqueda" title="Ingrese un Nombre o Linea" size="50px">
+				<input type="submit" value="Ver">
+		</div>
+	</form>
+<table>
+		<thead>
+			<tr>
+				<th colspan="3" >
+				Listado de Sublinea
+				</th>
+				<th><a href="/sublinea/nuevo">
+						<img src="/imagenes/iconos/nuevo.gif">
+					</a>
+				</th>
+			</tr>
+			
+			<tr>
+				<th>Nombre Sublinea</th>
+				<th>Linea</th>
+				<th colspan="2">Acci&oacute;n</th>
+			</tr>
+			<?php
+				for($i=0;$i<count($Sublinea);$i++){
+					echo "<tr>";
+						echo "<td>".$Sublinea[$i]['nomlin']."</td>";
+						echo "<td>".$Sublinea[$i]['idpadre']."</td>";
+						echo '<td><a href="/sublinea/editar/'.$Sublinea[$i]['idlinea'].'/" class="btnEditar"><img src="/imagenes/editar.gif"></a></td>';
+						echo '<td><a href="/sublinea/eliminar/'.$Sublinea[$i]['idlinea'].'/" class="btnEliminar"><img src="/imagenes/eliminar.gif"></a></td>';
+					echo "</tr>";
+				}
+
+
+			?>
+		</thead>
+		<tfoot>
+		<tr><td colspan="4" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/sublinea/listar/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/sublinea/listar/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/sublinea/listar/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/sublinea/listar/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+	</tfoot>
+</table>
+
+</div>

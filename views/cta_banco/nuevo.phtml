@@ -1,0 +1,47 @@
+<h2>Mantenimiento: Nuevo <?php echo $titulo ?></h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+<?php 
+	$cantidadBanco=count($banco);
+	$cantidadEmpresa=count($empresa);
+ ?>
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/grabar">
+		<ul class="inline-block">
+			<li>
+				<label>Nombre</label>
+				<input required type="text" name="<?php echo $titulo.'[descripcion]'; ?>">
+			</li>
+			<li>
+				<label>Banco</label>
+				<select name="<?php echo $titulo.'[idbanco]'; ?>" required>
+					<option>Seleccione un Banco</option>
+					<?php for ($i=0; $i <$cantidadBanco ; $i++) { ?>
+						<option value="<?php echo $banco[$i]['idbanco']; ?>"><?php echo $banco[$i]['descripcion']; ?></option>
+					<?php } ?>
+				</select>
+			</li>
+			<li>
+				<label>Empresa</label>
+				<select name="<?php echo $titulo.'[idempresa]'; ?>" required>
+					<?php for ($i=0; $i <$cantidadEmpresa ; $i++) { ?>
+						<option value="<?php echo $empresa[$i]['idalmacen']; ?>"><?php echo $empresa[$i]['razsocalm']; ?></option>
+					<?php } ?>
+				</select>
+			</li>
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+
+	</form>
+</fieldset>

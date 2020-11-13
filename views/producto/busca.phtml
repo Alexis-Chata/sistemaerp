@@ -1,0 +1,116 @@
+<script src="/javascript/producto.js"></script>productos
+<div id="listados">
+<h2>Seguridad: Producto</h2></br>
+<form method="POST" action="/producto/busca/">
+	<div id="busqueda">
+		Busqueda: </br>
+		<input type="text" id="txtBusqueda" name="txtBusqueda" title="Ingrese un Nombre o Codigo Fabrica" size="50px" value="<?php echo $retorno; ?>"/>
+		<input type="submit" value="Ver"/>
+	</div>
+</form>
+<form method="POST" action="/producto/lista/">
+		<input type="submit" value="Cancelar">
+</form>
+<table>
+	<thead>
+		<tr>
+			<th colspan="12">Listado de Producto</th>
+			<th><a href="/producto/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif"/>
+				</a>
+			</th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Codigo</th>
+                        <th>Codigo Sunat</th>
+			<th>Codigo Fabrica</th>
+			<th>Nombre</th>
+			
+			<th>Stock Actual</th>
+			<th>Stock Disp</th>
+			<th>Fecha Ingreso</th>
+			<th>Marca</th>
+			<th>FOB</th>
+			<th>Precio Lista</th>
+			<th>Precio Costo</th>
+			<th>Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$TProducto=sizeof($producto);
+		for($i=0;$i<$TProducto;$i++){
+			if($producto[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/producto/editar/".$producto[$i]['idproducto']."\">".STRTOUPPER($producto[$i]['idproducto'])."</a></td>";
+                        $fila.="<td>".$producto[$i]['codigop']."</td>";
+                        $fila.="<td>".$producto[$i]['codigosunat']."</td>";
+			$fila.="<td>".$producto[$i]['codigopa']."</td>";
+			$fila.="<td>".$producto[$i]['nompro']."</td>";
+			
+			$fila.="<td>".$producto[$i]['stockactual']."</td>";
+			$fila.="<td>".$producto[$i]['stockdisponible']."</td>";
+			$fila.="<td>".$producto[$i]['fechaingreso']."</td>";
+			$fila.="<td>".$producto[$i]['idmarca']."</td>";
+			$fila.="<td>".$producto[$i]['fob']."</td>";
+			$fila.="<td>".$producto[$i]['preciolista']."</td>";
+			$fila.="<td>".$producto[$i]['preciocosto']."</td>";
+
+	
+			$fila.="<td width=\"100px\">
+						<a href=\"/producto/editar/".$producto[$i]['idproducto']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/producto/elimina/".$producto[$i]['idproducto']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="13" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/producto/busca/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/producto/busca/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/producto/busca/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion && !empty($pagina)) 
+				{
+					echo "<a href=\"/producto/busca/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+		?>
+		
+		</tr>
+	</tfoot>
+</table>
+</div>

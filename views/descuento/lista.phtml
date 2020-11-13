@@ -1,0 +1,59 @@
+<h2>Mantenimiento: <?php echo $titulo; ?></h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="12">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif">
+					</a></th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>d1</th>
+				<th>d2</th>
+				<th>d3</th>
+				<th>d4</th>
+				<th>d5</th>
+				<th>d6</th>
+				<th>d7</th>
+				<th>d8</th>
+				<th>d9</th>
+				<th>d10</th>
+				<th>Valor</th>
+				<th>Descuento</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td style="text-align:center;"><?php echo $data[$i]['id'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d1'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d2'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d3'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d4'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d5'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d6'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d7'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d8'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d9'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['d10'] ?> </td>
+					<td ><?php echo $data[$i]['valor'] ?> </td>
+					<td style="text-align:right;"><?php echo $data[$i]['dunico'] ?> </td>
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

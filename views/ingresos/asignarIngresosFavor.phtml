@@ -1,0 +1,85 @@
+<script type="text/javascript" src="/javascript/ingresos.js"></script>
+<br><br><br>
+<h2>Caja Banco: Liberar Saldo</h2>
+<div id="busqueda">
+	Busqueda:<input autofocus="on" type="text" id="txtCliente" name="txtCliente" size="50px" placeholder="Ingrese Razón Social o Nro RUC">
+<input type="hidden" id="txtIdCliente" name="idcliente">
+<br><br>
+		Código:<input type="text" name="codigo" readonly id="codigo" disabled> 
+		Razon Social:<input type="text" name="razonsocial" readonly id="razonsocial" size="40" disabled> 
+		Número de RUC:<input type="text" name="ruc" readonly id="ruc" disabled>
+		Codigo Dakkar:<input type="text" name="codantiguo" readonly id="codantiguo" disabled>
+	</div>
+<br>
+<fieldset id="contenedor">
+
+
+</fieldset>
+<fieldset id="contenedorDetalle">
+
+</fieldset>
+<div id="contenedorOrdenes">
+	<table>
+		<tr>
+			<th colspan="2"><b id="titulo" style="color:blue"></b></th>
+		</tr>
+		<tr>
+			<th colspan="2" style="background:white;">&nbsp;</th>
+		</tr>
+		<tr>
+			<th>Monto </th><td><input type="text" class="numeric" id="monto"></td>
+		</tr>
+		
+		<tr>
+			<th>Orden de Venta</th><td><select id="ordenes"></select></td>
+		</tr>
+		<tr>
+			<th>Observaciones Ingreso Actual</th><td><input type="text" id="observacionesLiberar"></td>
+		</tr>
+		<tr>
+			<th>Observaciones Ingreso que se va generar </th><td><input type="text"  id="observacionesLiberarNuevo"></td>
+		</tr>
+		<tr>
+			<th colspan="2" style="background:white;">&nbsp;</th>
+		</tr>
+		<tr>
+			<th colspan="2"><b id="montodisponible" style="color:green"></b></th>
+		</tr>
+		<tr>
+			<th colspan="2" style="background:white;">&nbsp;</th>
+		</tr>
+		<tr>
+			<th colspan="2"><b id="resp"></b></th>
+		</tr>
+	</table>
+	
+</div>
+
+<div id="contenedorRemover">
+	<table>
+		<tr>
+			<th colspan="2"><b id="tituloRemover" style="color:blue"></b></th>
+		</tr>
+		<tr>
+			<th colspan="2" style="background:white;">&nbsp;</th>
+		</tr>
+		<tr>
+			<th>Monto a Remover</th><td><input type="text" class="numeric" id="montoRemover"></td>
+		</tr>
+		<tr>
+			<th>Observaciones</th><td><input type="text" class="uppercase" id="observacionesRemover"></td>
+		</tr>
+		<tr>
+			<th colspan="2"><label id="lblOrdenVenta"></label></th>
+		</tr>
+		<tr>
+			<th colspan="2"><b id="montoDisponibleRemover" style="color:green"></b></th>
+		</tr>
+		<tr>
+			<th colspan="2" style="background:white;">&nbsp;</th>
+		</tr>
+		<tr>
+			<th colspan="2"><b id="respRemover"></b></th>
+		</tr>
+	</table>
+</div>

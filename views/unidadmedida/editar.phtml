@@ -1,0 +1,30 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller='unidadmedida';
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+
+<form action="/unidadmedida/actualiza/" method="POST">
+	<fieldset>
+		<legend>Actualizaci&oacute;n de Unidad Medida</legend>
+		<ul>
+			<li>
+				<label>Codigo</label>
+				<input type="text" value="<?php echo $Unidadmedida[0]['codigo'] ?>" name="Unidadmedida[codigo]" required>
+			</li>
+			<li>
+				<label>Nomabre</label>
+				<input type="text" value="<?php echo $Unidadmedida[0]['nombre'] ?>" name="Unidadmedida[nombre]" required>
+				<input type="hidden" value="<?php echo $_REQUEST['id'] ?>" name="idUnidadMedida">
+			</li>
+			<li>
+				<input type="submit" value="Actualizar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+	</fieldset>
+</form>

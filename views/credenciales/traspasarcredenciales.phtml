@@ -1,0 +1,33 @@
+<script type="text/javascript"src="/javascript/credenciales.js" ></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">TRASPASAR CREDENCIALES</h2>
+
+
+
+<fieldset>
+    <form id="frmTraspasar" name="frmTraspasar" method="get">
+    <ul style="text-align:center !important;width:100% !important;">
+<?php if(isset($volcado) and  $volcado==1){
+  echo "<h4 style='color:#029900;'>El traspaso de credenciales fue correcto</h4>";
+} ?>
+        <li>
+            <label>Usuario Origen</label>
+            <input type="text" id="txtActor1" size="40">
+            <input type="hidden" id="txtIdActor1" name="txtIdActor1" val="0">
+        </li>
+        <li>
+            <label>Usuario Destino</label>
+            <input type="text" id="txtActor2" size="40">
+            <input type="hidden" id="txtIdActor2" name="txtIdActor2" val="0">
+        </li>
+    </ul>
+    <ul style="text-align:center !important;width:100% !important;">
+        <li>
+            <button id="btnTraspasar" >Traspasar credenciales =></button>
+        </li>
+    </ul>
+    </form>
+</fieldset>
+<fieldset style="text-align: center">
+    <div id="loadTabla"></div>
+</fieldset>
+

@@ -1,0 +1,367 @@
+<script type="text/javascript" src="/javascript/reprogramar.js"></script>
+<div id="listados">
+<h2>Módulo de Caja - Bancos :: Reprogramar Pagos y Anular </h2>
+<br>
+
+<div id="busqueda">
+		Busqueda:<input type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="50px" placeholder="Ingrese Orden de Venta">
+		
+		<a id="imprimir"  href="#"><img src="/imagenes/imprimir.gif"></a>
+</div>
+<div id="muestra">
+	<div id="imprimirCliente" style="display: none"></div>
+		
+		<style type="text/css">
+			*{
+
+			}
+			table {
+				border: 1px solid;
+				border-collapse: collapse;
+				border-spacing:0px;
+				padding: 0px;
+				
+
+				margin: 0px;
+			}
+			table tr td, table tr th{
+				
+			}
+		</style>
+	<div id="cliente">
+		<fieldset>
+			<legend>Datos del Cliente</legend>
+			<ul>
+				<li>Orden de Venta: </li>
+				<li><input type="text" id="codigov"  readonly></li>
+				<li>Código:</li>
+				<li><input type="text" name="codigo" readonly id="codigo" ></li> 
+				<li>Razon Social:</li>
+				<li><input type="text" name="razonsocial" readonly id="razonsocial" size="40"></li> 
+			</ul>
+			<ul>
+				<li>N° de RUC:</li>
+				<li><input type="text" name="ruc" readonly id="ruc"></li>
+				<li>Codigo Dakkar:</li>
+				<li><input type="text" name="codantiguo" size="15" readonly id="codantiguo"></li>
+				<li>Nombre del cobrador :</li>
+				<li>
+                                    <select required disabled id="lstcobrador" name="Ingreso[idcobrador]" >
+                                    <option value="-1">Elija cobrador</option>
+                                    <?php 
+                                    $totalcobradores=count($cobrador);
+                                    for ($i=0; $i <$totalcobradores; $i++) { 
+                                            if (trim($cobrador[$i]['nombre'])=="CELESTIUM") { ?>
+                                                    <option selected value="<?php echo $cobrador[$i]['idactor'];?>"><?php echo $cobrador[$i]['nombre']; ?></option>
+                                            <?php }else{ ?>
+                                                    <option value="<?php echo $cobrador[$i]['idactor'];?>"><?php echo $cobrador[$i]['nombre']; ?></option>
+                                    <?php } } ?>
+                                    </select>
+				</li>
+			</ul>
+		</fieldset>
+		<div id="imprimirCliente" style="display:none"></div>
+	</div>
+	<fieldset>
+	<div id="datosingreso">
+		<form action="" method="POST">		
+			<input type="hidden" name="Ingreso[idcliente]" readonly id="idcliente" >
+			<input type="hidden" id="idOrdenVenta" name="Ingreso[idOrdenVenta]">
+		</form>
+	</div>
+	<div>
+		<table id="tblDetalleOrdenCobro">
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<!-- <div>
+	<?php 
+	//$totalingresos=count($ingresos);
+	// for ($i=0; $i < $totalingresos; $i++) { 
+	// 	$monto+=$ingresos[$i]['montoingresado'];
+	// 	$ultimo=$ingresos[$i]['montoingresado'];
+	// }
+	// echo "Total ingresos del dia: S/.".number_format($monto,2)."<br>";
+	// echo "último monto ingresado: S/.".number_format($ultimo,2)."<br>";
+	?>
+</div> -->
+
+
+
+
+
+
+
+</fieldset>
+
+<div id="contendorAutorizacion" title="Autorizacion de Accion" style="display:none;" >
+    <label for="usuario">Verificación por:</label>
+    <select id="cbAutorizacion">
+            <option value="1">Código de verficación</option>
+            <option value="2">Contraseña personal</option>
+    </select>
+    <br><br>
+    <div id="blockCodigoVerificacion">
+        <label for="contrasena">Codigo de Verificación:</label>
+        <input type="text" class="uppercase" id="contrasena" maxlength="4" autocomplete="off" >
+    </div>
+    <div id="blockContrasenapersonal" style="display: none">
+        <label for="contrasenapersonal">Contraseña Personal:</label>
+        <input type="password" id="contrasenapersonal" maxlength="10" autocomplete="off" >
+    </div>
+    <br><br>
+    <b id="respVerificacion"></b>
+</div>
+                
+<div id="contenedorAdicional" title="Letras Adicional" style="display:none;" >
+    <label for="opcCantLetras">Letras Aceptadas por el Cliente: &nbsp;
+    <select name="opcCantLetras" id="opcCantLetras"></select></label>
+</div>
+                
+<div id="contenedorModificar" style="display:none;" >
+	<table>
+
+		<form id="formularioModificar" method="post" >
+			<tr><th colspan="4" style="background-color:black;color:white;">Gastos Adicionales</th></tr>
+			<tr>
+				<th >
+					<input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+					<input type="hidden" id="idModificar" name="idModificar">
+					<label for="" >Flete</label> <label class="SMoneda"></label>
+				</th>
+				<td >
+					<input class="numeric " size="10" type="text" name="flete" id="flete"  autocomplete="off" autofocus="on">
+					
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasFlete" id="diasFlete" autocomplete="off">
+				</td>
+
+			</tr>
+			<tr>
+				<th >
+					<label for="">Envio Sobre</label> <label class="SMoneda"></label>
+				</th>
+				<td >
+					<input class="numeric " size="10" type="text" name="envioSobre" id="envioSobre" autocomplete="off">
+					
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasEnvioSobre" id="diasEnvioSobre" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th >
+					<label for="">Gasto Bancarios</label> <label class="SMoneda"></label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="gastoBancario" id="gastoBancario" autocomplete="off">
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasGastoBancario" id="diasGastoBancario" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th >
+					<label for="">Costo Mantenimiento</label> <label class="SMoneda"></label>
+				</th>
+				<td >
+					<input class="numeric " size="10" type="text" name="costoMantenimiento" id="costoMantenimiento" autocomplete="off">
+				</td>
+				<th>
+					<label>Dias a Vencer</label>
+				</th>
+				<td>
+					<input type="text" size="10" class="numeric" name="diasCostoMantenimiento" id="diasCostoMantenimiento" autocomplete="off">
+				</td>
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr><th colspan="4" style="background-color:black;color:white;">Tipo de Cobro : Contado</th></tr>
+			
+			<tr>
+				<th colspan="2">
+					<label for="montoContado">Monto Contado</label> <label class="SMoneda"></label>
+				</th>
+				<td colspan="2">
+					<input class="numeric variarSaldo" size="10" type="text" name="montoContado" id="montoContado" autocomplete="off">
+				</td>
+				
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr><th colspan="4" style="background-color:black;color:white;">Tipo de Cobro : Credito</th></tr>
+			
+			<tr>
+				<th>
+					<label for="montoCredito0">Monto Credito</label> <label class="SMoneda"></label>
+				</th>
+				<td>
+					<input class="numeric variarSaldo" size="10" type="text" name="montoCredito0" id="montoCredito0" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito0">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito0" id="diasCredito0" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito1">Monto Credito</label> <label class="SMoneda"></label>
+				</th>
+				<td>
+					<input class="numeric variarSaldo" size="10" type="text" name="montoCredito1" id="montoCredito1" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito1">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito1" id="diasCredito1" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito2">Monto Credito</label> <label class="SMoneda"></label>
+				</th>
+				<td>
+					<input class="numeric variarSaldo" size="10" type="text" name="montoCredito2" id="montoCredito2" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito2">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito2" id="diasCredito2" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito3">Monto Credito</label> <label class="SMoneda"></label>
+				</th>
+				<td>
+					<input class="numeric variarSaldo" size="10" type="text" name="montoCredito3" id="montoCredito3" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito3">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito3" id="diasCredito3" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="montoCredito4">Monto Credito</label> <label class="SMoneda"></label>
+				</th>
+				<td>
+					<input class="numeric variarSaldo" size="10" type="text" name="montoCredito4" id="montoCredito4" autocomplete="off">
+				</td>
+				<th>
+					<label for="diasCredito4">Dias a Vencer</label>
+				</th>
+				<td>
+					<input class="numeric " size="10" type="text" name="diasCredito4" id="diasCredito4" autocomplete="off">
+				</td>
+			</tr>
+
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr><th colspan="4" style="background-color:black;color:white;">Tipo de Cobro : Letra</th></tr>
+			<tr>
+				<th colspan="4" >
+					<select id="cantidadLetras">
+						<option value="">Cantidad Letras</option>
+						<option value="1">Una Letra</option>
+						<option value="2">Varias Letras</option>
+					</select>
+				</th>
+			</tr>
+			<tr>
+				<th >Monto Letra <label class="SMoneda"></label></th>
+				<td >
+					<input type="text" size="10" class="numeric variarSaldo" id="montoLetra" name="montoLetra" autocomplete="off" disabled="disabled">
+				</td>
+				<th >Dias a Vencer</th>
+				<td >
+					<input type="text" size="10" class="numeric" id="diasMontoLetra" name="diasMontoLetra" disabled="disabled" autocomplete="off">
+				</td>
+			</tr>
+			<tr>
+				
+				<th>Monto Letra <label class="SMoneda"></label></th>
+				<td><input type="text" size="10" class="numeric variarSaldo" autocomplete="off" id="montoLetraNueva" name="montoLetraNueva" disabled="disabled"></td>
+				<th >Condicion Letra</th>
+				<td >
+					<select id="nuevaLetra" name="nuevaLetra" disabled="disabled">
+						<option value="">Letras</option>
+						<?php
+						 $cantidadLetras=count($letras);
+						for ($i=0; $i <$cantidadLetras ; $i++) { ?>
+							<option value="<?php echo $letras[$i]['idcondicionletra']; ?>"><?php echo $letras[$i]['nombreletra']; ?></option>
+						<?php	} ?>
+					</select>
+				</td>
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+			<tr>
+				<th colspan="2">
+					<label>Nueva Fecha de Giro</label>
+				</th>
+				<td>
+					<input type="text" class="datepicker" readonly name="nuevaFecha" id="nuevaFecha">
+				</td>
+			</tr>
+			<tr><th colspan="4" style="background-color:white;">&nbsp</th></tr>
+
+			<tr>
+				<td style="color:white;background:blue;vertical-align:middle;text-align:center;">
+					<label class="SMoneda"></label><input type="text" name="valorRestante" id="valorRestante" style="border:none;background:blue;color:white" readonly>
+					<input type="hidden" name="valorEnvio" id="valorEnvio">
+				</td>
+				<th colspan="2">	
+					<input type="submit" value="enviar" id="prueba" >
+				</th>
+				<td style="color:white;background:red;vertical-align:middle;text-align:center;">
+					<label id="valorModificar"></label>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="4">
+					<b id="respModificar"></b>
+				</th>
+			</tr>
+
+		</form>
+	</table>
+</div>
+
+</div>
+<div id="tipoGasto" style="display: none" title="Anular Gastos Adicionales">
+	<?php $cantidadTipos=count($tipoGasto);?>
+	<select id="lstTipoGasto">
+		<?php for($i=0;$i<$cantidadTipos;$i++){?>
+		<option value="<?php echo $tipoGasto[$i]['idtipogasto']?>"><?php echo $tipoGasto[$i]['nombre']?></option>
+		<?php }?>
+	</select>
+	<br>
+	<input type="hidden" id="importeGasto">
+	<input type="hidden" id="idOrdenGasto">
+	<label style="color:blue" id="lblImporteGasto"></label>
+</div>
+<div>
+	<table id="tbldocumentos">
+		<tbody>
+
+		</tbody>
+	</table>
+</div>

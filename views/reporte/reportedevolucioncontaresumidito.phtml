@@ -1,0 +1,58 @@
+<script src="/javascript/reporteDevolucionesConta.js"></script>
+<style>
+    .cancelarVendedor {
+        cursor: pointer;
+    }
+    .msg-error {
+        color: red;
+    }
+    #blockPeriodo {
+        background: skyblue;
+        border: 1px solid black;
+        padding: 10px;
+    }
+</style>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">REPORTE DEVOLUCIONES RESUMEN</h2>
+<fieldset>Se recomienda sacar x mes para que sea mas legible
+   <form method="post" target="_blank" id="frmConsulta">
+
+        <ul id="blockPeriodo">
+            <li>
+                <label>ANIo:</label>
+                <select name="lstAnio" class="required">
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                </select>
+            </li>
+            <li id="mesGeneral">
+                <label>Mes: </label>
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="01"> Enero
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="02"> Febrero
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="03"> Marzo
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="04"> Abril
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="05"> Mayo
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="06"> Junio
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="07"> Julio
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="08"> Agosto
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="09"> Septiembre
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="10"> Octubre
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="11"> Noviembre
+                <input type="checkbox" class="chkmes" name="chkmes[]" value="12"> Diciembre
+            </li>
+        </ul>
+        <br>
+        <ul><li class="msg-error"> </li></ul>
+        <br>
+        <ul>
+            <li>
+                <button id="btnResumiditoExcel" >Consultar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

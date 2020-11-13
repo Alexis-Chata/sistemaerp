@@ -1,0 +1,99 @@
+<html>
+
+<head>
+	<?php
+	$uri=$_SERVER['REQUEST_URI'];
+	$vars = get_defined_vars();
+	//var_dump($vars['Opciones']);
+	//print_r(array_keys(get_defined_vars()));
+	foreach ($vars['Opciones'] as $values) {
+		$modulo = $values[0]['nombre'];
+		foreach ($values as $clave => $value) {
+			if ($clave != 0) {
+				foreach ($value as $clav => $val) {
+					if ($clav === 'url') {
+						$header[$val]['modulo'] = $modulo;
+						$header[$val]['nombre'] = $value['nombre'];
+					}
+				}
+			}
+		}
+	}//var_dump($header[$uri]);
+	$busqueda=array("<b>", "</b>", "&lt;b&gt;", "&lt;/b&gt;");
+	$reemplazo=array("", "", "", "");
+	$a=str_replace($busqueda,$reemplazo, $header[$uri]['nombre']);
+	// if(isset($header[$uri])){
+
+	// }
+	?>
+	<title>-</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/css/celestium.css" rel="stylesheet">
+	<link href="/css/general-style.css" rel="stylesheet" media="screen">
+	<link href="/css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+	<link href="/css/kendo.default.min.css" rel="stylesheet">
+	<link href="/css/kendo.common.min.css" rel="stylesheet">
+	<script src="/javascript/jquery-1.7.2.min.js"></script>
+	<script src="/javascript/kendo.all.min.js"></script>
+	<script src="/javascript/jquery-ui-1.8.21.custom.min.js"></script>
+	<script src="/javascript/jquery.treeview.js"></script>
+	<script src="/javascript/jquery.validate.min.js"></script>
+	<script src="/javascript/jquery.crisistemas.js"></script>
+	<script src="/javascript/general-script.js"></script>
+	<script src="/javascript/jquery.jqprint.js"></script>
+	<script src="/javascript/wc_tipocambio.js"></script>
+	<script src="/javascript/webconceptos.js"></script>
+	<script src="/javascript/AjaxUpload.2.0.min.js"></script>
+
+</head>
+
+<body>
+	<header>
+		<div class="logo">
+
+
+		</div>
+
+		<div class="modulos">
+			<?php
+			if ($_SESSION['Autenticado'] == true) {
+				include_once("_menuc.phtml");
+			}
+			?>
+		</div>
+		<?php if ($_SESSION['Autenticado'] == true) { ?>
+
+			<div class="foto">
+				<?php
+				if (empty($_SESSION['foto'])) {
+					$_SESSION['foto'] = "user20.jpg";
+				}
+				$rutaimg = ROOT . "imagenes" . DS . "actorfoto" . DS . $_SESSION['foto'];
+				//echo $rutaimg;
+				if (file_exists($rutaimg)) {
+					$foto = "/imagenes/actorfoto/" . $_SESSION['foto'];
+				} else {
+					$foto = "/imagenes/actorfoto/user20.jpg";
+				}
+				?>
+				<img src="<?php echo $foto; ?>" width="65px">
+			</div>
+			<div class="cuenta">
+				<h5><?php echo $_SESSION['nombres'] . " " . $_SESSION['apellidopaterno']; ?></h5>
+				<a href="/index/index"><img src="/imagenes/iconos/home.png" width="24px" title="Ir al Inicio"></a>
+				<a href="/actor/editar/<?php echo $_SESSION['idactor'] ?>"><img src="/imagenes/iconos/micuenta.png" width="24px" title="Mi Cuenta"></a>
+				<a href="/actor/cambiaclave/"><img src="/imagenes/iconos/password.png" width="24px" title="Cambiar Clave"></a>
+				<a href="/actor/salir/"><img src="/imagenes/iconos/salir.png" width="24px" title="Cerrar Sesión"></a>
+				<h6>Ultimo Acceso <?php echo $_SESSION['horaacceso']; ?></h6>
+			</div>
+		<?php
+		}
+		?>
+		<div id="tipocambio">
+			<input type="hidden" id="tipocambioventadolar">
+			<table id="tblTipoCambio">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</header>

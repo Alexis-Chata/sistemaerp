@@ -1,0 +1,19 @@
+<fieldset>
+    <h2>REPORTE :: Cobranza General</h2>
+    <br>
+    <form action="/pdf/reportecobranzageneral"  method="POST" target="_blank">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio Orden</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Final Orden</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li> 
+            <li>
+                <button type="submit">Consultar <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

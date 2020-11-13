@@ -1,0 +1,142 @@
+<script src="/javascript/duracion.js"></script>
+
+<div id="listados">
+<h2>Seguridad: Orden Venta</h2><br>
+<form method="POST" action="/facturacion/buscaduracion/">
+	<div id="busqueda">
+			Busqueda: </br>
+			<input type="text"  id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Numero de Orden de Venta" autofocus="on">
+			<input type="submit" value="Ver"/>
+	</div>
+</form>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="11">Listado de Orden Venta</th>
+			<th>
+			</th>
+		</tr>
+		<tr>
+			<th>Orden Venta</th>
+
+			<th>Importe OV</th>
+
+			<th>Vendedor</th>
+			<th>Cliente</th>
+			
+			<th title="Aprobado Ventas?">Vent.</th>
+			<th title="Aprobado Cobranzas?">Cobran.</th>
+			<th title="Aprobado Almacen?">Almac.</th>
+			<th title="Aprobado Creditos?">Cred.</th>
+			<th title="Fue Despachado?">Despachado</th>
+			<th title="Fue Guiado">Guiado</th>
+			<th >Tiempo <br>Total</th>
+			<th title="Acciones" colspan="2">Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php for ($i=0; $i <count($Factura) ; $i++) { ?>
+
+		<tr>
+			<td><?php echo $Factura[$i]['codigov']; ?></td>
+
+			<td>S/.<?php echo number_format($Factura[$i]['importeov'],2); ?></td>
+
+			<td><?php echo $Factura[$i]['nombres'].' '.$Factura[$i]['apellidopaterno'].' '.$Factura[$i]['apellidomaterno']; ?></td>
+			<td><?php echo $Factura[$i]['razonsocial']; ?></td>
+			
+			<td ><?php echo $Factura[$i]['dVentas']; ?> <br><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['vbventas']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td ><?php echo $Factura[$i]['dCobranza']; ?> <br><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['vbcobranzas']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td ><?php echo $Factura[$i]['dAlmacen']; ?> <br><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['vbalmacen']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?>"></td>
+			<td ><?php echo $Factura[$i]['dCredito']; ?> <br><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['vbcreditos']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?> "></td>
+			<td ><?php echo $Factura[$i]['dDespacho']; ?> <br><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['esdespachado']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?> "></td>
+			<td ><img style="margin:auto;display:block" width="15" high="15" src="<?php echo $Factura[$i]['esguiado']==1?'/public/imagenes/correcto.png':'/public/imagenes/transp.png'; ?> "></td>
+			<td><?php echo $Factura[$i]['tiempoduracion']; ?></td>
+			<td ><a style="color:blue;" title="Observar el detalle de la Orden" href="" id="<?php echo $Factura[$i]['idordenventa'] ?>" class="observar" ><img width="15" high="15" style="margin:auto;display:block" src="/imagenes/ver.gif"></a> </td>
+			
+			<!--<td title="Facturar"><a href="
+				<?php 
+				//session_start();
+				//if ($_SESSION['idrol']!=25 || $Factura[$i]['vbalmacen']==1) {
+					//echo '/facturacion/generafactura';}
+
+				 
+			?>"><img style="margin:auto;display:block" width="20" high="20" src="<?php // echo $Factura[$i]['vbalmacen']==1?'/public/imagenes/facturacion.jpg':'/public/imagenes/transp.png'; ?>"></a></td>-->
+			
+		</tr>
+		<?php } ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="12" align="center">
+		<?php
+				if (empty($_REQUEST['id'])) {
+					$pagina=1;
+				}else{
+					$pagina=$_REQUEST['id'];	
+				}
+				
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/facturacion/listaDuracion/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/facturacion/listaDuracion/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/facturacion/listaDuracion/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/facturacion/listaDuracion/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion" >
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+	</tfoot>
+</table>
+
+</div>
+<div class="detalleOV">
+	<table id="tablita">
+		<thead>
+			<th>N°</th>
+			<th>Codigo</th>
+			<th>Nombre</th>
+			<th title="cantidad Solicitada">Cant.S.</th>
+			<th title="cantidad Aprobada">Cant.A.</th>
+			<th title="cantidad Despachada">Cant.D.</th>
+			<th title="Precio solicitado">Pre.S.</th>
+			<th title="Precio Aprobado">Pre.A.</th>
+			<th title="Precio Neto">Precio Neto</th>
+			<th>Importe</th>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+<button id="cierraTabla">Cerrar</button>
+</div>

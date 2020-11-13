@@ -1,0 +1,97 @@
+A;Serie;;F002
+A;Correlativo;;00000001
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;20600469852
+A;RznSocRecep;;CONSORCIO LINEA HOGAR E.I.R.L
+A;DirRecep;;AV.MARISCAL CACERES NRO.909
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;548.09
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;98.66
+A;MntTotal;;646.75
+A;FchEmis;;2017-08-03
+A;IndPercepcion;;1
+A;MntImpPercepcion;;0
+A;MntPercepcion;;0
+A;MntTotalMasPercepcion;;646.75
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;98.66
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;4
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;TYS-04BP
+B;NmbItem;1;PEDESTAL P/CAJA ACUSTICA NEGRO (CAPACIDAD 50KG) LIVIANO
+B;PrcItem;1;12.29
+B;PrcItemSinIgv;1;10.42
+B;MontoItem;1;41.66
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;1.87
+B;NroLinDet;2;2
+B;QtyItem;2;2
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;DCS-15AUBR-4
+B;NmbItem;2;CAJA ACTIVA 1200W USB,SD,2MIC,DISPLAY,BLUETOOH,ECO,BATERIA,POWER ACOUSTIK
+B;PrcItem;2;150.84
+B;PrcItemSinIgv;2;127.83
+B;MontoItem;2;255.66
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;23.01
+B;NroLinDet;3;3
+B;QtyItem;3;1
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;DCS-15AUBR-2
+B;NmbItem;3;CAJA ACTIVA 15" 1200W, 2 VIAS USB,SD,2MIC,FM,DISPLAY,BLUETOOH,ECO,BATERIA,POWER ACOUSTIK
+B;PrcItem;3;145.07
+B;PrcItemSinIgv;3;122.94
+B;MontoItem;3;122.94
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;22.13
+B;NroLinDet;4;4
+B;QtyItem;4;1
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;DCS-15AUBR-W
+B;NmbItem;4;CABINA ACTIVA 15" SD/USB/ 1 MIC SOLAPERO/FM/DISPLAY/BLUETOOH/CONTROL/EQ 5 BANDAS,POWER ACOUSTIK
+B;PrcItem;4;150.84
+B;PrcItemSinIgv;4;127.83
+B;MontoItem;4;127.83
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;23.01
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;AYACUCHO - HUAMANGA - AYACUCHO
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 336 DC: OV-17000172
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Seiscientos Cuarenta y Seis con 75/100 Dolares Americanos  

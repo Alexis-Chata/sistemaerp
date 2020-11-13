@@ -1,0 +1,24 @@
+<input type="hidden" value="0" id="contador">
+<form action="/excel/creaplanillaExcel3" method="post" target="_blank">
+    <div id="listados">
+            <h2 style="float:left !important;padding-bottom: 20px;width:100%;"> LETRAS POR HACER PLANILLA 3</h2><br>
+            <div class="busqueda">
+                <ul>
+                    <li>
+                        Busqueda: </br>
+<!--                        <input type="text"  id="txtBusqueda" name="txtBusqueda" size="120%"
+                               placeholder="Ingrese Numeros de Letras separados por ','"
+                               title="Ingrese Numeros de Letras separados por ','"
+                               autofocus="on">-->
+                        <textarea  id="txtBusqueda" name="txtBusqueda" size="120%"
+                               placeholder="Ingrese Numeros de Letras separados por ','"
+                               title="Ingrese Numeros de Letras separados por ','" autofocus="on" rows="20" value="">
+                        </textarea>
+                    </li>
+                </ul>
+            </div>
+        <button id="btnExportar" class="button"> Exportar Letras
+            <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/excel.png">
+        </button>
+    </div>
+</form>

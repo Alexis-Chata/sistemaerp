@@ -1,0 +1,268 @@
+<?php if ($clienteExsite == 1) {?>
+<script src="/javascript/ActualizarCliente.js"></script>
+<br><br>
+<h2>Actualizar Cliente<?php if ($Cliente[0]['actualizado'] == 1) {
+    echo " (Actualizado)";
+    
+} ?></h2>
+<?php if ($Cliente[0]['actualizado'] == 1) { ?>
+<div style="float: right"><a href="/cliente/actualizar" title="Actualizar cliente" style="color: blue; font-weight: 600;">IR AL ULTIMO CLIENTE NO ACTUALIZADO >></a></div>
+<?php } else { ?>
+<div style="float: right"><a href="/cliente/actualizar/<?php echo $Cliente[0]['idcliente'] . "-1"; ?>" title="Dejar al ultimo" style="color: blue; font-weight: 600;">[DEJAR PARA EL FINAL]</a></div>    
+<?php } ?>        
+<table>
+    <?php if ($Cliente[0]['tipocliente'] == 1) { ?>
+    <tr>
+        <th>Cliente:</th>
+        <td><b style="color: red;"><?php echo $Cliente[0]['razonsocial']; ?></b></td>
+        <th>DNI:</th>
+        <td><?php echo $Cliente[0]['dni'] ?></td>
+    </tr>
+    <?php } else { ?>
+    <tr>
+        <th>Razon Social::</th>
+        <td><b style="color: red;"><?php echo $Cliente[0]['razonsocial']; ?></b></td>
+        <th>RUC:</th>
+        <td><?php echo $Cliente[0]['ruc'] ?></td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <th>Dirección:</th>
+        <td>
+            <span id="txtDirCopy"><?php echo $Cliente[0]['direccion']; ?></span>
+            <a href="#" title="Copiar Direccion" id="btnDirCopy" class="small" style="color: blue;"><b> (Copiar dirección)</b></a>
+        </td>
+        <th>Ubicación:</th>
+        <td>
+            <?php
+            for ($i = 0; $i < count($Departamento); $i++) {
+                if ($Distrito[0]['codigodepto'] == $Departamento[$i]['iddepartamento']) {
+                    echo $Departamento[$i]['nombredepartamento'] . " - ";
+                    $i = count($Departamento);
+                }
+            }
+            for ($i = 0; $i < count($Provincia); $i++) {
+                if ($Distrito[0]['idprovincia'] == $Provincia[$i]['idprovincia']) {
+                    echo $Provincia[$i]['nombreprovincia'] . " - ";
+                    $i = count($Provincia);
+                }
+            }
+            for ($i = 0; $i < count($Distrito); $i++) {
+                if ($Cliente[0]['iddistrito'] == $Distrito[$i]['iddistrito']) {
+                    echo $Distrito[$i]['nombredistrito'];
+                    $i = count($Distrito);
+                }
+            }
+            ?>
+        </td>
+    </tr>
+    <?php if ($Cliente[0]['actualizado'] == 1) { ?>
+    <tr>
+        <td colspan="4">
+            <a href="/cliente/actualizar/<?php echo $Cliente[0]['idcliente'] . "-0"; ?>"><button type="button" title="Quitar Actualizacion" style="float: right">Quitar Actualización</button></a>
+        </td>
+    </tr>
+    <?php } ?>
+</table>
+<fieldset style="position:relative">
+    <legend><h4>Direccion de Cartera</h4></legend>
+    <ul class="inline-block">
+        <li>
+            <label>Ubicación:</label>
+            <select id="lstDepartamento" class="required" required>
+                <option value="">Departamento</option>
+                <?php
+                for ($i = 0; $i < count($Departamento); $i++) {
+                    if ($Distrito[0]['codigodepto'] == $Departamento[$i]['iddepartamento']) {
+                        echo '<option value="' . $Departamento[$i]['iddepartamento'] . '" selected>' . $Departamento[$i]['nombredepartamento'];
+                    } else {
+                        echo '<option value="' . $Departamento[$i]['iddepartamento'] . '">' . $Departamento[$i]['nombredepartamento'];
+                    }
+                }
+                ?>
+            </select>
+            <select id="lstProvincia" class="required" required>
+                <option value="">Provincia</option>
+                <?php
+                for ($i = 0; $i < count($Provincia); $i++) {
+                    if ($Distrito[0]['idprovincia'] == $Provincia[$i]['idprovincia']) {
+                        echo '<option value="' . $Provincia[$i]['idprovincia'] . '" selected>' . $Provincia[$i]['nombreprovincia'];
+                    } else {
+                        echo '<option value="' . $Provincia[$i]['idprovincia'] . '">' . $Provincia[$i]['nombreprovincia'];
+                    }
+                }
+                ?>
+            </select>
+            <select name="Cliente[iddistrito]" class="lstDistrito required" id="lstDistrito" required>
+                <option value="">Distrito</option>
+                <?php
+                for ($i = 0; $i < count($Distrito); $i++) {
+                    if ($Cliente[0]['iddistrito'] == $Distrito[$i]['iddistrito']) {
+                        echo '<option value="' . $Distrito[$i]['iddistrito'] . '" selected>' . $Distrito[$i]['nombredistrito'];
+                    } else {
+                        echo '<option value="' . $Distrito[$i]['iddistrito'] . '">' . $Distrito[$i]['nombredistrito'];
+                    }
+                }
+                ?>
+            </select>
+        </li>
+        <li>
+            <label>Dirección:</label>
+            <select name="Cliente[iddistrito]" class="lstDistrito required" id="cmbdir1" required>
+                <option value="0">...</option>
+                <?php
+                for ($i = 1; $i <= count($Dir1); $i++) {
+                    echo '<option val="' . $Dir1[$i] . '"' . ($Dir1Select == $Dir1[$i] ? ' selected' : '') . '>' . $Dir1[$i] . '</option>';
+                }
+                ?>
+            </select>
+            <input type="text" value="<?php echo ($Cliente[0]['actualizado'] == 1 ? $direccionpura : ''); ?>" id="textDireccion" placeholder="Direccion" name="Cliente[direccion]" class="required text-300">
+            <span class="block-nro"<?php echo ($Cliente[0]['actualizado'] == 1 && ($Dir1Select == 'MERCADO' || $Dir1Select == 'C.C.') ? ' style="display: none"' : ''); ?>>NRO</span>
+            <input type="text" value="<?php echo ($Cliente[0]['actualizado'] == 1 ? $dirnumero : ''); ?>" id="textNro" name="Cliente[direccion]" placeholder="Nro"<?php echo ($Cliente[0]['actualizado'] == 1 && ($Dir1Select == 'MERCADO' || $Dir1Select == 'C.C.') ? ' style="display: none"' : ''); ?> class="block-nro required text-50">
+            <select name="Cliente[iddistrito]" class="lstDistrito required" id="cmbdir2" required>
+                <option value="0">...</option>
+                <?php
+                for ($i = 1; $i <= count($Dir2); $i++) {
+                    echo '<option value="' . $Dir2[$i] . '"' . ($Dir2Select == $Dir2[$i] ? ' selected' : '') . '>' . $Dir2[$i] . '</option>';
+                }
+                ?>
+            </select>
+            <input type="text" value="<?php echo ($Cliente[0]['actualizado'] == 1 ? $direccionpura2 : ''); ?>" name="Cliente[direccion]" id="textDir2" class="required text-150"<?php echo ($Cliente[0]['actualizado'] == 1 && $Dir2Select != '' ? '' : ' disabled=""'); ?>>
+            <select name="Cliente[iddistrito]" class="lstDistrito required" id="cmbdir3" required>
+                <option value="0">...</option>
+                <?php
+                for ($i = 1; $i <= count($Dir3); $i++) {
+                    echo '<option value="' . $Dir3[$i] . '"' . ($Dir3Select == $Dir3[$i] ? ' selected' : '') . '>' . $Dir3[$i] . '</option>';
+                }
+                ?>
+            </select>
+            <input type="text" value="<?php echo ($Cliente[0]['actualizado'] == 1 ? $direccionpura3 : ''); ?>" name="Cliente[direccion]" id="textDir3" class="required text-50"<?php echo ($Cliente[0]['actualizado'] == 1 && $Dir3Select != '' ? '' : ' disabled=""'); ?>>
+        </li>
+        <li>
+            <label>Referencia: </label>
+            <input type="text" value="<?php echo ($Cliente[0]['actualizado'] == 1 ? $Cliente[0]['referenciacar'] : ''); ?>" id="textReferencia" placeholder="Referencia de la direccion" name="Cliente[direccion]" class="required text-300">
+        </li>
+    </ul>
+</fieldset>
+<table>
+    <tr>
+        <th>Teléfono:</th>
+        <td>
+            <span id="txtTelfCopy"><?php echo $Cliente[0]['telefono'] ?></span>
+            <?php if (!empty($Cliente[0]['telefono'])) { ?>
+            <a href="#" title="Copiar Telefono" id="btnTelfCopy" class="small" style="color: blue;"> <b> (Copiar telefono)</b></a>
+            <?php } else {
+                echo "<span>Sin asignar.</span>";
+            } ?>
+        </td>
+        <th>Celular:</th>
+        <td>
+            <span id="txtCelCopy"><?php echo $Cliente[0]['celular'] ?></span>
+            <?php if (!empty($Cliente[0]['celular'])) { ?>
+            <a href="#" title="Copiar Celular" id="btnCelCopy" class="small" style="color: blue;"> <b> (Copiar Celular)</b></a>
+            <?php } else {
+                echo "<span>Sin asignar.</span>";
+            } ?>
+        </td>
+    </tr>
+</table>
+<fieldset style="position:relative">
+    <legend><h4>Comunicación con el Cliente</h4></legend>
+    <div class="cuadro">
+        <ul class="inline-block">           
+            <li>
+                <label>Telefono:</label>
+                <input type="text" value="" id="textTelf" placeholder="Telefono" name="Cliente[direccion]" class="required text-150">
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">AGENDA DE TELEFONOS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="AgTelf"><?php 
+                        $i = 0;
+                        if ($Cliente[0]['actualizado'] == 1 && !empty($Cliente[0]['telf'])) { 
+                        $arrayTelf = explode(" / ", $Cliente[0]['telf']);
+                        for ($i = 0; $i < count($arrayTelf); $i++) {
+                            echo '<tr id="T' . ($i*-1) . '">' .
+                                    '<td>' . $arrayTelf[$i] . '</td>' .
+                                    '<td><a href="#" title="Eliminar" class="EliTelf" data-telf="' . $arrayTelf[$i] . '" data-id="' . ($i*-1) . '"><b>X</b></a></td>' .
+                                 '</tr>';
+                        }
+                    } ?></tbody>
+                    <tfoot id="limpTelf">
+                        <?php if ($i == 0) { ?>
+                        <tr>
+                            <th colspan="2">Vacio</th>
+                        </tr>
+                        <?php } ?>
+                    </tfoot>
+                </table>
+            </li>
+        </ul>
+    </div>
+    <div class="cuadro">
+        <ul class="inline-block">           
+            <li>
+                <label>Celular:</label>
+                <input type="text" value="" id="textCel" placeholder="Celular" name="Cliente[direccion]" class="required text-150">
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">AGENDA DE CELULARES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="AgCel"><?php
+                        $i = 0;
+                        if ($Cliente[0]['actualizado'] == 1 && !empty($Cliente[0]['cel'])) { 
+                        $arrayCel = explode(" / ", $Cliente[0]['cel']);
+                        for ($i = 0; $i < count($arrayCel); $i++) {
+                            echo '<tr id="C' . ($i*-1) . '">' .
+                                    '<td>' . $arrayCel[$i] . '</td>' .
+                                    '<td><a href="#" title="Eliminar" class="EliCel" data-cel="' . $arrayCel[$i] . '" data-id="' . ($i*-1) . '"><b>X</b></a></td>' .
+                                 '</tr>';
+                        }
+                    } ?></tbody>
+                    <tfoot id="limpCel">
+                        <?php if ($i == 0) { ?>
+                        <tr>
+                            <th colspan="2">Vacio</th>
+                        </tr>
+                        <?php } ?>
+                    </tfoot>
+                </table>
+            </li>
+        </ul>
+    </div>
+    <div class="cuadro">
+        <b class="inline-block"><input type="checkbox" id="chkConf"> <i>Confirmar actualización de registros.</i></b>
+        <br><br><hr><br>
+        <div style="float: right;">
+            <input type="submit" value="Actualizar Registro" id="registrarCli">
+        </div>
+    </div>
+</fieldset>
+
+<form id="form-actualizacion" name="/cliente/actualizar" method="post">
+    <input type="hidden" name="txtid" value="<?php echo $Cliente[0]['idcliente']; ?>">
+    <input type="hidden" name="txtdistrito" value="" id="form-distrito">
+    <input type="hidden" name="txtdireccion" value="" id="form-direccion">
+    <input type="hidden" name="txtreferencia" value="" id="form-referencia">
+    <input type="hidden" name="txtcelular" value="" id="form-celular">
+    <input type="hidden" name="txttelefono" value="" id="form-telefono">    
+</form>
+
+<?php } else { ?>
+<br><br>
+<h2>Actualizar Cliente</h2>    
+<table>
+    <tr>
+        <th style="background: rgba(255, 0, 0, 0.14);">El cliente que esta buscando, no esta disponible.</th>
+    </tr>
+    <tr>
+        <td><center><a href="/cliente/actualizar" style="color: blue; font-weight: 700" title="Actualizar cliente"><< Ir al ultimo cliente no actualizado >></a></center></td>
+    </tr>
+</table>
+<?php } ?>

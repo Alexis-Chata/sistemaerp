@@ -1,0 +1,25 @@
+<script src="/javascript/empaque.js"></script>
+<form action="/empaque/actualiza/" method="POST">
+	<fieldset>
+		<legend>Actualizaci&oacute;n de Empaque</legend>
+		<ul>
+			<li>
+				<label>Codigo</label>
+				<input type="text" value="<?php echo $Empaque[0]['codempaque'] ?>" name="Empaque[codempaque]">
+			</li>
+			<li>
+				<label>Nombre</label>
+				<input type="text" value="<?php echo $Empaque[0]['nombre'] ?>" name="Empaque[nombre]">
+			</li>
+			<li>
+				<label>Descripci&oacute;n</label>
+				<input type="text" value="<?php echo $Empaque[0]['descripcion'] ?>" name="Empaque[descripcion]">
+				<input type="hidden" value="<?php echo $_REQUEST['id'] ?>" name="idEmpaque">
+			</li>
+			<li>
+				<input type="submit" value="Actualizar">
+				<li><button id="btnCancelar">Cancelar</button></li>
+			</li>
+		</ul>
+	</fieldset>
+</form>

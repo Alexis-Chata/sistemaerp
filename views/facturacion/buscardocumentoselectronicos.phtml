@@ -1,0 +1,87 @@
+<script src="/javascript/buscardocumentoselectronicos.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Buscar :: Documentos Electrónicos</h2>
+<style type="text/css">
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 5px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+        padding: 5px;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 5px 3px 5px;
+        text-align: center;
+    }
+    table tbody td{
+        border: 1px solid #ddddde;
+        padding: 5px;
+    }
+</style>
+<fieldset>    
+    <ul>
+        <li>
+            <label>Fecha Inicio</label>
+            <input style="background:pink;" type="text" id="txtFechaInicio" class="datepicker" value="<?php echo date('Y/m/d') ?>" readonly>
+        </li>
+        <li>
+            <label>Fecha Fin</label>
+            <input style="background:pink;" type="text" id="txtFechaFin" class="datepicker" value="<?php echo date('Y/m/d') ?>" readonly>
+        </li>
+        <li>
+            <label>Serie</label>
+            <select id="filtroSerie">
+                <option value="">-- seleccione --</option>
+                <option value="F001">F001</option>
+                <option value="B001">B001</option>
+                <option value="P001">P001</option>
+            </select>
+        </li>
+        <li>
+            <label>Folio Desde</label>
+            <input type="text" id="folioDesde" placeholder="1" class="numeric">
+        </li>
+        <li>
+            <label>Folio Hasta</label>
+            <input type="text" id="folioHasta" placeholder="999999999" class="numeric">
+        </li>
+        <li>
+            <label>Comprobante</label>
+            <select id="filtroComprobante">
+                <option value="">-- seleccione --</option>
+                <option value="1">Factura Electronico</option>
+                <option value="2">Boleta Electronico</option>
+                <option value="5">Nota de Credito Electronico</option>
+                <option value="6">Nota de Debito Electronico</option>
+                <option value="10">Comprobante de Percepcion</option>
+            </select>
+        </li>
+    </ul>
+    <br>
+    <ul>
+        <li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+    </ul>
+</fieldset>
+<fieldset>
+    <table id="tblComprobantes">
+        <thead>
+            <tr>
+                <th>Comprobante</th>
+                <th>Serie</th>
+                <th>Correlativo</th>
+                <th>Venta</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Importe</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</fieldset>

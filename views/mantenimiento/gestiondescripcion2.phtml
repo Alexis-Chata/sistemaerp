@@ -1,0 +1,32 @@
+<script src="/javascript/gestiondescripcion2.js"></script>
+<form action="/mantenimiento/grabagestiondescripcion2/" method="POST">
+    <fieldset>
+        <legend>Registro de Oferta</legend>
+        <ul>
+            <li>
+                <label>Producto:</label>
+                <input type="text" class="required uppercase required-none" style="width:150px" id="txtCodigoProductoOferta" style="width:100px"<?php echo (isset($dataProducto) ? ' value="' . $dataProducto[0]['codigopa'] . '" disabled': ''); ?>>
+                <input type="hidden" id="txtIdProducto" name="txtidproducto" value="<?php echo (isset($dataProducto) ? $dataProducto[0]['idproducto'] : '') ?>">
+            </li>
+            <li>
+                <label>Descripcion:</label>
+                <input type="text" id="txtTituloProducto" readonly="" required="" style="width:350px"<?php echo (isset($dataProducto) ? ' value="' . $dataProducto[0]['nompro'] . '"': ''); ?>>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Descripcion Auxiliar:</label>
+                <input type="text" name="txtDescripcion2" class="uppercase" style="width:700px" id="idDescripcionAuxiliar"<?php echo (isset($dataProducto) ? ' value="' . $dataProducto[0]['descripcion2'] . '"': ''); ?> maxlength="100" required="">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <input type="submit" value="Grabar">
+                <a href="/mantenimiento/descripcionproducto"><button type="button">Listado</button></a>
+                <a href="/mantenimiento/gestiondescripcion2"><button type="button">Nuevo</button></a>
+            </li>
+        </ul>
+    </fieldset>
+</form>

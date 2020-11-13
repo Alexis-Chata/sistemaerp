@@ -1,0 +1,18 @@
+<div id="nuevoregistro">
+<h3>Editar Rol:</h3>
+<hr>
+<form action="/rol/actualizar/" method="POST">
+<p>Codigo Autogenerado:<br>
+	<input type="text" name="Rol[Codigo]" value="<?php echo strtoupper($roles[0]['codigo']);?>" disabled></p>
+<p>Nombre de la Rol:<br>
+	<input type="text" name="Rol[Nombre]" value="<?php echo $roles[0]['nombre'];?>"></p>	
+<p>Breve descripción:<br>
+	<textarea name="Rol[Descripcion]" rows="5" cols="30"><?php echo $roles[0]['descripcion'];?></textarea>
+</p>
+<p>
+	<input type="hidden" name="idRol" value="<?php  echo $roles[0]['idrol'];?>">
+	<input type="submit" value=":::Grabar:::">
+</p>
+
+</form>
+</div>

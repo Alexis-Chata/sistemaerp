@@ -1,0 +1,56 @@
+<script type="text/javascript" src="/javascript/seguridad.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Descargar Formato</h2>
+<fieldset>
+<form id="Parametros" action="/excel2/seguridad_consultar/" method="post" target="_blank">
+	<ul>
+		<li>
+			<label>Fecha Aprobado Inicio</label>
+			<input style="background:pink;" type="text" name="txtFechaAprobadoInicio" class="datepicker" readonly>
+		</li>
+		<li>
+			<label>Fecha Aprobado Fin</label>
+			<input style="background:pink;" type="text" name="txtFechaAprobadoFin" class="datepicker" readonly>
+		</li>
+                <li>
+			<label>Cliente</label>
+			<input type="text" id="txtCliente" name="txtCliente" class="uppercase text-300" >
+			<input type="hidden" id="idCliente" name="idCliente">
+		</li>
+                <li>
+			<label>Estado</label>
+                        <select name="cmbEstado">
+                                <option value="0">Todos</option>
+                                <option value="1">Sin descargar</option>
+                                <option value="2">Descargados</option>
+                        </select>
+		</li>
+	</ul>
+	
+	<br>
+	
+	<ul>
+		<li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+		<li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+	</ul>
+</form>
+</fieldset>
+<div id="imprimir" style="display: none">
+    <table id="tblSeguridad">
+        <thead>
+            <tr>
+                <th>#Descarga</th>
+                <th>Recojo</th>
+                <th>Fecha</th>
+                <th>Orden Venta</th>
+                <th>Cliente</th>
+                <th>RUC/DNI</th>
+                <th>Codigo</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Motivo</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button id="btnDescargarExcel">Descargar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+</div>

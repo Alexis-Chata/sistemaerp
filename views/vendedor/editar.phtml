@@ -1,0 +1,125 @@
+<script src="/javascript/vendedor.js"></script>
+<div class="centrarregistro">
+	<h3>Ingrese un nuevo Vendedor</h3>
+	<form action="/vendedor/actualiza/" method="post" enctype="multipart/form-data" >
+	<fieldset>
+		<legend>Datos Del Vendedor</legend>
+		<ul class="inline-block">
+
+			<li>
+				<label>Codigo: </label>
+				<input type="text" name="Vendedor[codigo]"  size="15"  readonly="readonly" value="<?php echo $Vendedor[0]['codigo'] ?>" />
+			</li>
+			<li>
+				<label>Codigo Vendedor: </label>
+				<input type="text" id="codigoVendedor" class="required cod-pro uppercase" name="Vendedor[codigoa]" maxlength="12" size="15"  value="<?php echo $Vendedor[0]['codigoa'] ?>" />
+				<b id="error"></b>
+			</li>
+			<li>
+				<label>Nombres:</label>
+				<input type="text" class="required cod-pro uppercase" name="Vendedor[nombres]" maxlength="50" size="25" autofocus value="<?php echo $Vendedor[0]['nombres'] ?>" />
+			</li>
+			<li>
+				<label>Apellido Paterno: </label>
+				<input type="text" class="required cod-pro uppercase" name="Vendedor[apellidopaterno]" maxlength="50" size="25" value="<?php echo $Vendedor[0]['apellidopaterno'] ?>" />
+			</li>
+			<li>
+				<label>Apellido Materno: </label>
+				<input type="text" class="required cod-pro uppercase" name="Vendedor[apellidomaterno]" maxlength="50" size="25"value="<?php echo $Vendedor[0]['apellidomaterno'] ?>" />
+			</li>
+			<li>
+				<label>Email Personal: </label>
+				<input type="email"  name="Vendedor[email]" maxlegth="50" size="25" value="<?php echo $Vendedor[0]['email'] ?>" />
+			</li>
+			<!--<li>
+				<label>Usuario: </label>
+				<input type="text" name="Vendedor[usuario]" size="25" value="<?php echo $Vendedor[0]['usuario'] ?>" />
+			</li>
+
+			<li>
+				<label>Contraseña: </label>
+				<input type="text" name="Vendedor[contrasena]" size="25" value="<?php echo $Vendedor[0]['contrasena'] ?>" />
+			</li>-->
+			<li>
+				<label>Departamento:</label>
+				<select id="lstDepartamento" class="required">
+					<option value="">Departamento</option>
+					<?php
+						for($i=0;$i<count($Departamento);$i++){
+							if($Distrito[0]['codigodepto']==$Departamento[$i]['iddepartamento']){
+								echo '<option value="'.$Departamento[$i]['iddepartamento'].'" selected>'.$Departamento[$i]['nombredepartamento'];	
+							}else{
+								echo '<option value="'.$Departamento[$i]['iddepartamento'].'">'.$Departamento[$i]['nombredepartamento'];
+							}
+						}
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Provincia:</label>
+				<select id="lstProvincia" class="required">
+					<option value="">Provincia</option>
+					<?php
+						for($i=0;$i<count($Provincia);$i++){
+							if($Distrito[0]['idprovincia']==$Provincia[$i]['idprovincia']){
+								echo '<option value="'.$Provincia[$i]['idprovincia'].'" selected>'.$Provincia[$i]['nombreprovincia'];	
+							}else{
+								echo '<option value="'.$Provincia[$i]['idprovincia'].'">'.$Provincia[$i]['nombreprovincia'];
+							}
+						}
+					?>
+				</select>
+			</li>
+			
+			<li>
+				<label>Distrito:</label>
+				<select name="Vendedor[iddistrito]" class="lstDistrito required" id="lstDistrito">
+					<option value="">Distrito</option>
+					<?php
+					for($i=0;$i<count($Distrito);$i++){
+						if($Vendedor[0]['iddistrito']==$Distrito[$i]['iddistrito']){
+							echo '<option value="'.$Distrito[$i]['iddistrito'].'" selected>'.$Distrito[$i]['nombredistrito'];	
+						}else{
+							echo '<option value="'.$Distrito[$i]['iddistrito'].'">'.$Distrito[$i]['nombredistrito'];
+						}
+					}
+					?>
+				</select>
+			</li>
+			</ul>
+			<ul class="inline-block" style="margin-left:70px;">
+			<li>
+			<label>Dni:</label>  
+				<input type="text" name="Vendedor[dni]" class="required numeric" maxlength="8" minlength="8" size="25" value="<?php echo $Vendedor[0]['dni'] ?>" />
+			</li>	
+			<li><label>Telefono:</label>
+				<input type="text" name="Vendedor[telefono]" class="required numeric" maxlength="9" size="25" value="<?php echo $Vendedor[0]['telefono'] ?>" />
+			</li>	
+			<li> <label>Celular: </label> 
+				<input type="text" name="Vendedor[celular]" class="required numeric" maxlength="11" size="25" value="<?php echo $Vendedor[0]['celular'] ?>" />
+			</li>
+			<li>
+				<label>Direccion: </label>
+				<input type="text" name="Vendedor[direccion]" maxlength="100" size="25" value="<?php echo $Vendedor[0]['direccion'] ?>" />
+			</li>
+			<li>
+				<label>Referencia: </label>
+				<input type="text" name="Vendedor[referencia]" maxlength="50" size="25" value="<?php echo $Vendedor[0]['referencia'] ?>" />
+			</li>
+			<li>
+				<label>RPM: </label>
+				<input type="text" name="Vendedor[rpm]" maxlength="20" size="25" value="<?php echo $Vendedor[0]['rpm'] ?>" />
+			</li>
+			<input type="hidden" name="idvendedor" value="<?php echo $Vendedor[0]['idactor'] ?>">
+			<input type="submit" id="enviarActualiza" value="Actualizar">
+			<button id="btnCancelar">Cancelar</button>
+		</ul>
+		<div style="position:absolute;right:50px;top:220px;width:200px;text-align:right">
+			<img src="<?php echo $RutaImagen.$Vendedor[0]['codigo'].'/'.$Vendedor[0]['foto'] ?>" width="160px" height="240px">
+			<p><input type="checkbox" id="chkCambiarFoto"> Cambiar foto</p>
+			<input type="file" name="foto" id="fotoProducto" disabled>
+
+		</div>
+	</fieldset>
+	</form>
+</div>

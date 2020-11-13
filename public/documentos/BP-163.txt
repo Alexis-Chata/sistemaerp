@@ -1,0 +1,117 @@
+A;Serie;;B002
+A;Correlativo;;00000032
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;40615200
+A;RznSocRecep;;JESUS TITO URQUIZA MONZON
+A;DirRecep;;SECTOR 6 GRUPO5 MZ D LT 21 - LIMA - LIMA - VILLA EL SALVADOR
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;534.16
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;96.15
+A;MntTotal;;630.31
+A;FchEmis;;2017-08-08
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;96.15
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;2
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;RCZ-1
+B;NmbItem;1;CAJA ACUSTICA 2 VIAS 15" MODELO BEHRINGER
+B;PrcItem;1;50.28
+B;PrcItemSinIgv;1;42.61
+B;MontoItem;1;85.22
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;7.67
+B;NroLinDet;2;2
+B;QtyItem;2;2
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;LA-1590B
+B;NmbItem;2;SUBWOOFER 15" 90 ONZ,8 OHM,1250W VC 3.5" CORRUGADO, POWER ACOUSTIK
+B;PrcItem;2;55
+B;PrcItemSinIgv;2;46.61
+B;MontoItem;2;93.22
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;8.39
+B;NroLinDet;3;3
+B;QtyItem;3;2
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;TSCT-444R
+B;NmbItem;3;DRIVER TITANIUM 1.5" 80 35 ONZ 450W C/BORNE,POWER ACOUSTIK
+B;PrcItem;3;55
+B;PrcItemSinIgv;3;46.61
+B;MontoItem;3;93.22
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;8.39
+B;NroLinDet;4;4
+B;QtyItem;4;2
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;TYS-05B-BK/OR
+B;NmbItem;4;PEDESTAL NEGRO/NARANJA P/CAJA ACUSTICA CAP.50KG PESADO,POWER ACOUSTIK
+B;PrcItem;4;15.34
+B;PrcItemSinIgv;4;13
+B;MontoItem;4;26
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;2.34
+B;NroLinDet;5;5
+B;QtyItem;5;2
+B;UnmdItem;5;NIU
+B;VlrCodigo;5;JTA174
+B;NmbItem;5;JACK SPEAKON 4 PINES PLASTICO
+B;PrcItem;5;1.5
+B;PrcItemSinIgv;5;1.27
+B;MontoItem;5;2.54
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;0.23
+B;NroLinDet;6;6
+B;QtyItem;6;1
+B;UnmdItem;6;NIU
+B;VlrCodigo;6;PMX-2412
+B;NmbItem;6;CONSOLA POWER 12 CANALES USB,SOQUET PC,BLUETOOH,EQUALIZADOR 5 BANDAS PROF,SHERIFF
+B;PrcItem;6;276.07
+B;PrcItemSinIgv;6;233.96
+B;MontoItem;6;233.96
+B;IndExe;6;10
+B;CodigoTipoIgv;6;1000
+B;TasaIgv;6;18
+B;ImpuestoIgv;6;42.11
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 313
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Seiscientos Treinta con 31/100 Dolares Americanos  

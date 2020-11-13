@@ -1,0 +1,136 @@
+<script type="text/javascript" src="/javascript/listadomercaderia.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Lista de Recojos</h2>
+<?php $cantidadRecojos = count($dataRecojos); ?>
+<fieldset>
+    <form method="POST" action="/atencioncliente/buscaRecojos/">
+        <div id="busqueda">
+            Busqueda: </br>
+            <input type="text" id="txtBusqueda" name="txtBusqueda" size="50px" placeholder="Ingrese codigo o cliente | RUC" title="Ingrese codigo o cliente" autofocus="on">
+            <input type="submit" value="Ver"/>
+        </div>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Cliente</th>
+                <th>RUC/DNI</th>
+                <th>Fecha Registrada</th>
+                <th>Fecha Aprobada</th>
+                <th>Motivo</th>
+                <th>Documento</th>
+                <th>Ver</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < $cantidadRecojos; $i++) { ?>
+            <tr>
+                <td style="text-align: center;"><?php echo $dataRecojos[$i]['codigost']; ?></td>
+                <td><?php echo $dataRecojos[$i]['razonsocial']; ?></td>
+                <td><?php echo (!empty($dataRecojos[$i]['ruc']) ? $dataRecojos[$i]['ruc'] : $dataRecojos[$i]['dni']); ?></td>
+                <td style="text-align: center;"><?php echo $dataRecojos[$i]['fregistro']; ?></td>
+                <td style="text-align: center;"><?php echo $dataRecojos[$i]['fremision']; ?></td>
+                <td style="text-align: center;"><?php echo $dataRecojos[$i]['nombremotivo']; ?></td>
+                <td style="text-align: center;"><?php echo $dataRecojos[$i]['numero']; ?></td>
+                <td><a class="verdetalleaprobado" data-id="<?php echo $dataRecojos[$i]['idrecepcion']; ?>" href=""><img style="margin:auto;display:block" width="20" high="20" src="/public/imagenes/ver.gif" ></a></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" align="center">
+                    <?php
+                    if (empty($_REQUEST['id'])) {
+                        $pagina = 1;
+                    } else {
+                        $pagina = $_REQUEST['id'];
+                    }
+
+                    if ($blockpaginas * 10 < $paginacion) {
+                        $blockpaginas = $blockpaginas + 1;
+                    } else {
+                        $blockpaginas = $blockpaginas;
+                    }
+
+                    if ($pagina > 1) {
+                        echo "<a href=\"/atencioncliente/listarrecojostotal/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
+                    }
+
+                    for ($i = 1; $i <= $blockpaginas; $i++) {
+                        $max = $i * 10;
+                        for ($min = $max - 9; $min <= $max; $min++) {
+                            if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                if ($pagina == $min) {
+                                    echo "<a href=\"/atencioncliente/listarrecojostotal/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                } else {
+                                    echo "<a href=\"/atencioncliente/listarrecojostotal/" . ($min) . "\"> " . ($min) . " </a>";
+                                }
+                            }
+                        }
+                    }
+
+                    if ($pagina < $paginacion) {
+                        echo "<a href=\"/atencioncliente/listarrecojostotal/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
+                    }
+                    ?>
+                    <select id="seleccion" >
+                        <option value=""></option>
+                        <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                    </select>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <style type="text/css">
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+            border-spacing:0px;
+            padding: 0px;
+            margin: 0px 0px 5px 0px;
+        }
+        table thead th{
+            background: #d2e9fd;
+            font-weight: bold;
+        }
+        table thead th, tfoot th {
+            background: #d2e9fd;
+            color: #000;
+            padding: 3px 5px 3px 5px;
+            text-align: center;
+        }   
+        #classNumero {
+            padding: 5px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+    <div id="detalle" style="display: none;">
+        <a id="imprimir" href="#"><img src="/imagenes/imprimir.gif"></a>
+        <b id="mensaje"></b>
+        <table id="tblcabecera">
+            <thead>                
+            </thead>
+        </table>
+        <table id="tbldetalles">
+            <thead>
+                <tr>
+                    <th>Vendedor</th>
+                    <th>Orden Venta</th>
+                    <th>Fecha</th>
+                    <th>Codigo</th>
+                    <th>Descripción</th>
+                    <th>Precio Venta (Uni.)</th>
+                    <th>Cantidad Recogida</th>
+                    <th style="width: 1%;">Garantia</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="btncerrar" class="button">Cerrar Detalle</button>
+    </div>
+</fieldset>

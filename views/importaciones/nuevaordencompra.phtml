@@ -1,0 +1,157 @@
+<script src="/javascript/orden-compra.js"></script>
+<script src="/javascript/wc_ordencompra.js"></script>
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>">
+<input type="hidden" id="contador" value="1">
+
+<style>
+    .ocultar {
+        display: none;
+    }
+    .HabilitarA {
+        font-size: 12px;
+        font-weight: 600;
+        color: #d61313
+    }
+    .HabilitarA:hover {
+        color: #ad1111;
+    }
+    .inputBorder:hover {
+         border: 2px solid #9e9e9e;
+    }
+    .inputBorder {
+        cursor: pointer;
+    }
+</style>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Importaciones: Crear Orden de Compra</h2>
+<form action="/ordencompra/graba/" method="POST" id="frmOrdenCompraNuevo">
+    <fieldset>
+        <ul>
+            <li>
+                <label>Fecha:</label>
+                <strong style="color:#007F7F"><?php echo date('d/m/Y'); ?></strong>
+                <input type="hidden" value="<?php echo date('Y-m-d'); ?>" name="Ordencompra[fordencompra]">
+            </li>
+            <li>
+                <label>Empresa:</label>
+                <select id="lstEmpresa" name="Ordencompra[idalmacen]" disabled="">
+                    <option value="">-- Seleccionar uno --</option>
+                    <?php
+                    for ($i = 0; $i < count($Empresa); $i++) {
+                        echo '<option value="' . $Empresa[$i]['idalmacen'] . '"' . ($Empresa[$i]['idalmacen'] == 8 ? ' selected' : '') . '>' . $Empresa[$i]['nomalm'] . '</option>';
+                    }
+                    ?>
+                </select>
+                <a href="#" title="Seleccionar Empresa" class="HabilitarA" id="btnCambiarEmpresa">[Habilitar]</a>
+            </li>
+            <li>
+                <label>Moneda: </label>
+                <select name="Ordencompra[monedaordencompra]" id="cmbMoneda">
+                    <option value="-1">Seleccione Moneda</option>
+                    <option value="1">Soles (S/.)</option>
+                    <option value="2" selected="">Dolares (US $)</option>
+                </select>
+            </li>
+            <li id="lblVenta">
+                <label>Venta: </label>
+                <input type="text" id="valorTipoCambio" size="5" value="3.30" name="Ordencompra[tipocambiovigente]">
+            </li>
+            <li>
+                <label>Fecha Aprox. de Llegada:</label>
+                <input type="text" class="datepicker" name="Ordencompra[faproxllegada]" required>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Jefe de Linea: </label>
+                <input type="hidden" name="Ordencompra[jefelinea]" id="idjefelinea" required>
+                <input type="text" size="40" placeholder="Ingrese Nombre de Vendedor" id="txtVendedor">
+                <a href="#" title="Cambiar Jefe de Linea" class="HabilitarA" id="btnCambiarJefe">[Habilitar]</a>
+            </li>
+            <li>
+                <label>Proveedor:</label>
+                <select id="lstProveedor" name="Ordencompra[idproveedor]">
+                    <option value="">-- Seleccionar uno --</option>
+                    <?php
+                    for ($i = 0; $i < count($Proveedor); $i++) {
+                        echo '<option value="' . $Proveedor[$i]['idproveedor'] . '">' . $Proveedor[$i]['razonsocialp'];
+                    }
+                    ?>
+                </select>
+                <a href="#" title="Cambiar Proveedor" class="HabilitarA" id="btnCambiarProveedor">[Habilitar]</a>
+            </li>
+<!--            <li>
+                <div id="agregarProveedor">Nuevo Proveedor</div>
+            </li>-->
+        </ul>
+        <br>
+        <ul id="blockColaboradores">
+            <li>
+                <label>Colaboradores: </label>
+                <input type="text" size="40" placeholder="Ingrese Nombre de Vendedor" id="txtColaborador" data-estado="0">
+            </li>            
+        </ul>
+        <ul class="block">
+            <li class="block">
+                <label>Observaciones: </label>
+                <input type="text" class="text-full" name="Ordencompra[observaciones]">
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <div class="body">
+            <ul>
+                <li>
+                    <label>Producto:</label>
+                    <input type="text" class="required uppercase" id="txtCodigoProductoCompras" size="20">
+                    <input type="text" disabled="" size="50" id="txtTituloProducto">
+                    <input type="hidden" id="txtIdProducto"> 
+                    <a href="/producto/nuevo/" title="Nuevo Producto" target="_blank" class="HabilitarA"> .:: Nuevo Producto ::.</a>
+                </li>
+                <li>
+                    <label>Cantidad:</label>
+                    <input type="text" style="width:75px" class="numeric required" id="txtCantidadProducto">                    
+                </li>
+                <li>
+                    <button id="btnAgregarDetalleOrdenCompra" title="Agregar Producto">Añadir</button>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <div class="field-set">
+        <p class="title">Productos</p>
+        <div class="body">
+            <table id="tblDetalleOrdenCompra" class="hide">
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Codigo</th>
+                        <th>Descripci&oacute;n</th>
+                        <th>Marca</th>
+                        <th>Empaque</th>
+                        <th colspan="2">Cant/Uni</th>
+                        <th>FOB</th>
+                        <th>Total</th>
+                        <th colspan="2">Pcs x Ctn</th>
+                        <th colspan="2">Acci&oacute;n</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="right bold important">Monto Soles: (S/.)</td>
+                        <td><input type="text" value="0.00" name="Ordencompra[importesoles]" class="right text-100" id="txtMontoTotalSoles" readonly></td>							
+                        <td colspan="6" class="right bold">Total:</td>
+                        <td class="center">
+                            <input type="text" value="0.00" name="Ordencompra[importeordecompra]" class="right text-100" id="txtMontoTotal" readonly>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <input type="submit" value="Registrar Orden" id="btnRegistrarOrden">
+    <button id="btnCancelar">Cancelar</button>
+</form>

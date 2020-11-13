@@ -1,0 +1,57 @@
+<h2>Mantenimiento: Empresa</h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
+				<th >Acciones</th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Tipo Empresa</th>
+				<th>Editar</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td><?php echo $data[$i]['idempresa'] ?></td>
+					<td style="text-align:center;"><?php echo $data[$i]['nombre'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['descripcion'] ?> </td>
+					<td>
+						
+						<?php $cantidadTipoEmpresa=count($tipoEmpresa) ?>
+						<?php for ($x=0; $x <$cantidadTipoEmpresa ; $x++) { 
+							if ($tipoEmpresa[$x]['idtipoempresa']==$data[$i]['idtipoempresa']) { 
+								echo $tipoEmpresa[$x]['nombre'];
+							} 
+								
+						 } ?>
+						
+					</td>
+					
+					
+					<td ><a  href="/<?php echo $titulo ?>/editar/<?php echo $data[$i]['idempresa']; ?>"><img style="margin:auto;display:block;" src="/imagenes/editar.gif"></a></td>
+					
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

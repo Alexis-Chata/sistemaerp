@@ -1,0 +1,77 @@
+
+#muestra{
+	width:750px;
+	min-height:1200px ;
+	
+
+}
+
+#encabezado{
+	position: relative;
+	top:232px;
+	left:50px;
+	width:657px;
+
+}
+#cuerpo{
+	position: relative;
+	top:375px;
+	left:50px;
+	width:657px;
+	
+}
+#piepagina{
+	position: relative;
+	top:890px;
+	left: 28px;
+	width: 657px;
+
+}
+.td1{
+	
+	width:64px; 
+	    
+}
+.td2{
+	
+	width:320px; 
+	    
+}
+.td3{
+	
+	width:125px; 
+	    
+}
+.td4{
+	
+	width:178px; 
+	    
+}
+.tc1{
+	width: 28px;
+	text-align: center;
+}
+.tc2{
+	width: 64px;
+	text-align: center;
+}
+.tc3{
+	width: 335px;
+	text-align: left;
+}
+.tc4{
+	width: 75px;
+	text-align: center;
+}
+.tc5{
+	width: 85px;
+	text-align: right;
+}
+.tc6{
+	width: 78px;
+	text-align: right;
+}
+.tc7{
+	width: 78px;
+	text-align: right;
+}

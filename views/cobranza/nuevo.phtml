@@ -1,0 +1,61 @@
+<form action="/cobranza/graba/" method="POST">
+	<ul>
+		<li>
+			<label>Cliente</label>
+			<select name="Cuenta[idcliente]" id="lstCliente">
+				<?php 
+					$totalcli=count($Cliente);
+					for($i=0;$i<$totalcli;$i++){
+						echo "<option "." value=".$Cliente[$i]['idcliente'].">";
+						echo $Cliente[$i]['razonsocial'];
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>Vendedor</label>
+			<select name="Cuenta[idvendedor]" id="lstVendedor">
+				<?php 
+					$totalven=count($Vendedor);
+					for($i=0;$i<$totalven;$i++){
+						echo "<option "." value=".$Vendedor[$i]['idactor'].">";
+						echo $Vendedor[$i]['nombreconcat'];
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>OrdenVenta</label>
+			<select name="Cuenta[idordenventa]">
+				<?php 
+					$totalgui=count($OrdenPago);
+					for($i=0;$i<$totalgui;$i++){
+						echo "<option "." value=".$OrdenPago[$i]['idordenventa'].">";
+						echo $OrdenPago[$i]['idordenventa'];
+					}
+				?>
+			</select>
+		</li>		
+		<li>
+			<label>Numero Cuenta</label>
+			<input type="text" name="Cuenta[numerocuenta]"">
+		</li>
+		<li>
+			<label>Situaci&oacute;n pago</label>
+			<input type="text" name="Cuenta[situacionpago]" value="0"">
+		</li>
+		<li>
+			<label>Zona</label>
+			<select name="Cuenta[idzona]">
+				<?php 
+					$totalzona=count($Zona);
+					for($i=0;$i<$totalzona;$i++){
+						echo "<option "." value=".$Zona[$i]['idzona'].">";
+						echo $Zona[$i]['nombrezona'];
+					}
+				?>
+			</select>
+		</li>	
+	</ul>	
+	<p><input type="submit" value="..::: GRABAR :::.." ></p>
+</form>

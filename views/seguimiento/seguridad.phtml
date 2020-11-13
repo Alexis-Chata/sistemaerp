@@ -1,0 +1,86 @@
+<script src="/javascript/seguimientoalmacen.js"></script>
+<style type="text/css">
+    .entrada{
+    display: inline-block;
+    vertical-align: top;
+    border: solid 1px #A4A5A7;
+    }
+    .seguimiento2, .seguimiento3{
+        display: none;
+        
+    }
+    .seguimientoShow{
+        display: block;
+    }
+    .separador{
+            /*border-bottom: solid 1px #908F92;*/
+            padding-top: 12px;
+           
+   
+
+</style>
+
+<div id="listados">
+<h2> Seguimiento:: Seguridad(Seguimiento de Guias despachadas) </h2><br>
+<fieldset>
+    <div id="busqueda">
+			Busqueda: </br>
+			<input type="text"  id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Numero de Orden de Venta" autofocus="on">
+			<input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required"/>
+    </div>
+</fieldset>
+
+<div id="tabs">
+	<ul>
+	    <li><a href="#tabs-1">Registro de guias Despachadas</a></li>
+	    <li><a href="#tabs-2">Listado de Despachos por fecha</a></li>
+	   
+	</ul>
+    
+        <div id="tabs-1">
+            <div class="contenedor">
+                <table id="tblDespacho">
+                <thead id="cabecera" >
+                            <tr>
+                                    <th colspan="16" style="color:blue">SEGURIDAD</th>
+                            </tr>
+                            <tr>
+                                <th colspan="16" style="color:blue; background-color:#1AB5D8;" >Seguimiento de Despacho de Productos</th>
+                            </tr>
+                            <tr>
+                                    <th>Orden Venta</th>
+                                    <th>Vendedor</th>
+                                    <th>Cliente</th>
+                                    <!--<th>Condicion de Pago</th>-->
+
+                                    <th style="width: 534px;">CONFIRMACION DE ENTREGA</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                  
+            </table>
+       </div>  
+            
+   </div>
+    <div id="tabs-2">
+        <fieldset>
+			Fecha:
+			<input id="fechaSeguimiento" readonly type="text" class="datepicker" placeholder="Fecha Inicio" size="12">
+			<button id="btnConsultar">Consultar</button>
+			<a href="#" id="btnImprimir"><img src="/imagenes/imprimir.gif"></a>
+        </fieldset>
+        <div id="contenedor">
+            <table id="tblSeguimiento">
+                
+                
+            </table>
+            
+        </div>
+        
+      
+    </div>
+ </div>
+</div>

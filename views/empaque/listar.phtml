@@ -1,0 +1,25 @@
+<div id="listados">
+<table>
+		<caption>Listado de Empaques <a href="/empaque/nuevo"><img src="/imagenes/iconos/nuevo.gif" width="25" height="25" ></a></caption>
+		<tr>
+		        <th>Nº</th>
+			<th>Nombre</th>
+			<th>Codigo</th>
+			<th>Descripci&oacute;n</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Empaque);$i++){
+				echo "<tr>";
+				        echo "<td>".($i+1)."</td>";
+					echo "<td>".$Empaque[$i]['nombre']."</td>";
+					echo "<td>".$Empaque[$i]['codempaque']."</td>";
+					echo "<td>".$Empaque[$i]['descripcion']."</td>";
+					echo "<td><a href=\"/empaque/editar/".$Empaque[$i]['idempaque']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/empaque/elimina/".$Empaque[$i]['idempaque']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+</table>
+
+</div>

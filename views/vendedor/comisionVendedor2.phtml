@@ -1,0 +1,44 @@
+<script src="/javascript/comision2.js"></script>
+<h2>Asignar Comision por Vendedor</h2>
+<fieldset>
+    <form>
+        <input type="text" autofocus="on" size="50" placeholder="Ingrese Nombre de Vendedor" id="txtVendedor" required>
+        <input type="text"  size="15" class="datepicker" id="fechaInicial" required readonly placeholder="Fecha Inicio">
+        <input type="text"  size="15" class="datepicker" id="fechaFinal" required readonly placeholder="Fecha Final">
+        <button id="btnAceptar">Consultar</button>
+        <input type="hidden" id="idVendedor">
+    </form>
+</fieldset>
+<fieldset>
+    <button id="comisionar">Pagar Comision</button>
+    <input id="fechacomision" type="text" class="datepicker" placeholder="fecha Comision" readonly>
+    <b id="respuesta"></b>
+    <button id="btnImprimir"><img src="/imagenes/imprimir.gif"></button>
+</fieldset>
+
+<fieldset id="contenedor" style="width: 97%">
+    <h2 id="nombreVendedor"></h2>
+    <table id="tblVentas">
+        <thead >
+            <tr>
+                <th>Orden<br>Venta</th>
+                <th>Fecha<br>Despacho</th>
+                <th>Fecha<br>Vencimiento</th>
+                <th>Fecha<br>Cancelado</th>
+                <th>Nombre<br> Cliente</th>
+                <th>Importe</th>
+                <th>Pagos</th>
+                <th>Devolucion</th>
+                <th>Importe<br>Bruto</th>
+                <th>Comision</th>
+                <th>% Comision</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</fieldset>
+<fieldset id="contenedorDetalle">
+
+</fieldset>

@@ -1,0 +1,65 @@
+A;Serie;;F001
+A;Correlativo;;00000015
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;07
+A;TipoRutReceptor;;6
+A;RUTRecep;;10437265262
+A;RznSocRecep;;JAIME ANTONIO PALA CRUZ
+A;DirRecep;;AV. ANGAMOS ESTE NRO. 1008  - LIMA - LIMA - SURQUILLO
+A;TipoMoneda;;USD
+A;Sustento;;Por Devolucion
+A;TipoNotaCredito;;05
+A;MntNeto;;8.81
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;1.59
+A;MntTotal;;10.4
+A;FchEmis;;2017-07-17
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;1.59
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;10
+B;UnmdItem;1;C62
+B;VlrCodigo;1;H11-12V 100W
+B;NmbItem;1;FOCO H11 100W BASE L. AUTOTECH
+B;PrcItem;1;1.04
+B;PrcItemSinIgv;1;0.88
+B;MontoItem;1;8.81
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.16
+D;NroLinRef;1;01
+D;TpoDocRef;1;01
+D;SerieRef;1;F001
+D;FolioRef;1;00000271
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;VEN: 330DC: OV-17007242
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;-
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Diez con 40/100 Dolares Americanos  
+E;TipoAdicSunat;08;01
+E;NmrLineasAdicSunat;08;08
+E;DescripcionAdicSunat;08;2017-07-13

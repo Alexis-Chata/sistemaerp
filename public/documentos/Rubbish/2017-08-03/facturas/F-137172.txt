@@ -1,0 +1,61 @@
+A;Serie;;F001
+A;Correlativo;;00000001
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;20448524036
+A;RznSocRecep;;IMAD MAQUINARIAS S.A.C.
+A;DirRecep;;JR. SUCRE NRO. 216
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;213.56
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;38.44
+A;MntTotal;;252
+A;FchEmis;;2017-06-30
+A;IndPercepcion;;1
+A;MntImpPercepcion;;2
+A;MntPercepcion;;5.04
+A;MntTotalMasPercepcion;;257.04
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;38.44
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;4
+B;UnmdItem;1;C62
+B;VlrCodigo;1;DRK-VP25
+B;NmbItem;1;MANGUERA VIBRADOR CONCRETO 1" 6MT, DEREK MOTORS
+B;PrcItem;1;63
+B;PrcItemSinIgv;1;53.39
+B;MontoItem;1;213.56
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;9.61
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;CREDITO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;97448
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;PUNO - SAN ROMAN - JULIACA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 61 DC: OV-17006710
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;051405126-940372632-990001010/950050933- 940372611
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Doscientos Cincuenta y Dos 00/100 Dolares Americanos  

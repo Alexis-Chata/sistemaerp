@@ -1,0 +1,81 @@
+<?php 
+$total=count($ingresos);
+ ?>
+ <script type="text/javascript">
+	 $(document).ready({
+	 
+	 });
+ </script>
+
+ <a id="imprimir" onclick="imprSelec('listados')" href="#"><img src="/imagenes/imprimir.gif"></a>
+<div id="listados">
+	
+		<style type="text/css">
+			*{
+
+			}
+			table {
+				border: 1px solid;
+				border-collapse: collapse;
+				border-spacing:0px;
+				padding: 0px;
+				
+
+				margin: 0px;
+			}
+			table tr td, table tr th{
+				
+			}
+		</style>
+	<h2>Listado de Ingresos del día</h2>
+	<br>
+	<table>
+		<thead>
+			<tr>
+				<th>Nro</th>
+				<th>Cobrador</th>
+				<th>Orden Pedido</th>
+				<th>Nro Recibo</th>
+				<th>Nro Documento</th>
+				<th>Nro Operacion</th>
+				<th>Cliente</th>
+				<th>Tipo de Ingreso</th>
+				<th>Monto S/.</th>
+				
+				
+				<th>Usuario Ingreso</th>
+			</tr>
+		</thead>
+		<tbody>
+	<?php for ($i=0; $i < $total; $i++) { ?>
+			<tr>
+				<td><?php echo ($i+1);?></td>
+				<td><?php echo $ingresos[$i]['cobrador']?></td>
+				<td><?php echo $ingresos[$i]['codigov']?></td>
+				<td><?php echo $ingresos[$i]['nrorecibo']?></td>
+				<td><?php echo $ingresos[$i]['nrodoc']?></td>
+				<td><?php echo $ingresos[$i]['nrooperacion']?></td>
+				<td><?php echo $ingresos[$i]['cliente']?></td>
+				<td><?php echo $ingresos[$i]['nombreIngreso']?></td>
+				<td><?php echo number_format($ingresos[$i]['montoingresado'],2)?></td>
+				
+				
+				<td><?php echo $ingresos[$i]['creador']?></td>
+			</tr>
+	<?php 
+			
+			
+			$totalingresado+=$ingresos[$i]['montoingresado'];
+			} ?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="8"></th>
+				
+				
+				<th>S/. <?php echo number_format($totalingresado,2);?></th>
+				<th></th>
+			</tr>
+		</tfoot>
+	</table>
+</div>

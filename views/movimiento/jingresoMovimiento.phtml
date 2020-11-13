@@ -1,0 +1,181 @@
+<!-- 
+<script src="/javascript/wc_producto.js"></script>
+<script src="/javascript/wc_movimiento.js"></script>
+<h2>Movimientos :: Kardex por Producto</h2>
+<br>
+<?php 
+    //$mes = 'ENERO','FEBRERO','MARZO','ABRIL','MAYO'
+    $mes = array('mes','enero','febrero','marzo','abril','mayo','junio','julio',
+               'agosto','septiembre','octubre','noviembre','diciembre');
+?>
+<div id="busqueda">
+    Busqueda: <br>
+    <input autofocus="on" type="text" id="txtproducto" size="30" placeholder="Nombre o c&oacute;digo del producto">
+    <input type="text" id="idProducto" >
+     <input type="text" id="txtDescripcion" size="80px" disabled readonly> 
+    
+    <br>
+    <label>Fecha Factura:
+        <input type="date" id="txtFechaFactura" name="txtFechaFactura" value="2013-01-01">
+        <img class="ui-datepicker-trigger" src="/imagenes/calendar.png" alt="Selecciona una fecha" title="Selecciona una fecha">
+    </label>
+    
+    <label>Tipo Documento:
+        <select id="tipoDoc" name="tipoDoc">
+            <option value="1">Factura</option>
+            <option value="2">Boleta</option>
+            <option value="3">Nota Crédito</option>
+        </select>
+    </label>
+    
+    <label>Serie:
+        <input type="text" id="txtTipoDocumento" name="txtTipoDocumento" value="001">
+    </label>
+    
+    <label>Número:
+        <input type="text" id="txtTipoDocumento" name="txtTipoDocumento" >
+    </label>
+    
+    <label>Movimiento:
+        <select id="mov" name="mov">
+            <option value="0">Seleccionar movimiento</option>
+            <option value="1">Salida</option>
+            <option value="2">Entrada</option>
+            <option value="5">Saldo Inicial</option>
+        </select>
+    </label>
+    
+    <label>Cantidad:
+        <input type="text" id="txtTipoDocumento" name="txtTipoDocumento">
+    </label>
+    
+    <label>Costo unidad:
+        <input type="text" id="txtTipoDocumento" name="txtTipoDocumento">
+    </label>
+    
+    <input type="submit" value="Registrar" id="btnIngresarMovimiento">
+</div>
+<br><br>
+<hr>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/javascript/regMovFactura.js"></script>
+<!--<script src="/javascript/orden-venta.js"></script>-->
+<style type="text/css">
+    label.inline{
+            max-width:60px;
+            text-align: left;
+    }
+</style>
+<br><br><br>
+<h2>CONTABILIDAD: INGRESAR FACTURA</h2> 
+<?php 
+	if (!empty($codigov)) {
+		echo '<input id="codigov" type="text" value="'.$codigov.'" >';
+	}
+ ?>
+<br>
+<input type="hidden" value="1" id="txtContador">
+<form action="/movimiento/graba2/" method="POST" id="frmGeneracionOrdenVenta">
+    
+        <div class="field-set">
+            <p class="title">Información de Factura <span class="addicional-informacion"></span></p>
+            <div class="body">
+                <br>
+<!--                <ul class="inline-block">
+                    <br>
+                </ul>
+                <br>-->
+                <ul class="inline-block">
+                    <label>Número:
+                        <input type="text" id="txtNumero" name="txtNumero" class="numeric required uppercase" placeholder="49324" autofocus style="width:100px">
+                    </label>
+                    <label from="txtFechaFactura">Fecha:
+                        <input type="date" id="txtFechaFactura" name="txtFechaFactura" value="2013-01-01">
+                        <img class="ui-datepicker-trigger" src="/imagenes/calendar.png" alt="Selecciona una fecha" title="Selecciona una fecha">
+                    </label>
+                    <label>Serie:
+                        <input type="text" name="txtSerie" value="001" readonly>
+                        <input type="hidden" name="txttipoDoc" value="01">
+                        <input type="hidden" name="txttipoMov" value="01">
+                        <input type="hidden" name="txtMov" value="2">
+                        <input type="hidden" name="txtTipoDocument" value="1">
+                    </label>
+                        
+                    
+                </ul>
+                
+                
+<!--                <ul class="inline-block">
+                    <input type="hidden" id="txtCabeceraCliente" class="important">
+                    <label>Nombre o Raz&oacute;n Social:</label>
+
+                    <input type="text" id="txtCodigoCliente" class="required uppercase" autofocus style="width:300px">
+                    <input type="hidden" id="txtIdClienteZona"  name="OrdenVenta[idclientezona]" >
+                    <input type="hidden" id="txtidclientesucursal" name="OrdenVenta[idclientesucursal]">
+                    <input type="hidden" id="txtdireccionenvio" name="OrdenVenta[direccion_envio]">
+                    <input type="hidden" id="txtdirecciondespacho" name="OrdenVenta[direccion_despacho]">
+                    <input type="hidden" id="txtnombrecontacto" name="OrdenVenta[contacto]">
+                    <input type="hidden" id="txtIdCliente"  name="OrdenVenta[idcliente]" ><br><br>
+                </ul>-->
+                
+                <br><br>
+                
+                <ul>
+			<li>
+				<label>Producto</label>
+				<input type="text" class="required uppercase required-none" id="txtCodigoProductoj" style="width:100px">
+				
+				<input type="hidden" id="txtIdProducto"><!--Esto es llenado al elegir la opcion de la lista-->
+			</li>
+			<li>
+				<label>Descripcion</label>
+				<input type="text" id="txtTituloProducto" disabled style="width:300px">
+			</li>
+			<li>
+				<label>Cantidad</label>
+				<input type="text" style="width:55px" class="numeric required required-none" id="txtCantidadProducto">
+			</li>
+			<li>
+				<button id="btnAgregarProduco">Agregar</button>
+			</li>
+		</ul>
+                
+                <div id="listados">
+                    <table id="tblDetalleOrdenVenta">
+                            <thead>
+                                <tr>
+                                    <th>idProducto</th>
+                                    <th>Codigo</th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Cantidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contenidoProductos">
+                                <tr>
+                                    <td colspan="5"></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+	</div>
+
+	<br><br>	
+	<input type="submit" value="Registrar" class="btnRegistrar" id="btnRegistrar" title="Registrar la Guia">
+	<!--<button id="btnLimpiar" title="vaciar los campos">Limpiar</button>-->
+</form>
+<div id="test"></div>

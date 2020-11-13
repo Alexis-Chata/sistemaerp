@@ -1,0 +1,90 @@
+<script src="/javascript/devolucion.js"></script>
+<script src="/javascript/wc_cliente.js"></script>
+<script src="/javascript/wc_ordenventa.js"></script>
+<div id="busqueda-filtros">
+	<div id="busqueda-filtros-titulo">
+		<h2>Reporte de Devoluciones</h2>		
+	</div>
+	<div id="busqueda-filtros-criterios">
+		<ul>
+			<li>
+				<label for="txtClientexIdCliente">Razon Social Cliente</label>
+				<input type="text" id="txtClientexIdCliente" name="txtClientexIdCliente" size="50">
+				<input type="hidden" id="txtIdCliente">
+			</li>	
+			<li>
+				<label for="txtSituacion">Situaci&oacute;n</label>
+				<select name="txtSituacion" id="txtSituacion">
+					<option value="-1">Elija Situacion</option>
+					<option value="1">Registradas</option>
+					<option value="2">Aprobadas</option>
+				</select>
+			</li>		
+			<li>
+				<label for="txtOrdenVentaxId">Orden de Venta</label>
+				<input type="text" id="txtOrdenVentaxId" name="txtOrdenVentaxId" size="20">
+				<input type="hidden" id="txtIdOrdenVenta">
+			</li>							
+		</ul>
+		<br>
+		<ul>
+			<li>
+				<label for="txtFechaRegistroIni">Inicio Registro</label>
+				<input type="text" id="txtFechaRegistroIni" name="txtFechaRegistroIni" class="datepicker" readonly style="background:pink;">
+			</li>
+			<li>
+				<label for="txtFechaRegistroFin">Fin Registro</label>
+				<input type="text" id="txtFechaRegistroFin" name="txtFechaRegistroFin" class="datepicker" readonly style="background:pink;">
+			</li>
+			<li>
+				<label for="txtFechaAprobadoIni">Inicio Aprobado</label>
+				<input type="text" id="txtFechaAprobadoIni" name="txtFechaAprobadoIni" class="datepicker" readonly style="background:yellow;">
+			</li>	
+			<li>
+				<label for="txtFechaAprobadoFin">Fin Aprobado</label>
+				<input type="text" id="txtFechaAprobadoFin" name="txtFechaAprobadoFin" class="datepicker" readonly style="background:yellow;">
+			</li>	
+			<li>
+				<label for="txtModoConsulta">Modo de Consulta</label>
+				<select name="txtModoConsulta" id="txtModoConsulta">
+					<option value="0">Todas las Devoluciones</option>
+					<option value="1">Solo Devoluciones Totales</option>
+				</select>
+			</li>	
+			<li>
+				<input type="button" class="button" value="Consultar" id="btnConsultar">
+				<input type="button" class="button" value="Limpiar" id="btnLimpiar">
+				<input type="button" class="button" value="Imprimir" id="btnImprimir">
+			</li>						
+		</ul>
+	</div>
+</div>
+
+<div id="impresion-contenedor">
+	
+	<table id="tblDevoluciones">
+		<thead>
+			<tr>
+				<th colspan="11">REPORTE DE DEVOLUCIONES</th>
+
+			</tr>
+			<tr>
+				<th>Razon Social</th>
+				<th>Nro Orden Venta</th>
+				<th>Monto Orden Venta</th>
+				<th>Nro Devolucion</th>
+				<th>Registro</th>
+				<th>Fecha Registro</th>
+				<th>Aprobaci&oacute;n</th>
+				<th>Fecha Aprobacion</th>
+				<th>Importe Total</th>
+				<th>Situacion</th>
+				<th>Observaciones</th>
+
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+</div>

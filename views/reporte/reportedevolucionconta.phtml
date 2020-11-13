@@ -1,0 +1,53 @@
+<script src="/javascript/reporteDevolucionesConta.js"></script>
+<style type="text/css">
+    .ocultar_etiqueta{
+        display:none !important;
+    }
+</style>
+<fieldset>
+    <h2>REPORTE DE DEVOLUCIONES CONTA / IMPORT</h2>
+    <form action="" method="post" target="_blank" id="frmConsulta">
+        <ul>
+                <li>
+                    <label for="txtFechaInicio">Fecha Inicio:</label>
+                    <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+                </li>
+                <li>
+                    <label for="txtFechaFinal">Fecha Fin:</label>
+                    <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+                </li>
+               ORDENAR POR:
+                <select id="cmdbOrden" name="cmdbOrden">
+                    <option value="1">por fecha</option>
+                    <option value="2">por orden venta</option>
+                </select>
+                <a href="#" style="color:purple;margin-left: 20px;" id="btnAvanzado">Click Busqueda Avanzada</a>
+                <br>
+                <br>
+                <span id="etiquetaAvanzado" class="ocultar_etiqueta">
+                    <li>
+                        <label for="txtProducto_label">Producto</label>
+                        <input type="text" class="uppercase" id="txtProducto" style="background-color:#9FFF6A" >
+                        <input type="text" readonly="readonly" id="txtDescripcion" size="35" style="background-color:silver">
+                        <input type="hidden" id="idProducto" name="idProducto" value="0">
+                    </li>
+                    <li>
+                        <label for="txtVendedor_label">Vendedor</label>
+                        <input type="text" class="uppercase" size="35" id="txtVendedor" style="background-color:skyblue">
+                        <input type="hidden" id="idVendedor" name="idVendedor">
+                    </li>
+                    <li>
+                        <label for="txtCliente_label">Cliente</label>
+                        <input type="text" class="uppercase" size="55" id="txtCliente" style="background-color:pink">
+                        <input type="hidden" id="idCliente" name="idCliente">
+                    </li>
+                </span>
+            </ul>
+        <br>
+        <ul>
+            <li><button id="btnExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
+            <li><button id="btnPdf">Consultar<img src="/imagenes/iconos/pdf.gif" style="vertical-align: middle" width="25" height="25"></button></li>
+            <li><button id="btnLimpiar">Limpiar<img src="/imagenes/limpiar.png" style="vertical-align: middle" width="25" height="25"></button></li>
+        </ul>
+    </form>
+</fieldset>

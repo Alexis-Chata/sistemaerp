@@ -1,0 +1,30 @@
+<script>
+    $(document).ready(function () {
+        $('#txtOrdenCompra').autocomplete({
+            source: "/ordencompra/listarordenes/",
+            select: function (event, ui) {
+                $('#txtIdOrdenCompra').val(ui.item.id);
+            }
+        });
+    });
+</script>
+<fieldset>
+    <h2>REPORTE :: Estado de productos</h2>
+    <form action="/pdf/estadoproductos" method="post" target="_blank" id="frmConsulta">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Orden Compra</label>
+                <input type="text" class="required uppercase" placeholder="Ingrese Ord. Compra" id="txtOrdenCompra" name="txtOrdenCompra" required="">
+                <input type="hidden" id="txtIdOrdenCompra" required="" name="txtIdOrdenCompra">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Producto</label>
+                <input type="text" class="uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+                <input type="hidden" id="txtIdProducto" name="txtIdProducto">
+            </li>
+            <li>
+                <button type="submit">Consulta <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

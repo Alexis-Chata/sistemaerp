@@ -1,0 +1,157 @@
+<script src="/javascript/vendedor.js"></script>
+<h2>Vendedor: Ordenes de pedido</h2> 
+<div id="listados">
+	<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+	<ul>
+		<li>
+			<label>Seleccione una de las opiones</label>
+			<input type="radio" name="rbFiltro" value="1" checked> Todos
+			<input type="radio" name="rbFiltro" value="2"> Aprobados
+			<input type="radio" name="rbFiltro" value="3"> Desaprobados
+			&nbsp;<input type="radio" name="rbFiltro" value="4"> Por Fecha	
+			&nbsp;<input type="radio" name="rbFiltro" value="5"> Por Rango Fecha
+		</li>
+		<li id="liFecha">
+			<label>Seleccione Fecha</label>
+			<input type="text" id="txtFecha" class="datepicker" readonly>
+		</li>
+		<li class="liRangoFecha">
+			<label>Fecha Inicio</label>
+			<input type="text" id="txtFechaInicio" class="datepicker" readonly>
+		</li>
+		<li class="liRangoFecha">
+			<label>Fecha Final</label>
+			<input type="text" id="txtFechaFinal" class="datepicker" readonly>
+		</li>
+		<li>
+			<button id="btnConsultar">Consultar</button>
+		</li>
+	</ul>
+</fieldset>
+	<table id="tblOrdenVenta">
+		<caption>Listado de Ordenes de Pedido
+			<a href="/ventas/creaguiaped"><img src="/imagenes/iconos/nuevo.gif"></a>
+		</caption>
+		<thead>
+			<tr>
+				<th rowspan="2">Orden</th>
+				<th rowspan="2">Importe</th>
+				<th rowspan="2">Fecha</th>
+				<th rowspan="2">Cliente</th>
+				<th rowspan="2">Zona</th>
+				<th rowspan="2">Duracion Total</th>
+				<th colspan="4">Aprobaciones</th>
+				<th rowspan="2">Acciones</th>
+			</tr>
+			<tr>
+				<th>Ventas</th>
+				<th>Cobranza</th>
+				<th>Creditos</th>
+				<th>Almacen</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			
+			$TAlmacen=sizeof($ordenVenta);
+			for($i=0;$i<$TAlmacen;$i++){
+				$vbVentas=$ordenVenta[$i]['vbventas'];
+				$vbCobranza=$ordenVenta[$i]['vbcobranzas'];
+				$vbCreditos=$ordenVenta[$i]['vbcreditos'];
+				$vbAlmacen=$ordenVenta[$i]['vbalmacen'];
+				if($ordenVenta[$i]['estado']==0){
+					$claseinactivo="class=\"inactivo\"";
+				}else{
+					$claseinactivo="";
+				}
+				
+				$fila="<tr ".$claseinactivo.">";
+				$fila.="<td>".$ordenVenta[$i]['codigov']."</td>";
+				$fila.="<td>".$ordenVenta[$i]['importeov']."</td>";
+				$fila.="<td>".$ordenVenta[$i]['fechacreacion']."</td>";
+				//$fila.="<td>".date("d/m/Y H:m:i",strtotime($ordenVenta[$i]['fechacreacion']))."</td>";
+				$fila.="<td>".$ordenVenta[$i]['razonsocial']."</td>";
+				$fila.="<td>".$ordenVenta[$i]['nombrezona']."</td>";
+				$dateRegistro=strtotime($ordenVenta[$i]['fordenventa']);
+				$dateActual=time();
+				$fila.="<td>".($dateActual-$dateRegistro)."</td>";
+				$ruta="/imagenes/iconos/";
+				$imagen1=($vbVentas==-1)?$ruta.'pendiente.jpg':(($vbVentas==1)?$ruta.'aprobado.jpg':$ruta.'desaprobado.jpg');
+				$imagen2=($vbCobranza==-1)?$ruta.'pendiente.jpg':(($vbCobranza==1)?$ruta.'aprobado.jpg':$ruta.'desaprobado.jpg');
+				$imagen3=($vbCreditos==-1)?$ruta.'pendiente.jpg':(($vbCreditos==1)?$ruta.'aprobado.jpg':$ruta.'desaprobado.jpg');
+				$imagen4=($vbAlmacen==-1)?$ruta.'pendiente.jpg':(($vbAlmacen==1)?$ruta.'aprobado.jpg':$ruta.'desaprobado.jpg');
+				$fila.='<td style="text-align:center;"><img src="'.$imagen1.'"</td>';
+				$fila.='<td style="text-align:center;"><img src="'.$imagen2.'"</td>';
+				$fila.='<td style="text-align:center;"><img src="'.$imagen3.'"</td>';
+				$fila.='<td style="text-align:center;"><img src="'.$imagen4.'"</td>';
+				$fila.="<td width=\"100px\" >
+					<a href=\"/ordenventa/detalle/".$ordenVenta[$i]['idordenventa']."\" class=\"btnDetalleOrdenVenta\"><img src=\"/imagenes/detalle.jpg\"></a>";
+				if ($vbVentas==-1) {
+					$fila.="<a href=\"/ordenventa/editarordenventa/".$ordenVenta[$i]['idordenventa']."\" class=\"btnEditarOrdenVenta\"><img src=\"/imagenes/iconos/editar.gif\"></a>";
+				}
+				
+				$fila.="<a href=\"/ordenventa/eliminar/".$ordenVenta[$i]['idordenventa']."\" class=\"btnEliminarOrdenVenta\"><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+				$fila.="</td>";
+				$fila.="</tr>";
+				echo $fila;
+				unset($fila);
+			}
+			?>	
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="11" align="center">
+					<?php
+						for($i=1;$i<=$Paginacion;$i++){
+							$numero=($Pagina>=1)?$Pagina:1;
+							$class=($numero==$i)?'current-page':'';
+							echo '<a href="/almacen/buscar/'.$i.'" class="'.$class.'">'.$i.'</a>';
+						}
+					?>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<div id="divDetalleOrdenVenta">
+	<ul class="inline-block">
+		<li id="liObservacionVentas">
+			<label>Observaci&oacute;nes Ventas:</label>
+			<input type="text" id="txtObservacionVentas" class="text-600" readonly>
+		</li>
+		<li id="liObservacionCobranzas">
+			<label>Observaci&oacute;nes Cobranzas:</label>
+			<input type="text" id="txtObservacionCobranzas" class="text-600" readonly>
+		</li>
+		<li id="liObservacionCreditos">
+			<label>Observaci&oacute;nes Creditos:</label>
+			<input type="text" id="txtObservacionCreditos" class="text-600" readonly>
+		</li>
+	</ul>
+	<table id="tblDetalleOrdenVenta">
+		<caption>Detalle Orden Pedido</caption>
+		<thead>
+			<tr>
+				<th rowspan="2">Nro.</th>
+				<th rowspan="2">Codigo</th>
+				<th rowspan="2">Descripci&oacute;n</th>
+				<th colspan="3">CANTIDAD</th>
+				<th colspan="2">PRECIO</th>
+				<th colspan="2">Dscto</th>
+				<th rowspan="2">TOTAL</th>
+			</tr>
+			<tr>
+				<th>Solicitada</th>
+				<th>Aprobada</th>
+				<th>Despachada</th>
+				<th>SOLICITADO</th>
+				<th>APROBADO</th>
+				<th>SOLICITADO</th>
+				<th>APROBADO</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	</div>
+</div>

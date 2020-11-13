@@ -1,0 +1,35 @@
+BODY{
+	background-color:#540A0A;
+	color:#fff;
+}
+
+#form-login{
+	margin:auto;
+	width: 300px;
+	height: 200px;
+	color:#540A0A;
+	background:url("/imagenes/fondo001.jpg");
+}
+
+
+#form-registra{
+	margin:auto;
+	width: 300px;
+	color:#fff;
+}
+
+#form{
+	width: 80%;
+	padding: 20px 20px;
+}
+
+#header{
+	background:url("/imagenes/celestiumlogo.png");
+	width:900px;
+	heigth:100px;
+	margin:auto;
+}
+
+#aligright{
+	float:right;
+}

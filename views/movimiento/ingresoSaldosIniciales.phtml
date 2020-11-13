@@ -1,0 +1,85 @@
+
+<?php 
+    //$mes = 'ENERO','FEBRERO','MARZO','ABRIL','MAYO'
+    $mes = array('mes','enero','febrero','marzo','abril','mayo','junio','julio',
+               'agosto','septiembre','octubre','noviembre','diciembre');
+?>
+
+
+
+
+<script src="/javascript/ingresoSaldosIniciales.js"></script>
+<!--<script src="/javascript/orden-venta.js"></script>-->
+<style type="text/css">
+    label.inline{
+            max-width:60px;
+            text-align: left;
+    }
+</style>
+<br><br><br>
+<h2>INGRESOS DE SALDOS INICIALES</h2> 
+<?php 
+	if (!empty($codigov)) {
+		echo '<input id="codigov" type="text" value="'.$codigov.'" >';
+	}
+ ?>
+<br>
+<input type="hidden" value="1" id="txtContador">
+<form action="/movimiento/grabaSaldosIniciales/" method="POST" id="frmGeneracionOrdenVenta">
+    
+        <div class="field-set">
+            <p class="title">Saldos Iniciales <span class="addicional-informacion"></span></p>
+            <div class="body">
+                <br><br>
+                
+                <ul>
+			<li>
+				<label>Producto</label>
+				<input type="text" class="required uppercase required-none" id="txtCodigoProductoj" style="width:100px">
+				
+				<input type="hidden" id="txtIdProducto"><!--Esto es llenado al elegir la opcion de la lista-->
+			</li>
+			<li>
+				<label>Descripcion</label>
+				<input type="text" id="txtTituloProducto" disabled style="width:300px">
+			</li>
+			<li>
+				<label>Cantidad</label>
+				<input type="text" style="width:55px" class="numeric required required-none" id="txtCantidadProducto">
+			</li>
+                        <li>
+				<label>Precio</label>
+				<input type="text" style="width:55px" class="numeric required required-none" id="txtPrecioInicial">
+			</li>
+			<li>
+				<button id="btnAgregarProduco">Agregar</button>
+			</li>
+		</ul>
+                
+                <div id="listados">
+                    <table id="tblDetalleOrdenVenta">
+                            <thead>
+                                <tr>
+                                    <th>idProducto</th>
+                                    <th>Codigo</th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contenidoProductos">
+                                <tr>
+                                    <td colspan="6"></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+	</div>
+
+	<br><br>	
+	<input type="submit" value="Registrar" class="btnRegistrar" id="btnRegistrar" title="Registrar la Guia">
+	<!--<button id="btnLimpiar" title="vaciar los campos">Limpiar</button>-->
+</form>
+<div id="test"></div>

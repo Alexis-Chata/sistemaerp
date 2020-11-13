@@ -1,0 +1,10 @@
+<script src="/javascript/editarordenventa.js"></script>
+<fieldset>
+    <h2>Corregir Kardex</h2>
+    <form action="/almacen/correccionKardex" method="post">
+        <input type="text" id="txtProducto" placeholder="Ingrese Codigo Producto" size="30px" class="uppercase">
+        <input type="text" id="txtDescripcion" readonly="readonly" size="60px">
+        <input type="hidden" id="idProducto" name="idProducto">
+        <button>Enviar</button>
+    </form>
+</fieldset>

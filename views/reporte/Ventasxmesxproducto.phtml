@@ -1,0 +1,55 @@
+<script src="/javascript/promediodeventas.js"></script>
+
+<h2>Cantidad de Ventas Por Mes</h2>
+<br>
+
+<fieldset style="display:inline-block">
+    <legend><b>Filtro</b></legend>
+
+    <ul>
+        <li>
+            <label>Seleccione una de las opiones</label>
+            <input type="radio" name="rbFiltro" value="3" checked="checked"> Por Linea
+            &nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea	
+            &nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
+        </li>
+        <br>
+        <li id="liLinea">
+            <label>Linea</label>
+            <select id="lstLinea">
+                    <option value="">-- Linea --</option>
+                    <?php
+                            for($i=0;$i<count($Linea);$i++){
+                                    echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin'].'</option>';
+                            }
+                    ?>
+            </select>
+        </li>
+        <li id="liSubLinea">
+            <label>Sublinea</label>
+            <select id="lstSubLinea">
+                    <option value="">-- Sub Linea --</option>
+            </select>
+        </li>
+        <li id="liProducto">
+            <label>Producto</label>
+            <input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+            <input type="hidden" id="txtIdProducto">
+        </li>
+        <li id="buttomContent1">
+            <button id="btnConsultar">Consultar</button>
+        </li>
+        <li>
+            <form action="/pdf/cantidadventasxmes/" method="post" target="_blank">
+                <input type="submit" value="ver en pdf" id="mostrarPDF">
+                <input type="hidden" id="idProducto" name="idProducto">
+                <input type="hidden" id="idLinea" name="idLinea">
+                <input type="hidden" id="idSubLinea" name="idSubLinea">
+            </form>
+        </li>
+    </ul>
+</fieldset>
+
+<fieldset id="contenido">
+    
+</fieldset>

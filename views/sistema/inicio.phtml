@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>SISTEMA DE SEGURIDAD</title>
+		<meta charset="UTF-8">
+		<link href="/css/sistema.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="contenedor">
+			<div id="header">
+				<div id="logo">
+				
+				</div>
+				<div id="usuario">
+					Bienvenido <?php echo $_SESSION['nombrecompleto'];?>
+					
+					<img src="<?php echo $_SESSION['urlfoto'];?>" border="0" align="right"><br>
+					<a href="/sistema/salir" class="blanco">Salir</a><br>
+				</div>				
+			</div>
+			<div id="nav">
+				
+			</div>
+			<div id="content"></div>
+			<div id="footer">Bienvenido</div>
+		</div>
+	</body>
+</html>

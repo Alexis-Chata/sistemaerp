@@ -1,0 +1,112 @@
+
+<div id="listados">
+<h2>Seguridad: Vendedor
+</h2>
+<br>
+
+<form method="POST" action="/vendedor/buscar/">
+<div id="busqueda">
+		Busqueda: <br>
+		<input type="text" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese un Nombre, Apellido Materno, Apellido Paterno o Codigo de Vendedor" value="<?php echo $retorno;?>">
+		<input type="submit" value="Ver">
+</div>
+</form>
+<form method="POST" action="/vendedor/lista/">
+		<input type="submit" value="Cancelar">
+</form>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="9">Listado de Vendedor</th>
+			<th><a href="/vendedor/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a></th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Nombre Completo</th>
+			<th>Dirección</th>
+			<th>Telefono</th>
+			<th>Celular</th>
+			<th>RPM</th>
+			<th>Codigo Vendedor</th>
+			<th>Email</th>
+			<th>DNI</th>
+			<th>Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$TVendedor=sizeof($vendedor);
+		for($i=0;$i<$TVendedor;$i++){
+			if($vendedor[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/vendedor/editar/".$vendedor[$i]['idactor']."\">".STRTOUPPER($vendedor[$i]['idactor'])."</a></td>";
+			$fila.="<td>".$vendedor[$i]['nombres']." ".$vendedor[$i]['apellidopaterno']." ".$vendedor[$i]['apellidomaterno']."</td>";
+			$fila.="<td>".$vendedor[$i]['direccion']."</td>";
+			$fila.="<td>".$vendedor[$i]['telefono']."</td>";
+			$fila.="<td>".$vendedor[$i]['celular']."</td>";
+			$fila.="<td>".$vendedor[$i]['rpm']."</td>";
+			$fila.="<td>".$vendedor[$i]['codigoa']."</td>";
+			$fila.="<td>".$vendedor[$i]['email']."</td>";
+			$fila.="<td>".$vendedor[$i]['dni']."</td>";
+			
+	
+			$fila.="<td width=\"100px\">
+						<a href=\"/vendedor/editar/".$vendedor[$i]['idactor']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/vendedor/eliminar/".$vendedor[$i]['idactor']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="11" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/vendedor/buscar/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a clas='permanente' href=\"/vendedor/buscar/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a clas='permanente' href=\"/vendedor/buscar/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion && !empty($pagina)) 
+				{
+					echo "<a href=\"/vendedor/buscar/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+
+		?>
+		
+		</tr>
+	</tfoot>
+</table>
+</div>

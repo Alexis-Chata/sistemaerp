@@ -1,0 +1,98 @@
+
+*{
+	padding:0px;
+	margin:0px;
+
+	
+}
+body{
+	position: absolute;
+	width: 210mm;
+	margin-left: 0mm;
+	top:5mm;
+	padding: 0px;
+	letter-spacing: 0mm;
+	font-weight: bold;
+	
+	font-family: arial;
+	
+}
+#impresion{
+
+	position: relative;
+	width: 210mm;
+	margin: 0px;
+	padding: 0px;
+	letter-spacing: 0mm;
+	font-size: 5px;
+	border:0px solid; 
+	font-family: fixedsys, consolas, monospace;
+	min-height: 150mm;
+	top:-5mm;
+
+}
+
+#encabezado{
+	position: absolute;
+	top:51mm;
+	left:8mm;
+	width:187mm;
+	margin: 0mm;
+}
+#cuerpo{
+	position: absolute;
+	top:68mm;
+	left:8mm;
+	width:187mm;
+	margin: 0mm;
+	
+}
+#piepagina{
+	position: absolute;
+	top:114mm;
+	left: 8mm;
+	width: 187mm;
+	margin-top: 0mm;
+}
+table tr td,table tr th{
+	font-weight: bold;
+	font-family: arial;
+	font-size: 11px;
+	
+}
+.td1{
+	width: 7mm;
+	text-align: center;
+}
+.td2{
+	width: 30mm;
+}
+.td3{
+	width: 85mm;
+}
+.td4{
+	width: 21mm;
+	text-align: center;
+}
+.td5{
+	width: 17mm;
+	text-align: right;
+}
+.td6{
+	width: 26mm;
+	text-align: right;
+}
+.tp1{
+	width: 10mm;
+}
+.tp2{
+	width: 156mm;
+}
+.tp3{
+	width:21mm;
+	text-align: right;
+}
+table tr td, table tr th{
+	padding: 1px;
+	font-size:10px;
+}

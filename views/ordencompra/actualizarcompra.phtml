@@ -1,0 +1,438 @@
+<?php $idmodulo = 73;
+require_once 'evalcredenciales.php'; ?>
+<!--<script src="/javascript/wc_valorizarOrden.js"></script>-->
+<script src="/javascript/actualizadoOrdenCompra.js"></script>
+<input type="hidden" id="contador" value="<?php echo count($Detalleordencompra) + 1 ?>">
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>"><br>
+<input type="hidden" value="<?php echo $Ordencompra[0]['actualizado']; ?>" id="campoActualizado" name="idOrdenCompra">
+<style>
+    input[type="text"] {
+        color: #444444;
+    }
+    .colorazul:not(.txtCantidadDetalle) {
+        color: blue !important;
+    }
+</style>
+<h2>Orden de Compra :: Asociar Dua</h2>
+<input id="ocActualizado" type="hidden" value="<?php echo $Ordencompra[0]['actualizado']; ?>">
+<form action="/ordencompra/guardarestructuradecostos/" method="POST" id="frmEstructuraCostos">
+    <fieldset>
+        <ul>
+            <li>
+                <label>Nro. Orden: </label>
+                <b style="color: #ef0000;"><?php echo $Ordencompra[0]['codigooc']; ?></b>
+            </li>
+            <li>
+                <label>Empresa: </label>
+                <?php
+                for ($i = 0; $i < count($Empresa); $i++) {
+                    if ($Empresa[$i]['idalmacen'] == $Ordencompra[0]['idalmacen']) {
+                        $empresaOC = $Empresa[$i]['nomalm'];
+                    }
+                }
+                ?>			
+                <b style="color: blue;"><?php echo $empresaOC; ?></b>
+            </li>	
+            <li>
+                <label>Proveedor: </label>
+                <?php
+                for ($i = 0; $i < count($Proveedor); $i++) {
+                    if ($Ordencompra[0]['idproveedor'] == $Proveedor[$i]['idproveedor']) {
+                        $proveedorOC = $Proveedor[$i]['razonsocialp'];
+                    }
+                }
+                ?>                    
+                <b style="color: #007F7F;"><?php echo $proveedorOC; ?></b>
+            </li>
+            <li>
+                <label>Estado: </label>
+                <?php
+                if ($Ordencompra[0]['vbimportaciones'] == 1) {
+                    echo "¡CONFIRMADO!";
+                } else {
+                    echo "<i>Sin Confirmar</i>";
+                }
+                ?>
+            </li>
+            <li>
+                <label>Fecha Probable de LLegada: </label>
+                <?php echo $Ordencompra[0]['faproxllegada']; ?>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Empresa Flete: </label>
+                <?php
+                $cantidadFlete = count($Flete);
+                $empresaFlete = "-";
+                for ($i = 0; $i < $cantidadFlete; $i++) {
+                    if ($Ordencompra[0]['empresaflete'] == $Flete[$i]['idempresa']) {
+                        $empresaFlete = $Flete[$i]['nombre'];
+                    }
+                }
+                echo $empresaFlete;
+                ?>	
+            </li>		
+            <li>
+                <label>Empresa de Seguros: </label>
+                <?php
+                $cantidadSeguro = count($Seguro);
+                $empresaSeguro = "-";
+                for ($i = 0; $i < $cantidadSeguro; $i++) {
+                    if ($Ordencompra[0]['aseguradora'] == $Seguro[$i]['idempresa']) {
+                        $empresaSeguro = $Seguro[$i]['nombre'];
+                    }
+                }
+                echo $empresaSeguro;
+                ?>		
+            </li>	
+            <li>
+                <label>Agencia de Aduana: </label>
+                <?php
+                $cantidadAduanas = count($Aduanas);
+                $empresaAduanas = "-";
+                for ($i = 0; $i < $cantidadAduanas; $i++) {
+                    if ($Ordencompra[0]['aduanera'] == $Aduanas[$i]['idempresa']) {
+                        $empresaAduanas = $Aduanas[$i]['nombre'];
+                    }
+                }
+                echo $empresaAduanas;
+                ?>
+            </li>
+            <li>
+                <label>Costos 1: </label>
+                <?php
+                if ($Ordencompra[0]['cv1'] != 0) {
+                    echo "Habilitado";
+                } else {
+                    echo "-";
+                }
+                ?>
+            </li>
+            <li>
+                <label>Costos 2: </label>
+                <?php
+                if ($Ordencompra[0]['cv2'] != 0) {
+                    echo "Habilitado";
+                } else {
+                    echo "-";
+                }
+                ?>
+            </li>
+            <li>
+                <label>Costos 3: </label>
+                <?php
+                if ($Ordencompra[0]['cv3'] != 0) {
+                    echo "Habilitado";
+                } else {
+                    echo "-";
+                }
+                ?>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <div id="blocIdOC">
+            <input type="hidden" value="<?php echo $Ordencompra[0]['idordencompra']; ?>" id="idOrdenCompra" name="idordenescompras[]">
+        </div>
+        <ul>
+            <li>
+                <label>Compra: </label>
+                <select id="lstTipoCompra" name="lsttipocompra">
+                    <option value="1"<?php echo ($Ordencompra[0]['tipocompra'] == 1 ? ' selected' : ''); ?>>IMPORTACION</option>
+                    <option value="2"<?php echo ($Ordencompra[0]['tipocompra'] == 2 ? ' selected' : ''); ?>>NACIONAL</option>
+                </select>
+            </li>
+            <li>
+                <label>Serie: </label>                    
+                <input type="text" class="colorazul" id="serieDua" size="5" name="serieDua" value="<?php echo $Ordencompra[0]['serieDua']; ?>">
+            </li>
+            <li>
+                <label id="textComprobante">
+                    <?php
+                    if ($Ordencompra[0]['tipocompra'] == 2) {
+                        echo 'Factura: ';
+                    } else {
+                        echo '#DUA: ';
+                    }
+                    ?> 
+                </label>
+                <input type="text" class="colorazul" id="nroDua" name="nroDua" value="<?php echo $Ordencompra[0]['nroDua']; ?>">
+            </li>
+            <li>
+                <label>Fecha de Compra: </label>
+                <input type="text" class="<?php echo ($Ordencompra[0]['actualizado'] == 0 ? 'datepicker ' : ''); ?>colorazul" value="<?php echo (empty($Ordencompra[0]['fechaCompraOC']) ? DateTime::createFromFormat('Y-m-d', $Ordencompra[0]['fordencompra'])->format('Y/m/d') : $Ordencompra[0]['fechaCompraOC']); ?>" id="fechaCompraDua" name="fechaCompraDua">
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <?php
+        $tamLstOC = -1;
+        if ($Ordencompra[0]['actualizado'] == 0) {
+            $titulotblAsociados = 'ASOCIAR OTRAS ORDENES DE COMPRA';
+        } else {
+            $tamLstOC = count($lstOrdeneDeCompra);
+            $titulotblAsociados = 'ORDENES DE COMPRA ASOCIADAS';
+        }
+        if ($tamLstOC == -1 || $tamLstOC > 1) { ?>
+            <table id="tblAsociados">
+                <thead>
+                    <tr>
+                        <th colspan="<?php echo (29 - $Ordencompra[0]['actualizado']); ?>" style="background: skyblue;">
+                        <?php echo $titulotblAsociados; ?>                            
+                        </th>
+                    </tr>
+                    <?php if ($Ordencompra[0]['actualizado'] == 0) { ?>
+                        <tr>
+                            <th colspan="3">Busqueda: </th>
+                            <td colspan="<?php echo (26 - $Ordencompra[0]['actualizado']); ?>">
+                                <input type="text" class="colorazul" placeholder="Codigo Orden Compra" id="txtOrdenCompra" value="">
+                            </td>
+                        </tr>
+                    <?php
+                    } else {
+                        for ($ioc = 0; $ioc < $tamLstOC; $ioc++) {
+                            if ($lstOrdeneDeCompra[$ioc]['idordencompra'] != $Ordencompra[0]['idordencompra']) {
+                                echo '<tr>'
+                                . '<th colspan="2">Orden Compra: </th><td colspan="3">' . $lstOrdeneDeCompra[$ioc]['codigooc'] . '</td>'
+                                . '<th colspan="3">Proveedor: </th><td colspan="3">' . $lstOrdeneDeCompra[$ioc]['razonsocialp'] . '</td>'
+                                . '<th colspan="3">Estado: </th><td colspan="4">' . ($lstOrdeneDeCompra[$ioc]['vbimportaciones'] == 1 ? 'CONFIRMADO' : '<i>Sin Confirmar</i>') . '</td>'
+                                . '</tr>';
+                            }
+                        }
+                    }
+                    ?>
+                </thead>
+            </table>
+        <?php } $tamDoc = count($Detalleordencompra); ?>
+        <table id="tblDetalleOrdenCompra" data-cantidad="<?php echo $tamDoc; ?>">
+            <thead>
+                <tr>
+                    <th rowspan="2">N°</th>
+                    <th rowspan="2">Codigo</th>
+                    <th rowspan="2">Descripcion</th>
+                    <th rowspan="2" style="width: 1%">Marca</th>
+                    <th rowspan="2">QTY</th>
+                    <th rowspan="2" style="width: 1%">Unit</th>
+                    <th rowspan="2">Vol. m3</th>
+                    <th rowspan="2">CBM. m3</th>
+                    <th rowspan="2">FOB<br>Unit.</th>
+                    <th rowspan="2">FOB<br>Total</th>
+                    <th colspan="7">Costos Fijos</th>
+                    <th colspan="6">Costos Variables</div></th>
+                    <th rowspan="2">Agente<br>Aduana</th>
+                    <th rowspan="2">Flete<br>Interno</th>			
+                    <th colspan="2">Costo Puesto <br>Nuestro Almacen</th>
+                    <th rowspan="2">Costo<br>(%)</th>
+                    <?php
+                    if ($Ordencompra[0]['actualizado'] == 0) {
+                        echo '<th rowspan="2"></th>';
+                    }
+                    ?>                        
+                </tr>
+                <tr>
+                    <th >Flt.</th>
+                    <th >Seg.</th>
+                    <th >CIF</th>
+                    <th >CIF<br>Unit.</th>
+                    <th >ADV<br>%</th>
+                    <th >ADV</th>
+                    <th >TD</th>
+                    <th >Flat</th>
+                    <th >V°B°</th>
+                    <th >Gate In</th>
+                    <!--<th >Box Fee</th>
+                    <th >Ins.<br> Fee</th>
+                    <th >Sobre<BR>estadia</th>
+                    <th >Doc Fee</th>
+                    <th >Gastos Adm.</th>-->
+                    <th>CA-1</th>
+                    <th>CA-2</th>
+                    <th>CA-3</th>
+                    <th>Total</th>
+                    <th>Unitario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $archivoConfig = parse_ini_file("config.ini", true);
+                $importeTotalOC = 0;
+                for ($i = 0; $i < $tamDoc; $i++) {
+                    if (empty($Detalleordencompra[$i]['imagen'])) {
+                        $rutaCompleta = '/public/imagenes/sinFoto.jpg';
+                    } else {
+                        $rutaCompleta = $RutaImagen . $Detalleordencompra[$i]['codigopa'] . '/' . $Detalleordencompra[$i]['imagen'];
+                    }
+                    $tamano = '30px';
+                    $tamanoM = '55px';
+                    $tamanoG = '70px';
+                    $tamanoGG = "100px";
+                    echo '<tr>';
+                    echo '<td class="">' . ($i + 1) . '</td>';
+                    //Codigo,Cantidad,Volumen,Fob,Fob Total
+                    $iddetalleOC = $Detalleordencompra[$i]['iddetalleordencompra'];
+                    $idproductoOC = $Detalleordencompra[$i]['idproducto'];
+                    $cantidad = $Detalleordencompra[$i]['cantidadrecibidaoc'];
+                    $volumenxUnidad = $Detalleordencompra[$i]['vol'];
+                    $volumen = $Detalleordencompra[$i]['cbm'];
+                    $fob = $Detalleordencompra[$i]['fobdoc'];
+                    $piezas = !empty($Detalleordencompra[$i]['piezas']) ? $Detalleordencompra[$i]['piezas'] : 0;
+                    $carton = !empty($Detalleordencompra[$i]['carton']) ? $Detalleordencompra[$i]['carton'] : 0;
+                    $fobTotal = $fob * $cantidad;
+                    echo '<td class="codigo" style="width:' . $tamanoGG . '"><a href="/producto/editar/' . $idproductoOC . '" target="_blank">' . $Detalleordencompra[$i]['codigopa'] . "</a></td>";
+                    echo '<input type="hidden" name="Detalleordencompra[' . ($i + 1) . '][iddetalleordencompra]" value="' . $iddetalleOC . '">';
+                    echo '<input type="hidden" name="Detalleordencompra[' . ($i + 1) . '][idproducto]" value="' . $idproductoOC . '">';
+                    echo '<td class="codigo" style="width:' . $tamanoGG . '">' . $Detalleordencompra[$i]['nompro'] . '</td>';
+                    echo '<td class="codigo" style="width:' . $tamanoGG . '">' . $Detalleordencompra[$i]['marca'] . '</td>';
+                    echo '<td class="center"><input type="text" name="Detalleordencompra[' . ($i + 1) . '][cantidadrecibidaoc]" class="txtCantidadDetalle numeric required" style="width:' . $tamano . ';color:red;" value="' . $cantidad . '"  ></td>';
+                    echo '<td class="codigo" style="width:' . $tamanoGG . '">' . $Detalleordencompra[$i]['unidadmedida'] . '</td>';
+                    echo '<input class="piezas" type="hidden" name="Detalleordencompra[' . ($i + 1) . '][piezas]" value="' . $piezas . '"> <input type="hidden" name="Producto[' . ($i + 1) . '][preciocosto]"  value="' . $Detalleordencompra[$i]['preciocosto'] . '">';
+                    echo '<input class="carton" type="hidden" name="Detalleordencompra[' . ($i + 1) . '][carton]" value="' . $carton . '">';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][vol]" value="' . $volumenxUnidad . '" class="txtVolumen numeric required" style="width:' . $tamano . '" ></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][cbm]" value="' . number_format($volumen, 2, '.', '') . '" class="txtVolumenDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][fobdoc]" class="txtfobDetalle numeric required" style="width:' . $tamano . '" value="' . $fob . '"   ></td>';
+                    echo '<td><input type="text" value="' . number_format($fobTotal, 2, '.', '') . '"  class="txtfobTotalDetalle numeric required" style="width:' . $tamanoM . '" readonly ></td>';
+                    //Flete,Seguro,Cif,Cif Unit.
+                    $flete = !empty($Detalleordencompra[$i]['fleted']) ? ($Detalleordencompra[$i]['fleted']) : "0.00";
+                    $seguro = !empty($Detalleordencompra[$i]['seguro']) ? ($Detalleordencompra[$i]['seguro']) : "0.00";
+                    $ciftotal = $fobTotal + $seguro + $flete;
+                    $cifunitario = $ciftotal / $cantidad;
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][fleted]" value="' . $flete . '" class="txtFleteDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][seguro]" value="' . $seguro . '" class="txtSeguroDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][ciftotal]" value="' . number_format($ciftotal, 2, '.', '') . '" class="txtciftotal required" style="width:' . $tamanoM . '" readonly ></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][cifunitario]" value="' . number_format($cifunitario, 2, '.', '') . '" class="txtcifunitario numeric required" style="width:' . $tamano . '" readonly ></td>';
+                    //%AdValorem,AdValorem,Tasa Desapacho
+                    $advaloremporcentaje = !empty($Detalleordencompra[$i]['advalorporcentaje']) ? ($Detalleordencompra[$i]['advalorporcentaje']) : "0";
+                    $advaloremvalor = !empty($Detalleordencompra[$i]['advaloremvalor']) ? ($Detalleordencompra[$i]['advaloremvalor']) : "0.00";
+                    $tasadespacho = !empty($Detalleordencompra[$i]['costotasadesp']) ? ($Detalleordencompra[$i]['costotasadesp']) : "0.00";
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][advalorporcentaje]" value="' . $advaloremporcentaje . '" class="txtAdvaloremPDetalle numeric required" style="width:' . $tamano . '" ></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][advaloremvalor]" value="' . $advaloremvalor . '" class="txtAdvaloremVDetalle numeric required" style="width:' . $tamano . '"  ></td>';
+                    echo '<td><input type="text" name="Detalleordencompra[' . ($i + 1) . '][costotasadesp]" value="' . $tasadespacho . '" class="txtTasaDespachoDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    //Gastos Variables:
+                    $flat = !empty($Detalleordencompra[$i]['flat']) ? ($Detalleordencompra[$i]['flat']) : "0.00";
+                    $VoBo = !empty($Detalleordencompra[$i]['VoBo']) ? ($Detalleordencompra[$i]['VoBo']) : "0.00";
+                    $gate_in = !empty($Detalleordencompra[$i]['gate_in']) ? ($Detalleordencompra[$i]['gate_in']) : "0.00";
+                    //$box_fee=!empty($Detalleordencompra[$i]['box_fee'])?($Detalleordencompra[$i]['box_fee']):"0.00";
+                    //$insurance_fee=!empty($Detalleordencompra[$i]['insurance_fee'])?($Detalleordencompra[$i]['insurance_fee']):"0.00";
+                    //$sobre_estadia=!empty($Detalleordencompra[$i]['sobre_estadia'])?($Detalleordencompra[$i]['sobre_estadia']):"0.00";
+                    //$doc_fee=!empty($Detalleordencompra[$i]['doc_fee'])?($Detalleordencompra[$i]['doc_fee']):"0.00";
+                    $agenteaduanas = !empty($Detalleordencompra[$i]['agenteaduanas']) ? ($Detalleordencompra[$i]['agenteaduanas']) : "0.00";
+                    $gas_adm = !empty($Detalleordencompra[$i]['gas_adm']) ? ($Detalleordencompra[$i]['gas_adm']) : "0.00";
+                    $cadic1 = !empty($Detalleordencompra[$i]['cv1']) ? ($Detalleordencompra[$i]['cv1']) : "0.00";
+                    $cadic2 = !empty($Detalleordencompra[$i]['cv2']) ? ($Detalleordencompra[$i]['cv2']) : "0.00";
+                    $cadic3 = !empty($Detalleordencompra[$i]['cv3']) ? ($Detalleordencompra[$i]['cv3']) : "0.00";
+                    $fleteInterno = !empty($Detalleordencompra[$i]['fleteInterno']) ? ($Detalleordencompra[$i]['fleteInterno']) : "0.00";
+                    $advalorenvalor = !empty($Detalleordencompra[$i]['advaloremvalor']) ? ($Detalleordencompra[$i]['advaloremvalor']) : "0.00";
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][flat]" value="' . $flat . '" class="txtFlatDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][VoBo]" value="' . $VoBo . '" class="txtVBDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][gate_in]" value="' . $gate_in . '" class="txtGateInDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    //echo '<td class=""><input type="text" name="Detalleordencompra['.($i+1).'][box_fee]" value="'.$box_fee.'" class="txtBoxFeeDetalle numeric required" style="width:'.$tamano.'" ></td>';
+                    //echo '<td class=""><input type="text" name="Detalleordencompra['.($i+1).'][insurance_fee]" value="'.$insurance_fee.'" class="txtInsuranceFeeDetalle numeric required" style="width:'.$tamano.'" ></td>';
+                    //echo '<td class=""><input type="text" name="Detalleordencompra['.($i+1).'][sobre_estadia]" value="'.$sobre_estadia.'" class="txtSobreestadiaDetalle numeric required" style="width:'.$tamano.'" ></td>';
+                    //echo '<td class=""><input type="text" name="Detalleordencompra['.($i+1).'][doc_fee]" value="'.$doc_fee.'" class="txtDocFeeDetalle numeric required" style="width:'.$tamano.'" ></td>';
+                    //echo '<td class=""><input type="text" name="Detalleordencompra['.($i+1).'][gas_adm]" value="'.$gas_adm.'" class="txtGasAdmDetalle numeric required" style="width:'.$tamano.'" ></td>';
+                    echo '<td class=""><input type="text" readonly name="Detalleordencompra[' . ($i + 1) . '][cv1]" value="' . $cadic1 . '" class="txtCV1Detalle numeric required" style="width:' . $tamano . '" ></td>';
+                    echo '<td class=""><input type="text" readonly name="Detalleordencompra[' . ($i + 1) . '][cv2]" value="' . $cadic2 . '" class="txtCV2Detalle numeric required" style="width:' . $tamano . '" ></td>';
+                    echo '<td class=""><input type="text" readonly name="Detalleordencompra[' . ($i + 1) . '][cv3]" value="' . $cadic3 . '" class="txtCV3Detalle numeric required" style="width:' . $tamano . '" ></td>';
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][agenteaduanas]" value="' . $agenteaduanas . '" class="txtAgenteAduanaDetalle numeric required" readonly style="width:' . $tamano . '" ></td>';
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][fleteInterno]" value="' . $fleteInterno . '" class="txtFleteInternoDetalle numeric required" readonly style="width:' . $tamano . '" ></td>';
+                    //Calculos Finales
+                    //$total=$ciftotal+$advalorenvalor+$tasadespacho+$flat+$VoBo+$gate_in+$box_fee+$insurance_fee+$sobre_estadia+$doc_fee+$gas_adm+$fleteInterno+$agenteaduanas+$cadic1+$cadic2+$cadic3;
+                    $total = $ciftotal + $advalorenvalor + $tasadespacho + $fleteInterno + $flat + $VoBo + $gate_in + $agenteaduanas + $cadic1 + $cadic2 + $cadic3;
+                    //$total=$total;
+                    $totalunitario = $total / $cantidad;
+                    $porcentaje = (($totalunitario - $fob) / $fob) * 100;
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][total]" value="' . $total . '" class="txtTotalDetalle numeric required" style="width:' . $tamanoG . '" readonly></td>';
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][totalunitario]" value="' . number_format($totalunitario, 2, '.', '') . '" class="txtTotalUnitarioDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    echo '<td class=""><input type="text" name="Detalleordencompra[' . ($i + 1) . '][porcentaje]" value="' . number_format($porcentaje, 2, '.', '') . '" class="txtPorcentajeDetalle numeric required" style="width:' . $tamano . '" readonly></td>';
+                    if ($Ordencompra[0]['actualizado'] == 0) {
+                        echo '<td><a href="#"><img src="/imagenes/eliminar.gif" width="18px" class="eliminarProducto"></a></td>';
+                    }
+                    echo '</tr>';
+                    //Totales
+                    $fobTotalOC += $fobTotal;
+                    $fleteOC += $flete;
+                    $seguroOC += $seguro;
+                    $cifOC += $ciftotal;
+                    $AdValoremOC += $advalorenvalor;
+                    $tasadespachoOC += $tasadespacho;
+                    //$cf1OC+=$cf1;
+                    //$cf2OC+=$cf2;
+                    $flatOC += $flat;
+                    $VoBoOC += $VoBo;
+                    $gate_inOC += $gate_in;
+                    /* $box_feeOC+=$box_fee;
+                      $insurance_feeOC+=$insurance_fee;
+                      $sobre_estadiaOC+=$sobre_estadia;
+                      $doc_feeOC+=$doc_fee;
+                      $gas_admOC+=$gas_adm; */
+                    $fleteinternoOC += $fleteInterno;
+                    $agenteaduanasOC += $agenteaduanas;
+                    $cadic1OC += $cadic1;
+                    $cadic2OC += $cadic2;
+                    $cadic3OC += $cadic3;
+                    $importeTotalOC += $total;
+                }
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="7" class="right bold important">Moneda US $</th>
+                    <td colspan="2" class="right bold important">Totales:</td>
+                    <td class="txtFobTotalOC right bold"><input class="numeric colorazul"  type="text" id="txtFobTotalOC" name="OrdenCompra[importeordecompra]" readonly value="<?php echo number_format($fobTotalOC, 2, '.', ''); ?>" style="width:<?php echo $tamanoM; ?>" ></td>
+                    <td class="txtFleteOC right bold"><input class="numeric colorazul" id="txtFleteOC" type="text" name="OrdenCompra[flete]" value="<?php echo number_format($fleteOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="txtSeguroOC right bold"><input class="numeric colorazul" id="txtSeguroOC" type="text" name="OrdenCompra[seguro]" value="<?php echo number_format($seguroOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalCifOC" type="text" name="OrdenCompra[totalcif]" value="<?php echo number_format($cifOC, 2, '.', ''); ?>" style="width:<?php echo $tamanoM; ?>" readonly ></td>
+                    <td class="right bold">&nbsp;</td>
+                    <td class="right bold">&nbsp;</td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotaladvaloremOC"  type="text" name="OrdenCompra[advaloremvalor]" value="<?php echo number_format($AdValoremOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" readonly></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostotasadespOC" type="text" name="OrdenCompra[costotasadesp]" value="<?php echo number_format($tasadespachoOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostoflatOC" type="text" name="OrdenCompra[costoflat]" value="<?php echo number_format($flatOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostoalmacenvbOC" type="text" name="OrdenCompra[costoalmacenvb]" value="<?php echo number_format($VoBoOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostoalmacengateOC" type="text" name="OrdenCompra[costoalmacengate]" value="<?php echo number_format($gate_inOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+<!--				<td class="right bold"><input id="txtTotalcostoboxfeeOC" type="text" name="OrdenCompra[costoboxfee]" value="<?php echo number_format($box_feeOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" readonly></td>
+<td class="right bold"><input id="txtTotalcostoinsurancefeeOC" type="text" name="OrdenCompra[costoinsurancefee]" value="<?php echo number_format($insurance_feeOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" readonly></td>
+<td class="right bold"><input id="txtTotalcostosobreestadiaOC" type="text" name="OrdenCompra[costosobreestadia]" value="<?php echo number_format($box_feeOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" readonly></td>
+<td class="right bold"><input id="txtTotalcostodocfeeOC" type="text" name="OrdenCompra[costodocfee]" value="<?php echo number_format($doc_feeOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" readonly></td>
+<td class="right bold"><input id="txtTotalcostogastosadministrativosOC" type="text" name="OrdenCompra[costogastosadministrativos]" value="<?php echo number_format($gas_admOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" readonly></td>
+                    -->				
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostocv1OC" <?php echo ($Ordencompra[0]['cv1'] != 0 ? '' : 'readonly') ?> type="text" name="OrdenCompra[cv1]" value="<?php echo number_format($cadic1OC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostocv2OC" <?php echo ($Ordencompra[0]['cv2'] != 0 ? '' : 'readonly') ?> type="text" name="OrdenCompra[cv2]" value="<?php echo number_format($cadic2OC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostocv3OC" <?php echo ($Ordencompra[0]['cv3'] != 0 ? '' : 'readonly') ?> type="text" name="OrdenCompra[cv3]" value="<?php echo number_format($cadic3OC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcomisionagenteaduOC" type="text" name="OrdenCompra[comisionagenteadu]" value="<?php echo number_format($agenteaduanasOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+                    <td class="right bold"><input class="numeric colorazul" id="txtTotalcostofleteinternoOC" type="text" name="OrdenCompra[costofleteinterno]" value="<?php echo number_format($fleteinternoOC, 2, '.', ''); ?>" style="width:<?php echo $tamano; ?>" ></td>
+
+                    <td class="right bold"><input id="txtTotalimportevalorizadoocOC" class="colorazul" readonly type="text" name="OrdenCompra[importevalorizadooc]" value="<?php echo number_format($importeTotalOC, 2, '.', ''); ?>" style="width:<?php echo $tamanoG; ?>" ></td>
+                    <td class="right bold">&nbsp;</td>
+                    <td class="right bold">&nbsp;</td>
+                    <?php
+                    if ($Ordencompra[0]['actualizado'] == 0) {
+                        echo '<td class="right bold">&nbsp;</td>';
+                    }
+                    ?>
+                </tr>
+                <tr>
+                    <?php $importeTotalOCsoles = $importeTotalOC * $Ordencompra[0]['tipocambiovigente']; ?>
+                    <th colspan="10" class="right"><h3>Importe Valorizado en US $: <input id="txtTotalimportevalorizadoocOCA" class="colorazul" type="text" name="OrdenCompra[importevalorizadooc]"value="<?php echo number_format($importeTotalOC, 2, '.', ''); ?>" style="width:100px; text-align:center; font-size:1.5em;" readonly ></h3></th>
+                    <th colspan="10" class="right"><h3>Tipo de Cambio Grabado: <input class="numeric colorazul" type="text" name="OrdenCompra[tipocambiovigente]" id="tipocambiograbado" value="<?php echo number_format($Ordencompra[0]['tipocambiovigente'], 2, '.', ''); ?>" style="width:100px; text-align:center; font-size:1.5em;" ></h3></th>
+                    <th colspan="<?php echo (9 - $Ordencompra[0]['actualizado']); ?>" class="right"><h3>Importe Valorizado en S/.: <input id="txtTotalimportevalorizadoocOCSoles" class="colorazul" type="text" name="OrdenCompra[importevalorizadoocsoles]" value="<?php echo number_format($importeTotalOCsoles, 2, '.', ''); ?>" style="width:100px; text-align:center; font-size:1.5em;" readonly ></h3></th>
+                </tr>
+                <tr>
+                    <th colspan="3" style="background: #e8f1fc">
+                        <h3>Observaciones:</h3>
+                    </th>
+                    <td colspan="<?php echo (26 - $Ordencompra[0]['actualizado']); ?>">
+                        <input type="text" value="<?php echo $dataEDC[0]['mimportaciones']; ?>" class="text-full" placeholder="Registre Observaciones" name="OrdenCompra[mimportaciones]">
+                    </td>
+                </tr>
+            </tfoot>		
+        </table>
+        <?php
+        if ($Ordencompra[0]['actualizado'] == 0) {
+            echo '<button type="button" id="btnConfirmarDua" class="c7_datashet">Confirmar DUA</button>';
+        }
+        ?>            
+        <button id="btnCancelar">Cancelar</button>
+    </fieldset>
+</form>

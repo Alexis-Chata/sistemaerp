@@ -1,0 +1,22 @@
+
+<fieldset>
+    <h2>Reporte: Prestamos al Personal</h2><br>
+    <a href="/pdf/prestamosPersonal" target="_blank"><img src="/public/imagenes/iconos/pdf.gif" width="30" title="Exportar a PDF"></a>
+</fieldset>
+
+<fieldset>
+    <table>
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Cliente</th>
+                <th>Deuda (S/.)</th>
+                <th>Deuda (US $.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php echo $contenido; ?>
+        </tbody>
+    </table>
+</fieldset>
+

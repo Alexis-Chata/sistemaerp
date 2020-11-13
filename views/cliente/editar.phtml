@@ -1,0 +1,392 @@
+<script src="/javascript/transporte.js"></script>
+<script src="/javascript/mantenimiento-cliente.js"></script>
+
+<h2>Actualizaci&oacute;n de Cliente</h2>
+<form action="/cliente/actualiza/" method="POST" id="frmActualizacionCliente">	
+<div class="cuadro">	
+		<h4>Datos Principales</h4>
+		<ul>
+			<li>
+				<label>Codigo</label>
+				<input type="hidden" name="idCliente" value="<?php echo $Cliente[0]['idcliente']?>" id="IdCliente">
+				<input type="text" size="10" readonly="readonly" value="<?php echo $Cliente[0]['codcliente'] ?>">
+			</li>
+			<li>
+				<label>Codigo de Dakkars</label>
+				<input type="text" size="10"  readonly="readonly" value="<?php echo $Cliente[0]['codantiguo'] ?>">
+			</li>
+			<li>
+				<label>Tipo de Cliente</label>
+				<select name="Cliente[tipocliente]" id="lstTipoCliente" required>
+					<option value="">-- Tipo --
+					<?php
+						for($i=1;$i<=count($TipoCliente);$i++){
+							if($Cliente[0]['tipocliente']==$i){
+								$selected="Selected";
+							}
+							else{ $selected="";}
+								echo '<option value="'.$i.'" '.$selected.'>'.$TipoCliente[$i].'</option>';
+							
+						}
+					?>
+				</select>
+			</li>
+			<li class="pnatural">
+				<label>Apellido Paterno:</label>
+				<input type="text" id="apellido1" value="<?php echo $Cliente[0]['apellido1'] ?>" name="Cliente[apellido1]" class="required uppercase">
+			</li>
+			<li class="pnatural">
+				<label>Apellido Materno:</label>
+				<input type="text" id="apellido2" value="<?php echo $Cliente[0]['apellido2'] ?>" name="Cliente[apellido2]" class="required uppercase">
+			</li>
+			<li class="pnatural">
+				<label>Nombres:</label>
+				<input type="text" id="nombrecli" value="<?php echo $Cliente[0]['nombrecli'] ?>" name="Cliente[nombrecli]" class="required uppercase">
+			</li>
+			<li class="pjuridica">
+				<label>Razon Social:</label>
+				<input type="text" id="razonsocial" size="30"  value="<?php echo $Cliente[0]['razonsocial'] ?>" name="Cliente[razonsocial]" class="txtRSocial uppercase">
+			</li>
+			<li class="pnatural">
+				<label>DNI:</label>
+				<input type="text" id="dni" value="<?php echo $Cliente[0]['dni'] ?>" name="Cliente[dni]" size="8" maxlength="8" class="required numeric">
+			</li>
+			<li>
+				<label>RUC:</label>
+				<input type="text" id="ruc" value="<?php echo $Cliente[0]['ruc'] ?>" name="Cliente[ruc]" size="11" minlength="11" maxlength="11" class="numeric">
+			</li>
+			
+			<li>
+				<label>Nombre Comercial</label>
+				<input type="text" name="Cliente[nombrecomercial]" value="<?php echo $Cliente[0]['nombrecomercial'] ?>">
+			</li>
+			<li>
+				<label>Nombre Contacto</label>
+				<input type="text" name="Cliente[nombre_contacto]" value="<?php echo $Cliente[0]['nombre_contacto'] ?>" required>
+			</li>
+			<li>
+				<label>Pagina Web</label>
+				<input type="text" size="25"  placeholder="https://www.miPaginaWeb.com" name="Cliente[paginaweb]" value="<?php echo $Cliente[0]['paginaweb'] ?>">
+			</li>
+			<li>
+				<label>Tel&eacute;fono Fijo:</label>
+				<input type="text" value="<?php echo $Cliente[0]['telefono'] ?>" name="Cliente[telefono]" size="20" >
+			</li>
+			<li>
+				<label>Tel&eacute;fono Movil:</label>
+				<input type="text" value="<?php echo $Cliente[0]['celular'] ?>" name="Cliente[celular]" size="20" >
+			</li>
+		
+			<li>
+				<label>Fax:</label>
+				<input type="text" value="<?php echo $Cliente[0]['fax'] ?>" name="Cliente[fax]" maxlength="7" size="7" class="numeric">
+			</li>
+			<li>
+				<label>Horario Atención:</label>
+				<input type="text" value="<?php echo $Cliente[0]['horarioatencion'] ?>" name="Cliente[horarioatencion]"  size="25" class="uppercase">
+			</li>
+			<li>
+				<label>E-mail:</label>
+				<input type="email" value="<?php echo $Cliente[0]['email'] ?>" name="Cliente[email]" class="email" size="25">
+			</li>
+                        <li>
+				<label>E-mail:</label>
+				<input type="email" value="<?php echo $Cliente[0]['email2'] ?>" name="Cliente[email2]" class="email" size="25">
+			</li>
+		</ul>
+	</div>
+<div class="cuadro">
+	<h4>Datos de Ubicación</h4>
+		<ul>
+			<li>
+				<label>Direcci&oacute;n:</label>
+				<input type="text" value="<?php echo $Cliente[0]['direccion'] ?>" name="Cliente[direccion]" class="required uppercase text-250">
+			</li>
+			<li>
+				<label>Direcci&oacute;n Despacho:</label>
+				<input type="text" value="<?php echo $Cliente[0]['direccion_despacho_cliente'] ?>" name="Cliente[direccion_despacho_cliente]" class="required uppercase text-250" required>
+			</li>
+			
+			<li>
+				<label>Departamento:</label>
+				<select id="lstDepartamento" class="required" required>
+					<option value="">Departamento</option>
+					<?php
+						for($i=0;$i<count($Departamento);$i++){
+							if($Distrito[0]['codigodepto']==$Departamento[$i]['iddepartamento']){
+								echo '<option value="'.$Departamento[$i]['iddepartamento'].'" selected>'.$Departamento[$i]['nombredepartamento'];	
+							}else{
+								echo '<option value="'.$Departamento[$i]['iddepartamento'].'">'.$Departamento[$i]['nombredepartamento'];
+							}
+						}
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Provincia:</label>
+				<select id="lstProvincia" class="required" required>
+					<option value="">Provincia</option>
+					<?php
+						for($i=0;$i<count($Provincia);$i++){
+							if($Distrito[0]['idprovincia']==$Provincia[$i]['idprovincia']){
+								echo '<option value="'.$Provincia[$i]['idprovincia'].'" selected>'.$Provincia[$i]['nombreprovincia'];	
+							}else{
+								echo '<option value="'.$Provincia[$i]['idprovincia'].'">'.$Provincia[$i]['nombreprovincia'];
+							}
+						}
+					?>
+				</select>
+			</li>
+                </ul>
+        <br>
+        <ul>
+			<li>
+				<label>Distrito:</label>
+				<select name="Cliente[iddistrito]" class="lstDistrito required" id="lstDistrito" required>
+					<option value="">Distrito</option>
+					<?php
+						for($i=0;$i<count($Distrito);$i++){
+							if($Cliente[0]['iddistrito']==$Distrito[$i]['iddistrito']){
+								echo '<option value="'.$Distrito[$i]['iddistrito'].'" selected>'.$Distrito[$i]['nombredistrito'];	
+							}else{
+								echo '<option value="'.$Distrito[$i]['iddistrito'].'">'.$Distrito[$i]['nombredistrito'];
+							}
+						}
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Zona:</label>
+				<select name="Cliente[zona]" class="required" id="lstZona" required>
+					<option value="">Zona</option>
+					<?php
+						for($i=0;$i<count($Zona);$i++){
+							if($Cliente[0]['zona']==$Zona[$i]['idzona']){
+								echo '<option value="'.$Zona[$i]['idzona'].'" selected>'.$Zona[$i]['nombrezona'];	
+							}else{
+								echo '<option value="'.$Zona[$i]['idzona'].'">'.$Zona[$i]['nombrezona'];
+							}
+						}
+					?>
+				</select>
+			</li>
+			
+			<li>
+
+				<label>Vendedor</label>
+				<select name="valorVendedor" required="required">
+					<option value="">Vendedor</option>
+					<?php for ($i=0; $i <count($Vendedor) ; $i++) { 
+						if ($Vendedor[$i]['idactor']==$clienteVendedor[0]['idvendedor']) { ?>
+							<option value="<?php echo $Vendedor[$i]['idactor']; ?>" selected><?php echo $Vendedor[$i]['nombreconcat']; ?></option>
+					<?php	}else{ ?>
+							<option value="<?php echo $Vendedor[$i]['idactor']; ?>" ><?php echo $Vendedor[$i]['nombreconcat']; ?></option>
+					<?php }
+					} ?>
+				</select>
+			</li>
+			<li>
+				<label>Transportes Actuales:</label>
+				<select name="idclientetransporte" id="lstTransporte" >
+					<option value="">-- Transportes --</option>
+					<?php
+
+						for($i=0;$i<count($ClienteTransporte);$i++){
+							echo '<option value="'.$ClienteTransporte[$i]['idclientetransporte'].'">'.$ClienteTransporte[$i]['trazonsocial'];	
+							
+						}
+					?>
+				</select>
+				<button title="Agregar Nuevo Transporte" id="btnAgregaTransporte" class="small-button">...</button>
+				<button title="Cambiar un Transporte" id="btnCambiarTransporte">Cambiar Transporte</button>
+				<button title="Cancelar Cambio" id="btnCancelarCambio">Cancelar Cambio</button>
+			</li>
+			<li>
+				<label>Transportes:</label>
+				<select name="idtransporte" id="lstTranspo" disabled="disabled">
+					<option value="">-- Transportes --</option>
+					<?php
+
+						for($i=0;$i<count($Transporte);$i++){
+							echo '<option value="'.$Transporte[$i]['idtransporte'].'">'.$Transporte[$i]['trazonsocial'];	
+							
+						}
+					?>
+				</select>
+			</li>
+            <!-- 
+            <li>
+                <label>Linea</label>
+                <select id="lstLineaEditar" name="Cliente[idlinea]">
+                        <?php
+                                for($i=0;$i<count($Linea);$i++){
+                                        if($Linea[$i]['idlinea']==$Cliente[0]['idlinea']){
+                                                echo '<option value="'.$Linea[$i]['idlinea'].'" selected>'.$Linea[$i]['nomlin'].'</option>';	
+                                        }else{
+                                                echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin'].'</option>';
+                                        }
+                                }
+                        ?>
+                </select>
+            </li>
+            <li>
+                <label>Sublinea</label>
+                <select class="required" id="lstSublineaEditar"  name="Cliente[idsublinea]" >
+                        <?php
+                                for($i=0;$i<count($Sublinea);$i++){
+                                        if($Sublinea[$i]['idlinea']==$Cliente[0]['idsublinea']){
+                                                echo '<option value="'.$Sublinea[$i]['idlinea'].'" selected>'.$Sublinea[$i]['nomlin'].'</option>';	
+                                        }else{
+                                                echo '<option value="'.$Sublinea[$i]['idlinea'].'">'.$Sublinea[$i]['nomlin'].'</option>';
+                                        }
+                                }
+                        ?>
+                </select>
+            </li> -->
+			<li>
+                            <input type="submit" value="Actualizar" class="btnActualizar">
+                            <button id="btnCancelar">Cancelar</button>
+			</li>
+		</ul>
+</div>
+<div class="cuadro">
+	<h4>Sucursales</h4>
+	
+</form>
+	<?php $cantidad=count($Sucursal);
+			$alto=50;
+		 ?>
+		 <table id="tblSucursal">
+		 	<caption><a id="btnNuevo" href="#"><img src="/imagenes/iconos/nuevo.gif"></a></caption>
+		 	<tr>
+		 		<th>Surcursal</th>
+		 		<th>Direccion</th>
+		 		<th>Acción</th>
+		 	</tr>
+		 	<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+		 	<tr>
+		 		<td class="ns"><?php echo $Sucursal[$i]['nombresucursal']; ?></td>
+		 		<td class="df"><?php echo $Sucursal[$i]['direccion_fiscal']; ?></td>
+		 		<td><a  class="btnEditarSucursal" href="#"><img src="/imagenes/editar.gif"></a> <a  style="margin-left:5px;" class="btnEliminarSucursal" href="#"><img src="/imagenes/eliminar.gif"></a> <input type="hidden" class="idclientesucursal" value="<?php echo $Sucursal[$i]['idclientezona']; ?>"> </td>
+		 	</tr>
+		 	<?php } ?>
+		 </table>
+		 
+	<div id="contenedor" style="position:relative;width:500px;display:none" title="Datos del Contacto">
+		
+		<div style="position:absolute;width:180;top:0px;left:0px;margin:5px;height:140;">
+			<div id="botonFacturacion" style="margin:5px;border:1px solid;width:170;height:30;border-radius: 20px;overflow:hidden;font-size: 12px;text-align:center;cursor:pointer;vertical-align:middle;">
+				<b >Datos Facturación</b>
+				<input type="hidden" class="idsucursal">
+			</div>
+		</div>
+		 
+		<div  style="position:absolute;width:180;top:50px;left:0px;margin:5px;height:140;">
+			<div id="botonDespacho" style="margin:5px;border:1px solid;width:170;height:30;border-radius: 20px;overflow:hidden;font-size: 12px;text-align:center;cursor:pointer;vertical-align:middle;">
+				<b > Datos Despacho</b>
+				<input type="hidden" class="idsucursal" >
+			</div>
+		</div>
+		<div id="contenedorPrincipal" style="position:absolute;border:1px solid;width:480;top:0px;left:200px;margin:5px;height:400;overflow:hidden;padding:5px;border-radius:20px">
+			<form id="frmNuevo">
+				
+				<div id="dataFacturacion">	
+					<ul style="width:470px;" >
+						<li >
+							<input type="hidden" name="idCliente" value="<?php echo $Cliente[0]['idcliente']?>" id="txtIdCliente">
+							<label>Nombre Sucursal</label>
+						</li>
+						<li>
+							<input type="text" id="nombresucursal" name="nombresucursal"  class="uppercase" size="30">
+						</li>
+						<li style="">
+							<label>Nombre Contacto</label>
+						</li>
+						<li style="">
+							<input type="text" id="nomcontacto" name="nomcontacto"  size="30" class="uppercase" required>
+						</li >
+					</ul>
+					<ul style="width:470px;"> 
+								
+						<li >
+							<label>DNI Contacto</label>
+							<input type="text" id="dnicontacto" name="dnicontacto"  maxlength="8" size="15">
+						</li>
+						<li>
+							<label>Telefono Contacto</label>
+							<input type="text" id="telcontac" name="telcontac"  maxlength="9" size="15">
+						</li>
+						<li>
+							<label>Celular Contacto</label>
+							<input type="text" id="movilcontac" name="movilcontac"  maxlength="9" size="15">
+						</li>
+						<li>
+							<label>Direccion_Contacto</label>
+							<input size="50" id="direccion_fiscal" type="text" name="direccion_fiscal"  maxlength="100"  class=" uppercase" required>
+						</li>
+						
+						<li>
+							<label>Horario Atencion</label>
+							<input size="20" id="horarioatencion" type="text" name="horarioatencion"   class=" uppercase" >
+						</li>
+						<li>
+							<label>Zona</label>
+							<select name="idzona" id="idzona" required="required">
+								
+								<?php for ($i=0; $i <count($Zona) ; $i++) { ?>
+									
+										<option value="<?php echo $Zona[$i]['idzona']; ?>" ><?php echo $Zona[$i]['nombrezona']; ?></option>
+								<?php } ?>
+								 
+							</select>
+						</li>	
+					</ul>
+					
+				</div>
+				<div id="dataDespacho" style="display:none">	
+					<ul style="width:470px;" >
+						<li style="">
+							<label>Nombre Contacto Despacho</label>
+						</li>
+						<li style="">
+							<input type="text" id="nombrecontactodespacho" name="nombrecontactodespacho"  size="35" class="uppercase" required>
+						</li >
+					</ul>
+					<ul style="width:470px;"> 
+						<li style="">
+							<label>DNI Contacto Despacho</label>
+							<input type="text" id="dnidespacho" name="dnidespacho"  maxlength="8" size="15">
+						</li>
+						<li>
+							<label>Telefono Contacto Despacho</label>
+							<input type="text" id="telcontacdespacho" name="telcontacdespacho"  maxlength="9" size="15">
+						</li>
+						<li>
+							<label>Celular Contacto Despacho</label>
+							<input type="text" id="movilcontacdespacho" name="movilcontacdespacho"  maxlength="9" size="15">
+						</li>
+						<li>
+							<label>Direccion Despacho</label>
+							<input size="50" id="direccion_despacho_contacto" type="text" name="direccion_despacho_contacto"  maxlength="100"  class=" uppercase" required>
+						</li>
+						<li>
+							<label>Horario Despacho</label>
+							<input size="20" id="horarioatenciondespacho" type="text" name="horarioatenciondespacho"   class=" uppercase" >
+						</li>
+								
+					</ul>
+					
+				</div>
+				
+			</form>
+		</div>
+		<div style="position:absolute;width:180;top:420px;left:200px;margin:5px;height:40;">
+			<ul >
+				<li id=""><button id="btnGrabar">Grabar</button></li>
+				<li id=""><button id="btnActualizar">Actualizar</button></li>
+			</ul>
+		</div>
+	</div>	
+	
+
+<div>

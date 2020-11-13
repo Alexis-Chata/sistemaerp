@@ -1,0 +1,72 @@
+<div id="listados">
+	<h3>Asignación de Opciones según Rol en el Sistema</h3>
+		<hr>
+	<form action="/seguridad/asignarxrol" method="POST">
+	<p>Rol:
+		<select id="lstRol" name="idRol">
+			<option value="0">Seleccione Rol</option>
+			<?php
+				for($i=0;$i<count($Rol);$i++){
+					$selected="";
+					if($Rol[$i]['id']==$idRol){
+						$selected="selected";
+					}
+					echo '<option value="'.$Rol[$i]['id'].'" '.$selected.'>'.$Rol[$i]['nombre'].'</option>';
+				}
+			?>
+		</select>
+
+		<input type="submit" id="btnPermisos" value="Ver Permisos">
+	</p>
+	</form>	
+		<table id="tblOpcionesxRol">
+		<thead>
+				<tr>
+				<!--<th>Id</th>-->
+				<th colspan="3">Módulo del sistema ADMISIÓN - ESAN</th>
+			</tr>
+		</thead>
+		<tbody>
+		
+<?php
+$TotalDR=count($dataRol);
+		//print_r($dataRol);
+		$total=count($Listado);
+			for($i=0;$i<$total;$i++){
+				$totalrow=count($Listado[$i]);
+				for($j=0;$j<$totalrow;$j++){
+						$estado=0;
+							echo "<tr valign=\"center\">";
+							if($Listado[$i][$j]['nivel']==1){
+							echo "<th rowspan=\"$totalrow\">".$Listado[$i][$j]['nombre']."
+									<br><br><br>
+								</th>
+								<th>Opciones</th>
+								<th>Estado</th>
+								";
+							}else{
+								$img="eliminar.gif";
+								for($k=0;$k<$TotalDR;$k++){
+									$checked="";
+									if($dataRol[$k]['idopciones']==$Listado[$i][$j]['id']){
+										$estado=$dataRol[$k]['idopciones'];
+										$checked="checked";
+										break;
+									}
+								}
+								echo "";
+								echo "<td>".$Listado[$i][$j]['nombre']."</td>";
+								echo "<td>
+									<input type=\"checkbox\" id=\"".$idRol."\" name=\"".$Listado[$i][$j]['id']."\" value=\"".$Listado[$i][$j]['id']."\" ".$checked." >
+									</td>";
+							}
+						echo "</tr>";
+					
+				}
+			}
+?>
+		</tbody>
+		
+		</table>
+		
+</div>

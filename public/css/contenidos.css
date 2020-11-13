@@ -1,0 +1,16 @@
+p {
+text-align: right;
+padding-right: 30px;
+}
+
+#form{
+	width: 80%;
+	padding: 20px 20px;
+}
+
+#header{
+	background:url("../imagenes/celestiumlogo.png") no-repeat;
+	width:900px;
+	height:100px;
+	margin:auto;
+}

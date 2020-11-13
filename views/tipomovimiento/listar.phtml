@@ -1,0 +1,21 @@
+<div id="listados">
+<table>
+		<caption>Listado de Tipomovimientos</caption>
+		<tr>
+			<th>C&oacute;digo</th>
+			<th>Nombre</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($Tipomovimiento);$i++){
+				echo "<tr>";
+					echo "<td>".$Tipomovimiento[$i]['idtipomovimiento']."</td>";
+					echo "<td>".$Tipomovimiento[$i]['nomtipmov']."</td>";
+					echo "<td><a href=\"/tipomovimiento/editar/".$Tipomovimiento[$i]['idtipomovimiento']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+					echo "<td><a href=\"/tipomovimiento/elimina/".$Tipomovimiento[$i]['idtipomovimiento']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+				echo "</tr>";
+			}
+		?>
+</table>
+<a href="/tipomovimiento/nuevo/"><img src="/imagenes/new.gif"></a>
+</div>

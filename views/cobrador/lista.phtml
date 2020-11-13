@@ -1,0 +1,54 @@
+<h2>Mantenimiento: <?php echo $titulo; ?></h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="9">Listado: de Cobradores</th>
+				
+					</a></th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Nombres</th>
+				<th>DNI</th>
+				<th>direccion</th>
+				<th>correo</th>
+				<th>telefono</th>
+				<th>celular</th>
+				<th>Zonas</th>
+				<th >Accion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td style="text-align:center;"><?php echo $data[$i]['idactor'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['nombres'].' '.$data[$i]['apellidopaterno'].' '.$data[$i]['apellidomaterno'] ?> </td>
+					<td ><?php echo $data[$i]['dni'] ?> </td>
+					<td><?php echo $data[$i]['direccion'] ?> </td>
+					<td><?php echo $data[$i]['email'] ?> </td>
+					<td><?php echo $data[$i]['telefono'] ?> </td>
+					<td><?php echo $data[$i]['celular'] ?> </td>
+					<td>
+						<?php echo $data[$i]['zonas'] ?>
+					</td>
+					<td><a href="/cobrador/editar/<?php echo $data[$i]['idactor'] ?>"><img src="/imagenes/editar.gif"></a></td>
+					
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

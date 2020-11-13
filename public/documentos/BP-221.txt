@@ -1,0 +1,81 @@
+A;Serie;;B002
+A;Correlativo;;00000067
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;10020859
+A;RznSocRecep;;LAURA ISABEL GARATE  MENDOZA
+A;DirRecep;;JR.ILERSIO SEMINARIO 1175  - LIMA - LIMA - SAN JUAN DE MIRAFLORES
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;4.91
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;0.88
+A;MntTotal;;5.79
+A;FchEmis;;2017-09-04
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;0.88
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;CT-002B-3
+B;NmbItem;1;ADAPTADOR P/DVD PORTATIL AC/DC 12V/2A PLUG 4.0 1.7MM,SAMWIN
+B;PrcItem;1;1.93
+B;PrcItemSinIgv;1;1.64
+B;MontoItem;1;1.64
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.29
+B;NroLinDet;2;2
+B;QtyItem;2;1
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;SPCAT5E-15 BL
+B;NmbItem;2;CABLE PATCH CORD,15MT NUCLEO 0.14 C/AZUL
+B;PrcItem;2;2.64
+B;PrcItemSinIgv;2;2.24
+B;MontoItem;2;2.24
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.4
+B;NroLinDet;3;3
+B;QtyItem;3;2
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;YK-1144 (BK)
+B;NmbItem;3;PLUG MONORAL FULL METAL 6.3 NEGRO
+B;PrcItem;3;0.61
+B;PrcItemSinIgv;3;0.52
+B;MontoItem;3;1.03
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.09
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 369
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Cinco con 79/100 Dolares Americanos  

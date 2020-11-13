@@ -1,0 +1,145 @@
+<script type="text/javascript" src="/javascript/vistaglobalcliente.js"></script>
+<div id="listados">
+<h2>Clientes :: Vista Global de Cliente</h2>
+
+    <style>
+    .letraResaltada{
+       font-weight: 600;
+       font-size: 11px;
+    }
+    </style>
+<div id="busqueda" style="margin-top: 20px;">
+Busqueda:<input type="text" id="txtClienteGlobal" name="txtCliente" size="40px" placeholder="Ingrese Razón Social o Nro RUC">
+<input type="hidden" id="txtIdCliente" name="idcliente">
+<span id="seccionLineaCredito"></span>
+    <input type="hidden" id="txtIdCliente" name="idcliente">
+	<br><br>
+		Código:<input type="text" name="codigo" readonly id="codigo" disabled>
+		Razon Social:<input type="text" name="razonsocial" readonly id="razonsocial" size="40" disabled>
+		Número de RUC:<input type="text" name="ruc" readonly id="ruc" disabled>
+		Codigo Dakkar:<input type="text" name="codantiguo" readonly id="codantiguo" disabled>
+</div>
+
+<div id="tabs">
+	<ul>
+	    <li><a href="#tabs-1">Ordenes de Venta</a></li>
+	    <li><a href="#tabs-2">Programacion de Pagos</a></li>
+	    <li><a href="#tabs-3">Programacion de Pagos Detallado</a></li>
+	</ul>
+	<div id="tabs-1">
+		<a href="#" id="btnImprimir2"><img src="/imagenes/imprimir.gif"></a>
+
+		<br>
+		<div id="contenedorOrdendes">
+			<h2><b id="BCliente" ></b></h2>
+			<table id="tblOrdenVenta">
+				<thead>
+					<tr><th colspan="12">Mis Ordenes de Pedido</th></tr>
+					<tr>
+						<th>Nro Orden</th>
+						<th>Fecha<br>Pedido</th>
+						<th>Fecha<br>Despacho</th>
+						<th>Fecha<br>Vencimiento</th>
+						<th>Vendedor</th>
+						<th>Monto<br>Total</th>
+						<th>Monto<br>Pagado</th>
+						<th>Monto<br>Devuelto</th>
+						<th>DEUDA</th>
+						<th>Situacion</th>
+						<th>Fecha Cancelado</th>
+						<th>&nbsp;</th>
+
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+		<br>
+	</div>
+	<div id="tabs-2">
+		<fieldset>
+			Fecha Inicio
+			<input id="fechaInicio" readonly type="text" class="datepicker" placeholder="Fecha Inicio" size="12">
+			Fecha Final
+			<input id="fechaFinal" readonly type="text" class="datepicker" placeholder="Fecha Final" size="12">
+			<select id="lstSituacion">
+				<option value="0">Situacion</option>
+				<option value="pendiente">Pendiente</option>
+				<option value="cancelado">Cancelado</option>
+			</select>
+			<select id="lstTipoCobro">
+				<option value="0">Tipo Cobro</option>
+				<option value="1">Contado</option>
+				<option value="2">Credito</option>
+				<option value="3">Letra Banco</option>
+				<option value="4">Letra Cartera</option>
+			</select>
+			<button id="btnConsultar">Consultar</button>
+			<a href="#" id="btnImprimir"><img src="/imagenes/imprimir.gif"></a>
+		</fieldset>
+                <div>
+
+                </div>
+		<div id="contenedor">
+			<h2><b id="RSCliente" ></b></h2>
+			<table id="tblcontenedor">
+
+			</table>
+		</div>
+	</div>
+    <div id="tabs-3">
+        <div id="prueba"></div>
+        <a href="#" id="btnImprimir3"><img src="/imagenes/imprimir.gif"></a>
+
+		<br>
+                <button id="btnVerDetalle">Ver Detalle</button>
+		<div id="contenedorOrdendesDetalles">
+			<h2><b id="BCliente" ></b></h2>
+			<table id="tblOrdenVentaDetalle">
+<!--				<thead>
+					<tr><th colspan="12">Mis Ordenes de Pedido</th></tr>
+					<tr>
+						<th>Nro Orden</th>
+						<th>Fecha<br>Pedido</th>
+						<th>Fecha<br>Despacho</th>
+						<th>Fecha<br>Vencimiento</th>
+						<th>Vendedor</th>
+
+						<th>Monto<br>Total</th>
+						<th>Monto<br>Pagado</th>
+						<th>Monto<br>Devuelto</th>
+						<th>DEUDA</th>
+						<th>Situación</th>
+						<th>Fecha Cancelado</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>-->
+			</table>
+		</div>
+                <br>
+	</div>
+    </div>
+</div>
+<div id="contenedorModal">
+		<div id="modal">
+			<table id="tblDetalleOrdenCobro">
+				<thead>
+
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+		<button id="imprimirModal"><img src="/imagenes/imprimir.gif"></button>
+</div>
+
+<div id="contenedorModal2">
+		<div id="blockProtestos">
+		</div>
+		<button id="imprimirModalProtesto"><img src="/imagenes/imprimir.gif"></button>
+</div>

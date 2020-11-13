@@ -1,0 +1,117 @@
+<script src="/javascript/transporte.js"></script>
+<div id="listados">
+    <h2 style="float:left !important;padding-bottom: 20px;width:100%">Seguridad: Transporte</h2>
+    <style>
+        #blockFiltroAvanzado {
+            /*        display: none;*/
+            padding: 10px;
+            background: rgb(167, 209, 233);
+            margin-top: 10px;
+        }
+        #blockFiltroAvanzado > .text-filto {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+
+    <form method="POST" action="/transporte/busca/" id="frmBusquedaTransporte">
+        <div id="busqueda">
+            Busqueda: <br>
+            <input type="text" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Razon Social o RUC" placeholder="Ingrese Razon Social o RUC" value="<?php echo $retorno; ?>">
+            <div id="blockFiltroAvanzado">
+                <ul>
+                    <li>Identificador: <input type="text" title="Identificador del cliente" name="txtIdentificador" value="<?php echo $filtroTransporte['txtIdentificador']; ?>"></li>
+                    <li>Razon Social: <input type="text" title="Razon social del cliente" name="txtRazonSocial" value="<?php echo $filtroTransporte['txtRazonSocial']; ?>"></li>
+                    <li>R.U.C.: <input type="text" title="RUC del cliente" name="txtRuc" value="<?php echo $filtroTransporte['txtRuc']; ?>"></li>
+                    <li>Dirección: <input type="text" title="Direccion del cliente" name="txtDireccion" value="<?php echo $filtroTransporte['txtDireccion']; ?>"></li>
+                </ul>
+            </div>
+            <input type="submit" value="Buscar">
+        </div>
+    </form>
+    <form method="POST" action="/transporte/lista/">
+        <input type="submit" value="Cancelar">
+    </form>
+ 
+    <table>
+        <thead>
+            <tr>
+                <th colspan="5">Listado de transporte</th>
+                <th>
+                    <a href="/transporte/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a>
+                </th>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Ruc</th>
+                <th>Telefono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $Ttransporte = sizeof($transporte);
+            for ($i = 0; $i < $Ttransporte; $i++) {
+                if ($transporte[$i]['estado'] == 0) {
+                    $claseinactivo = "class=\"inactivo\"";
+                } else {
+                    $claseinactivo = "";
+                }
+
+                $fila = "<tr " . $claseinactivo . ">";
+                $fila .= "<td><a href=\"/transporte/editar/" . $transporte[$i]['idtransporte'] . "\">" . STRTOUPPER($transporte[$i]['idtransporte']) . "</a></td>";
+                $fila .= "<td>" . $transporte[$i]['trazonsocial'] . "</td>";
+                $fila .= "<td>" . $transporte[$i]['tdireccion'] . "</td>";
+                $fila .= "<td>" . $transporte[$i]['truc'] . "</td>";
+                $fila .= "<td>" . $transporte[$i]['ttelefono'] . "</td>";
+                $fila .= "<td width=\"100px\">
+						<a href=\"/transporte/editar/" . $transporte[$i]['idtransporte'] . "\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/transporte/eliminar/" . $transporte[$i]['idtransporte'] . "\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+                $fila .= "</td>";
+                $fila .= "</tr>";
+                echo $fila;
+                unset($fila);
+            }
+            ?>	
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" align="center">
+                <?php
+                    $pagina = $_REQUEST['id'];
+                    if ($blockpaginas * 10 < $paginacion) {
+                        $blockpaginas = $blockpaginas + 1;
+                    } else {
+                        $blockpaginas = $blockpaginas;
+                    }
+
+                    if ($pagina > 1) {
+                        echo '<a href="#" class="pagTransporte" data-pag="' . ($pagina - 1) . '">Anterior</a>';
+                    }
+
+                    for ($i = 1; $i <= $blockpaginas; $i++) {
+                        $max = $i * 10;
+
+                        for ($min = $max - 9; $min <= $max; $min++) {
+                            if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                if ($pagina == $min) {
+                                    echo '<a href="#" class="pagTransporte" data-pag="' . ($min) . '"><b style="color:blue;">' . ($min) . '</b></a>';
+                                } else {
+                                    echo '<a href="#" class="pagTransporte" data-pag="' . ($min) . '"> ' . ($min) . '</a>';
+                                }
+                            }
+                        }
+                    }
+
+                    if ($pagina < $paginacion && !empty($pagina)) {
+                        echo '<a href="#" class="pagTransporte" data-pag="' . ($pagina + 1) . '">Siguiente</a>';
+                    }
+                    echo 'Total de registros: ' . $totregistros;
+                ?>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

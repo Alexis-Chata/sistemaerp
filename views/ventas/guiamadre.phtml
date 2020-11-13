@@ -1,0 +1,132 @@
+<?php $idmodulo = 99;
+require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript" src="/javascript/wc_guiamadre.js"></script>
+<div id="listados">
+    <h2>Módulo de Ventas :: Impresión Guia Madre</h2>
+    <br>
+    <div id="busqueda">
+        Busqueda:<input type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+        <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required" val="0">
+        <button id="imprimir" class="c1_datashet" >Imprimir</button>
+        <?php
+        if ($_SESSION['idrol'] == 79) {
+            echo '<button id="btnEditarOrdenVenta" class="c2_datashet">Editar Orden Venta</button>';
+        }
+        ?>
+        <button id="btnDescargarOrdenVenta">Descargar</button>
+        <img id="imgEstadoDescarga" src="/imagenes/iconos/transp.png" width="21px">
+    </div>
+    <br><br>
+    <div id="muestra">
+
+        <style type="text/css">
+            *{
+
+            }
+            table {
+                border: 1px solid;
+                border-collapse: collapse;
+                border-spacing:0px;
+                padding: 0px;
+
+
+                margin: 0px;
+            }
+            table tr td, table tr th{
+                font-size: 12px;
+
+            }
+            .contenedor {
+                border: solid 2px #0068B3;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                width: 50%;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 22%;
+                padding: 20px;
+            }
+            .botonForma {
+                -o-height: 40px;
+                -o-background: #0072BB;
+                color: #FFF;
+                -o-border-radius: 5px;
+                -o-text-shadow: none;
+                -o-display: inline-block;
+                border: none;
+                -o-margin-top: 10px;
+                -o-margin-bottom: 10px;
+                -o-width: 55%;
+                font-size: smaller;
+            }
+
+            #titleObservaciones {
+                display: none;
+                float: right;
+                padding-right: 10px;
+                font-weight: bold;
+                color: red;
+                
+            } 
+            #editObservaciones:hover {
+                color: red;
+                cursor: pointer;
+            }
+            #editObservaciones:hover > #titleObservaciones{
+                display: block;
+            }
+            #idObservacionesFacturacion {
+                display: none;
+                width: 90% !important;
+            }
+            #guardarObservaciones {
+                display: none;
+                cursor: pointer;
+            }
+        </style>
+        <div id="">		
+            <div>
+                <table id="tblDetalleOrdenVenta">
+                    <thead>
+                    </thead>
+                </table>
+            </div>
+            <br>
+            <div id="">
+                <table id="tblDetalleOrdenCobro">
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="field-set">
+                <p class="title">Detalle Orden Venta <span class="addicional-informacion" ></span></p>
+                <div id="" class="body"><input type="hidden" value="" class="important">	
+                    <table id="tblDetalleOrdenVenta2" >
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+        <table id="condicionesdeCompra" style="display: none">
+            <tbody>
+                <tr>
+                    <td style="text-align: left !important; font-weight: 550;"> 1.- Sírvase cancelar en las fechas indicadas, Evite el recorte de su linea de crédito pagando a tiempo.</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left !important; font-weight: 550;"> 2.- Se Cobrara intereses a partir de las fechas de vencimiento, Se le incrementará la línea de crédito por pronto pago y puntualidad en los mismos</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left !important; font-weight: 550;"> 3.- No se reconocerán acuerdos verbales que no estén estipulados en el presente documento</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left !important; font-weight: 550;"> 4- Sírvase Girar Cheque a nombre de Corporacion Power Acoustik S.A.C.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="block_Factura" style="margin-top: 10px; border: 1px solid #000; border-radius: 5px;">
+            <p style="font-weight: bold; font-size: 12px; padding-left: 10px">Consulta de Comprobantes Electrónicos: <a href="http://ecomprobantes.net.pe/ACOUSTIK/formularios/frmAutentificacionEstandar.aspx" target="_blank">http://ecomprobantes.net.pe/ACOUSTIK/formularios/frmAutentificacionEstandar.aspx</a></p>           
+        </div>
+    </div>

@@ -1,0 +1,97 @@
+<script src="/javascript/marca.js"></script>
+
+<div id="listados">
+<h2>Marca:: Listado</h2><br>
+<form method="POST" action="/marca/buscar/">
+	<div id="busqueda">
+			Busqueda: </br>
+			<input type="text" id="txtBusqueda" name="txtBusqueda" title="Ingrese un Nombre" size="50px">
+			<input type="submit" value="Ver"/>
+	</div>
+</form>
+
+<table>
+	<thead>
+		<tr>
+			<th colspan="2">Listado de Marca</th>
+			<th><a href="/marca/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a>
+			</th>
+		</tr>
+		<tr>
+			<th>Código</th>
+			<th>Nombre</th>
+			<th>Acciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$Tmarca=sizeof($marca);
+		for($i=0;$i<$Tmarca;$i++){
+			if($marca[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/marca/editar/".$marca[$i]['idmarca']."\">".STRTOUPPER($marca[$i]['idmarca'])."</a></td>";
+			$fila.="<td>".$marca[$i]['nombre']."</td>";
+			$fila.="<td width=\"100px\">
+						<a href=\"/marca/editar/".$marca[$i]['idmarca']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a class='eliminamarca' href=\"/marca/elimina/".$marca[$i]['idmarca']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/marca/lista/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/marca/lista/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/marca/lista/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/marca/lista/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+	</tfoot>
+</table>
+</div>

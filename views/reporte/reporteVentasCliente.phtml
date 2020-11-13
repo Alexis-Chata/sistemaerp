@@ -1,0 +1,108 @@
+<script src="/javascript/reporteCarteraClientes.js"></script>
+<br><br>
+<h2>Reporte de Cartera de Clientes por Distrito</h2>
+
+<fielset>
+    <form id="frmParametros" action="/pdf/reporteVentaCliente" method="post" target="_blank" >
+        <ul>
+            <!--li>
+                <label>Linea de Productos</label>
+                <select name="lstLineaProductos" id="lstLineaProductos">
+                    <option value="">Seleccione Linea</option>
+                    <?php $totalLineas = count($linea); ?>
+                    <?php for ($i = 0; $i < $totalLineas; $i++) { ?>
+                        <option value="<?php echo $linea[$i]['idlinea']; ?>"><?php echo $linea[$i]['nomlin'] ?></option>
+                    <?php } ?>
+                </select>
+            </li-->
+            <li>
+                <label for="txtVendedor">Nombre Vendedor</label>
+                <input type="text" id="txtVendedor" class="uppercase" size="40" style="background-color: pink;" />
+                <input type="hidden" id="idVendedor" name="idVendedor"/>
+            </li>            
+        </ul>         
+        <br>
+
+        <ul>
+           <li>
+                <label>Zona Geografica</label>
+                <select id="lstprovinciax" name="lstprovinciax">
+                    <option value="0">Seleccione Zona Geografica</option>
+                    <option value="1">LIMA</option>
+                    <option value="2">PROVINCIA</option>
+                </select>       
+            </li>
+<!--            <li>
+                <label>Zona Geografica</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal">
+                    <option value="">Seleccione Zona Geografica</option>
+                    <?php $cantidadCategoriaPrincipal = count($categoriaPrincipal); ?>
+                    <?php for ($i = 0; $i < $cantidadCategoriaPrincipal; $i++) { ?>
+                        <option value="<?php echo $categoriaPrincipal[$i]['idcategoria']; ?>"><?php echo $categoriaPrincipal[$i]['nombrec'] ?></option>
+                    <?php } ?>
+                </select>       
+            </li>
+            <li>
+                <label>Region de Cobranza</label>
+                <select name="lstRegionCobranza" id="lstRegionCobranza">
+                    <option value="">Zona Cobranza-Categoria</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstZona">Zona</label>
+                <select name="lstZona" id="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                </select>
+            </li>-->
+            <li>
+                <label for="txtFechaInicio">Desde</label>
+                <input type="text" class="datepicker" id="txtFechaInicio" name="txtFechaInicio" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+            <li>
+                <label for="txtFechaFin">Hasta</label>
+                <input type="text" class="datepicker" id="txtFechaFin" name="txtFechaFin" style="background-color: #F7E816" readonly="readonly" autocomplete="off"/>
+            </li>
+
+        </ul>
+        <br>
+
+<!--        <ul>
+            <li>
+                <label for="lstMostrar">Mostrar</label>
+                <select name="lstMostrar" id="lstMostrar">
+                    <option value="">TODOS</option>
+                    <option value="D">ATENDIDOS</option>
+                    <option value="N">NO ATENDIDOS</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstOrden">Ordenar por</label>
+                <select name="lstOrden" id="lstOrden">
+                    <option value="d">Dirección</option>
+                    <option value="u">Ultima Orden</option>
+                </select>
+            </li>
+            <li>
+                <label for="lstAprobados">Filtro</label>
+                <select name="lstAprobados" id="lstAprobados">
+                    <option value="1">Todos</option>
+                    <option value="2">Aprobados</option>
+                    <option value="3">Pendientes</option>
+                    <option value="4">Desaprobados</option>
+                </select>
+            </li>
+        </ul>-->
+        <br/>
+        <ul>
+            <li>
+                <button type="button" id="btnConsultarPedidoVentas1">Consultar <img style="vertical-align:middle" src="/imagenes/html5.png" width="25" height="25" /></button>
+                <!--<button id="btnConsultarPdf">Consultar <img style="vertical-align:middle" src="/imagenes/iconos/pdf.gif" width="25" height="25" /></button>-->
+                <button id="btnConsultarExcelPedidoVentas">Consultar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button>
+                <!--<button id="btnLimpiar">Limpiar <img style="vertical-align:middle" src="/imagenes/limpiar.png" width="25" height="25" /></button>-->
+            </li>
+        </ul>
+    </form>
+    
+</fielset>
+<hr>
+<div id="carteraCliente"></div>

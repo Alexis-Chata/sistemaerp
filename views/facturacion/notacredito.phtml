@@ -1,0 +1,194 @@
+<script type="text/javascript" src="/javascript/notacredito.js"></script>
+<form action="/facturacion/registranotacredito/" method="POST">
+    <h2>Facturación: Nota de Crédito</h2>
+    <hr>
+    <label>Buscar:</label>
+    <input type="radio" class="cmbPanel" name="gender" value="1" checked> Por Factura | 
+    <input type="radio" class="cmbPanel" name="gender" value="2"> Por Orden de Venta <small style="color: red;">(Solo para factura eletronica)</small>
+    <hr>
+    <fieldset id="bqdFactura">
+        <legend>Busqueda Por Factura</legend>
+        <ul>
+            <li>
+                <label>Tipo:</label>
+                <select id="lstTipoDocumento" required>
+                    <option value="1" selected="">ELECTRONICO</option>
+                    <option value="0">FÍSICO</option>
+                </select>
+            </li>
+            <li>
+                <label>Nro. Factura:</label>
+                <input type="text" id="txtFactura" placeholder="Factura" maxlength="10" size="10" style="display: none">
+                <input type="text" id="txtFacturaElectronica" placeholder="Electronica" maxlength="10" size="10">
+                <input type="hidden" id="txtIdOrden" name="NotaCredito[idordenventa]" >
+                <input type="hidden" id="txtIdDocumento" name="NotaCredito[idRelacionado]" >
+                <input type="hidden" id="idcliente" name="idcliente">
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset id="bqdOv" style="display: none">
+        <legend>Busqueda Por Orden de Venta</legend>
+        <ul>
+            <li>
+                <b>Busqueda:</b><input type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+                <input type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required" val="0">
+            </li>
+        </ul>
+        <table id="tblfacturas" style="display: none;">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Tipo</th>
+                    <th>Serie</th>
+                    <th>Correlativo</th>
+                    <th>Facturado</th>
+                    <th>Fecha</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody> 
+            </tbody>
+        </table>
+        <div id="detalle" style="display: none;">        
+            <hr><hr>
+            <table id="tbldetalles">
+                <thead>
+                    <tr>
+                        <th>Documento:</th>
+                        <td id="idtxtDocumento"></td>
+                        <td><center style="color: red; font-weight: 700"><a href="#Datos" id="btnSeleccionar" data-iddoc="">Seleccionar</a></center></td>
+                    </tr>			
+                </thead>
+                <tbody>                    
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+            <button type="button" id="btnCerrarFactura">Cerrar Factura</button>
+        </div>
+    </fieldset>
+    <fieldset id="Datos" style="background: #eef6f9">
+        <legend>Datos de la Nota de Credito</legend>
+        <ul>
+            <li>
+                <label>Movimiento:</label>
+                <select name="opcmovimiento" required>
+<!--                    <option value="1">Interno</option>					-->
+                    <option value="2">General</option>
+                </select>
+            </li>
+            <li>
+                <label>Motivo:</label>
+                <select id="lstMotivoNotaCredito" name="NotaCredito[concepto]" required>
+                    <option value="">Seleccione uno</option>					
+                    <option value="2" selected="">Por Precio</option>
+                </select>
+            </li>            
+            <li>
+                <label>Fecha:</label>
+                <label style="color:#f00"><?php echo date("d/m/Y") ?></label>
+                <input type="hidden" value="<?php echo date("Y/m/d") ?>" name="NotaCredito[fechadoc]">
+            </li>
+            <li>
+                <label>Serie</label>
+                <b style="color: red;" id="leTipoFactura">F-</b>
+                <select type="text" name="NotaCredito[serie]" id="txtSerie" style="color: red; font-weight: 700">
+                    <option value="1" selected="">001</option>
+                    <option value="2">002</option>
+                    <option value="3">003</option>
+                </select>
+            </li>
+        </ul>
+        <ul>
+            <div id="blockCorrelativo">
+                <li>
+                    <label>Correlativo 1</label>
+                    <input type="text" name="NotaCredito[numdoc]" maxlength="6" size="6" disabled="" required>                                  
+                </li>
+            </div>  
+        </ul>
+        <ul>
+            <li>
+                <label>Monto</label>
+                <input type="hidden" value="1" name="NotaCredito[tipoDocumentoRelacionado]">
+                <input type="hidden" value="1" id="numeroFacturaRelacionado" name="NotaCredito[numeroRelacionado]">
+                <input type="text" name="NotaCredito[montofacturado]" id="credito" maxlength="10" size="10" required>
+            </li>
+            <li id="blockBtnRegistrar">
+                <input type="submit" value="Registrar" class="btnRegistrar" id="registrar">
+            </li>
+        </ul>
+    </fieldset>
+<fieldset>
+    <legend><h1 style="color:blue">Datos de la Factura</h1></legend>
+    <ul>
+        <li style="background: #eef6f9; padding: 5px; border: 1px solid black; border-radius: 5px;">
+            <label>N° de Factura</label>
+            <input type="text" id="numeroFactura" readonly>
+            <select name="NotaCredito[nroSeleccion]" id="opcSeleccion" style="border: 2px solid blue; font-weight: bold;">
+            </select>
+        </li>
+        <li>
+            <label>Porcentaje de Facturacion</label>
+            <input type="text" id="porcentajeFacturacion" readonly> 
+        </li>
+        <li>
+            <label>Modo de Facturacion</label>
+            <input type="text" id="modoFacturacion" readonly>
+        </li>
+        <li>
+            <label>Monto de la Factura</label>
+            <input type="text" id="montoFactura" readonly>
+        </li>
+        <li>
+            <label>Monto del IGV</label>
+            <input type="text" id="montoIGV" readonly>
+        </li>
+        <li>
+            <label>Saldo de la Factura</label>
+            <input type="text" id="saldo" readonly>
+            <input type="hidden" id="saldoEscondido" >
+        </li>
+        <li id="blockCargado">
+            <label>Estado </label>
+            <input type="text" style="color: red; font-weight: 700"  value="" type="text" readonly="">
+        </li>
+    </ul>
+</fieldset>
+</form>
+<fieldset>
+    <legend><h1 style="color:blue">Datos  de la Orden</h1></legend>
+    <ul>
+        <li>
+            <label>Codigo</label>
+            <input type="text" id="codigo" size="10" readonly>
+        </li>
+        <li>
+            <label>Monto </label>
+            <input type="text" id="importe" size="10" readonly>
+        </li>
+        <li>
+            <label>Nombre o Razon Social:</label>
+            <input type="text" id="txtCliente" readonly size="45">
+        </li>
+        <li>
+            <label>RUC/DNI:</label>
+            <input type="text" id="txtRucDni" maxlength="11" size="11" readonly>
+        </li>
+        <li>
+            <label>Dirección</label>
+            <input type="text" id="direccion" readonly size="40">
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <label>Ubicacion</label>
+            <input type="text" id="ubicacion" readonly size="50">
+        </li>
+        <li>
+            <label>Telefono</label>
+            <input type="text" id="telefono" readonly>
+        </li>
+    </ul>
+</fieldset>
+

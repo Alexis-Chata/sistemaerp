@@ -1,0 +1,21 @@
+<script src="/javascript/submotivojs.js"></script>
+<form action="/mantenimiento/grabarsubmotivodevolucion/" method="POST">
+    <fieldset>
+        <legend>Registro de nuevo sub-motivo</legend>
+        <ul>
+            <li>
+                <label>Motivo: </label>
+                <select class="required" name="SubMotivo[tipo]" id="idmotivodevolucion" required="">
+                    <option value="">Seleccione una opcion</option>
+                    <?php
+                      for($i=1;$i<=count($MotivoDevolucion); $i++) { ?>
+                         <option value="<?php echo $i ?>"><?php echo ''.$MotivoDevolucion[$i]; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li><label>Decripcion</label><input type="text" name="SubMotivo[descripcion]" required=""></li>
+            <li><input id="btnGrabar" type="submit" value="Registrar"></li>
+            <button id="btnCancelar">Cancelar</button>
+        </ul>
+    </fieldset>
+</form>

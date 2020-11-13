@@ -1,0 +1,26 @@
+<form action="/zona/asignarcategoria" method="POST">
+	<h2><p>ASIGNAR CATEGORIA</p></h2>
+		<ul class="inline-block">
+			<li>
+				Zona: <?php echo $Zona[0]['codigoz']." - ".$Zona[0]['nombrez'] ?>
+			</li>
+			<li>
+				<label>Categorias:</label>
+				<select id="lstCategorias" name="Zona[idcategoria]">
+					<option value="">
+						Seleccionar Categoria
+					</option>
+					<?php
+						$total=count($Categoria);
+						for($i=0;$i<$total;$i++){
+							echo "<option value=".$Categoria[$i]['idcategoria'].">".$Categoria[$i]['codigoc']."-".$Categoria[$i]['nombrec'];
+						}
+					?>
+				</select>
+				<input type="hidden" name="idzona" <?php echo $Zona[0]['idzona'] ?>>
+				<a href="" id="aeditarcategoria">Editar</a>||
+				<a href="/zona/nuevacategoria">Nuevo</a>
+			</li>
+		</ul>
+	<p><input type="submit" value="..::: ASIGNAR :::.." ></p>
+</form>

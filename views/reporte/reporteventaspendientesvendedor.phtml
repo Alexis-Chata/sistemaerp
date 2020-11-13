@@ -1,0 +1,67 @@
+<script src="/javascript/wc_cliente.js" type="text/javascript"></script>
+<script src="/javascript/wc_ordenventa.js" type="text/javascript"></script>
+<script src="/javascript/ventaspendientesvendedor.js" type="text/javascript"></script>
+
+<?php    $cantidadvendedor = count($vendedor); ?>
+<style>
+    .ocultar{
+        display: none;
+    }
+</style>
+<fieldset>
+    <h2>VENTAS PENDIENTES POR VENDEDOR</h2>
+    <form action=""  method="POST" target="_blank" id="frmPendientesVendedor" name="frmPendientesVendedor" style="margin-top:20px;">
+        <ul>
+            <li>
+                <label for="txtFechaInicioGuiado">FECHA GUIADO:</label>
+                <input type="text" style="background: skyblue;width: 160" class="datepicker" size="35" placeholder="Fecha Guiado Inicio" readonly="readonly" id="txtFechaInicioGuiado" name="txtFechaInicioGuiado">
+            </li>
+            <li>
+                <label for="txtFechaFinalGuiado"></label>
+                <input type="text" style="background: skyblue;width: 160" class="datepicker" size="35" placeholder="Fecha Guiado Final"  readonly="readonly" id="txtFechaFinalGuiado" name="txtFechaFinalGuiado">
+            </li>
+            <li>
+                <label for="txtFechaInicioDespacho">FECHA DESPACHO:</label>
+                <input type="text" style="background: plum;width: 160" class="datepicker" size="35" placeholder="Fecha Despacho Inicio"  readonly="readonly" id="txtFechaInicioDespacho" name="txtFechaInicioDespacho">
+            </li>
+            <li>
+                <label for="txtFechaFinalDespacho"></label>
+                <input type="text" style="background: plum;width: 160" class="datepicker" size="35" placeholder="Fecha Despacho Final" readonly="readonly" id="txtFechaFinalDespacho" name="txtFechaFinalDespacho">
+            </li>
+            <li>
+                <label for="txtClientexIdCliente">Razon Social Cliente:</label>
+                <input type="text" id="txtClientexIdCliente" name="txtClientexIdCliente" size="50">
+                <input type="hidden" id="txtIdCliente" name="txtIdCliente">
+            </li>
+            <li>
+                <select id="lstvendedor" name="lstvendedor" >
+                    <option value="">Vendedor</option>
+                    <?php for ($i = 0; $i < $cantidadvendedor; $i++) { ?>
+                        <option value="<?php echo $vendedor[$i]['idactor']; ?>"><?php echo $vendedor[$i]['nombres'] . ' ' . $vendedor[$i]['apellidopaterno'] . ' ' . $vendedor[$i]['apellidomaterno']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="txtOrdenVentaxId">Orden de Venta:</label>
+                <input type="text" id="txtOrdenVentaxId" name="txtOrdenVentaxId" size="20">
+                <input type="hidden" id="txtIdOrdenVenta" name="txtIdOrdenVenta">
+            </li>
+            <li>
+                <label for="lstMoneda">Moneda:</label>
+                <select name="lstMoneda" id="lstMoneda">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Solo Soles</option>
+                    <option value="2">Solo Dolares</option>
+                </select>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <button type="button" id="btnExcel" class="button">Excel <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+            <li>
+             <button id="btnLimpiar" name="btnLimpiar"  class="button">Limpiar <img style="vertical-align:middle" src="/imagenes/limpiar.png" width="25" height="25" /></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

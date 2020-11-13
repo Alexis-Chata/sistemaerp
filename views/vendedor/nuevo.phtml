@@ -1,0 +1,79 @@
+<script src="/javascript/vendedor.js"></script>
+<div class="centrarregistro">
+	<h3>Ingrese un nuevo Vendedor</h3>
+	<form id="frmNuevoVendedor" action="/vendedor/graba/" method="post" enctype="multipart/form-data" >
+	<fieldset>
+		<legend>Datos Del Vendedor</legend>
+		<ul class="inline-block"> 
+			<li>
+				<label>Codigo Del Vendedor: </label>
+				<input type="text" name="Vendedor[codigoa]" id="codigoVendedor" class="required cod-pro uppercase" autofocus autocomplete="off" maxlength="12"  size="15" />
+				
+				<b id="error"></b>
+			</li>
+			<li>
+				<label>Nombres: </label>
+				<input class="required cod-pro uppercase" type="text" name="Vendedor[nombres]" required size="25" />
+			</li>
+			<li><label>Apellido Paterno: </label>
+				<input  type="text" name="Vendedor[apellidopaterno]" class="required cod-pro uppercase" required size="25" />
+			</li>
+			<li><label>Apellido Materno: </label>
+				<input type="text" name="Vendedor[apellidomaterno]" class="required cod-pro uppercase" required size="25" />
+			</li>
+			<li>
+				<label>DNI: </label>
+				<input  type="text" name="Vendedor[dni]" class="required numeric" maxlength="8"    required size="25" />
+			</li>
+			<li><label>Email Personal:</label> 
+				<input type="email" placeholder="miCorreo@ejemplo.com" maxlength="50" name="Vendedor[email]" required size="25" />
+			</li>
+			<!--<li><label>Usuario: </label>
+				<input type="text" name="Vendedor[usuario]" required size="25" />
+			</li>
+			<li><label>Contraseña: </label>
+				<input type="text" name="Vendedor[contrasena]" required size="25" />
+			</li>-->
+			<li><label>Telefono: </label>
+				<input type="text" name="Vendedor[telefono]" class="required numeric" maxlength="9"  size="25" />
+			</li>
+			<li><label>Celular: </label>
+				<input type="text" name="Vendedor[celular]" class="required numeric"  maxlength="11" size="25" />
+			</li>
+			<li><label>RPM: </label>
+				<input type="text" name="Vendedor[rpm]" maxlength="20" size="25" />
+			</li>
+
+			<li>
+				<label>Localidad:</label>
+				<select id="lstDepartamento" required class="required">
+					<option value="">Departamento</option>
+					<?php
+						for($i=0;$i<count($Departamento);$i++){
+							echo '<option value="'.$Departamento[$i]['iddepartamento'].'">'.$Departamento[$i]['nombredepartamento'];
+						}
+					?>
+				</select>
+				<select id="lstProvincia" required class="required">
+					<option value="">Provincia</option>
+				</select>
+				<select name="Vendedor[iddistrito]" required class="lstDistrito required" id="lstDistrito">
+					<option value="">Distrito</option>
+				</select>
+			</li>
+			<li><label>Dirección: </label>
+				<input type="text" name="Vendedor[direccion]" maxlength="100" required size="25" />
+			</li>
+				<li><label>Referencia: </label>
+				<input type="text" name="Vendedor[referencia]" maxlength="50" required size="25" />
+			</li>
+			<li>
+				<label>Imagen:</label>
+				<input type="file" name="foto" id="imagenVendedor">
+			</li>
+			<input  type="submit" id="enviar" value="Grabar">
+			<button id="btnCancelar">Cancelar</button>
+		</ul>
+	</fieldset>
+	</form>
+</div>

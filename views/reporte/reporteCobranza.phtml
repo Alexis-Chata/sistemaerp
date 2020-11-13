@@ -1,0 +1,119 @@
+<script type="text/javascript" src="/javascript/reporteCobranza.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/css/select.css">
+<h2>REPORTE::COBRANZA-VENDEDOR</h2>
+<fieldset>
+	<form id="frmCobranza" method="post">
+	<ul>
+		<li>
+			<label>Zona Geografica</label>
+			<select id="lstCategoriaPrincipal" name="lstCategoriaPrincipal" class="style">
+				<option value="">----Zona Geografica----</option>
+				<?php $cantidadZona=count($padre); ?>
+				<?php for ($i=0; $i <$cantidadZona ; $i++) { ?>
+				<option value="<?php echo $padre[$i]['idcategoria'] ?>"><?php echo $padre[$i]['nombrec'] ?></option>	
+				<?php } ?>
+			</select>
+		</li>
+		<li><p>
+			<label>Zona Cobranza-Categoria</label>
+			<select id="lstZonaCobranza" name="lstZonaCobranza" class="style">
+				<option value="">Zona Cobranza-Categoria</option>
+			</select></p>
+		</li>
+		<li>
+			<label>Zona Cobranza-Detalle</label>
+			<select id="lstZona" name="lstZona" class="style">
+				<option value="">Zona Cobranza-Detalle</option>
+			</select>
+		</li>
+		<li>
+			<label>Fecha Inicio</label>
+			<input type="text" style="background-color:skyblue" id="txtFechaInicio" name="txtFechaInicio" class="datepicker" readonly="readonly" placeholder="F. Cancelado" >
+		</li>
+		<li>
+			<label>Fecha Fin</label>
+			<input type="text" style="background-color:skyblue" id="txtFechaFinal" name="txtFechaFinal" class="datepicker" readonly="readonly" placeholder="F. Cancelado" >
+		</li>
+		<li>
+			<label>Tipo Cobranza</label>
+			<select id="lstTipoCobranza" name="lstTipoCobranza">
+				<option value="">TipoCobranza</option>
+				<?php $cantidadTipocobranza=count($tipocobranza); ?>
+				<?php for ($i=0; $i <$cantidadTipocobranza ; $i++) { ?>
+				<option value="<?php echo $tipocobranza[$i]['idtipocobranza'] ?>"><?php echo $tipocobranza[$i]['nombre'] ?></option>	
+				<?php } ?>
+			</select>
+		</li>
+	</ul><br>
+	<ul>
+		
+		<li>
+			<label>Situacion</label>
+			<select id="lstSituacion" name="lstSituacion">
+				<option value="">Seleccione Situacion</option>
+				<option value="pendiente">Pendiente</option>
+				<option value="cancelado">Cancelado</option>
+				<option value="anulado">Anulado</option>
+			</select>
+		</li>
+                <li>
+                    <label>Vendedor</label>
+                    <select id="idVendedor" name="idVendedor">
+                        <option value="">Vendedor</option>
+                        <?php $cantidadvendedor = count($vendedor);
+                        for ($i = 0; $i < $cantidadvendedor; $i++) { ?>
+                            <option value="<?php echo $vendedor[$i]['idactor']; ?>"><?php echo $vendedor[$i]['nombres'] . ' ' . $vendedor[$i]['apellidopaterno'] . ' ' . $vendedor[$i]['apellidomaterno']; ?></option>
+                        <?php } ?>
+                    </select>
+                </li>
+		<li>
+			<label>Orden Venta</label>
+			<input type="text" id="txtOrdenVenta" placeholder="Orden Venta" >
+			<input type="hidden" id="idOrdenVenta" name="idOrdenVenta">
+		</li>
+		<li>
+			<label>Cliente</label>
+			<input type="text" id="txtCliente" placeholder="Nombre Cliente" size="45">
+			<input type="hidden" id="idCliente" name="idCliente">
+		</li>
+	</ul><br>
+	<ul>
+		<li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+		<li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+		<li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+		<li><button id="btnPDF" style="font-size: 18px;">Ver PDF <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/iconos/pdf.gif"> </button></li>
+	</ul>
+	</form>
+</fieldset>
+<fieldset id="contenedor">
+	<table id="tblEncabezado" style="display:none">
+		<tr>
+			<th width="16%">Zona Geografica</th>
+			<td width="16%"><label id="lblCategoriaPrincipal" class="encabezado"></label></td>
+			<th width="16%">Zona Cobranza-Categoria</th>
+			<td width="16%"><label id="lblZonaCobranza" class="encabezado"></label></td>
+			<th width="16%">Zona Cobranza-Detalle</th>
+			<td width="16%"><label id="lblZona" class="encabezado"></label></td>
+		</tr>
+		<tr>
+			<th>Orden Venta</th>
+			<td><label id="lblOrdenVenta" class="encabezado"></label></td>
+			<th>Vendedor</th>
+			<td><label id="lblVendedor" class="encabezado"></label></td>
+			<th>Cliente</th>
+			<td><label id="lblCliente" class="encabezado"></label></td>
+		</tr>	
+		<tr>
+			<th>Tipo Cobranza</th>
+			<td><label id="lblTipoCobranza" class="encabezado"></label></td>
+			<th>Situacion</th>
+			<td><label id="lblSituacion" class="encabezado"></label></td>
+			<th>Rango de Fecha</th>
+			<td><label id="lblFecha" class="encabezado"></label></td>
+		</tr>	
+	</table>
+	<table id="tblCuerpo" style="display:none">
+
+	</table>
+</fieldset>

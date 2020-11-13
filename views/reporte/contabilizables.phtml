@@ -1,0 +1,85 @@
+<script src="/javascript/contabilizables.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/select.css">
+
+<h2>LISTAS DE PRECIOS CONTABILIZABLES</h2>
+<br>
+
+<fieldset style="display:inline-block">
+    <legend><b>Filtro</b></legend>
+
+    <ul>
+        <li>
+            <label>Seleccione una de las opiones</label>
+            <input type="radio" name="rbFiltro" value="3" checked="checked"> Por Linea
+            &nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea	
+            &nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
+        </li>
+        <br>
+        <li id="liLinea">
+            <label>Linea</label>
+            <select id="lstLinea">
+                    <option value="">-- Linea --</option>
+                    <?php
+                            for($i=0;$i<count($Linea);$i++){
+                                    echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin'].'</option>';
+                            }
+                    ?>
+            </select>
+        </li>
+        <li id="liSubLinea">
+            <label>Sublinea</label>
+            <select id="lstSubLinea">
+                    <option value="">-- Sub Linea --</option>
+            </select>
+        </li>
+        <li id="liProducto">
+            <label>Producto</label>
+            <input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+            <input type="hidden" id="txtIdProducto">
+        </li>
+        <li id="buttomContent1">
+            <button id="btnConsultar">Consultar</button>
+            <button id="btnExcel">Excel</button>
+        </li>
+        <li>
+            <form action="/pdf/durezaproducto/" method="post" target="_blank">
+                <input type="submit" value="ver en pdf" id="mostrarPDF">
+                <input type="hidden" id="idProducto" name="idProducto">
+                <input type="hidden" id="idLinea" name="idLinea">
+                <input type="hidden" id="idSubLinea" name="idSubLinea">
+                <input type="hidden" id="fecha" name="fecha">
+                <input type="hidden" id="idstockActual" name="stockactual">
+            </form>
+        </li>
+    </ul>
+</fieldset>
+        
+<table>
+    <thead>
+        <tr>
+            <th colspan="9" style="background:#B4D1F7;color:#830E0E;"><h1><b>LISTA DE PRECIOS CONTABILIZABLES</b></th>
+        </tr>
+        <tr>
+            <th style='color:black;background:#C6DCF9;'>CÓDIGO</th>
+            <th style='color:black;background:#C6DCF9;'>PRODUCTO</th>
+            <th style='color:black;background:#C6DCF9;'>ULT. OC</th>
+            <th style='color:black;background:#C6DCF9;'>CANT.</th>
+            <th style='color:black;background:#C6DCF9;'>STOCK</th>
+            <th style='color:black;background:#C6DCF9;'>FOB</th>
+            <th style='color:black;background:#C6DCF9;'>CIF</th>
+            <th style='color:black;background:#C6DCF9;'>P. LISTA</th>
+            <th style='color:black;background:#C6DCF9;'>NETO</th>
+        </tr>
+    </thead>
+    <tbody id="ContenidoTabla">
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="11" align="right">
+                <input type="submit" value="Exportar a PDF" id="expPDFSel">
+                <input type="submit" value="Exportar a Excel" id="expEXCELSel">
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

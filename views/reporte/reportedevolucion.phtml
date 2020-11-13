@@ -1,0 +1,99 @@
+<script type="text/javascript" src="/javascript/reportedevolucion.js"></script>
+<style type="text/css">
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px;
+    }
+</style>
+
+<h2>Reporte :: Devoluciones</h2>
+<fieldset>
+    <legend></legend>
+    <form id="Parametros" action="/pdf/reporteventas/" method="post" target="_blank">
+        <ul>
+            <li>
+                <label>Fecha Aprobado Inicio</label>
+                <input style="background:skyblue;" type="text" id="txtFechaGuiadoInicio" name="txtFechaGuiadoInicio" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Fecha Aprobado Fin</label>
+                <input style="background:skyblue;" type="text" id="txtFechaGuiadoFin" name="txtFechaGuiadoFin" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Registrado</label>
+                <input type="checkbox" name="pendiente" value="1">
+            </li>
+            <li>
+                <label>Aprobado</label>
+                <input type="checkbox" name="aprobado" value="1">
+            </li>
+            <li>
+                <label>Motivo</label>
+                <select name="condVenta" id="condVenta">
+                    <option value="0">Todos</option>
+                    <option value="1">Contado</option>
+                    <option value="2">Creditos</option>
+                    <option value="3">Letras</option>
+                </select>
+            </li>		
+        </ul>
+        <ul>
+            <li>
+                <label>Orden de Venta</label>
+                <input type="text" id="txtOrdenVenta" name="txtOrdenVenta" class="uppercase text-300">
+                <input type="hidden" id="idOrdenVenta" name="idOrdenVenta">
+            </li>
+            <li>
+                <label>Cliente</label>
+                <input type="text" id="txtCliente" name="txtCliente" class="uppercase text-300" >
+                <input type="hidden" id="idCliente" name="idCliente">
+            </li>
+            <li>
+                <label>Vendedor</label>
+                <input type="text" id="txtVendedor" name="txtVendedor" class="uppercase text-300" >
+                <input type="hidden" id="idVendedor" name="idVendedor">
+            </li>
+        </ul>
+        <ul>
+            <li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+            <li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+            <li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+            <li><button id="btnPDF" style="font-size: 18px;">Ver PDF <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/iconos/pdf.gif"> </button></li>
+        </ul>
+    </form>
+</fieldset>
+<fieldset>
+    <div id="imprimir">
+        <div id="detalle" style="display: block;">
+            <a id="imprimir" href="#"><img src="/imagenes/imprimir.gif"></a>
+
+            <b id="mensaje"> Devolucion  N°11701</b>
+            <table id="tblEncabezado" sytle="magin-botton:0px">
+                <thead><tr><th colspan="3">Impresion de Devoluciones</th><th>Observaciones :</th><td colspan="3">POR DEUDA</td></tr><tr><th>Orden Venta</th><td>OV-17001465</td><th>Fecha y Hora de Impresion</th><td>15-07-2017 13:15:56</td><th>Situacion</th><td>Pendiente</td></tr><tr><th>Razon Social</th><td>CONSORCIO GUZMAN &amp; CIA E.I.R.L.</td><th>RUC</th><td>20600278437</td><th>Fecha de Devolucion</th><td>13-07-2017 15:13:06</td></tr><tr></tr></thead>
+            </table>
+            <table id="tbldetalles">
+                <thead>
+                    <tr>
+                        <th>Numero de Devolucion</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Importe</th>
+                    </tr>			
+                </thead>
+                <tbody>
+
+                    <tr><td style="text-align: center;">1</td><td style="text-align: center;">LCC30B</td><td>MOTOBOMBA 3X3, LECCO</td><td style="text-align: right;">US $ 141.37</td><td style="text-align: center;">1</td><td style="text-align: right;">US $ 141.37</td></tr><tr><td colspan="4"></td><td style="text-align: center;">Total</td><td style="text-align: right;">US $ 141.37</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr><td></td>
+                    </tr></tfoot>
+            </table>
+            <button id="btncerrar" class="button">Cerrar Detalle</button>
+        </div>
+    </div>
+</fieldset>

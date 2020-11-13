@@ -1,0 +1,29 @@
+<script src="/javascript/reposiciondeitems.js"></script>
+
+<h2>Reporte Estadistico de Reposicion de Items </h2>
+
+<fielset>
+    <form id="frmReporte" method="post" action="/excel/reposiciondeitems" target="_blank">
+        <ul>
+            <li>
+                <label>Producto</label>
+                <input type="text" size="35" id="txtProducto">
+                <input type="text" size="55" id="txtDescripcion" disabled="disabled">
+                <input type="hidden" id="idProducto" name="idProducto">
+            </li>
+
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button id="btnConsultar" type="button">Consultar <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/consultar.png"></button>
+            </li>
+            <li>    
+                <button id="btnReporteExcel"> Consultar <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/excel.png"></button>
+            </li>
+        </ul>
+    </form>
+</fielset>
+<fielset id="BlockBusqueda">    
+</fielset>
+<button id="imprimir" style="display: none"><img width="30" src="/imagenes/imprimir.gif"></button>

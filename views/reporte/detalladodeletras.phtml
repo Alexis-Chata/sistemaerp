@@ -1,0 +1,93 @@
+<script type="text/javascript" src="/javascript/reportletras.js"></script>
+<script src="/javascript/wc_cliente.js"></script>
+<script src="/javascript/wc_ordenventa.js"></script>
+
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Reporte ::: Detallado de Letras</h2>
+
+<form action="/excel/detalladodeletras"  method="POST" target="_blank" id="frmLetras">
+    <fieldset id="listas">
+        <?php
+        $cantidadpadre = count($padre);
+        $cantidadhijo = count($hijo);
+        $cantidadzona = count($zona);
+        $cantidadtipo = count($tipocobranza);
+        $cantidadvendedor = count($vendedor);
+        $cantidadcobrador = count($cobrador);
+        ?>
+        <ul>
+            <li>
+                <input style="background:skyblue" type="text" id="fechaInicio" name="txtFechaInicio" placeholder="Fecha Desde">
+            </li>
+            <li>
+                <input style="background:skyblue" type="text" id="fechaFinal" name="txtFechaFin" placeholder="Fecha Hasta">
+            </li>
+            <li>
+                <input style="background:skyblue" type="text" id="txtCondiciones" name="txtCondiciones" hidden="" >
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal" >
+                    <option value="">Zona Geografica</option>
+                    <?php for ($i = 0; $i < $cantidadpadre - 1; $i++) { ?>
+                        <option value="<?php echo $padre[$i]['idcategoria']; ?>"><?php echo $padre[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <select id="lstCategoria"  name="lstCategoria" >
+                    <option value="">Zona Cobranza-Categoria</option>
+                    <?php for ($i = 0; $i < $cantidadhijo; $i++) { ?>
+                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <select id="lstZona"  name="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                    <?php for ($i = 0; $i < $cantidadzona; $i++) { ?>
+                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <select name="lstLetras" id="lstLetras" >
+                    <option Value="3">Letras Banco</option>
+                </select>
+            </li>
+            <li>
+                <select id="lstRecepcionLetras" name="lstRecepcionLetras">
+                    <option value="">Estado</option>
+                    <option value="1">con PA</option>
+                    <option value="2">sin PA</option>
+                </select>
+            </li>
+        </ul><br>
+        <ul>
+            <li>
+                <label for="txtClientexIdCliente">Razon Social Cliente</label>
+                <input type="text" id="txtClientexIdCliente" name="txtClientexIdCliente" size="50">
+                <input type="hidden" id="txtIdCliente" name="txtIdCliente">
+            </li>		
+            <li>
+                <label for="txtOrdenVentaxId">Orden de Venta</label>
+                <input type="text" id="txtOrdenVentaxId" name="txtOrdenVentaxId" size="20">
+                <input type="hidden" id="txtIdOrdenVenta" name="txtIdOrdenVenta">
+            </li>
+            <li>
+                <label for="">Moneda:</label>
+                <select name="lstMoneda" id="lstMoneda">
+                    <option value="">---</option>
+                    <option value="1">Soles</option>
+                    <option value="2">Dolares</option>
+                </select>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <button type="submit">Ver EXCEL <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"> </button>
+            </li>
+        </ul>
+    </fieldset>	
+</form>

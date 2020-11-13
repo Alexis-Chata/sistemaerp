@@ -1,0 +1,38 @@
+<script src="/javascript/devolucion.js"></script>
+<h2>Confirmar Devolucion</h2>
+<fieldset>
+	<form action="/devolucion/grabaconfirmarPedido/" method="POST">
+		<ul class="inline-block">
+			<li>
+				<label>Numero de Devolucion</label>
+				<input type="text" value="<?php echo $iddevolucion; ?>" name="iddevolucion" readonly="readonly">
+			</li>
+			<li>
+				<label>Orden de Venta</label>
+				<input type="text" value="<?php echo $codigov; ?>"  readonly="readonly">
+				<input type="hidden" value="<?php echo $idordenventa; ?>" name="idordenventa">
+			</li>
+			<li>
+				<label>Serie</label>
+				<input type="text" name="serie" autofocus="on">
+			</li>
+			<li>
+				<label>Numero de Documento</label>
+				<input type="text" name="ndocumento">
+			</li>
+			<li>
+				<label>Tipo de Documento</label>
+				<select name="tipodoc">
+					<?php for ($i=1; $i <count($documento)-1 ; $i++) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $documento[$i]; ?></option>
+					<?php } ?>
+
+				</select>
+			</li>
+			<li>
+				<input type="submit" value="Confirmar">
+				<button id="cancelarDevolucionAprobada">Cancelar</button>
+			</li>
+		</ul>
+	</form>
+</fieldset>

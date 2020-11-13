@@ -1,0 +1,61 @@
+<div id="listados">
+<h2>Seguridad: Roles
+</h2>
+<br>
+<form method="POST" action="/rol/busqueda/">
+<div id="busqueda">
+		Busqueda: <br><input type="text" id="txtBusqueda" name="txtBusqueda" size="50px">
+		<input type="submit" value="Ver">
+</div>
+</form>
+<hr>
+<table>
+	<thead>
+		<tr>
+			<th colspan="3">Listado de Roles</th>
+			<th><a href="/rol/nuevo">
+					<img src="/imagenes/iconos/nuevo.gif">
+				</a></th>
+		</tr>
+		<tr>
+			<th>Código</th>
+			<th>Nombre</th>
+			<th>Descripción</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		$TRol=sizeof($roles);
+		for($i=0;$i<$TRol;$i++){
+			if($roles[$i]['estado']==0){
+				$claseinactivo="class=\"inactivo\"";
+			}else{
+				$claseinactivo="";
+			}
+			
+		$fila="<tr ".$claseinactivo.">";
+			$fila.="<td><a href=\"/rol/editar/".$roles[$i]['idrol']."\">".STRTOUPPER($roles[$i]['codigo'])."</a></td>";
+			$fila.="<td>".$roles[$i]['nombre']."</td>";
+			$fila.="<td>".$roles[$i]['descripcion']."</td>";
+			$fila.="<td width=\"100px\">
+						<a href=\"/rol/editar/".$roles[$i]['idrol']."\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+						<a href=\"/rol/desactivar/".$roles[$i]['idrol']."\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+			$fila.="</td>";
+		$fila.="</tr>";
+		echo $fila;
+		unset($fila);
+		}
+		?>	
+	</tbody>
+	<tfoot>
+		<tr><td colspan="4" align="center">
+		<?php
+			for($i=0;$i<$paginacion;$i++){
+				echo "<a href=\"/rol/listado/".($i+1)."\"> ".($i+1)." </a>";
+			}
+		?>
+		</tr>
+	</tfoot>
+</table>
+</div>

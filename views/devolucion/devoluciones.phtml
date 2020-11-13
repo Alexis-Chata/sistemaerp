@@ -1,0 +1,136 @@
+<script src="/javascript/devolucion.js"></script>
+<style type="text/css">
+    .inhabilitar_elemento {
+        pointer-events: none !important;
+        cursor: default !important;
+        opacity: 0.6 !important;
+    }
+    #grabarFactura {
+        cursor: pointer;
+    }
+    #txtNDevolucion {
+        font-weight: bold;
+        color: red;
+    }
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 5px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 5px 3px 5px;
+        text-align: center;
+    }
+    table tbody td{
+        border: 1px solid #ddddde;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        max-width: 70px;
+        color: blue;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+        max-width: 70px;
+        color: blue;
+    }
+/*    style=""*/
+
+</style>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Devolucion :: Crear Devolucion</h2>
+<fieldset>
+    <ul>
+        <li id="blockDevolucion"<?php echo (empty($iddevolucion) ? ' style="display: none;"' : ''); ?>>
+            <label>Devolucion: </label>
+            <input value="<?php echo $iddevolucion; ?>" id="txtNDevolucion" type="text" disabled="">
+        </li>
+        <li>
+            <label>Orden Venta: </label>
+            <input value="<?php echo $codigov; ?>" id="txtOrdenVenta" placeholder="OV-13000001" maxlength="11" title="Formato (OV-)(año)(espacio que sobra con ceros '0')(numero)  Ejemplo OV-12000001" type="text" class="required uppercase" autofocus="on" autocomplete="false">
+            <input type="hidden" id="idtxtOV" value="<?php echo $idtxtOV; ?>">
+        </li>
+        <li>
+            <label>Cliente: </label>
+            <input value="" id="txtCliente" type="text" size="50" disabled="">
+        </li>
+        <li>
+            <label>R.U.C.: </label>
+            <input value="" id="txtRUC" type="text" disabled="">
+        </li>
+    </ul>
+</fieldset>
+
+<fieldset>
+    <ul>
+        <li>
+            <label>Observaciones: </label>
+            <input type="text" placeholder="Sin observaciones..." id="observaciones" size="80">
+<!--            <a href="#" id="grabarObservaciones"><img width="25" src="/imagenes/grabar.gif"></a>-->
+        </li>
+        <li>
+            <label>Motivo: </label>
+            <select class="required" name="idmotivo" id="idmotivodevolucion">
+                <option value="0">Seleccione una opcion</option>
+                <?php
+                      for($i=1;$i<=count($MotivoDevolucion); $i++) { ?>
+                         <option value="<?php echo $i ?>"><?php echo $MotivoDevolucion[$i]; ?></option>
+                <?php } ?>
+            </select>
+        </li>
+        <li id="blockSubMotivo">
+            <label>Sub-Motivo: </label>
+            <select class="required" name="idsubmotivo" id="idsubmotivodevolucion">
+                <option value="0">Seleccione una opcion</option>
+            </select>
+        </li>
+        
+        <li>
+            <button id="btnGuardar">Aceptar</button>
+        </li>
+    </ul>
+    <div id="detalles">
+        <table id="tblDetalles">
+            <thead>
+                <tr id="colFE" style="display: none;">
+                    <th colspan="13" style="display: none; background: skyblue; font-size: 16px;" id="contPE">
+                    </th>
+                    <th colspan="13" style="display: none; background: skyblue; font-size: 16px;" id="cmbfactura">Factura Electronica:
+                        <select class="required" name="idmotivo" style="color: red;">
+                        </select>
+                        <img src="/imagenes/grabar.gif" width="20" height="20" id="grabarFactura" title="Seleccionar y Guardar Factura">
+                    </th>
+                </tr>
+                <tr>
+                    <th rowspan="2">N°</th>
+                    <th rowspan="2">codigo</th>
+                    <th rowspan="2">Nombre</th>
+                    <th rowspan="2">Cantidad Orden</th>
+                    <th rowspan="2">Cant. Restante</th>
+                    <th rowspan="2">Precio Vendido</th>
+                    <th rowspan="2" colspan="3">Precio Devolucion</th>
+                    <th colspan="3">Cantidades</th>
+                    <th rowspan="2">Importe<br>Devuelto</th>
+                </tr>
+                <tr>
+                    <th colspan="2">+ - Cant</th>
+                    <th>Cant. Actual</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+
+<button id="btnAprobar">Registrar</button>
+<button id="btnCancelar">Listado [Por Registrar]</button>

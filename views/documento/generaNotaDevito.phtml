@@ -1,0 +1,118 @@
+<script src="/javascript/impresionAutomatica.js"></script>
+<link rel="stylesheet" href="/css/impresionNotaDevito.css"  >
+
+<?php
+$max_item_xfactura=$maximoItem;
+$cantidad=count($DetalleNDevito);
+$pages=intval($cantidad/$max_item_xfactura)+1;
+?>
+
+<?php
+
+for($z=0;$z<$pages;$z++){
+	$minimo=($z)*$max_item_xfactura;
+	$maximo=(($minimo+$max_item_xfactura)>$cantidad)?($cantidad):($minimo+$max_item_xfactura);
+?>
+<div id="impresion">
+	<table id="encabezado">
+		
+		<tr>
+			<td style="width:17mm;">&nbsp</td>
+			<td style="width:122mm;"><?php echo $NotaDevito[0]['razonsocial']; ?></td>
+			<td style="width:9mm;">&nbsp</td>
+			<td style="width:41mm;"><?php echo $NotaDevito[0]['numeroRelacionado']; ?></td>
+		</tr>
+		<tr>
+			<td colspan="6" style="font-size: 5px;">&nbsp</td>
+		</tr>
+		<tr>
+			<td style="width:17mm;">&nbsp</td>
+			<td style="width:122mm;"><?php echo $NotaDevito[0]['ruc']; ?></td>
+			<td style="width:21mm;">&nbsp</td>
+			<td style="width:29mm;"><?php echo date('d').'/'.date('m').'/'.date('Y'); ?></td>
+		</tr>
+	</table >
+	<table id="cuerpo">
+		
+		<tbody>
+				<?php if ($maximo>$max_item_xfactura ) { ?>
+					
+					<tr>
+						<td>viene..</td>
+					</tr>
+				<?php } ?>
+			<?php 
+			$importetotal=0;
+			/*$maximo=25;
+			$minimo=0;*/
+			//$cantidad=count($DetalleNDevito);
+			for ($i=$minimo; $i <$maximo ; $i++) { 
+				///if (!empty($DetalleNDevito[$i]['codigopa']) ) { 
+				if ($DetalleNDevito[$i]['cantidad']!=0) { ?>
+					
+				
+					
+				
+			<tr>
+				
+				<td class="td1"><?php echo $DetalleNDevito[$i]['cantidad'];; ?></td>
+				<td class="td2"><?php echo $DetalleNDevito[$i]['nompro']; ?></td>
+				<td class="td3"><?php echo 'S/.'.number_format($DetalleNDevito[$i]['precio'],2); ?></td>
+				<td class="td4"><?php echo 'S/.'.number_format(($DetalleNDevito[$i]['precio']*$DetalleNDevito[$i]['cantidad']),2);; ?></td>
+				<?php $importetotal+=($DetalleNDevito[$i]['precio'])*($DetalleNDevito[$i]['cantidad']); ?>
+			</tr>
+			<?php //} 
+			} }?>
+				<?php if ($cantidad>$maximo && $maximo!=$cantidad) { ?>
+					<tr>
+						<td colspan="6" style="text-align:center;"><?php echo str_pad('-',150,'-',STR_PAD_LEFT); ?></td>
+					</tr>
+					<tr>
+						<td>va..</td>
+					</tr>
+				<?php } ?>
+				<?php if ($maximo==$cantidad){ ?>
+					<tr>
+						<td colspan="6" style="text-align:center;"><?php echo str_pad('-',150,'-',STR_PAD_LEFT); ?></td>
+					</tr>
+				<?php  } ?>
+		</tbody>
+
+	</table>
+
+	<table id="piepagina">
+		
+		<tr>
+			<td class="tp1">&nbsp</td>
+			<td class="tp2"><?php echo 'S/. '.number_format($importetotal/1.18,2); ?></td>
+		</tr>
+		<tr>
+			<td colspan="2" >&nbsp</td>
+		</tr>
+		<tr>
+			<td class="tp1">&nbsp</td>
+			<td class="tp2"><?php echo 'S/. '.number_format(($importetotal-($importetotal/1.18)),2); ?></td>
+		</tr>
+		<tr>
+			<td colspan="2" >&nbsp</td>
+		</tr>
+		<tr>
+			<td class="tp1">&nbsp</td>
+			<td class="tp2"><?php echo 'S/. '.number_format($importetotal,2); ?></td>
+		</tr>
+		
+	</table>
+</div>
+
+<?php
+if(($pages-$z)!=1){
+
+?>
+<br style="page-break-before: always;" />
+<?php
+}
+}
+?>
+
+
+

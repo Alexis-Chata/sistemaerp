@@ -1,0 +1,32 @@
+<script type="text/javascript" src="/javascript/impresionDespacho.js"></script>
+<h2>Almacen: Impresion de Despacho</h2>
+<fieldset>
+	<div id="busqueda">
+		Busqueda:<input autofocus type="text" id="txtOrdenVenta2" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+		<input  type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+		<button id="imprimir" ><img width="30" src="/imagenes/imprimir.gif"></button>
+		<input placeholder="F. Despacho" readonly class="datepicker" id="fechaDespacho"> <button id="btnGrabar" href="#"><img width="25"  src="/imagenes/grabar.gif"></button>
+	</div>
+</fieldset><fieldset>		
+	<div id="muestra">
+	
+		<style type="text/css">
+			*{
+
+			}
+			table {
+				border: 1px solid;
+				border-collapse: collapse;
+				border-spacing:0px;
+				padding: 0px;
+				
+
+				margin: 0px;
+			}
+			table tr td, table tr th{
+				
+			}
+		</style>
+		<div id="despacho"></div>
+	</div>
+</fieldset>

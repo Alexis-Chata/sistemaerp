@@ -1,0 +1,79 @@
+<script src="/javascript/kardex.js"></script>
+<h2>Reportes: Kardex</h2>
+<br>
+<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+	<ul>
+		<li>
+			<label>Seleccione una de las opiones</label>
+			<input type="radio" name="rbFiltro" id="rbUno" value="1" checked> Todo
+			<input type="radio" name="rbFiltro" value="2"> Por Almacen
+			<input type="radio" name="rbFiltro" value="3"> Por Linea
+			&nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea	
+			&nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
+		</li>
+		<li id="liAlmacen">
+			<label>Almacen</label>
+			<select id="lstAlmacen">
+				<option value="">-- Almacen --</option>
+				<?php
+					for($i=0;$i<count($Almacen);$i++){
+						echo '<option value="'.$Almacen[$i]['idalmacen'].'">'.$Almacen[$i]['nomalm'].'</option>';
+					}
+				?>
+			</select>
+		</li>
+		<li id="liLinea">
+			<label>Linea</label>
+			<select id="lstLinea">
+				<option value="">-- Linea --</option>
+				<?php
+					for($i=0;$i<count($Linea);$i++){
+						echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin'].'</option>';
+					}
+				?>
+			</select>
+		</li>
+		<li id="liSubLinea">
+			<label>Sublinea</label>
+			<select id="lstSubLinea">
+				<option value="">-- Sub Linea --</option>
+			</select>
+		</li>
+		<li id="liProducto">
+			<label>Producto</label>
+			<input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+			<input type="hidden" id="txtIdProducto">
+		</li>
+		<li id="buttomContent1">
+			<button id="btnConsultar">Consultar</button>
+		</li>
+		<li>
+		<form action="/pdf/kardex/" method="post" target="_blank">
+			<input type="submit" value="ver en pdf" id="mostrarPDF">
+			<input type="hidden" id="idAlmacen"  name="idAlmacen">
+			<input type="hidden" id="idProducto"  name="idProducto">
+			<input type="hidden" id="idLinea" name="idLinea">
+			<input type="hidden" id="idSubLinea" name="idSubLinea">
+		</form>
+		</li>
+	</ul>
+</fieldset>
+<table id="dataGridReport">
+	<thead>
+		<tr>
+			<th data-field="ndocumento">Numero<br>Documento</th>
+			<th data-field="fechamovimiento">Fecha</th>
+			<th data-field="conceptomovimiento">Tipo</th>
+			<th data-field="tipomovimiento">Concepto</th>
+			<th data-field="cantidad">Cant.</th>
+			<th data-field="nombrecliente">Origen / Destino</th>
+			<th data-field="stockdisponible">Stock<br>Disponible</th>
+			<th data-field="unidadmedida">Medida</th>
+			<th data-field="pu">Precio</th>
+			<th data-field="estadopedido">Estado</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>

@@ -1,0 +1,20 @@
+<script src="/javascript/seguimiento_listavales.js"></script>
+<input type="hidden" value="0" id="contador">
+<br>
+<br>
+
+<div id="listados">
+    <h2>LISTA DE VALES</h2><br>
+    <div class="busquedaLista" method="post">
+        Busqueda: <br>
+        <textarea id="listaordenesVenta" name="numeroLetra" rows="10" cols="50"></textarea> 
+        <input type="button" value="consultar" id="btnConsultar" class="button"/>  
+    </div>
+</div>
+<fieldset id="camporesultado" >
+    <legend>Resultado:</legend>
+    <div id="contenedorResultadoListaVales">
+        <!-- resultado -->
+    </div>    
+    <button id="btnConsultarExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button>
+</fieldset>

@@ -1,0 +1,34 @@
+<script src="/javascript/cliente.js"></script>
+<h2>Unificar Cliente</h2>
+
+<fieldset>
+    De <b>Cliente Origen:</b>
+    <input type="text" id="txtusuario1" name="txtBusqueda" size="50px" placeholder="INGRESE RAZON SOCIAL" title="Ingrese Razon Social o RUC ">
+    a <b>Cliente Destino:</b>
+    <input type="text" id="txtusuario2" name="txtBusqueda" size="50px" placeholder="INGRESE RAZON SOCIAL" title="Ingrese Razon Social o RUC ">
+    
+</fieldset>
+
+<fieldset>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <fieldset id="usuario1"><center><b><h1 style='color: #990000;'>USUARIO ORIGEN</h1></b></center></fieldset>
+                </td>
+                <td>
+                    <fieldset id="usuario2"><center><b><h1 style='color: #990000;'>USUARIO DESTINO</h1></b></center></fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <form action="/cliente/unificarcliente" method="POST" id="form-unificar">
+                        <input type="hidden" id="clienteorigen" name="txtorigen">
+                        <input type="hidden" id="clientedestino" name="txtdestino">
+                        <center><input type="submit" value="Unificar Cliente" id="unificar"></center>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>

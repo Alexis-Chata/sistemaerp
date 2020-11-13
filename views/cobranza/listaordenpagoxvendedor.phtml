@@ -1,0 +1,38 @@
+<div id="listados">
+<select id="lstVendedores">
+	<option value="0">Vendedor		
+	<?php
+	$tot=count($Vendedores);
+	for($i=0;$i<$tot;$i++){
+		echo "<option value=".$Vendedores[$i]['idactor'].">".$Vendedores[$i]['nombres']." 
+		".$Vendedores[$i]['apellidopaterno']." ".$Vendedores[$i]['apellidomaterno'];
+	}
+	?>
+</select>
+<table id="tblCuentasxVendedor">
+		<caption>Cuentas Pendientes de Cobro Por Vendedor: </caption>
+		<thead>
+		<tr>
+			<th>Numero Cuenta</th>
+			<th>Orden de Venta</th>
+			<th>Cliente</th>
+			<th>Situacion Pago</th>
+			<th>Zona</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		</thead>
+		<tbody>
+		</tbody>
+</table>
+</div>
+<a href="/cobranza/nuevo/"><img src="/imagenes/new.gif"></a>
+<div id="paginacion">
+	<a href="/cobranza/reportvendedor/1" id="btnPrimero">&lt;&lt;Primero</a>
+	<a href="/cobranza/reportvendedor/" id="btnAnterior">&lt;Anterior</a>
+	<span class="bold"> P&aacute;gina</span>
+	<input type="text" value="<?php echo $Paginacion['Pagina'] ?>" readonly style="width:30px" class="center" id="txtPaginaActual">
+	<input type="hidden" value="<?php echo $Paginacion['Paginas'] ?>" id="txtNumeroPaginas">
+	<span class="bold"> de <?php echo $Paginacion['Paginas'] ?> </span>
+	<a href="/cobranza/reportvendedor/" id="btnSiguiente">Siguiente&gt;</a>
+	<a href="/cobranza/reportvendedor/<?php echo $Paginacion['Paginas'] ?>" id="btnUltimo">Ultimo&gt;&gt;</a>
+</div>

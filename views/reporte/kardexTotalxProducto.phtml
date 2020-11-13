@@ -1,0 +1,32 @@
+<fielset>
+	<h2>Movimientos :: Kardex Totales por Producto</h2>
+<br>
+	<div id="busqueda">
+			Busqueda: </br>
+		<form method="post" action="/pdf/kardexTotalxProducto" target="_blank">	
+			<select id="periodo" name="periodo">
+				<option>Seleccione Periodo</option>
+				<?php for ($i=2013; $i <2070 ; $i++) { ?>
+					<option value="<?php echo $i ?>"><?php echo $i ?></option>
+				<?php } ?>
+			</select>
+			<select id="mesInicial" name="mesInicial">
+				<option>Seleccione Mes Inicial</option>
+				<?php $cantidadMes=count($mes); ?>
+				<?php for ($i=1; $i <=$cantidadMes ; $i++) { ?>
+					<option value="<?php echo $i ?>"><?php echo $mes[$i] ?></option>
+				<?php } ?>
+			</select>
+			<select id="mesFinal" name="mesFinal">
+				<option>Seleccione Mes Final</option>
+				<?php for ($i=1; $i <=$cantidadMes ; $i++) { ?>
+					<option value="<?php echo $i ?>"><?php echo $mes[$i] ?></option>
+				<?php } ?>
+			</select>
+			<br>
+			<input type="submit" value="Kardex Valorizado" id="btnCargaKardex">
+			<button id="btnImprimir">Imprimir</button>
+		</form>
+	</div>
+	<br><br><hr>
+</fielset>

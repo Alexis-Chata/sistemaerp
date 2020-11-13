@@ -1,0 +1,79 @@
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Listado :: Linea de Crédito</h2>
+<script src="/javascript/listalineadecredito.js"></script>
+<fieldset>
+    <form action="/excel/listalineadecredito/" method="post" target="_blank">
+        <ul>
+            <li>
+                <label>Fecha Inicio</label>
+                <input style="background:skyblue;" type="text" name="txtFechaInicio" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Fecha Final</label>
+                <input style="background:skyblue;" type="text" name="txtFechaFin" class="datepicker" readonly>
+            </li>
+            <li>
+                <label>Zona Geografica</label>
+                <select id="lstCategoriaPrincipal" name="idpadre">
+                    <option value="">Seleccione Zona Geografica</option>
+                    <?php $cantidadPrincipal=count($categoriaPrincipal) ?>
+                    <?php for ($i=0; $i <$cantidadPrincipal ; $i++) { ?>
+                            <option value="<?php echo $categoriaPrincipal[$i]['idcategoria'] ?>"><?php echo $categoriaPrincipal[$i]['nombrec'] ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label>Region Cobranza</label>
+                <select id="lstRegionCobranza" name="idcategoria">
+                    <option value="">Zona Cobranza-Categoria</option>
+                </select>
+            </li>
+            <li>
+                <label>Zona</label>
+                <select id="lstZona" name="idzona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                </select>
+            </li>
+            <li>
+                <label>Calificación:</label>
+                <select name="cmbCalificacion">
+                    <option value="">-- Seleccione --</option>
+                    <?php 
+                    for ($i = 0; $i < count($Calificaciones); $i++) {
+                        $arrayCalificacion[$Calificaciones[$i]['idcalificacion']] = $Calificaciones[$i]['nombre'];
+                        echo '<option value="' . $Calificaciones[$i]['idcalificacion'] . '">' . $Calificaciones[$i]['nombre'] . '</option>';
+                    } ?>
+                </select>
+            </li>
+            <br>
+            <li>
+                <label>Contado</label>
+                <input type="checkbox" name="chkContado">
+            </li>
+            <li>
+                <label>Credito</label>
+                <input type="checkbox" name="chkCredito">
+            </li>
+            <li>
+                <label>Letras</label>
+                <input type="checkbox" name="chkLetra">
+            </li>
+            <li>
+                <label>Linea de crédito</label>
+                <input type="text" style="width: 80px" placeholder="Mínimo" class="numeric" name="txtminimo">
+                <input type="text" style="width: 80px" placeholder="Máximo" class="numeric" name="txtmaximo">
+            </li>
+            <li>
+                <label>Cliente</label>
+                <input type="text" id="txtCliente" name="txtCliente" class="uppercase text-300" >
+                <input type="hidden" id="idCliente" name="idCliente">
+            </li>
+            <li>
+                <input type="checkbox" name="chkActivo"> Solo linea de credito actual
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li><button>Consultar <img style="vertical-align: middle;text-align: center;" width="23" heigth="23" src="/imagenes/excel.png"> </button></li>
+        </ul>
+    </form>
+</fieldset>

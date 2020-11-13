@@ -1,0 +1,100 @@
+<?php $idmodulo = 103; require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript" src="/javascript/asignacionpagos.js"></script>
+<br><br>
+<h2>Modulo Caja y Banco: Asignacion Pagos</h2>
+<div id="busqueda">
+		Busqueda:<input autofocus type="text" id="txtOrdenVenta2" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+		<input  type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+		<a id="imprimir"  href="#"><img src="/imagenes/imprimir.gif"></a>
+
+</div>
+<div id="muestra">
+
+		<style type="text/css">
+		*{
+
+		}
+		table {
+			border: 1px solid;
+			border-collapse: collapse;
+			border-spacing:0px;
+			padding: 0px;
+
+
+			margin: 0px;
+		}
+		table tr td, table tr th{
+
+		}
+		</style>
+
+	<div id="cliente">
+		<fieldset>
+			<legend>Datos del Cliente</legend>
+			<ul>
+				<li>Código:</li>
+				<li><input type="text" name="codigo" readonly id="codigo" ></li>
+				<li>Razon Social:</li>
+				<li><input type="text" name="razonsocial" readonly id="razonsocial" size="40"></li>
+				<li>Número de RUC:</li>
+				<li><input type="text" name="ruc" readonly id="ruc"></li>
+			</ul>
+			<ul>
+				<li>Codigo Dakkar:</li>
+				<li><input type="text" name="codantiguo" readonly id="codantiguo"></li>
+			</ul>
+		</fieldset>
+	</div>
+	<div id="imprimirCliente" style="diplay:none"></div>
+	<fieldset>
+		<table id="tblIngreso">
+
+		</table>
+	</fieldset>
+	<div>
+	<table id="tblDetalleOrdenCobro">
+		<tbody>
+
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="contenedorpago" style="diplay:none" title="Ingrese cuanto va pagar">
+	<table>
+		<tr>
+			<th><label>Cantidad </label></th>
+			<td><input id="pagoamortiguar" type="text" class="numeric"></td>
+		</tr>
+		<tr>
+			<th><label>Fecha de Pago</label></th>
+			<td><input type="text" class="datepicker" id="fechaPago" readonly></td>
+		</tr>
+</table>
+</div>
+
+<div id="contendorAutorizacion" title="Autorizacion de Accion" style="display:none;" >
+	<label for="usuario">Usuario</label>
+	<input type="text" id="usuario" autocomplete="off" >
+	<label for="contrasena">Contraseña</label>
+	<input type="password" id="contrasena" autocomplete="off" >
+	<br>
+	<b id="respVerificacion"></b>
+</div>
+
+<div id="contenedorCancelado" style="diplay:none" title="Ingrese la Fecha de pago">
+	<label >Fecha Pago</label>
+	<input type="text" id="fechaPagoContado"  class="datepicker" >
+
+</div>
+<div id="contenedorDeshacerPago" title="Motivo para deshacer el pago" style="display:none">
+	<table>
+		<tr>
+			<th>Motivo</th><td><textarea id="motivo"></textarea></td>
+		</tr>
+		<tr>
+			<th colspan="2"><b id="respDeshacerPago"></b></th>
+		</tr>
+	</table>
+
+
+</div>

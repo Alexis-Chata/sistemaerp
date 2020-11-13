@@ -1,0 +1,142 @@
+<script src="/javascript/gestoripv.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Gestor IPV</h2>
+<br>
+<style>
+    #msjprd {
+        padding: 8px;
+        background: #ffb2b2;
+        width: 70%;
+    }
+    #msjprd > a {
+        font-weight: bold;
+        color: #cc0d15;
+        font-size: 15px;
+    }
+    #msjprd > a:hover {
+        color: black;
+    }
+    .errorcb {
+        color: red;
+        border: 1px solid red;
+    }
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 5px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 5px 3px 5px;
+        text-align: center;
+    }
+    table tbody td{
+        border: 1px solid #ddddde;
+    }
+</style>
+    
+<fieldset>
+    <div id="msjprd">        
+    </div>
+    <ul>
+        <li>
+            <label>Producto: </label>
+            <input autofocus="on" type="text" id="txtproductosimulacro" size="20" placeholder="Codigo del producto">
+            <input type="hidden" id="idProducto" name="txtidproducto">
+        </li>
+    </ul>
+</fieldset>
+<fieldset>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Producto:</th>
+                <td colspan="6" id="txtProducto"> --- </td>
+            </tr>
+            <tr>
+                <th rowspan="2">Fecha</th>
+                <th rowspan="2">Tipo Doc</th>
+                <th rowspan="2">Serie</th>
+                <th rowspan="2">Num Doc</th>
+                <th rowspan="2">Tipo Mov</th>
+                <th colspan="3" id="txtTipoMov">SALIDA</th>
+            </tr>
+            <tr>
+                <th>Cantidad</th>
+                <th>Costo Unitario S/</th>
+                <th>Costo Total S/</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center">
+                    <input style="background:skyblue;" type="text" name="txtFecha" id="idTxtFechas" class="datepicker">
+                </td>
+                <td style="text-align: center">
+                    03 - Boleta <input type="hidden" value="3" name="txtTipoDoc" id="idtxtTipoDoc">
+                </td>
+                <td style="text-align: center">
+                    <input type="text" value="" name="txtSerie" id="idtxtSerie">
+                </td>
+                <td style="text-align: center">
+                    <input type="text" value="" name="txtNumero" id="idtxtNumero">
+                </td>
+                <td style="text-align: center">
+                    <select id="cmbTipoMovimiento">
+                        <option value="01">01 - Venta</option>
+                        <option value="02">02 - Compra</option>
+                    </select>
+                </td>
+                <td style="text-align: right">
+                    <input type="number" value="" id="idtxtCantidad" name="txtCantidad">
+                </td>
+                <td style="text-align: right">
+                    <input type="number" value="" id="idtxtCostoUnitario" name="txtCostoUnitario">
+                </td>
+                <td style="text-align: right">
+                    <input type="text" value="" id="idtxtTotal" name="txtTotal" readonly="">
+                </td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <td colspan="8" style="text-align: center">
+                    <button type="button" id="btnRegistrar">Registrar</button>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</fieldset>
+
+<fieldset>
+    <table id="tblIPVsRegistrados">
+        <thead>
+            <tr>
+                <th rowspan="2">Fecha</th>
+                <th rowspan="2">Tipo Doc</th>
+                <th rowspan="2">Serie</th>
+                <th rowspan="2">Num Doc</th>
+                <th rowspan="2">Tipo Mov</th>
+                <th colspan="3">ENTRADAS</th>
+                <th colspan="3">SALIDAS</th>
+                <th rowspan="2">Accion</th>
+            </tr>
+            <tr>
+                <th>Cantidad</th>
+                <th>Costo Unitario S/</th>
+                <th>Costo Total S/</th>
+                <th>Cantidad</th>
+                <th>Costo Unitario S/</th>
+                <th>Costo Total S/</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</fieldset>

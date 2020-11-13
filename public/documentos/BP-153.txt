@@ -1,0 +1,69 @@
+A;Serie;;B002
+A;Correlativo;;00000026
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;15427792
+A;RznSocRecep;;CARMELO IGLESIA MONTE
+A;DirRecep;;ANTIGUO PAN.SUR - LIMA-CA&Ntilde;ETE-CHILCA - LIMA - CANETE - CHILCA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;285.95
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;51.47
+A;MntTotal;;337.42
+A;FchEmis;;2017-08-04
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;51.47
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;RCZ-408D
+B;NmbItem;1;CONSOLA 4 CANALES USB,SD,BLUETOOH,DISPLAY,EQUALIZADOR C/CONTROL,SHERIFF
+B;PrcItem;1;168.71
+B;PrcItemSinIgv;1;142.97
+B;MontoItem;1;142.97
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;25.74
+B;NroLinDet;2;2
+B;QtyItem;2;1
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;GT-3004
+B;NmbItem;2;CAJA PASIVA 2X15" GEMINI
+B;PrcItem;2;168.71
+B;PrcItemSinIgv;2;142.97
+B;MontoItem;2;142.97
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;25.74
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 303
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Trescientos Treinta y Siete con 42/100 Dolares Americanos  

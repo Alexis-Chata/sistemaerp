@@ -1,0 +1,217 @@
+<script type="text/javascript" src="/javascript/controlinterno_enproceso.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Control Interno [En Proceso]</h2>
+
+<br>
+<div id="busqueda">
+    Tecnico: <input type="text" id="txtIdTecnico" name="txtOrdenVenta" size="50px" placeholder="Ingrese Datos del Tecnico">
+    <input type="hidden" id="idTecnico" name="idOrdenVenta" required="required" val="0">
+    <button id="imprimir">Imprimir</button>
+</div>
+<style type="text/css">
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 10px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 2px 4px 2px 4px;
+        text-align: center;
+    }
+    table tbody td {
+        border: 1px solid #e2e0e6;
+    }
+    #DiagtblProceso thead th{
+        background: #49a3d3;
+        font-weight: bold;
+        padding: 0px;
+        border: 1px solid #d2e9fd;
+    }
+    #DiagtblProceso tfoot th, tfoot td{
+        font-weight: bold;
+        border: 1px solid #929292;
+        text-align: right;
+    }
+    #DiagtblProceso tfoot th{
+        background: black;
+        color: white;        
+        padding: 0px 10px 0px 0px;                
+    }
+    #DiagtblProceso tfoot td{
+        background: #c1c1c1;
+        color: black;
+    }
+    #CabeceraTecnico {
+        font-size: 17px;
+        font-weight: bold;
+        color: #e00d0d;
+    }
+    .Anular {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
+    .FormatoNumero {
+        width: 45px;
+        text-align: right;
+    }
+    .FormatoNumero-2 {
+        width: 80px;
+        text-align: right;
+    }
+    .color-rojo {
+        color: red;
+    }
+    .Reparado {
+        font-weight: bold;
+        color: blue;
+        text-align: center;
+    }
+    .Descartado {
+        font-weight: bold;
+        color: red;
+        text-align: center;
+    }
+    .Liberado {
+        font-weight: bold;
+        color: green;
+        text-align: center;
+    }
+    #InfTecnico {
+        font-size: 12px;
+    }
+    #msjCantidad {
+        font-size: 11px;
+        color: #666;
+    }
+    #msjNregistro {
+        display: block;
+        background: pink;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-bottom: 1px solid black;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+</style>
+<fieldset id="blockEnProceso">    
+    <table id="tblEnProceso">
+        <thead>
+            <tr>
+                <th id="CabeceraTecnico" colspan="15"></th>
+            </tr>
+            <tr>
+                <th>Nro Atencion</th>
+                <th>Referencia</th>
+                <th>Fecha de Atencion</th>
+                <th>Cliente</th>
+                <th>Telefono</th>
+                <th>Orden Venta</th>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Avance</th>
+                <th>Situacion</th>
+                <th>Garantia</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</fieldset>
+
+<div id="contenedorCI">
+    <div id="divCI">        
+    </div>    
+    <table id="DiagtblProceso" data-garantia="0">
+        <thead>  
+            <tr>
+                <th colspan="9">Bitacora de Actividades</th>
+            </tr>
+            <tr>
+                <th>Nro</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha Final</th>
+                <th>Cantidad</th>
+                <th>Garantia</th>
+                <th>Situacion</th>
+                <th>Informe</th>
+                <th colspan="2">Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+       <tfoot>            
+        </tfoot>
+    </table>    
+</div>
+
+<div id="contenedorAnadir">
+    <form method="post" action=""  id="frmNuevoRegistro">
+        <span id="msjNregistro"></span>            
+        <ul>            
+            <li>
+                Fecha Inicio:<br>
+                <input style="background:skyblue; width: 140px" type="text" name="txtFechaInicio" id="txtFechaInicio" class="datepicker">
+                <input type="hidden" id="txtiddetallerecepciontecnico" name="txtiddetallerecepciontecnico" value="0">
+                <input type="number" name="idHoraInicio" id="idHoraInicio" placeholder="Hora" class="FormatoNumero"> :
+                <input type="number" name="idMinutoInicio" id="idMinutoInicio" placeholder="Minuto" class="FormatoNumero">
+            </li>
+            <li>
+                Fecha Fin:<br>
+                <input style="background:pink; width: 140px" type="text" name="txtFechafin" id="txtFechafin" class="datepicker">
+                <input type="number" name="idHoraFin" id="idHoraFin" placeholder="Hora" class="FormatoNumero"> :
+                <input type="number" name="idMinutoFin" id="idMinutoFin" placeholder="Minuto" class="FormatoNumero">
+            </li>
+            <li>
+                Situacion:<br>
+                <select name="opcSituacion" id="opcSituacion">
+                    <?php $tams = count($ArraySituacion);
+                    for ($i = 1; $i <= $tams; $i++){
+                        echo '<option value="' . $i . '">' . $ArraySituacion[$i] . '</option>';
+                    }
+                    ?>                                         
+                </select>
+            </li>
+            <li>
+                Cantidad:<br>
+                <input type="number" name="idCantidad" id="idCantidad" data-cantidad="0" placeholder="1" class="FormatoNumero-2">
+                <small id="msjCantidad">Max. 10</small>
+            </li>
+            <li>
+                Contraseña:<br>
+                <input type="password" name="idPassword" id="idPassword">
+            </li>
+            <li>
+                Informe Técnico:<br>
+                <textarea class="text-600" name="InfTecnico" id="InfTecnico" rows="9"></textarea>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li id="blockGarantia">
+                Garantia:
+                <input type="radio" name="rdGarantia" value="1"> Si
+                <input type="radio" name="rdGarantia" value="0"> No
+            </li>
+            <li>Imagenes: 
+                <input type="file" name="imgProducto[]" id="idImgs" value="" accept="image/x-png,image/jpeg" multiple>
+            </li>
+        </ul>
+    </form>
+</div>

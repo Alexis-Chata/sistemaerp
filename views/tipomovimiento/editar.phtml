@@ -1,0 +1,15 @@
+<form action="/tipomovimiento/actualiza/" method="POST">
+	<fieldset>
+		<legend>Actualizaci&oacute;n de Tipo Movimiento</legend>
+		<ul>
+			<li>
+				<label>Nombre</label>
+				<input type="text" name="Tipomovimiento[nomtipmov]" value="<?php echo $Tipomovimiento[0]['nomtipmov'] ?>">
+				<input type="hidden" name="idTipoMovimiento" value="<?php echo $_REQUEST['id'] ?>">
+			</li>
+			<li>
+				<input type="submit" value="Actualizar">
+			</li>
+		</ul>
+	</fieldset>
+</form>

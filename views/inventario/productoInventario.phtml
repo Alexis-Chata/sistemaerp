@@ -1,0 +1,104 @@
+<?php $idmodulo=139; require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript"src="/javascript/productoInventario.js" ></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">INVENTARIO GENERAL POR BLOQUE</h2>
+<fieldset>
+	<ul>
+		<li>
+			<?php $cantidadInventario=count($inventario); ?>
+			<label>Inventario</label>
+                <select id="lstInventario" name="lstInventario">
+                    <?php if($evaluarCredenciales==1){ ?>
+                        <?php if($c15_datashet!=$c14_datashet){ ?>
+                            <?php for ($i=0; $i <$cantidadInventario ; $i++) { ?>
+                                <?php  if ($c14_datashet==1 and  $inventario[$i]['invagrupamiento']==1){ ?>
+                                    <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'].'  del  '.$inventario[$i]['fechainv']; ?></option>
+                                <?php } ?>
+                                <?php  if ($c14_datashet==0){ ?>
+                                    <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'].'  del  '.$inventario[$i]['fechainv']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                    <?php if($evaluarCredenciales==0){ ?>
+                        <?php for ($i=0; $i <$cantidadInventario ; $i++) { ?>
+                            <?php  if ($inventario[$i]['invagrupamiento']==1){ ?>
+                                <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'].'  del  '.$inventario[$i]['fechainv']; ?></option>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+				</select>
+		</li>
+
+        <li>
+			<label>Codigo</label>
+			<input type="text" size="13" id="txtProductoInventario" class="uppercase" autofocus="on">
+			<input type="hidden" id="txtIdProducto" val="0">
+		</li>
+		<li>
+			<label>Descripcion</label>
+			<input type="text" id="txtDescripcion" size="45" readonly style="background:silver;">
+		</li>
+
+		<li>
+			<?php $cantidadBloques=count($bloques); ?>
+			<label>Bloque</label>
+			<select id="lstBloques" style="width:90px;font-size: 14px;">
+				<?php for ($i=0; $i <$cantidadBloques ; $i++) { ?>
+					<option value="<?php echo $bloques[$i]['idbloque'] ?>" ><?php echo $bloques[$i]['codigo'] ?></option>
+				<?php } ?>
+			</select>
+		</li>
+        <li>
+        <label>Condicion</label>
+			<select id="lstCondicion" style="font-size:13px; width:90px;">
+					<option value="1">Conteo 1</option>
+                    <option value="2">Conteo 2</option>
+                    <option value="3">Conteo 3</option>
+                    <option value="4">Merma</option>
+                    <option value="5">Serv.Tecnico</option>
+                    <option value="6">Show.Room</option>
+			</select>
+		</li>
+		<li>
+			<button id="btnAgregar">Asignar</button>
+                        <span style="font-size: 11px;font-weight: 800;color:red;">press enter</span>
+
+
+                </li>
+
+            <li style="text-align: center !important;width: 100% !important;">
+                <span id="lblRespuestaGrabado" style="font-size: 19px;font-weight: 800;color:greenyellow;"></span>
+            </li>
+	</ul>
+
+</fieldset>
+<style type="text/css">
+#tblProducto .abajito > td {
+    border-bottom: 7px solid transparent !important;
+}
+</style>
+<fieldset>
+	<form >
+            <table id="tblProducto"  >
+			<thead>
+				<tr>
+                    <th>Codigo</th>
+					<th>Descripcion</th>
+					<th>Inventario</th>
+					<th>Bloque</th>
+                    <th>Conteo 1</th>
+                    <th>Conteo 2</th>
+                    <th>Conteo 3</th>
+					<th>Mermas</th>
+					<th>Para Servicio Tecnico</th>
+					<th>En Show Room</th>
+                    <th>Observacion</th>
+                    <th colspan="2">Accion</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+	</form>
+</fieldset>
+<input type="text" id="txt_session_idrol" value='<?php echo $_SESSION['idrol']; ?>' style="display:none;">

@@ -1,0 +1,33 @@
+<h2>Mantenimiento: Nuevo <?php echo $titulo ?></h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/letras/lista';
+		});
+	});
+</script>
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/grabar" method="post">
+		<ul class="inline-block">
+			<li>
+				<label>Ingrese Condicion De letra</label>
+				<input required type="text" name="condicion" placeholder="Formato 20/30/40" autocomplete="off">
+			</li>
+			<li>
+				<label>Cantidad de letras</label>
+				<input required type="text" name="cantidad" class="numeric" >
+			</li>
+			
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+			<li ><?php echo $respuesta; ?></li>
+		</ul>
+
+	</form>
+
+</fieldset>

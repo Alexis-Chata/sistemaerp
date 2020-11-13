@@ -1,0 +1,93 @@
+<script type="text/javascript">
+	$(function(){
+		$('#menuizq>li')
+			.hover(
+					function(){$('.submenu',this).stop(true,true).slideDown('fast');},
+					function(){$('.submenu',this).slideUp('fast');});
+
+		$('.submenu li a')
+			.css( {backgroundPosition: "0px 0px"} )
+			.hover(
+					function(){$(this).stop().animate({backgroundPosition: "(0px -99px)"}, 250);},
+					function(){$(this).stop().animate({backgroundPosition: "(0px 0px)"}, 250);});}
+	);
+</script>
+<!--<h4>Módulos del Sistema @Celestium</h4>-->
+<ul id="menuizq">
+<!-- 	<form action="" method="POST" id="frmParametros">
+	<input type="hidden" name="opcion" id="opcion">
+	<input type="hidden" name="modulo" id="modulo">
+</form> -->
+<?php
+$url=strtoupper('/'.$_REQUEST['controlador'].'/'.$_REQUEST['accion']);
+if($TotalOpciones>0){
+	for($i=0;$i<$TotalOpciones;$i++){
+		$a=$Opciones[$i];
+		$ta=count($a);
+		echo "<li><img src=\"/imagenes/".$a[0]['icono']."\"  width=\"32px\"><a href=\"#\" title=\"Modulo Principal\">".$a[0]['nombre']."</a>";
+		echo "<ul class='submenu'>";
+		for($j=1;$j<$ta;$j++){
+			//$_SESSION[$a[$j]['url']]=true;
+			echo "<li><img src=\"/imagenes/iconos/b_arrow.png\"  width=\"16px\"><a href=\"".$a[$j]['url']."\" class=\"opciones\" title=\"".$a[$j]['descripcion']."\">  ".$a[$j]['nombre']."</a></li>";
+			
+		}
+		echo "</ul></li>";
+	}
+}else{
+	echo "<li class='submenu'>Lo sentimos !!! <br>
+				Aun no le han asignado permisos al Sistema.<br>
+				Comuniquese al anexo 25- AREA DE SISTEMAS.</li>";
+}
+
+?>
+<?php 
+
+if ($url!=strtoupper("/documento/generaGuia") && $url!=strtoupper("/documento/generaFactura") && $url!=strtoupper("/documento/generaboleta") && $url!=strtoupper("/documento/generaLetra") && $url!=strtoupper("/index/index") && $url!=strtoupper("/index/") && $url!=strtoupper("//")) { ?>
+	<input type="hidden" id="Iruta" value="<?php echo $url; ?>">
+	<input type="hidden" id="Inombre" value="<?php echo $url; ?>">
+<li><a href="" id="btnFavoritos" title="Agregar ruta a Favoritos"><img width="32px" height="32px" src="/imagenes/favoritos.png"></a></li>
+<?php  } ?>
+ 
+</ul>
+
+
+<style>
+			#tipocambio table {
+				background: rgba(202, 222, 238, 0.34);
+				border: 2px solid rgb(167, 209, 233);
+				border-radius: 10px;
+				color: rgb(192, 16, 16);
+				font-size: 11px;
+				font-weight: bold;
+				text-align: center;
+				float: right;
+				height: 60px;
+				margin: 5px 10px 0px 0px;
+				width: 90px;
+			}
+
+			header .foto {
+				width: 110px;
+			}
+
+			header .cuenta {
+				margin-right: 10px;
+			}
+		</style>
+		<script>
+			window.addEventListener("resize", cambiar_altura());
+			document.getElementById('menuizq').addEventListener("resize", cambiar_altura());
+			function cambiar_altura() {
+				let alto = $(".modulos").height();
+				let altologo = $(".logo").height();
+				
+				if ($(".modulos").width() <= 330) {
+					$("header").height(alto + 80);
+					$('.logo').css({'margin-top':15});
+				} else {
+					$("header").height(alto + 2);
+					$('.logo').css({'margin-top':(alto-altologo)/2});
+				}
+			}
+			cambiar_altura();
+		</script>

@@ -1,0 +1,118 @@
+<script src="/javascript/correlativoguias.js"></script>
+<style type="text/css">
+    .entrada{
+        display: inline-block;
+        vertical-align: top;
+        border: solid 1px #A4A5A7;
+    }
+    .seguimiento2, .seguimiento3{
+        display: none;
+
+    }
+    .seguimientoShow{
+        display: block;
+    }
+    .separador{
+        /*border-bottom: solid 1px #908F92;*/
+        padding-top: 12px;
+    }       
+</style>
+
+<div id="listados">
+    <h2> Seguimiento:: Correlativo de Guias </h2><br>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Correlativo de Guias</a></li>
+            <li><a href="#tabs-2">Listado de Guias Verificadas</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <div class="contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="14">Listado de Orden Venta</th>
+                        </tr>
+                        <tr>
+                            <th>Codigo</th>
+
+                            <th>Nombre Completo</th>
+                            <th>Razon Social</th>
+                            <th>Fecha</th>
+                            <th>Tipo de Venta</th>
+                            <th>Importe</th>
+                            <th>Importe Pagado</th>
+                            <th>Importe Devuelto</th>
+                            <th>Deuda</th>
+                            <th>Observacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php echo $resp; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="15" align="center">
+                                <?php
+                                if (empty($_REQUEST['id'])) {
+                                    $pagina = 1;
+                                } else {
+                                    $pagina = $_REQUEST['id'];
+                                }
+
+                                if ($blockpaginas * 10 < $paginacion) {
+                                    $blockpaginas = $blockpaginas + 1;
+                                } else {
+                                    $blockpaginas = $blockpaginas;
+                                }
+
+                                if ($pagina > 1) {
+                                    echo "<a href=\"/seguimiento/correlativoguias/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
+                                }
+
+                                for ($i = 1; $i <= $blockpaginas; $i++) {
+                                    $max = $i * 10;
+
+                                    for ($min = $max - 9; $min <= $max; $min++) {
+                                        if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                            if ($pagina == $min) {
+                                                echo "<a href=\"/seguimiento/correlativoguias/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                            } else {
+                                                echo "<a href=\"/seguimiento/correlativoguias/" . ($min) . "\"> " . ($min) . " </a>";
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if ($pagina < $paginacion) {
+                                    echo "<a href=\"/seguimiento/correlativoguias/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
+                                }
+                                ?>
+                                <select id="seleccion" >
+                                    <option value=""></option>
+                                <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <?php } ?>
+                                </select>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div id="cabeceraOV">
+                </div>
+            </div>  
+        </div>
+        <div id="tabs-2">
+            <fieldset>
+                Fecha:
+                <input id="fechaSeguimiento" readonly type="text" class="datepicker" placeholder="Fecha Inicio" size="12">
+                <button id="btnConsultar">Consultar</button>
+                <a href="#" id="btnImprimir"><img src="/imagenes/imprimir.gif"></a>
+            </fieldset>
+            <div id="contenedor">
+                <div id="tblSeguimiento">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

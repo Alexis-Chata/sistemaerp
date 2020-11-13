@@ -1,0 +1,81 @@
+<script src="/javascript/stockproducto.js"></script>
+<script src="/javascript/productosxagotar.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Productos Por Agotar</h2>
+<fieldset>
+    <ul>
+        <li>
+            <label>Fecha Inicial del último ingreso</label>
+            <input type="text" class="datepicker" id="fechaInicio" name="fechaInicio">
+        </li>
+        <li>
+            <label>Fecha Final del último ingreso</label>
+            <input type="text" class="datepicker" id="fechaFinal" name="fechaFinal">
+        </li>
+        <li>
+            <label>Porcentaje que queda (%)</label>
+            <input type="text" class="required uppercase" id="txtPorcentaje" placeholder="1 - 100 - por defecto 1">
+        </li>
+        <li>
+            <label>Cantidad comprada con respecto</label>
+            <select id="lstCantidadVeces">
+                <option value="1"> Al último ingreso</option>
+                <option value="2"> A los 2 últimos ingresos</option>
+                <option value="3"> A los 3 últimos ingresos</option>
+            </select>
+        </li>
+    </ul>
+    <br>
+    <ul>
+        <li>
+                <label>Seleccione una de las opiones</label>
+                <input type="radio" name="rbFiltro" value="1" checked> Todo
+                <input type="radio" name="rbFiltro" value="2"> Por Almacen
+                <input type="radio" name="rbFiltro" value="3"> Por Linea
+                &nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea	
+                &nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
+        </li>
+        <li id="liAlmacen">
+            <label>Almacen</label>
+            <select id="lstAlmacen">
+                <option value="">-- Almacen --</option>
+                <?php
+                for ($i = 0; $i < count($Almacen); $i++) {
+                    echo '<option value="' . $Almacen[$i]['idalmacen'] . '">' . $Almacen[$i]['nomalm'] . '</option>';
+                }
+                ?>
+            </select>
+        </li>
+        <li id="liLinea">
+            <label>Linea</label>
+            <select id="lstLinea">
+                <option value="">-- Linea --</option>
+                <?php
+                for ($i = 0; $i < count($Linea); $i++) {
+                    echo '<option value="' . $Linea[$i]['idlinea'] . '">' . $Linea[$i]['nomlin'] . '</option>';
+                }
+                ?>
+            </select>
+        </li>
+        <li id="liSubLinea">
+            <label>Sublinea</label>
+            <select id="lstSubLinea">
+                <option value="">-- Sub Linea --</option>
+            </select>
+        </li>
+        <li id="liProducto">
+            <label>Producto</label>
+            <input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo o Nombre del Producto" id="txtCodigoProducto">
+            <input type="hidden" id="txtIdProducto">
+        </li>
+    </ul>
+    <br/>
+    <ul>
+        <li>
+            <button type="button" id="btnProductosxagotarHTML">Consultar</button>
+        </li>
+    </ul>
+</fieldset>
+<fieldset>
+    <table id="tblProductosAgotados">
+    </table>
+</fieldset>

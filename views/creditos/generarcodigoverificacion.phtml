@@ -1,0 +1,87 @@
+<script type="text/javascript" src="/javascript/generarcodigoverificacion.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">GENERAR :: Código de Verificación</h2>
+
+<div id="listados">
+    <div id="busqueda">
+        Busqueda: <input type="text" id="txtOrdenVenta" name="txtOrdenVenta" size="50px" placeholder="Ingrese Orden de Venta">
+        <br><br>
+    </div>
+    <div id="muestra">
+        <div id="cliente">
+            <fieldset>
+                <legend><b>Datos del Cliente</b></legend>
+                <form action="/creditos/generarcodigoverificacion/" id="frmGenerarCodigo" method="post">
+                    <ul>
+                        <li>
+                            Orden de Venta:
+                            <input type="hidden" name="txtIdordenventa" id="txtIdordenventa">
+                            <input type="text" id="codigov"  readonly>
+                        </li>
+                        <li>
+                            Razon Social:
+                            <input type="text" readonly id="razonsocial" size="40">
+                        </li> 
+                        <li>
+                            N° de RUC:
+                            <input type="text" readonly id="ruc">
+                        </li>
+                        <li>
+                            Usuario:
+                            <select name="txtUsuario" required>
+                                <option Value=""> -- Seleccione Usuario -- </option>
+                                <?php
+                                $cantidad = count($UsuariosVerificacion);
+                                for ($i = 0; $i < $cantidad; $i++) {
+                                    ?>
+                                    <option value="<?php echo $UsuariosVerificacion[$i]['idactor'] ?>"><?php echo $UsuariosVerificacion[$i]['nombres'] . ' ' . $UsuariosVerificacion[$i]['apellidopaterno'] . ' ' . $UsuariosVerificacion[$i]['apellidomaterno'] . ' :: ' . $UsuariosVerificacion[$i]['usuario']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </li>
+                        <li>
+                            Módulo:
+                            <select name="txtModulo" required>
+                                <option Value=""> -- Seleccione Módulo -- </option>
+                                <?php
+                                $cantidad = count($OpcionesValidacion);
+                                for ($i = 0; $i < $cantidad; $i++) {
+                                    ?>
+                                    <option value="<?php echo $OpcionesValidacion[$i]['idopciones'] ?>"><?php echo $OpcionesValidacion[$i]['nombre'] . ' :: ' . $OpcionesValidacion[$i]['url']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </li>
+                        <li>
+                            Motivo:
+                            <select name="txtMotivo" required>
+                                <option Value=""> -- Seleccione Motivo -- </option>
+                                <?php
+                                $cantidad = count($MotivoReprogramacion);
+                                for ($i = 1; $i <= $cantidad; $i++) {
+                                ?>
+                                    <option value="<?php echo $i ?>"><?php echo $MotivoReprogramacion[$i]; ?></option>
+                                <?php } ?>
+                            </select>
+                        </li>
+                        <li>
+                            Descripción:<br>
+                            <textarea placeholder="Descripcion" rows="2" cols="110" maxlength="100" name="txtDescripcion" required=""></textarea>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul>
+                        <li>
+                            <button type="submit" id="btnBuscar">Generar</button>
+                        </li>
+                    </ul>
+                </form>
+            </fieldset>
+            <?php if (isset($respuesta)) { 
+                echo '<fieldset>';
+                echo ($respuesta == -1 ? '<p style="color: red; font-weight: 550">' . $mensaje . '</p>' : '<p style="color: blue; font-weight: 550">' . $mensaje . '</p>');
+                echo '</fieldset>';
+            } ?>
+        </div>
+    </div>
+</div>
+
+
+    

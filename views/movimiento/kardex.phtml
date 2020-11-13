@@ -1,0 +1,150 @@
+<script src="/javascript/wc_producto.js"></script>
+<script src="/javascript/wc_movimiento.js"></script>
+<h2>Movimientos :: Kardex por Producto</h2>
+<br>
+<div id="busqueda">
+    Busqueda: <br>
+    <input autofocus="on" type="text" id="txtproducto" size="30" placeholder="Nombre o c&oacute;digo del producto">
+    <input type="hidden" id="idProducto" >
+    <input type="text" id="txtDescripcion" size="80px" disabled readonly>
+    <br><br>
+    
+    Periodo: <br>
+    <select id="periodoInicial">
+        <option value="">Año</option>
+        <?php $anio = date('Y');
+        for ($i = $anio; $i >= 2013 ; $i--) { ?>
+            <option value="<?php echo $i ?>"><?php echo $i ?></option>
+        <?php } ?>
+    </select>
+    <select id="mesInicial">
+        <option value="">Mes</option>
+    </select>
+    <script>
+        $(document).ready(function () {
+            $("#periodoInicial").change(function () {
+                if ($(this).val() == '') {
+                    $("#mesInicial").html('<option value="">Mes</option>');
+                }
+                else if ($(this).val() == '<?php echo $anio;?>') {
+                    $("#mesInicial").html('<option value="">Mes</option>'
+                        <?php $m = date('n');
+                        for ($i = 1; $i <= $m; $i++) { ?>
+                            + '<option value="<?php echo $i ?>"><?php echo $mes[$i] ?></option>'
+                        <?php } ?>
+                    );
+                }
+                else  {
+                    $("#mesInicial").html('<option value="">Mes</option>'
+                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                + '<option value="<?php echo $i ?>"><?php echo $mes[$i] ?></option>'
+                        <?php } ?>
+                    );
+                }
+            });
+        });
+    </script>
+    &nbsp; - &nbsp;
+    <select id="periodoFinal">
+        <option value="">Año</option>
+        <?php $anio = date('Y');
+        for ($i = $anio; $i >= 2013 ; $i--) { ?>
+            <option value="<?php echo $i ?>"><?php echo $i ?></option>
+        <?php } ?>
+    </select>
+    <select id="mesFinal">
+        <option value="">Mes</option>
+    </select>
+    <script>
+        $(document).ready(function () {
+            $("#periodoFinal").change(function () {
+                if ($(this).val() == '') {
+                    $("#mesFinal").html('<option value="">Mes</option>');
+                }
+                else if ($(this).val() == '<?php echo $anio;?>') {
+                    $("#mesFinal").html('<option value="">Mes</option>'
+                        <?php $m = date('n');
+                        for ($i = 1; $i <= $m; $i++) { ?>
+                            + '<option value="<?php echo $i ?>"><?php echo $mes[$i] ?></option>'
+                        <?php } ?>
+                    );
+                }
+                else  {
+                    $("#mesFinal").html('<option value="">Mes</option>'
+                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                + '<option value="<?php echo $i ?>"><?php echo $mes[$i] ?></option>'
+                        <?php } ?>
+                    );
+                }
+            });
+        });
+    </script>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="checkbox" id="sunat">&nbsp;SUNAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="submit" value="Ver Kardex" id="btnCargaKardex">
+    <button id="btnImprimir">Imprimir</button>
+</div>
+<br><br><hr>
+<div id="listados">
+    <table style="margin-bottom:0px">
+        <caption>
+            <h2>Formato 13.1 : Registro de Inventario Permanente Valorizado</h2>
+        </caption>
+        <tr>
+            <td style="width:30%;text-align: left;">PERÍODO : </td><td style="width:70%;text-align: left;"><label id="labelPeriodo"></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">RUC : </td><td style="width:70%;text-align: left;"><label id="labelRuc"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">RAZÓN SOCIAL : </td><td style="width:70%;text-align: left;"><label id="labelRazonSocial"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">ESTABLECIMIENTO : </td><td style="width:70%;text-align: left;"><label id="labelalmacen"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">CODIGO DE LA EXISTENCIA : </td><td style="width:70%;text-align: left;"><label id="labelCodigo"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">TIPO : </td><td style="width:70%;text-align: left;"><label id="labelTipo"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">DESCRIPCIÓN : </td><td style="width:70%;text-align: left;"><label id="labelProducto"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">UNIDAD DE MEDIDA : </td><td style="width:70%;text-align: left;"><label id="labelUnidadMedida"></label></td>
+        </tr>
+        <tr>
+            <td style="width:30%;text-align: left;">MÉTODO DE VALUACIÓN : </td><td style="width:70%;text-align: left;"><label id="labelMetodo"></label></td>
+        </tr>
+    </table>
+
+    <table id="tblKardexValorizado">
+        <thead>
+            <tr>
+                <th rowspan="2" class="text-10">Nro</th>
+                <th rowspan="2" class="text-30">Fecha</th>
+                <th rowspan="2" class="text-30">Tipo Doc</th>
+                <th rowspan="2" class="text-30">Serie</th>
+                <th rowspan="2" class="text-30">Núm</th>
+                <th rowspan="2" class="text-30">Tipo<br>Mov.</th>
+                <th colspan=3>ENTRADAS </th>
+                <th colspan=3>SALIDAS</th>
+                <th colspan=3>SALDO FINAL</th>
+            </tr>
+            <tr>
+                <td >Cantidad</td>
+                <td>Costo<br>Unit. (S/.)</td>
+                <td class="text-100">Costo Total (S/.)</td>
+                <td>Cantidad</td>
+                <td>Costo<br>Unit. (S/.)</td>
+                <td class="text-100">Costo Total (S/.)</td>
+                <th>Cantidad</th>
+                <th>Costo<br>Uni. (S/.)</th>
+                <th class="text-100">Costo Total (S/.)</th>								
+            </tr>	
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>

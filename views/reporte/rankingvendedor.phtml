@@ -1,0 +1,27 @@
+<script type="text/javascript" src="/javascript/reporteclientevendedor.js"></script>
+<br><br><h2>Reporte :: Ranking Clientes x Vendedor</h2>
+<fieldset>
+    <legend></legend>
+    <form id="Parametros" action="/pdf/reporteclientevendedor/" method="post" target="_blank">
+        <ul>
+            <li>
+                <label>Vendedor</label>
+                <input type="text" id="txtVendedor" class="uppercase text-300" required="">
+                <input type="hidden" id="idVendedor" name="idVendedor" required="">
+            </li>
+            <li>
+                <label>Año</label>
+                <select name="cmbAnio">
+                    <?php for($i = date('Y'); $i >= 2013; $i--) {
+                        ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php
+                    }?>
+                    <option value="">--TODOS--</option>
+                </select>
+            </li>
+            <li><button id="btnRanking" style="font-size: 18px;">Detallado<img style="vertical-align: middle;text-align: center;"  width="50px" height="25px" src="/imagenes/ranking.png"></button></li>
+            <li><button id="btnResumido" style="font-size: 18px;">Resumido<img style="vertical-align: middle;text-align: center;"  width="50px" height="25px" src="/imagenes/ranking.png"></button></li>
+        </ul>
+    </form>
+</fieldset>

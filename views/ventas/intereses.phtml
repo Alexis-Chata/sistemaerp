@@ -1,0 +1,71 @@
+<script type="text/javascript" src="/javascript/intereses.js"></script>
+<br><br>
+<h2>Facturación: Generar Intereses</h2>
+<br>
+<div id="busqueda">
+    Busqueda: <input autofocus type="text" id="txtOrdenVenta2" name="txtOrdenVenta" size="50px" placeholder="Ingrese el número de orden de venta">
+    <input  type="hidden" id="txtIdOrden" name="idOrdenVenta" required="required">
+</div>
+<br>
+<div id="muestra">
+    <style type="text/css">
+        *{
+
+        }
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+            border-spacing:0px;
+            padding: 0px;
+
+
+            margin: 0px;
+        }
+        table tr td, table tr th{
+
+        }
+    </style>
+    <div id="cliente">
+        <fieldset>
+            <legend>Datos del Cliente</legend>
+            <ul>
+                <li>Código:</li>
+                <li><input type="text" name="codigo" readonly id="codigo" ></li>
+                <li>Razon Social:</li>
+                <li><input type="text" name="razonsocial" readonly id="razonsocial" size="40"></li>
+                <li>Número de RUC:</li>
+                <li><input type="text" name="ruc" readonly id="ruc"></li>
+            </ul>
+            <ul>
+                <li>Codigo Dakkar:</li>
+                <li><input type="text" name="codantiguo" readonly id="codantiguo"></li>
+            </ul>
+        </fieldset>
+    </div>
+    <div id="imprimirCliente" style="diplay:none"></div>
+    <div>
+        <table id="tblDetalleOrdenCobro">
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="contenedorintereses" style="diplay:none" title="Porcentaje de intereses">
+    <table>
+        <tr>
+            <th><label>Intereses </label></th>
+            <td>
+                <select id="idOpcIntereses">
+                    <?php 
+                    $tamIntereses=count($Intereses);
+                    for ($i=1; $i <= $tamIntereses ; $i++) { ?>
+                            <option value="<?php echo $i; ?>"> <?php echo $Intereses[$i]; ?>% </option>
+
+                    <?php  } ?>
+                </select>
+                <input id="txtDetalleordencobro" type="hidden" class="numeric">
+            </td>
+        </tr>
+    </table>
+</div>

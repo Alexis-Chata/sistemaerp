@@ -1,0 +1,29 @@
+<?php $idmodulo = 109; require_once 'evalcredenciales.php'; ?>
+<script src="/javascript/impresionDocumento.js"></script>
+<h2>Impresion de Documentos</h2>
+<fieldset>
+	<?php $cantidadDocumentos=count($documentos); ?>
+	<select id="lstTipoDocumento" style="float:left;margin-right:40px">
+		<option value="0">Seleccione Un Documento</option>
+		<?php for ($i=1; $i <$cantidadDocumentos+1 ; $i++) { ?>
+			<?php if ($i==3){ ?>
+				<option style="display:none;" value="<?php echo $i; ?>"><?php echo $documentos[$i]; ?></option>
+			<?php }else{ ?>
+			 	<option value="<?php echo $i; ?>"><?php echo $documentos[$i]; ?></option>
+		<?php }} ?>
+                <option value="10">Percepcion</option>
+	</select>
+	<input type="hidden" id="txtIdOrden">
+	<input type="text" size="30" id="txtOrdenVenta" style="display:none"  placeholder="Ingrese una Orden de Venta">
+	<input type="text" size="30" id="txtNumeroLetra" style="display:none" placeholder="Ingrese un Numero de Letra">
+        <div id="bloquepercepcion" style="display: none; float: right">
+            <b style="color: blue">Percepcion(%): </b>
+            <select id="lstValorPercepcion">
+                <option value="0.02">2%</option>
+                <option value="0.005">0.5%</option>
+                <option value="0.0">0%</option>
+            </select>
+        </div>
+</fieldset>
+<fieldset id="contenedorDocumentos">
+</fieldset>

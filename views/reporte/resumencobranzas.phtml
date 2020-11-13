@@ -1,0 +1,189 @@
+<script src="/javascript/resumenCobranza.js" type="text/javascript"></script>
+<script src="/javascript/reportletras.js" type="text/javascript"></script>
+<script src="/javascript/wc_cliente.js" type="text/javascript"></script>
+<script src="/javascript/wc_ordenventa.js" type="text/javascript"></script>
+<?php
+    $cantidadpadre = count($padre);
+    $cantidadhijo = count($hijo);
+    $cantidadzona = count($zona);
+    $cantidadtipo = count($tipocobranza);
+    $cantidadvendedor = count($vendedor);
+    $cantidadcobrador = count($cobrador);
+?>
+<style>
+    .ocultar{
+        display: none;
+    }
+</style>
+<fieldset>
+    <h2>REPORTE :: Resumen Cobranzas</h2>
+    <br>
+    <form action="/excel/detalladodeletras"  method="POST" target="_blank" id="frmLetras">
+        <ul style="padding: 10px; border: 1px solid #1fa0e5; background: #67c6f9; margin-bottom: 5px">
+            <li>
+                <label for="">Etapa:</label>
+                <select name="lstEtapa">
+                    <option value="">Seleccione Etapa</option>
+                    <option value="1">Antes de la Pandemia</option>
+                    <option value="2">Despues de la Pandemia</option>
+                </select>
+            </li>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio:</label>
+                <input type="text" style="background: gray;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Fin:</label>
+                <input type="text" style="background: gray;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li class="cls_power">
+                <label for="">Zona Geografica:</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal" >
+                    <option value="">Zona Geografica</option>
+                    <?php for ($i = 0; $i < $cantidadpadre; $i++) { 
+                        if ($padre[$i]['idcategoria'] != 29) {
+                            echo '<option value="' . $padre[$i]['idcategoria'] . '">' . $padre[$i]['nombrec'] . '</option>';
+                        }
+                    } ?>
+                </select>
+            </li>
+            
+            <li class="cls_power">
+                <label for="">Region Cobranza:</label>
+                <select id="lstCategoria" name="lstCategoria" >
+                    <option value="">Zona Cobranza-Categoria</option>
+                    <?php for ($i = 0; $i < $cantidadhijo; $i++) { ?>
+                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Zona:</label>
+                <select id="lstZona"  name="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                    <?php for ($i = 0; $i < $cantidadzona; $i++) { ?>
+                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="txtClientexIdCliente">Razon Social Cliente:</label>
+                <input type="text" id="txtClientexIdCliente" name="txtClientexIdCliente" size="50">
+                <input type="hidden" id="txtIdCliente" name="txtIdCliente">
+            </li>
+            <li class="cls_power">
+                <label for="txtOrdenVentaxId">Orden de Venta:</label>
+                <input type="text" id="txtOrdenVentaxId" name="txtOrdenVentaxId" size="20">
+                <input type="hidden" id="txtIdOrdenVenta" name="txtIdOrdenVenta">
+            </li>
+            <li>
+                <label for="">Moneda:</label>
+                <select name="lstMoneda" id="lstMoneda">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Soles</option>
+                    <option value="2">Dolares</option>
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul class="blockIncobrables">
+            <li>
+                <label for="">Tipo de Cobro:</label>
+                <select id="idcmbCondicionIncobrable" name="cmbCondicionIncobrable">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Contrado</option>
+                    <option value="2">Creditos</option>
+                    <option value="3">Letras</option>
+                    <option value="4">Letras Protestadas</option>
+                </select>
+            </li>
+        </ul>
+        <ul class="blockCobrables">
+            <li>
+                <label for="">Especifique Detalle:</label>
+                <select id="cmbCondicion" name="cmbCondicion">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Letras</option>
+                    <option value="2">Creditos</option>
+                    <option value="3">Corp. Power Acoustik</option>
+                    <option value="4">Contado</option>
+                </select>
+            </li>
+            <li id="groupLetras">
+                <input type="text" id="txtCondiciones" name="txtCondiciones" hidden="">
+                <label for="">Estado:</label>
+                <select id="lstRecepcionLetras" name="lstRecepcionLetras">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Enviadas al Banco</option>
+                    <option value="2">Sin enviar al Banco</option>
+<!--                    <option value="3">Por Producto</option>-->
+                    <option value="4">Protestadas</option>
+                </select>
+            </li>
+        </ul>
+        <ul id="groupVencimiento" class="blockCobrables">
+            <li>
+                <label for="">Estado:</label>
+                <select id="cmbCondVencimiento1" name="lstEstado">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Vencidas</option>
+                    <option value="2">Por Vencer</option>
+                </select>
+            </li>
+            <li id="cmbCondVencimiento2">
+                <label for="">Intervalo de tiempo:</label>
+                <select name="lstCondVencimiento2">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="30">vencidos hace 30 dias </option>
+                    <option value="60">vencidos hace 60 dias</option>
+                    <option value="90">vencidos hace 90 dias</option>
+                    <option value="91">vencidos en mas de 90 dias</option>
+                </select>
+            </li>
+            <li id="cmbCondVencimiento3">
+                <label for="">Intervalo de tiempo:</label>
+                <select name="lstCondVencimiento3">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="30">por vencer en 30 dias </option>
+                    <option value="60">por vencer en 60 dias</option>
+                    <option value="90">por vencer en 90 dias</option>
+                    <option value="91">por vencer en mas de 90 dias</option>
+                </select>
+            </li>
+            <li>
+                <input type="checkbox" name="chk1" id="chk1"  checked="">&nbsp;formato 1
+                <input type="checkbox" name="chk2" id="chk2" style="margin-left:10px;">&nbsp;formato 2
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button type="button" id="btnPDF">Resumen <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+        </ul>
+        <ul class="blockIncobrables">
+            <li>
+                <button type="button" id="btnExcelIncobrable">Detalle Cobranza <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+            <li>
+                <button type="button" id="btnExcelFormato2">Formato 2<img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+            <li>
+                <button type="button" id="btnExcelContadoFormato2">Formato 2<img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+        </ul>
+        <ul class="blockCobrables">
+            <li>
+                <button type="button" id="btnExcel">Detallado <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+            <li id="mostrarPowerAcoustik">
+                <input type="checkbox" name="chk10" id="chk10"  checked="">&nbsp;formato 1
+                <input type="checkbox" name="chk20" id="chk20" style="margin-left:10px;">&nbsp;formato 2
+            </li>
+        </ul>
+            <button type="button" id="btnResumenDetallado">Resumen de Detallado <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+    </form>
+</fieldset>

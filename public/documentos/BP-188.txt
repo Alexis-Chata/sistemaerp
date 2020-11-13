@@ -1,0 +1,81 @@
+A;Serie;;B002
+A;Correlativo;;00000045
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;72626290
+A;RznSocRecep;;ROBERTO CARLOS FARFAN VILLA
+A;DirRecep;;CENTRO POBLADO MIRA MAR MZ D LT5 -PISCO - ICA - PISCO - PISCO
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;135.69
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;24.43
+A;MntTotal;;160.12
+A;FchEmis;;2017-08-17
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;24.43
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;2
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;LA-18100A
+B;NmbItem;1;SUBWOOFER 18" 100 ONZ,8 OHM,1450W VC 3" RIGIDO CORRUGADO, POWER ACOUSTIK
+B;PrcItem;1;44.48
+B;PrcItemSinIgv;1;37.69
+B;MontoItem;1;75.39
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;6.79
+B;NroLinDet;2;2
+B;QtyItem;2;2
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;RCZ
+B;NmbItem;2;CAJA ACUSTICA 18" GABINETE SOLO SIN PARLANTE
+B;PrcItem;2;33.74
+B;PrcItemSinIgv;2;28.59
+B;MontoItem;2;57.19
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;5.15
+B;NroLinDet;3;3
+B;QtyItem;3;4
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;JTA-177
+B;NmbItem;3;JACK SPEKON 4 PINES
+B;PrcItem;3;0.92
+B;PrcItemSinIgv;3;0.78
+B;MontoItem;3;3.12
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.14
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 336
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Ciento Sesenta con 12/100 Dolares Americanos  

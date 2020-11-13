@@ -1,0 +1,87 @@
+
+<div id="listados">
+<h2>Seguridad: Sublinea
+</h2>
+<br>
+
+<form method="POST" action="/sublinea/buscar/">
+<div id="busqueda">
+		Busqueda: <br><input type="text" id="txtBusqueda" name="txtBusqueda" title="Ingrese un Nombre o Linea" size="50px" value="<?php echo $retorno;?>">
+		<input type="submit" value="Ver">
+</div>
+</form>
+<form method="POST" action="/sublinea/listar/">
+		<input type="submit" value="Cancelar">
+</form>
+<hr>
+<table>
+	<thead>
+			<tr>
+				<th colspan="3" >
+				Listado de Sublinea
+				</th>
+				<th><a href="/sublinea/nuevo">
+						<img src="/imagenes/iconos/nuevo.gif">
+					</a>
+				</th>
+			</tr>
+		<tr>
+			<th>Nombre Sublinea</th>
+			<th>Linea</th>
+			<th colspan="2">Acci&oacute;n</th>
+		</tr>
+		<?php
+			for($i=0;$i<count($sublinea);$i++){
+				echo "<tr>";
+					echo "<td>".$sublinea[$i]['nomlin']."</td>";
+					echo "<td>".$sublinea[$i]['idpadre']."</td>";
+					echo '<td><a href="/sublinea/editar/'.$sublinea[$i]['idlinea'].'/" class="btnEditar"><img src="/imagenes/editar.gif"></a></td>';
+					echo '<td><a href="/sublinea/eliminar/'.$sublinea[$i]['idlinea'].'/" class="btnEliminar"><img src="/imagenes/eliminar.gif"></a></td>';
+				echo "</tr>";
+			}
+
+
+		?>
+	<tfoot>
+		<tr><td colspan="4" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/sublinea/buscar/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a clas='permanente' href=\"/sublinea/buscar/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a clas='permanente' href=\"/sublinea/buscar/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion && !empty($pagina)) 
+				{
+					echo "<a href=\"/sublinea/buscar/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+				echo 'Total de registros: '.$totregistros;
+
+		?>
+		
+		</tr>
+		</thead>
+	</tfoot>
+</table>
+
+</div>

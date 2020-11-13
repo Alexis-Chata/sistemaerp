@@ -1,0 +1,25 @@
+<script src="/javascript/categoria.js"></script>
+<form action="/zona/grabacategoria" method="POST">
+
+	<h2><p>NUEVA CATEGORIA:</p></h2>
+	<ul class="inline-block">
+		<li>
+			<select required id="lstcategoriapadre" name="Categoria[idpadrec]">
+				<?php foreach ($categorias as $catego) { ?>
+					
+				
+				<option value="<?php echo $catego['idcategoria'] ?>"><?php echo $catego['nombrec'] ?></option>
+				<?php }?>
+			</select>
+		</li>
+		<li>
+			<label>Codigo</label>
+			<input id="codigoCategoria" required type="text" name="Categoria[codigoc]" class="numeric required" size="11"><b id="error"></b>
+		</li>
+		<li>
+			<label>Nombre</label>
+			<input required type="text" class="required uppercase" name="Categoria[nombrec]">
+		</li>
+		<li><input id="btnnuevaCategoria" type="submit" value="..::: REGISTRAR :::.." ><button id="btnCancelar">Cancelar</button></li>
+	</ul>
+</form>

@@ -1,0 +1,54 @@
+<script src="/javascript/reporte-estructuracostos.js"></script>
+<h2>Estructura de Costos</h2>
+<fieldset>
+	
+    <form id="frmConsulta" method="post">
+		<ul>
+			<li>
+				<label>Mes</label>
+				<select name="opcmes" id="mes">
+					<option value="01">Enero</option>
+                                        <option value="02">Febrero</option>
+                                        <option value="03">Marzo</option>
+                                        <option value="04">Abril</option>
+                                        <option value="05">Mayo</option>
+                                        <option value="06">Junio</option>
+                                        <option value="07">Julio</option>
+                                        <option value="08">Agosto</option>
+                                        <option value="09">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+				</select>
+			</li>
+			<li>
+				<label>Año</label>
+				<select name="opcanho" id="anho">
+                                    <?php for($i=2013;$i<date('Y');$i++){
+                                        echo '<option value="'.$i.'" >'.$i.'</option>';
+                                    }
+                                    echo '<option value="'.$i.'" selected="selected" >'.$i.'</option>';
+                                    ?>
+				</select>
+			</li>
+		</ul><br>
+		<ul>
+		<li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+		<li><button id="btnLimpiar" style="font-size: 18px;">Limpiar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/limpiar.png"> </button></li>
+		<li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+                <li><button id="btnConsultarExcel">Consultar <img style="vertical-align:middle" src="/imagenes/excel.png" width="25" height="25" /></button></li>
+		</ul>
+	</form>
+</fieldset>
+
+<div id="ContenedorImpresion">
+	<table id="tblEncabezado" style="display:none;">
+		<tr><th colspan="6"><label id="lblTitulo">&nbsp;</label></th></tr>
+		<tr>
+			<th style="width:15%;">Mes</th><td><label id="lblmes"></label></td>
+			<th style="width:15%;">Año</th><td><label id="lblanho"></label></td>
+		</tr>
+	</table>
+	<div id="tblConsulta">
+	</div>
+</div>

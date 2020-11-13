@@ -1,0 +1,147 @@
+<!--<h3>Total de Pedidos por aprobar: <?php echo count($ordenVenta)?></h3>-->
+<h2>Almacen: Confirmar Existencias de Productos.</h2>
+<div id="divPedidos">
+<style type="text/css">
+	#divCondicionPedido li{
+		display:block;
+	}
+</style>
+<script type="text/javascript" src="/javascript/aprobacion-pedido-almacen.js"></script>
+<div class="field-set">
+	<p class="title">Ordenes por Confirmar <span class="addicional-informacion"></span></p>
+	<div class="body">
+		<input type="hidden" id="txtordenventa" readonly class="important" >
+	<table id="tblOrdenes">
+		<thead>
+			<tr>
+				<th>Nro. Orden</th>
+				<th>Forma<br>Pago</th>
+				<th>Fecha</th>
+				<th>Cliente</th>
+				<th>Vendedor</th>
+				<th>Acci&oacute;n</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				for($i=0;$i<count($ordenVenta);$i++){
+					$fOrdenVenta = date("d-m-Y",strtotime($ordenVenta[$i]['fordenventa']));
+					$cliente=($ordenVenta[$i]['razonsocial'])?$ordenVenta[$i]['razonsocial']:$ordenVenta[$i]['nombrecli']." ".$ordenVenta[$i]['apellido1']." ".$ordenVenta[$i]['apellido2'];
+					echo "<tr>";
+						echo '<td>'.$ordenVenta[$i]['codigov'].
+							'<input type="hidden" value="' . $ordenVenta[$i]['codigov'] . " - " . $fOrdenVenta . '" class="important">'.
+							'<input type="hidden" value="'.$ordenVenta[$i]['idordenventa'].'" class="txtIdOrden">
+							</td>';
+						echo '<td>'.$FormaPago[($ordenVenta[$i]['formapagoov'])].'</td>';
+						echo "<td>". $fOrdenVenta ."</td>";
+						echo "<td>".$cliente."</td>";
+						echo "<td>".$ordenVenta[$i]['nombres'].' '.$ordenVenta[$i]['apellidopaterno'].' '.$ordenVenta[$i]['apellidomaterno']."</td>";
+						echo '<td><a href="/ordenventa/listaDetalleAlmacen/'.$ordenVenta[$i]['idordenventa'].'" class="btnVerDetalle">Ver</a></td>';
+					echo "</tr>";
+				}
+			?>
+		</tbody>
+	</table>
+</div>
+</div>
+<form action="/almacen/confirmaorden/" id="frmApruebaOrden" method="POST">
+	<div class="field-set">
+		<p class="title">Datos del Cliente <span class="addicional-informacion"></span></p>
+		<div class="body">
+		<ul class="inline-block">
+			<li>
+				<label>Cliente:</label>
+				<input type="text" id="txtCliente" readonly class="important text-250" disabled>
+				<input type="hidden" id="txtIdOrden" name="idOrdenVenta">
+				<input type="hidden" name="estadoOrden" value="1" id="txtEstadoOrden">
+			</li>
+			<li>
+				<label>RUC / DNI:</label>
+				<input type="text" id="txtRucDni" size="11" maxlength="11" class="text-250" readonly disabled>
+			</li>
+			<li>
+				<label>Lugar:</label>
+				<input type="text" id="txtLugar" size="25" maxlength="10" class="text-250" readonly disabled>
+			</li>
+		</ul>
+		<ul class="inline-block">						
+			<li>
+				<label>Direccion:</label>
+				<input type="text" id="txtDireccion" class="text-250" readonly disabled>
+			</li>
+			<li>
+				<label>Telefono:</label>
+				<input type="text" id="txtTelefono" size="7" maxlength="10" class="text-250" readonly disabled>
+			</li>
+			
+		</ul>
+		
+		<ul class="block">
+			<li class="block">
+				<label>Observaci&oacute;nes Cobranzas</label><br>
+				<input id="mcobranzas" name="Orden[mcobranzas]" class="uppercase text-full" value="" readonly>
+			</li>
+		</ul>
+		<ul class="block">
+		<!--	<li>
+				<div id="divCondicionPedido"></div>
+			</li>-->
+			<li class="block">
+				<label>Mis Observaci&oacute;nes</label><br>
+				<input name="Orden[malmacen]" class="uppercase text-full" value="" placeholder="Ingrese sus observaciones">
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="field-set">
+	<p class="title">Productos</p>
+	<div class="body">
+		<div id="muestra">
+			<div id="contenido"></div>
+			<table id="tblProductosGuia">
+				<thead>
+					<tr>
+						<th>Codigo</th>
+						<th>Descripci&oacute;n</th>
+						<th>U. Medida</th>
+						<th>Ubicación<br>Almacen</th>
+						<th>Cantidad<br>Aprobada</th>
+						<th>Cantidad<br>a despachar</th>
+						<th>Stock<br>Actual</th>
+						
+						<th colspan="2">Acci&oacute;n</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+	<input type="submit" value="Aprobar" class="btnRegistrar" id="btnAprobar">
+	<button id="btnDesaprobar">Desaprobar</button>
+	<button style="margin-left:150px" id="imprimir" title="Imprimir">Imprimir<img style="vertical-align: middle;text-align:center;width:30" src="/imagenes/imprimir.gif"></button>
+</form>
+</div>
+	<div id="tablaMostrar">
+		<p ></p>
+		<div >
+		<table >
+			<thead>
+				<tr>
+					<th>Nro. Orden</th>
+					<th>Forma<br>Pago</th>
+					<th>Fecha</th>
+					<th>Cliente</th>
+					<th>Vendedor</th>
+					<th>Acci&oacute;n</th>
+					<th colspan="2">Acci&oacute;n</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="9" aling="center">No hay Ordenes para Confirmar</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>

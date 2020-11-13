@@ -1,0 +1,77 @@
+<script src="/javascript/movimiento.js"></script>
+<input type="hidden" id="txtRutaImagen" value="<?php echo $RutaImagen ?>">
+<input type="hidden" value="1" id="contador">
+<h2>Almacenes : Movimiento Stock Repuesto</h2>
+<form action="/movimiento/registraRepuesto/" method="POST" id="frmMovimientoNuevo">
+	<div class="field-set">
+		<p class="title">Registro de Movimiento Repuesto :: Nuevo</p>
+		<div class="body">
+			<ul>
+				<li>
+					<label>Fecha</label>
+					<input type="hidden" id="txtNumeroMovimiento" value="<?php echo ($numeroMovimiento + 1) ?>">
+					<input type="hidden" name="Repuesto[fechamovimiento]" value="<?php echo date('Y/m/d') ?>">
+					<input type="hidden" name="txtCantidadDetalleMovimiento" value="0" id="txtCantidadDetalleMovimiento">
+					<label style="color:#007F7F"><?php echo date('d/m/Y'); ?></label>
+				</li>
+				<li>
+					<label>Tipo movimiento</label>
+					<select name="Repuesto[tipomovimiento]" id="lstTipoMovimiento" class="required valida-submit">
+						<option value="">-- Seleccionar uno --</option>
+						<option value="1">INGRESO</option>
+						<option value="2">SALIDA</option>
+					</select>
+				</li>
+				<li>
+					<label>Orden de Compra</label>
+					<input type="text" size="30" id="txtOrdenCompra">
+					<input type="hidden" id="idOrdenCompra" name="Repuesto[idordencompra]">
+				</li>
+
+				<li class="ingresoSalida">
+					<label>Producto</label>
+					<input type="text" id="txtCodigoProductoRepuesto" class="required uppercase text-100 valida-no-submit">
+					<input type="hidden" id="txtIdProducto">
+				</li>
+				<li class="ingresoSalida">
+					<label>Cantidad</label>
+					<input type="number" id="txtCantidad" style="width:60px" class="required numeric valida-no-submit">
+				</li>
+				
+			</ul>
+			<ul class="block">
+				<li class="inline">
+					<label>Observaci&oacute;nes</label>
+					<input type="text" id="txtObservaciones" class="required uppercase valida-no-submit valid" style="width: 75%;" name="Repuesto[observaciones]">
+				</li>
+				<li class="ingresoSalida">
+					<button id="btnAgregarDetalleMovimientoRep">Agregar</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="field-set">
+		<p class="title">Detalle de Movimiento <?php echo $numeroMovimiento; ?>
+
+		</p>
+		<div class="body">
+			<table id="tblDetalleMovimiento">
+				<thead>
+					<tr>
+						<th>foto</th>
+						<th>C&oacute;digo</th>
+						<th>Descripci&oacute;n</th>
+						<th>Marca</th>
+						<th>Observacion</th>
+						<th>Cantidad</th>
+						<th colspan="2">Acci&oacute;n</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<input type="submit" value="Registrar Movimiento" id="btnRegistrarMovimiento">
+	<button id="btnCancelarRep">Cancelar</button><b id="error"></b>
+</form>

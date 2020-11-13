@@ -1,0 +1,124 @@
+<script src="/javascript/impresionAutomatica.js"></script>
+<link rel="stylesheet" href="/css/impresionNotaCredito.css"  >
+
+<?php
+$max_item_xfactura=$maximoItem;
+$cantidad=count($DetalleNCredito);
+$pages=$hojas;
+?>
+
+<?php
+
+for($z=0;$z<$pages;$z++){
+	$minimo=($z)*$max_item_xfactura;
+	$maximo=(($minimo+$max_item_xfactura)>$cantidad)?($cantidad):($minimo+$max_item_xfactura);
+?>
+<div id="impresion">
+	<table id="encabezado">
+		
+		<tr>
+			<td style="width:15mm;">&nbsp;</td>
+			<td style="width:97mm;"><?php echo $NotaCredito[0]['razonsocial']; ?></td>
+			<td style="width:22mm;">&nbsp;</td>
+			<td style="width:55mm;"><?php echo $NotaCredito[0]['numeroRelacionado']." - ".$NotaCredito[0]['fechaFactura']; ?></td>
+		</tr>
+		<tr>
+			<td colspan="4" style="font-size: 5px;">&nbsp</td>
+		</tr>
+		<tr>
+			<td style="width:15mm;">&nbsp</td>
+			<td style="width:97mm;"><?php echo $NotaCredito[0]['ruc']; ?></td>
+			<td style="width:22mm;">&nbsp</td>
+			<td style="width:55mm;"><?php echo (date('d').'/'.date('m').'/'.date('Y'))." / ".$NotaCredito[0]['codigov']; ?></td>
+		</tr>
+	</table >
+	<table id="cuerpo">
+		
+		<tbody>
+				<?php if ($maximo>$max_item_xfactura ) { ?>
+					
+					<tr>
+						<td>viene..</td>
+					</tr>
+				<?php } ?>
+			<?php 
+			$importetotal=0;
+			/*$maximo=25;
+			$minimo=0;*/
+			//$cantidad=count($DetalleNCredito);
+			for ($i=$minimo; $i <$maximo ; $i++) { 
+				///if (!empty($DetalleNCredito[$i]['codigopa']) ) { 
+				if ($DetalleNCredito[$i]['cantidad']!=0) { ?>
+					
+				<?php $DetalleNCredito[$i]['nompro']=htmlspecialchars_decode($DetalleNCredito[$i]['nompro'],ENT_QUOTES); ?>
+					
+				
+			<tr>
+				
+				<td class="td2"><?php echo $DetalleNCredito[$i]['cantidad']; ?></td>
+				<td class="td3"><?php echo substr($DetalleNCredito[$i]['codigopa'], 0,22); ?></td>
+				<td class="td4"><?php echo substr($DetalleNCredito[$i]['nompro'], 0,55); ?></td>
+				<td class="td5"><?php echo $NotaCredito[0]['simbolo'].' '.number_format($DetalleNCredito[$i]['precio'],2); ?></td>
+				<td class="td6"><?php echo $NotaCredito[0]['simbolo'].' '.number_format(($DetalleNCredito[$i]['precio']*$DetalleNCredito[$i]['cantidad']),2);; ?></td>
+				<td class="td1">&nbsp;</td>
+				<?php $importetotal+=($DetalleNCredito[$i]['precio'])*($DetalleNCredito[$i]['cantidad']); ?>
+			</tr>
+			<?php //} 
+			} }?>
+				<?php if ($cantidad>$maximo && $maximo!=$cantidad) { ?>
+					<tr>
+						<td colspan="5" style="text-align:center;"><?php echo str_pad('-',150,'-',STR_PAD_LEFT); ?></td>
+					</tr>
+					<tr>
+						<td>va..</td>
+					</tr>
+				<?php } ?>
+				<?php if ($maximo==$cantidad){ ?>
+					<tr>
+						<td colspan="5" style="text-align:center;"><?php echo str_pad('-',150,'-',STR_PAD_LEFT); ?></td>
+					</tr>
+				<?php  } ?>
+		</tbody>
+
+	</table>
+
+	<table id="piepagina">
+		
+		<tr>
+			<td colspan="2" class="tp1">&nbsp</td>
+			<td class="tp2"><?php echo $NotaCredito[0]['simbolo'].' '.number_format($importetotal/1.18,2); ?></td>
+			<td class="tp3">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="width:10mm">&nbsp;</td>
+			<td style="width:149mm"><?php echo $motivo ?></td>
+			<td class="tp2"><?php echo $NotaCredito[0]['simbolo'].' '.number_format(($importetotal-($importetotal/1.18)),2); ?></td>
+			<td class="tp3">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="tp1">&nbsp;</td>
+			<td class="tp2"><?php echo $NotaCredito[0]['simbolo'].' '.number_format($importetotal,2); ?></td>
+			<td class="tp3">&nbsp;</td>
+		</tr>
+		
+	</table>
+</div>
+
+<?php
+if(($pages-$z)!=1){
+
+?>
+<br style="page-break-before: always;" />
+<?php
+}
+}
+?>
+
+
+

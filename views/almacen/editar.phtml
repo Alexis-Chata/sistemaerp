@@ -1,0 +1,31 @@
+<script src="/javascript/almacen.js"></script>
+<h2>Almacen : Actualizaci&oacute;n</h2>
+<form action="/almacen/actualiza/" method="POST" id="frmAlmacenActualizar">
+	<ul class="inline-block">
+		<li>
+			<label>Codigo:</label>
+			<input required type="text" name="Almacen[codigoalmacen]" value="<?php echo $Almacen[0]['codigoalmacen']?>" class="uppercase required">
+		</li>
+		<li>
+			<label>Nombre:</label>
+			<input required type="text" name="Almacen[nomalm]" value="<?php echo $Almacen[0]['nomalm']?>" class="uppercase required">
+		</li>
+		<li>
+			<label>Razon Social:</label>
+			<input required type="text" name="Almacen[razsocalm]" value="<?php echo $Almacen[0]['razsocalm']?>" class="uppercase required">
+		</li>
+		<li>
+			<label>Direcci&oacute;n:</label>
+			<input type="text" name="Almacen[diralm]" value="<?php echo $Almacen[0]['diralm']?>" class="uppercase required text-large">
+		</li>
+		<li>
+			<label>RUC:</label>
+			<input required type="text" name="Almacen[rucalm]" value="<?php echo $Almacen[0]['rucalm']?>" size="11" class="numeric required" maxlength="11" minLength="11">
+		</li>
+		<li>
+			<input type="hidden" name="idAlmacen" value="<?php echo $_REQUEST['id']?>">
+			<input type="submit" value="Actualizar">
+			<button id="btnCancelar">Cancelar</button>
+		</li>
+	</ul>
+</form>

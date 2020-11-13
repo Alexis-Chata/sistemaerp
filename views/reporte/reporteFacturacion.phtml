@@ -1,0 +1,64 @@
+<script src="/javascript/reporteFacturacion.js"></script>
+
+<fieldset>
+    <h2>Reporte Facturacion</h2>
+    <form action="/pdf/reporteFacturacion" method="post" target="_blank" id="frmConsulta">
+        <ul>
+            <li>
+                <label for="txtOrdenVenta">Orden Venta</label>
+                <input type="text" id="txtOrdenVenta" placeholder="Ingrese Orden de Venta" >
+                <input type="hidden" id="idOrdenVenta" name="idOrdenVenta" value="">
+            </li>
+            <li>
+                <label for="txtCliente">Cliente</label>
+                <input type="text" id="txtCliente" placeholder="Ingrese cliente" size="50px">
+                <input type="hidden" id="idCliente" name="idCliente" value="">
+            </li>
+            <li>
+                <label for="txtVendedor">Vendedor</label>
+                <input type="text" id="txtVendedor" placeholder="Ingrese Vendedor" size="50px">
+                <input type="hidden" id="idVendedor" name="idVendedor">
+            </li>
+            
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <select name="lstOrden" id="lstOrden">
+                    <option value="">Seleccione un Orden</option>
+                    <option value="d.fechadoc">Fecha Documento</option>
+                    <option value="c.razonsocial">Nombre de Cliente</option>
+                    <option value="a.nombres,a.apellidopaterno,a.apellidomaterno">Nombre del Vendedor</option>
+                    <option value="ov.codigov">Orden de Venta</option>
+                    <option value="ov.situacion">Situacion</option>
+                </select>
+            </li>
+            <li>
+                <select name="lstSituacion" id="lstSituacion">
+                    <option value="">Seleccione Situacion</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="cancelado">Cancelado</option>
+                    <option value="Anulado">Anulado</option>
+                </select>    
+            </li>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Final</label>
+                <input type="text" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <button id="btnConsultaHTML">Consulta <img src="/imagenes/html5.png" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                <button id="btnConsultaPDF">Consulta <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                <button id="btnConsultaExcel">Consulta <img src="/imagenes/excel.png" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                <button id="btnImprimir"><img src="/imagenes/html5.png" alt="" width="25" height="25" style="vertical-align: middle"> Consulta <img src="/imagenes/imprimir.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                <button id="btnLimpiar">Limpiar <img src="/imagenes/limpiar.png" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

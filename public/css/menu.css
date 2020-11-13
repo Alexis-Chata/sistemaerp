@@ -1,0 +1,62 @@
+
+  #accordion { /* el rectángulo contenedor */
+  	/*visiblilty: hidden;  */
+  	width:200px;
+  }
+  #accordion h3 { /* los enlaces que despliegan y contraen el contenido */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 0 10px #444 inset;
+    -webkit-box-shadow: 0 0 10px #444 inset;
+    box-shadow: 0 0 10px #444 inset;
+    background-color: #FFFFFF;
+    color: #white;
+    cursor: pointer;
+    font-family: Tahoma;
+    font-size: 12.5px;
+    font-weight: normal;
+    height: 3.0em;
+    line-height: 2.8em;
+    margin: 0 0 2px;
+    padding: 0 20px;
+    position: relative;
+
+  }
+  #accordion h3:hover { /* efecto hover sobre esos enlaces */
+    -moz-box-shadow: 0 0 10px #000 inset;
+    -webkit-box-shadow: 0 0 10px #000 inset;
+   box-shadow: 0 0 10px #white inset;
+    background-color: #CCCCCC;
+  color: #white;
+  }
+  #accordion h3 span { /* una imagen que permuta segñun el estado del contenido */
+    background: transparent url(http://img810.imageshack.us/img810/6159/demoacordeonjs.gif) no-repeat right top;
+    display: block;
+    height: 16px;
+    position: absolute;
+    right: 20px;
+    top: 7px;
+    width: 16px;
+    color: #white;
+  }
+  #accordion h3.active span { /* desplegado */
+    background-position: right bottom;
+  }
+  #accordion div { /* el contenido */
+    background-color: #ffffff;
+  /*  border: 1px dotted #666;*/
+    color: #AAA;
+    font-family: Georgia;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 10px;
+    padding: 10px;
+  }
+  #accordion div:hover { /* efecto hover sobre esos enlaces */
+    -moz-box-shadow: 0 0 10px #000 inset;
+    -webkit-box-shadow: 0 0 10px #000 inset;
+   box-shadow: 0 0 10px #white inset;
+    background-color: #ffffff;
+  color: #white;
+  }

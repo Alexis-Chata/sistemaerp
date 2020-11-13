@@ -1,0 +1,215 @@
+<script type="text/javascript" src="/javascript/serviciotecnico_atendidos.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Listado :: Notificaciones Finalizadas</h2>
+<br>
+
+<style type="text/css">
+    table {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 0px 0px 10px 0px;
+    }
+    table thead th{
+        background: #d2e9fd;
+        font-weight: bold;
+    }
+    table thead th, tfoot th {
+        background: #d2e9fd;
+        color: #000;
+        padding: 3px 5px 3px 5px;
+        text-align: center;
+    }
+    table tbody td {
+        border: 1px solid #e2e0e6;
+    }
+    #tblPendientes tfoot span {
+        background: #d2e9fd;
+        padding: 2px;
+        border: 1px solid #9cd4e2;
+        cursor: pointer;
+    }
+    #tblPendientes tfoot .activo {
+        background: #9cd4e2;
+        padding: 2px;
+        font-weight: bold;
+    }   
+    .tblDetalleAtendido {
+        border: 1px solid;
+        border-collapse: collapse;
+        border-spacing:0px;
+        padding: 0px;
+        margin: 10px 0px 10px 0px;
+    }
+    .tblDetalleAtendido thead th{
+        background: #085496;
+        color: white;
+        font-weight: bold;
+        border: 1px solid white;
+    }
+    .tblDetalleAtendido tbody th{
+        background: #191919;
+        color: white;
+        font-weight: bold;
+        border: 1px solid white;
+    }
+    .classNumero {
+        text-align: center;
+        font-weight: bold;
+        color: red;
+    }
+    #eliminarTecnico {
+        cursor: pointer;
+    }
+    #classNumero {
+        font-weight: bold;
+        color: red;
+    }
+    .prioridad {
+        display: block;
+        margin: 2px;
+        padding: 3px 7px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+    .prioridad-1 {
+        background: skyblue;
+    }
+    .prioridad-2 {
+        background: green;
+    }
+    .prioridad-3 {
+        background: orange;
+    }    
+    .prioridad-4 {
+        background: red;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
+    .FormatoNumero {
+        width: 45px;
+        text-align: right;
+    }
+    .FormatoNumero-2 {
+        width: 80px;
+    }
+    #msjCantidad {
+        font-size: 11px;
+        color: #666;
+    }
+    .DetalleReparado {
+        cursor: pointer;
+    }
+</style>
+<fieldset>    
+    <input type="hidden" id="textTipo" value="FINALIZADO">
+    <ul>
+        <form method="POST" action="/serviciotecnico/atendidos/" id="frmBusqueda">	
+            <li>Busqueda:
+                <input type="text" name="txtBusqueda" value="<?php echo $_REQUEST['txtBusqueda']; ?>" placeholder="Buscar por: Id., Cliente o Producto." class="text-300">
+                <input type="submit" value="Buscar" class="button">
+            </li>
+        </form>
+    </ul>    
+    <table id="tblPendientes">
+        <thead>
+            <tr>
+                <th>Id.</th>
+                <th>Documento</th>
+                <th>Cliente</th>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Fecha Llegada</th>
+                <th>Motivo</th>
+                <th>Prioridad</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $tam = count($finalizados);
+            for ($i = 0; $i < $tam; $i++) {
+                echo '<tr>' .
+                        '<td>' . $finalizados[$i]['codigost']  . '</td>' .
+                        '<td class="classNumero">' . $finalizados[$i]['numero'] . '</td>' .
+                        '<td>' . html_entity_decode($finalizados[$i]['razonsocial'], ENT_QUOTES, 'UTF-8') . '</td>' .
+                        '<td><b>' . $finalizados[$i]['codigopa'] . '</b></td>' .
+                        '<td>' . html_entity_decode($finalizados[$i]['nompro'], ENT_QUOTES, 'UTF-8') . '</td>' .
+                        '<td><b>' . $finalizados[$i]['cantidad'] . '</b>/' . ($finalizados[$i]['cantreparado'] + $finalizados[$i]['cantdescartado'] + $finalizados[$i]['cantseparado']) . '</td>' .
+                        '<td>' . $finalizados[$i]['fremision'] . '</td>' .
+                        '<td>' . $finalizados[$i]['nombremotivo'] . '</td>' .
+                        '<td><span class="prioridad prioridad-' . $finalizados[$i]['prioridad'] . '">' . $ArrayPrioridad[$finalizados[$i]['prioridad']] . '</span></td>' .
+                        '<td style="text-align: center;"><a class="verdetalle" data-iddetallerecepcion="' . $finalizados[$i]['iddetallerecepcion'] . '" href=""><img src="/public/imagenes/ver.gif"></a></td>' .
+                     '</tr>';
+            }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="15" align="center">
+                    <?php
+                    if (empty($_REQUEST['id'])) {
+                        $pagina = 1;
+                    } else {
+                        $pagina = $_REQUEST['id'];
+                    }
+                    if ($blockpaginas * 10 < $paginacion) {
+                        $blockpaginas = $blockpaginas + 1;
+                    } else {
+                        $blockpaginas = $blockpaginas;
+                    }
+                    if ($pagina > 1) {
+                        echo "<span class='pagAtendido' data-pag='" . ($pagina - 1) . "'>Anterior</span>";
+                    }
+                    for ($i = 1; $i <= $blockpaginas; $i++) {
+                        $max = $i * 10;
+                        for ($min = $max - 9; $min <= $max; $min++) {
+                            if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                if ($pagina == $min) {
+                                    echo "<span class='pagAtendido' data-pag='" . ($min) . "' class='activo'>" . ($min) . "</span>";
+                                } else {
+                                    echo "<span class='pagAtendido' data-pag='" . ($min) . "'> " . ($min) . " </span>";
+                                }
+                            }
+                        }
+                    }
+                    if ($pagina < $paginacion) {
+                        echo "<span class='pagAtendido' data-pag='" . ($pagina + 1) . "'> " . "Siguiente" . " </span>";
+                    }
+                    ?>
+                    <select id="seleccion" >
+                        <option value=""></option>
+                        <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div id="detalle" style="display: none">
+        <a id="imprimir" href="#"><img src="/imagenes/imprimir.gif"></a>        
+        <b id="mensaje"></b>
+        <table id="tblcabecera">
+            <thead>                
+            </thead>
+            <tbody>                
+            </tbody>
+        </table>
+        <table id="tblDetalleAtendido" class="tblDetalleAtendido">
+            <thead>                
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="btncerrar" class="button">Cerrar Detalle</button>
+    </div>
+</fieldset>

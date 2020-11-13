@@ -1,0 +1,151 @@
+<script src="/javascript/transporte.js"></script>
+<script src="/javascript/orden-venta.js"></script>
+<style type="text/css">
+	label.content{
+		width:40% !important;
+                text-align: right;
+	}
+</style>
+<h2>Ventas: Crear Guia de Pedido</h2> 
+<?php 
+	if (!empty($codigov)) {
+		echo '<input id="codigov" type="hidden" value="'.$codigov.'" >';
+	}
+ ?>
+<br>
+
+<form action="/ordenventa/graba/" method="POST" id="frmGeneracionOrdenVenta">
+        
+    
+        <fieldset class="field-set">
+            <ul>
+                <li><label>Orden Compra:</label></li>
+                <li> 
+                    <select name="OrdenVenta[idclientetransporte]" id="lstTransporte" class="required">
+                            <option value="">-- orden compra --</option>
+                    </select>
+                </li>
+            </ul>
+           
+        </fieldset>
+	<div class="field-set">
+		
+            <div class="body">
+                <ul>
+                    <li class="inline-block">
+                        <img src="/public/imagenes/contenedor.png">    
+                    </li>
+                    
+                    <li class="inline-block">
+                         <label class="content">UTILIDAD:</label><h2 class="inline-block"> S/. 12456</h2>
+                         <label class="content">COSTO CONTENEDOR:</label> <h2 class="inline-block">$ USD. 127</h2>       
+                    </li>
+                     <li class="inline-block">
+                         <img src="/public/imagenes/estadistico.png" width="250px">         
+                    </li>          
+                    
+                </ul>
+                
+            </div>	
+            <table style="width:50%;">
+             
+                <thead>
+                    <tr>
+                        <th  colspan="8">TABLA DE UTILIDADES</th>
+                    </tr>
+                    <tr>
+                        <th style="width:25%"></th> 
+                        <th>S/.</th> 
+                        <th>$ USD</th> 
+                    </tr> 
+                </thead>
+                <tbody>
+                    <tr>
+                        <th style="width:25%">MONTO VENDITO</th> 
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <th style="width:25%">MONTO POR VENDER</th> 
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                       
+                        <th style="width:25%">MONTO POR COBRAR</th> 
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <th style="width:25%">MONTO COBRADO</th> 
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>	
+	</div>
+    <div>
+		
+    </div>
+	</div>
+	<div class="field-set">
+		<p class="title">Productos</p>
+		<div class="body">
+		<ul>
+			<li>
+				<label>Producto</label>
+				<input type="text" class="required uppercase required-none" id="txtCodigoProducto" style="width:100px">
+				
+				<input type="hidden" id="txtIdProducto"><!--Esto es llenado al elegir la opcion de la lista-->
+			</li>
+			<li>
+				<label>Descripcion</label>
+				<input type="text" id="txtTituloProducto" disabled style="width:300px">
+			</li>
+			<li>
+				<label>Cantidad</label>
+				<input type="text" style="width:55px" class="numeric required required-none" id="txtCantidadProducto">
+			</li>
+			<li>
+				<label>Descuento</label>
+				<!-- <input type="text" class="numeric text-100" id="txtDescuento"> -->
+				<select id="lstDescuento" class="required">
+					<option value="">-- Descuento --</option>
+				</select>				
+			</li>
+			<li>
+				<button id="btnAgregarProduco">Agregar</button>
+			</li>
+		</ul>
+			<div id="listados">
+				<table id="tblDetalleOrdenVenta">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Descripci&oacute;n</th>
+							<th>P.Soles</th>
+							<th>Cantidad</th>
+							<th>P.Lista</th>
+							<th>Dscto</th>
+							<th>Precio Dscto</th>
+							<th>Total</th>
+							<th colspan="2">Acci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="7" style="text-align:right;" class="right bold">Importe Total:</td>
+							<td class="center"><input type="text" Id="lblMoneda" value=""  disabled size="10px"><input type="text" value="0.00" name="OrdenVenta[importeov]" class="required right text-100" id="txtImporteTotal" min="0.01" readonly></td>
+							<td colspan="2"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+	</div><br>
+	<input type="hidden" id="txtSaldoDisponible" class="required">
+	<br><br>	
+	<input type="submit" value="Registrar" class="btnRegistrar" id="btnRegistrar" title="Registrar la Guia">
+	<button id="btnCalcelar" title="Cancelar la Guia">Cancelar</button>
+</form>
+<div id="test"></div>

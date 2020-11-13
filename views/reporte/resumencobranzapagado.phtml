@@ -1,0 +1,102 @@
+<script src="/javascript/reportletras.js" type="text/javascript"></script>
+<script src="/javascript/wc_cliente.js" type="text/javascript"></script>
+<script src="/javascript/wc_ordenventa.js" type="text/javascript"></script>
+<script src="/javascript/resumencobranzapagado.js" type="text/javascript"></script>
+<?php
+    $cantidadpadre = count($padre);
+    $cantidadhijo = count($hijo);
+    $cantidadzona = count($zona);
+    $cantidadtipo = count($tipocobranza);
+    $cantidadvendedor = count($vendedor);
+    $cantidadcobrador = count($cobrador);
+?>
+<style>
+    .ocultar{
+        display: none;
+    }
+</style>
+<fieldset>
+    <h2>REPORTE :: Resumen Cobranza Pagado</h2>
+    <br>
+    <form action="/excel/detalladocobranzapagada"  method="POST" target="_blank" id="frmCobranzaPagado">
+        <ul>
+            <li>
+                <label for="txtFechaInicio">Fecha Inicio:</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaInicio" name="txtFechaInicio">
+            </li>
+            <li>
+                <label for="txtFechaFinal">Fecha Fin:</label>
+                <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+            </li>
+            <li class="cls_power">
+                <label for="">Zona Geografica:</label>
+                <select name="lstCategoriaPrincipal" id="lstCategoriaPrincipal" >
+                    <option value="">Zona Geografica</option>
+                    <?php for ($i = 0; $i < $cantidadpadre - 1; $i++) { ?>
+                        <option value="<?php echo $padre[$i]['idcategoria']; ?>"><?php echo $padre[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Region Cobranza:</label>
+                <select id="lstCategoria"  name="lstCategoria" >
+                    <option value="">Zona Cobranza-Categoria</option>
+                    <?php for ($i = 0; $i < $cantidadhijo; $i++) { ?>
+                        <option value="<?php echo $hijo[$i]['idcategoria']; ?>"><?php echo $hijo[$i]['nombrec']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li class="cls_power">
+                <label for="">Zona:</label>
+                <select id="lstZona"  name="lstZona">
+                    <option value="">Zona Cobranza-Detalle</option>
+                    <?php for ($i = 0; $i < $cantidadzona; $i++) { ?>
+                        <option value="<?php echo $zona[$i]['idzona']; ?>"><?php echo $zona[$i]['nombrezona']; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                <label for="">Moneda:</label>
+                <select name="lstMoneda" id="lstMoneda">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Soles</option>
+                    <option value="2">Dolares</option>
+                </select>
+            </li>                        
+        </ul>
+        <br>
+        <ul>
+            <li class="cls_power">
+                <label for="txtClientexIdCliente">Razon Social Cliente:</label>
+                <input type="text" id="txtClientexIdCliente" name="txtClientexIdCliente" size="50">
+                <input type="hidden" id="txtIdCliente" name="txtIdCliente">
+            </li>
+            <li class="cls_power">
+                <label for="txtOrdenVentaxId">Orden de Venta:</label>
+                <input type="text" id="txtOrdenVentaxId" name="txtOrdenVentaxId" size="20">
+                <input type="hidden" id="txtIdOrdenVenta" name="txtIdOrdenVenta">
+            </li>
+            <li>
+                <label for="">Forma de Pago:</label>
+                <select id="cmbFormaPago" name="cmbFormaPago">
+                    <option value=""> -- Seleccione -- </option>
+                    <option value="1">Letras</option>
+                    <option value="2">Creditos</option>
+                    <option value="3">Contado</option>
+                </select>
+            </li>            
+        </ul>       
+        <br>
+        <ul>
+            <li>
+                <button type="button" id="btnPDF">Resumen<img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+            </li>
+            <li>
+                <button type="button" id="btnExcel">Detallado <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/excel.png"> </button>
+            </li>
+<!--            <li>
+                <button type="button" id="btnAnalisis">Análisis <img style="vertical-align: middle;text-align: center;" width="35" heigth="35" src="/imagenes/estadistico.png"> </button>
+            </li>-->
+        </ul>
+    </form>
+</fieldset>

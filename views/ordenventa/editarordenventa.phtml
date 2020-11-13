@@ -1,0 +1,244 @@
+
+<script src="/javascript/editarordenventa.js"></script>
+<fieldset>
+<input type="hidden" value="<?php echo $redondeo?>" id="redondeo" />
+<legend><h2>Edicion de la Orden de Venta : <?php echo $ordenventa[0]['codigov'] ?></h2> </legend>
+	<form id="frmOrdenVenta">
+		<div class="cuadro">
+			<ul>
+				<li>
+					<label>Cliente</label>
+					<input type="text" size="40px" class="uppercase" id="txtCliente" value="<?php echo $ordenventa[0]['razonsocial'] ?>" autocomplete="off" >
+					<input type="hidden" id="idCliente" name="idCliente" value="<?php echo $ordenventa[0]['idcliente']?>" >
+					<input type="hidden" id="idOrdenVenta" name="idOrdenVenta" value="<?php echo $ordenventa[0]['idordenventa'] ?>">
+				</li>
+				<li>
+					<label>Sucursal</label>
+						<?php $cantidadZona=count($clientezona) ?>
+					<select name="lstSucursal" id="lstSucursal">
+						<?php for ($i=0; $i<$cantidadZona; $i++){?>
+						<?php if ($clientezona[$i]['idclientezona']==$ordenventa[0]['idclientezona']) { ?>
+						<option selected value="<?php echo $clientezona[$i]['idclientezona'] ?>" ><?php echo $clientezona[$i]['nombresucursal'] ?></option>	
+						<?php }else{?>
+						<option value="<?php echo $clientezona[$i]['idclientezona'] ?>" ><?php echo $clientezona[$i]['nombresucursal'] ?></option>
+						<?php }}?>
+					</select>
+				</li>
+				<li>
+					<label>Direccion Fiscal</label>
+					<input id="txtDireccionEnvio" name="txtDireccionEnvio" type="text" size="40px" readonly="readonly" value="<?php echo $ordenventa[0]['direccion_envio']?>" >
+					<select id="lstDireccionEnvio" name="lstDireccionEnvio">
+						<option>Seleccione Direccion Fiscal</option>
+					</select>
+				</li>
+				<li>
+					<label>Direccion Despacho</label>
+					<input id="txtDireccionDespacho" name="txtDireccionDespacho" type="text" size="40px" readonly="readonly" value="<?php echo $ordenventa[0]['direccion_despacho']?>" >
+					<select id="lstDireccionDespacho" name="lstDireccionDespacho">
+						<option>Seleccione Direccion Despacho</option>
+					</select>
+				</li>
+				<li>
+					<label>Contacto</label>
+					<input id="txtContacto" name="txtContacto" type="text" size="40px" readonly="readonly" value="<?php echo $ordenventa[0]['contacto']?>" >
+					<select id="lstContacto" name="lstContacto">
+						<option>Seleccione Contacto</option>
+					</select>
+				</li>
+				<li>
+					<label>Transporte</label>
+						<?php $cantidadTransporte=count($transporte) ?>
+					<select name="lstTransporte" id="lstTransporte">
+						<?php for ($i=0; $i<$cantidadTransporte; $i++){?>
+						<?php if ($transporte[$i]['idclientetransporte']==$ordenventa[0]['idclientetransporte']) { ?>
+						<option selected value="<?php echo $transporte[$i]['idclientetransporte'] ?>" ><?php echo $transporte[$i]['trazonsocial'] ?></option>	
+						<?php }else{?>
+						<option value="<?php echo $transporte[$i]['idclientetransporte'] ?>" ><?php echo $transporte[$i]['trazonsocial'] ?></option>
+						<?php }}?>
+					</select>
+				</li>
+				
+			</ul>
+		</div>
+		<div class="cuadro">
+			<ul>
+				<li>
+					<label>Vendedor</label>
+					<input type="text" size="40px" class="uppercase" id="txtVendedor" value="<?php echo $ordenventa[0]['nombres']." ".$ordenventa[0]['apellidopaterno']." ".$ordenventa[0]['apellidomaterno'] ?>" autocomplete="off">
+					<input type="hidden" id="idVendedor" name="idVendedor" value="<?php echo $ordenventa[0]['idactor'] ?>" >
+				</li>
+
+				<li>
+					<button id="btnActualizaOrdenVenta">Actualizar OrdenVenta</button>
+					<button id="btnResetearOrdenVenta">Resetear OrdenVenta</button>
+					<input type="text" id="IdResultado" readonly>
+					<button id="btnSalir">Ir Guia Madre</button>
+				</li>
+		
+
+			</ul>			
+		</div>
+	</form>
+	<div class="cuadro">
+		<ul>
+			<li>
+				<label>Cambiar Moneda</label>
+					<select name="OrdenVenta[IdMoneda]" id="txtMoneda">
+						<option value="-1">Seleccione Moneda</option>
+						<option value="1">Soles (S/.)</option>
+						<option value="2">Dolares (US $)</option>
+					</select>
+					<input type="text" id="txtvalorventa">
+					<input type="hidden" id="txtidTipoCambio" name="OrdenVenta[IdTipoCambioVigente]">
+					<input type="hidden" id="txtTipoCambioValor" name="OrdenVenta[MontoTipoCambioVigente]">
+					<button id="btnCambiarMoneda">Grabar nueva moneda</button>					
+
+			</li>				
+
+		</ul>
+		<?php if($ordenventa[0]['vbcreditos']==1){?>
+		<ul>
+
+<!--			<li>
+				<label>Añadir Percepcion</label>
+				<button id="btnAgregarPercepcion">Añadir <img style="vertical-align: middle;" src="/imagenes/percepcion.png" width="25" height="25"></button>
+			</li>-->
+			<li>
+				<label>Eliminar Percepcion</label>
+				<button id="btnEliminarPercepcion">Eliminar <img style="vertical-align: middle;" src="/imagenes/error.png" width="25" height="25"></button>
+			</li>
+		</ul>
+		<?php }?>
+	</div>
+</fieldset>
+
+<?php if ($ordenventa[0]['vbventas']!=1) { ?>
+	
+
+<fieldset>
+<legend> <h2>Edicion del Detalle de la Orden Venta</h2></legend>
+	<ul>
+		<li>
+			<label>Producto</label>
+			<input type="text" id="txtProducto" class="text-150">
+			<input type="hidden" id="idProducto" value="0" />
+		</li>
+		<li>
+			<label>Descripcion</label>
+			<input type="text" id="txtDescripcion" style="width:500px;" disabled="disabled">
+		</li>
+		<li>
+			<label>Cantidad</label>
+			<input type="text" id="txtCantidad" class="numeric text-50">
+		</li>
+		<li>
+                    <label>Por:</label>
+                    <select id="lstPrecio" class="required">
+                        <option value="1">-- Precio --</option>
+                        <option value="2">-- Descuento --</option>
+                    </select>
+                </li>
+                <li class="liDescuento">
+                        <label>Descuento</label>
+                        <!-- <input type="text" class="numeric text-100" id="txtDescuento"> -->
+    <!--				<select id="lstDescuento" class="required">
+                                <option value="">-- Descuento --</option>
+                        </select>-->
+                        <input type="text" style="width:55px" class="numeric required required-none" id="txtNuevoDescuento">
+                </li>
+
+                <li class="liPrecio">
+                        <label>Precio:</label>
+                        <input type="text" style="width:100px" class="numeric" id="txtPrecioOferta2">
+                        <b class="inline-block"><input type="checkbox" id="chkVale"> Vale</b>
+                </li>
+		<li><button id="btnAgregar">Agregar</button></li>
+	</ul>
+
+	
+</fieldset>
+<fieldset>
+	<?php $cantidadDetalle=count($detalleordenventa); ?>
+	<?php $total=0; ?>
+	<?php $cont=$cantidadDetalle-1 ?>
+	<input type="hidden" value="<?php echo $cont; ?>" id="contador">
+	<form id="frmProductos" method="post" action="/ordenventa/actualizaDetalleOrdenVenta">
+		<input type="hidden" id="idOrden" name="idOrdenVenta" value="<?php echo $ordenventa[0]['idordenventa'] ?>">
+		<table id="tblProductos">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Descripcion</th>
+					<th>Almacen</th>
+					<th>Cantidad</th>
+					<th>Precio Lista</th>
+					<th>Dscto</th>
+					<th>Precio Dscto</th>
+                                        <th>Dscto Oferta</th>
+                                        <th>Precio Final</th>
+					<th>Total</th>
+					<th colspan="2">Accion</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<?php for ($i=0; $i <$cantidadDetalle ; $i++) { ?>
+					<tr>
+						<td>
+							<?php echo $detalleordenventa[$i]['codigopa'] ?>
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['iddetalleordenventa'] ?>" class="idDetalleOrdenVenta"  name="<?php echo 'detalleOV['.$i.'][iddetalleordenventa]' ?>">
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['idproducto'] ?>" class="idProducto" name="<?php echo 'detalle['.$i.'][idproducto]' ?>">
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['estado'] ?>" class="estadoDetalle" name="<?php echo 'detalle['.$i.'][estado]' ?>">
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['descuentosolicitadotexto'] ?>" id="<?php echo "textIddescuentosolicitadotexto".$detalleordenventa[$i]['idproducto'] ?>" name="<?php echo 'detalle['.$i.'][descuentosolicitadotexto]' ?>">
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['descuentosolicitadovalor'] ?>" id="<?php echo "textIddescuentosolicitadovalor".$detalleordenventa[$i]['idproducto'] ?>" class="descuentoValor"  name="<?php echo 'detalle['.$i.'][descuentosolicitadovalor]' ?>">
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['descuentosolicitado'] ?>" id="<?php echo "textIddescuentosolicitado".$detalleordenventa[$i]['idproducto'] ?>" name="<?php echo 'detalle['.$i.'][descuentosolicitado]' ?>">
+							<input type="hidden" value="<?php echo $detalleordenventa[$i]['tipodescuento'] ?>" class="tipoDescuento" name="<?php echo 'detalle['.$i.'][tipodescuento]' ?>">
+						</td>
+						<td><?php echo $detalleordenventa[$i]['nompro'] ?></td>
+						<td><?php echo $detalleordenventa[$i]['codigoalmacen'] ?></td>
+						<td>
+							<input style="text-align:right;" type="text" value="<?php echo $detalleordenventa[$i]['cantsolicitada'] ?>" name="<?php echo 'detalle['.$i.'][cantsolicitada]' ?>" class="cantSolicitada numeric text-50" readonly="readonly">
+							<input type="hidden" class="cantidadInicial" value="<?php echo $detalleordenventa[$i]['cantsolicitada'] ?>"  name="<?php echo 'producto['.$i.'][cantidadInicial]' ?>">
+						</td>
+						<td><input style="text-align:right;" name="<?php echo 'detalle['.$i.'][preciolista]'?>"   type="text" value="<?php echo number_format($detalleordenventa[$i]['preciolista2'],$redondeo,".","") ?>" class="precioLista numeric text-50" readonly="readonly">
+							<input type="hidden" class="precioInicial" value="<?php echo round($detalleordenventa[$i]['preciolista2'],$redondeo) ?>">
+						</td>
+                                                <td>( <b class="lblDescuento"><?php echo $detalleordenventa[$i]['descuentosolicitadotexto'] ?></b> )</td>
+						<?php 
+							$precioDescontado=round($detalleordenventa[$i]['preciosolicitado'],$redondeo);
+							$importe=round(number_format($detalleordenventa[$i]['precioofertado'],$redondeo,".","")*$detalleordenventa[$i]['cantsolicitada'],$redondeo);
+							$total+=$importe;
+						?>
+						<td>
+							<input style="text-align:right;" type="text" value="<?php echo number_format($precioDescontado,$redondeo,".",""); ?>" name="<?php echo 'detalle['.$i.'][preciosolicitado]' ?>" class="precioSolicitado numeric text-50" readonly="readonly">
+							
+						</td>
+                                                <td> 
+                                                    <input type="hidden" value="<?php echo $detalleordenventa[$i]['descuentooferta']; ?>" name="<?php echo "detalle[" . $i . "][descuentooferta]"; ?>" id="textDescOferta<?php echo $detalleordenventa[$i]['idproducto']; ?>" class="textDescOferta text-50"  readonly>
+                                                    <label class="txtDescOferta" id="idtxtDescOferta<?php echo $detalleordenventa[$i]['idproducto']; ?>"><?php echo ($detalleordenventa[$i]['descuentooferta'] == 0 ? '-' : $detalleordenventa[$i]['descuentooferta'] . "%"); ?></label>
+                                                </td>
+                                                <td>
+                                                     <input type="text" value="<?php echo number_format($detalleordenventa[$i]['precioofertado'],$redondeo,".",""); ?>" name="<?php echo "detalle[" . $i . "][precioofertado]"; ?>"  id="idtxtPrecioOferta<?php echo $detalleordenventa[$i]['idproducto']; ?>" class="txtPrecioOfertado text-50">
+                                                </td>
+						<td  style="text-align:right;">
+							<input style="text-align:right;" type="text" class="importe numeric text-100 " value="<?php echo number_format($importe,$redondeo,".","") ?>" readonly>
+						</td>
+						<td><a class="btnEditar" href="#"><img src="/imagenes/editar.gif"></a></td>
+						<td><a class="btnEliminar" href="#"><img src="/imagenes/eliminar.gif"></a></td>						
+					</tr>
+				<?php } ?>
+				<tr>
+					<td colspan="9" style="text-align:right;">Importe Total</td>
+					<td style="text-align:right;"><input type="text" Id="lblMoneda" value=""  disabled size="10px">
+						<input style="text-align:right;" type="text" name="importeov" value="<?php echo number_format($total,$redondeo,".","") ?>" class="numeric text-100" readonly id="txtTotal">
+						<input  type="hidden"  value="<?php echo round($total,$redondeo); ?>"   id="txtTotalCompleto">
+					</td>
+				</tr>
+				
+			</tbody>	
+		</table>
+		<button id="btnActualizar">Actualizar</button> <button id="btnCancelar">Cancelar</button>
+	</form>
+</fieldset>
+<?php }?>
+<div style="display: none" id="contenedor"></div>

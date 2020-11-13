@@ -1,0 +1,121 @@
+A;Serie;;F001
+A;Correlativo;;00000002
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;10074072211
+A;RznSocRecep;;YONY MOISES VILCAPOMA MONDARGO
+A;DirRecep;;JR. PUNO 776 STAND 8 GAL. STA CATALINA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;514.83
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;92.67
+A;MntTotal;;607.5
+A;FchEmis;;2017-07-01
+A;IndPercepcion;;1
+A;MntImpPercepcion;;2
+A;MntPercepcion;;12.15
+A;MntTotalMasPercepcion;;619.65
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;92.67
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;10
+B;UnmdItem;1;C62
+B;VlrCodigo;1;SF-200S
+B;NmbItem;1;SELLADORA BOLSA METAL 20CM, SAMWIN
+B;PrcItem;1;15.63
+B;PrcItemSinIgv;1;13.25
+B;MontoItem;1;132.46
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;2.38
+B;NroLinDet;2;2
+B;QtyItem;2;20
+B;UnmdItem;2;SET
+B;VlrCodigo;2;450MM-L
+B;NmbItem;2;REPUESTO PARA SELLADORA DE PIE, 45CM
+B;PrcItem;2;5.29
+B;PrcItemSinIgv;2;4.48
+B;MontoItem;2;89.66
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.81
+B;NroLinDet;3;3
+B;QtyItem;3;20
+B;UnmdItem;3;SET
+B;VlrCodigo;3;600MM-L
+B;NmbItem;3;REPUESTO PARA SELLADORA DE PIE, 60CM
+B;PrcItem;3;5.99
+B;PrcItemSinIgv;3;5.08
+B;MontoItem;3;101.53
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.91
+B;NroLinDet;4;4
+B;QtyItem;4;20
+B;UnmdItem;4;C62
+B;VlrCodigo;4;SF-450I-T
+B;NmbItem;4;TERMOSTATO 45 CM-SELLADORA PIE
+B;PrcItem;4;5.29
+B;PrcItemSinIgv;4;4.48
+B;MontoItem;4;89.66
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.81
+B;NroLinDet;5;5
+B;QtyItem;5;20
+B;UnmdItem;5;C62
+B;VlrCodigo;5;SF-600I-T
+B;NmbItem;5;TERMOSTATO 60 CM - SELLADORA PIE
+B;PrcItem;5;5.99
+B;PrcItemSinIgv;5;5.08
+B;MontoItem;5;101.53
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;0.91
+B;NroLinDet;6;6
+B;QtyItem;6;1
+B;UnmdItem;6;C62
+B;VlrCodigo;6;GORROOK
+B;NmbItem;6;GORRO OTTO KING COLOR NEGRO
+B;PrcItem;6;0
+B;PrcItemSinIgv;6;0
+B;MontoItem;6;0
+B;IndExe;6;10
+B;CodigoTipoIgv;6;1000
+B;TasaIgv;6;18
+B;ImpuestoIgv;6;0
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;CREDITO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;94341
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;LIMA - LIMA - LIMA
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 49 DC: OV-17003208
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;432-0179/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Seiscientos Siete con 50/100 Dolares Americanos  

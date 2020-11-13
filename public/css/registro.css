@@ -1,0 +1,53 @@
+#cuerpo{
+    margin: auto;
+    width: 1000px;
+	background-color:#fff;
+	background-repeat: no-repeat;
+	background-position: center top;
+	color:#343435;
+	height:auto;
+}
+
+.centrarregistro
+	{
+		/*background-image:url('../imagenes/transp.png');
+		position: absolute;
+		margin-left:200px;
+		nos posicionamos en el centro del navegador
+		margin-top:-250px;
+		border-radius: 20px;*/
+		left:50%;
+		
+		height:auto;
+		top:50%;
+		width:40%px;
+		padding:0px;
+		text-align: center;
+		font-family: Calibri,Arial, serif;
+		color: #CC0000;
+	}
+.centrarregistro p {
+text-align: right;
+padding-right: 3px;
+padding-top:0px;
+}
+
+#form{
+	width: 80%;
+	padding: 2px 2px;
+}
+
+.datos{
+float: left;
+width: 40%;
+}
+
+.datos p{
+	text-align: left;
+	font-family: Calibri,Arial, serif;
+}
+.respuestaregistro{
+	min-height: 450px;
+	text-align: center;
+	background-image:url('../imagenes/transp.png');
+}

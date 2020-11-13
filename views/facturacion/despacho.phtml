@@ -1,0 +1,200 @@
+<script src="/javascript/facturacion.js"></script>
+<style type="text/css">
+    .entrada{
+    display: inline-block;
+    vertical-align: top;
+    border: solid 1px #A4A5A7;
+    }
+    .seguimiento2, .seguimiento3{
+        display: none;
+        
+    }
+    .seguimientoShow{
+        display: block;
+    }
+    .separador{
+        /*border-bottom: solid 1px #908F92;*/
+        padding-top: 12px;
+    }
+   
+
+</style>
+
+
+<div id="listados">
+<h2> Seguimiento:: Almacen(Registro Productos Despachados)</h2><br>
+<fieldset>
+    <form method="POST" action="/facturacion/despacho/">
+	<div id="busqueda">
+			<input type="text" value="<?php echo $retorno; ?>" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Numero de Orden de Venta" autofocus="on">
+			<input type="submit" value="Buscar"/>
+	</div>
+    </form>   
+    <form method="POST" action="/facturacion/despacho/">
+        <input type="hidden" value="listar" name="listar"/>
+        <input type="submit" value="volver">
+</form>
+</fieldset>
+<table id="tblDespacho">
+	<thead>
+		<tr>
+			<th colspan="16" style="color:blue">ALMACEN</th>
+		</tr>
+                <tr>
+                    <th colspan="16" style="color:blue; background-color:#1AB5D8;" >Seguimiento de Despacho de Productos</th>
+		</tr>
+		<tr>
+			<th>Orden Venta</th>
+			<th>Importe OV</th>
+			<th>Ag. de Transporte</th>
+			<th>Nro. de Cajas</th>
+			<th>Vendedor</th>
+			<th>Cliente</th>
+			<!--<th>Condicion de Pago</th>-->
+                        <th style="width: 554px;padding:0 18px">ALMACEN(Guias Despachadas)</th>
+			<th style="width: 534px;">Confirmacion de Entrega</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php for ($i=0; $i <count($Factura) ; $i++) { ?>
+		<tr>
+			<td><?php echo $Factura[$i]['codigov']; ?></td>
+			<td><?php echo $Factura[$i]['simbolomoneda'].' '.number_format($Factura[$i]['importeov'],2); ?></td>
+			<td><?php echo $Factura[$i]['nombreTranporte'];?></td>
+                        <td><input type="text" id="numcajas" rel="<?php echo $Factura[$i]['idordenventa'];?>" value="<?php echo $Factura[$i]['nrocajas'];?>" class="numeric required required-none" style="width: 35px;" ></td>
+                        <td><?php echo $Factura[$i]['nombres'].' '.$Factura[$i]['apellidopaterno'].' '.$Factura[$i]['apellidomaterno']; ?></td>
+			<td><?php echo $Factura[$i]['razonsocial']; ?></td>
+			
+			
+                        <td class="despachos">
+                            <div class="separador">
+                                Despacho1:<input type="checkbox" rel="<?php echo $Factura[$i]['idordenventa']?>" class="despachados" value="despacho1" <?php echo $Factura[$i]['despacho1']==1?"checked='checked'":"";?>  <?php echo $Factura[$i]['despacho1']==1?"disabled='disabled'":"";?>>
+                                Fecha:<?php echo $Factura[$i]['fechadespacho1']; ?>
+                            </div>
+                            <?php
+                              if($Factura[$i]['retornado1']==1){ ?>
+                            <div class="separador">
+                                  Despacho2:<input type="checkbox" rel="<?php echo $Factura[$i]['idordenventa']?>" class="despachados" value="despacho2" <?php echo $Factura[$i]['despacho2']==1?"checked='checked'":"";?> <?php echo $Factura[$i]['despacho2']==1?"disabled='disabled'":"";?>>
+                                  Fecha:<?php echo $Factura[$i]['fechadespacho2']; ?>
+                             </div>     
+                                <?php } ?>  
+                             <?php
+                              if($Factura[$i]['retornado2']==1){ ?>
+                            <div class="separador">
+                                  Despacho3:<input type="checkbox" rel="<?php echo $Factura[$i]['idordenventa']?>" class="despachados" value="despacho3" <?php echo $Factura[$i]['despacho3']==1?"checked='checked'":"";?> <?php echo $Factura[$i]['despacho3']==1?"disabled='disabled'":"";?>>
+                                  Fecha:<?php echo $Factura[$i]['fechadespacho3']; ?>
+                             </div>     
+                                <?php }  ?> 
+                            
+                        </td>
+                        
+                        <td class="confirmaciones">
+                            <div class="separador">
+                                <select name="confirmacion1" class="confirmacion" <?php echo $Factura[$i]['entregado1']==1 || $Factura[$i]['retornado1']==1 || $Factura[$i]['anulado1']==1?"disabled='disabled'":""; ?>>
+                                    <option value="seleccionar">Seleccionar</option>
+                                    <option value="entregado1" <?php echo $Factura[$i]['entregado1']==1?"selected":""; ?>> Entregado</option>
+                                    <option value="retornado1" <?php echo $Factura[$i]['retornado1']==1?"selected":""; ?>> Retornado</option>
+                                    <option value="anulado1" <?php echo $Factura[$i]['anulado1']==1?"selected":""; ?>> Anulado</option>
+                                </select>
+                                Fecha: <?php echo $Factura[$i]['fechaconfirmacion1']; ?>
+                            </div>
+                             <?php
+                              if($Factura[$i]['retornado1']==1){ ?>
+                            <div class="separador">
+                                <select name="confirmacion2" class="confirmacion" <?php echo $Factura[$i]['entregado2']==1 || $Factura[$i]['retornado2']==1 || $Factura[$i]['anulado2']==1?"disabled='disabled'":""; ?>>
+                                    <option value="seleccionar">Seleccionar</option>
+                                    <option value="entregado2" <?php echo $Factura[$i]['entregado2']==1?"selected":""; ?>> Entregado</option>
+                                    <option value="retornado2" <?php echo $Factura[$i]['retornado2']==1?"selected":""; ?>> Retornado</option>
+                                    <option value="anulado2" <?php echo $Factura[$i]['anulado2']==1?"selected":""; ?>> Anulado</option>
+                                </select>
+                                 Fecha: <?php echo $Factura[$i]['fechaconfirmacion2']; ?>
+                            </div>     
+                                <?php } ?>  
+                             <?php
+                              if($Factura[$i]['retornado2']==1){ ?>
+                            <div class="separador">
+                                <select name="confirmacion3" class="confirmacion" <?php echo $Factura[$i]['entregado3']==1 || $Factura[$i]['anulado3']==1?"disabled='disabled'":""; ?>>
+                                    <option value="seleccionar">Seleccionar</option>
+                                    <option value="entregado3" <?php echo $Factura[$i]['entregado3']==1?"selected":""; ?>> Entregado</option>
+                                    <option value="anulado3" <?php echo $Factura[$i]['anulado3']==1?"selected":""; ?>> Anulado</option>
+                                </select>
+                                 Fecha: <?php echo $Factura[$i]['fechaconfirmacion3']; ?>
+                                  
+                            </div>     
+                                <?php } ?>  
+                            
+                        </td>
+                        
+		</tr>
+                <tr>
+                    
+                </tr>
+		<?php } ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="15" align="center">
+		<?php
+				if (empty($_REQUEST['id'])) {
+					$pagina=1;
+				}else{
+					$pagina=$_REQUEST['id'];	
+				}
+				
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/facturacion/despacho/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/facturacion/despacho/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/facturacion/despacho/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/facturacion/despacho/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		
+		</tr>
+	</tfoot>
+</table>
+
+</div>
+<div class="detalleOV">
+	<table id="tablita">
+		<thead>
+			<th>N°</th>
+			<th>Codigo</th>
+			<th>Nombre</th>
+			<th>Alm.</th>
+			<th title="cantidad Solicitada">Cant.S.</th>
+			<th title="cantidad Aprobada">Cant.A.</th>
+			<th title="cantidad Despachada">Cant.D.</th>
+			<th title="Precio solicitado">Pre.S.</th>
+			<th title="Precio Aprobado">Pre.A.</th>
+			<th title="Precio Neto">Precio Neto</th>
+			<th>Importe</th>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+<button id="cierraTabla">Cerrar</button>
+</div>

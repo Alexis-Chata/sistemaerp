@@ -1,0 +1,170 @@
+<!--<h3>Total de Pedidos por aprobar: <?php echo count($ordenVenta)?></h3>-->
+<h2>Almacen: Orden de Pedido por Despachar</h2>
+<div id="divPedidos">
+<style type="text/css">
+	#divCondicionPedido li{
+		display:block;
+	}
+</style>
+<script type="text/javascript" src="/javascript/wc_despachos.js"></script>
+<div class="field-set">
+	<p class="title">Ordenes por Despachar <span class="addicional-informacion"></span></p>
+	<div class="body">
+		<input type="hidden" id="txtordenventa" readonly class="important" >
+	<table id="tblOrdenes">
+		<thead>
+			<tr>
+				<th>Nro. Orden</th>
+				<th>Forma<br>Pago</th>
+				<th>Fecha</th>
+				<th>Cliente</th>
+				<th>Vendedor</th>
+				<th>Acci&oacute;n</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				for($i=0;$i<count($ordenVenta);$i++){
+					$fOrdenVenta = date("d-m-Y",strtotime($ordenVenta[$i]['fordenventa']));
+					$cliente=($ordenVenta[$i]['razonsocial'])?$ordenVenta[$i]['razonsocial']:$ordenVenta[$i]['nombrecli']." ".$ordenVenta[$i]['apellido1']." ".$ordenVenta[$i]['apellido2'];
+					echo "<tr>";
+						echo '<td>'.$ordenVenta[$i]['codigov'].
+							'<input type="hidden" value="' . $ordenVenta[$i]['codigov'] . " - " . $fOrdenVenta . '" class="important">'.
+							'<input type="hidden" value="'.$ordenVenta[$i]['idordenventa'].'" class="txtIdOrden">
+							</td>';
+						echo '<td>'.$FormaPago[($ordenVenta[$i]['formapagoov'])].'</td>';
+						echo "<td>". $fOrdenVenta ."</td>";
+						echo "<td>".$cliente."</td>";
+						echo "<td>".$ordenVenta[$i]['nombres'].' '.$ordenVenta[$i]['apellidopaterno'].' '.$ordenVenta[$i]['apellidomaterno']."</td>";
+						echo '<td><a href="/ordenventa/listaDetalleDespacho/'.$ordenVenta[$i]['idordenventa'].'" class="btnVerDetalle">Ver</a></td>';
+					echo "</tr>";
+				}
+			?>
+		</tbody>
+	</table>
+</div>
+</div>
+<form action="/almacen/regOrdenSalida/" id="frmdespacharorden" method="POST">
+	<div class="field-set">
+		<p class="title">Datos del Cliente <span class="addicional-informacion"></span></p>
+		<div class="body">
+		<ul class="inline-block">
+			<li>
+				<label>Cliente:</label>
+				<input type="text" id="txtCliente" readonly class="important">
+				<input type="hidden" id="txtIdOrden" name="idOrdenVenta">
+				<input type="hidden" name="Orden[esdespachado]" value="1" id="txtDespachado">
+			</li>
+		</ul>
+		<ul class="inline-block">	
+			<li>
+				<label>RUC / DNI:</label>
+				<input type="text" id="txtRucDni" size="11" maxlength="11" readonly>
+			</li>
+		</ul>
+		<ul class="inline-block">	
+			<li>
+				<label>Direccion:</label>
+				<input type="text" id="txtDireccion" readonly>
+			</li>
+		</ul>
+		<ul class="inline-block">	
+			<li>
+				<label>Telefono:</label>
+				<input type="text" id="txtTelefono" size="7" maxlength="10" readonly>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="field-set">
+		<p class="title">Productos</p>
+		<div class="body">
+		<table id="tblProductosGuia">
+			<thead>
+				<tr>
+					
+					<th>Nro Cajas:</th><td><input type="text" name="Orden[nrocajas]" ></td>
+					<th>Nro Bultos:</th><td><input type="text" name="Orden[nrobultos]" ></td>
+				</tr>
+				<tr>
+					<th>Despachador Interno</th>
+					<td>
+						<select name="Orden[iddespachador]" required>
+							<option Value="">Seleccione Despachador</option>
+							<?php 
+							$cantidadDespachador=count($Despachador);
+							for ($i=0; $i <$cantidadDespachador ; $i++) { ?>
+								<option value="<?php echo $Despachador[$i]['idactor'] ?>"><?php echo $Despachador[$i]['nombres'].' '.$Despachador[$i]['apellidopaterno'].' '.$Despachador[$i]['apellidomaterno']; ?></option>
+
+							<?php  } ?>
+						</select>
+					</td>
+					<th>Verificador Interno</th>
+					<td>
+						<select name="Orden[idverificador]" required>
+							<option Value="">Seleccione Verificador</option>
+							<?php 
+							$cantidadVerificador=count($Verificador);
+							for ($i=0; $i <$cantidadVerificador ; $i++) { ?>
+								<option value="<?php echo $Verificador[$i]['idactor'] ?>"><?php echo $Verificador[$i]['nombres'].' '.$Verificador[$i]['apellidopaterno'].' '.$Verificador[$i]['apellidomaterno']; ?></option>
+
+							<?php  } ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>Fecha Despacho:</th>
+					<td><input type="text" name="Orden[fechadespacho]" class="datepicker" required></td>
+					<th>Re-Chequeador</th>
+					<td>
+						<select name="Orden[idverificador2]" >
+							<option Value="">Seleccine Re-chequeador</option>
+							<?php 
+							$cantidadVerificador=count($Verificador);
+							for ($i=0; $i <$cantidadVerificador ; $i++) { ?>
+								<option value="<?php echo $Verificador[$i]['idactor'] ?>"><?php echo $Verificador[$i]['nombres'].' '.$Verificador[$i]['apellidopaterno'].' '.$Verificador[$i]['apellidomaterno']; ?></option>
+
+							<?php  } ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">&nbsp;</td>
+				</tr>
+				<tr>
+					<th>Codigo</th>
+					<th >Descripci&oacute;n</th>
+					<th>Cantidad<br>a despachar</th>
+					<th>Series</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+	<input type="submit" value="Registrar despacho" class="btnRegistrar" id="btnAprobar">
+</form>
+</div>
+<div id="tablaMostrar">
+		<p ></p>
+		<div >
+		<table >
+			<thead>
+				<tr>
+					<th>Nro. Orden</th>
+					<th>Forma<br>Pago</th>
+					<th>Fecha</th>
+					<th>Cliente</th>
+					<th>Vendedor</th>
+					<th>Acci&oacute;n</th>
+					<th colspan="2">Acci&oacute;n</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="9" aling="center">No hay Ordenes para despachar</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>

@@ -1,0 +1,109 @@
+<style type="text/css">
+	#fsObservaciones{
+		padding-top:0px;
+		display:inline;
+		position:absolute;
+		right:10px;
+		top:5px;
+	}
+	#fsObservaciones li{
+		margin:0px;
+		padding:0px;
+		display:block;
+	}
+</style>
+<script type="text/javascript" src="/javascript/generar-percepcion.js"></script>
+<input type="hidden" value="1" id="txtContador">
+<form action="/facturacion/generapercepcion/" method="POST">
+    <input type="hidden" value="<?php echo $xdxd; ?>" id="xdxd" name="xdxd">
+    <br><br><h2>Facturación: Comprobante de Percepcion</h2>
+    <br>
+    <fieldset>
+        <legend>Busqueda de Orden de Venta</legend>
+        <ul>
+            <li>
+                <label>Fecha:</label>
+                <input type="text" class="datepicker" id="fechadoc" value="<?php echo date("Y/m/d") ?>" name="Percepcion[fechadoc]" readonly>
+            </li>
+            <li>
+                <label>Nro. Orden:</label>
+                <input type="hidden" id="txtIdOrden" name="Percepcion[idOrdenVenta]" required="required" value="<?php echo (empty($idordenventa) ? "" : $idordenventa); ?>">
+                <input type="text" id="txtOrdenVenta" size="12" class="uppercase" value="<?php echo (empty($codigov) ? "" : $codigov); ?>">
+            </li>
+            <li>
+                <label>Serie:</label>
+                <select name="Percepcion[serie]" required="required" id="txtSerie" style="color: red">
+                    <option value="1" selected="">P001</option>
+                    <option value="2">P002</option>
+                    <option value="3">P003</option>
+                </select>      
+                -
+            </li> 
+        </ul>
+            <ul>
+            <div id="blockCorrelativo">
+                <li>
+                    <label>Correlativo 1</label>
+                    <input type="text" name="" maxlength="6" size="6" disabled="" required>                                  
+                </li>
+            </div>  
+        </ul>
+    </fieldset>    
+    <fieldset style="position:relative">
+        <legend>Comprobante de Percepcion - Venta Interna</legend>
+        <ul>
+            <li>
+                <label>Cliente:</label>
+                <input type="text" id="txtCliente" class="text-300" readonly>
+            </li>
+            <li>
+                <label>R.U.C.:</label>
+                <input type="text" id="txtruc" readonly> 
+            </li>
+            <li>
+                <label>Dirección:</label>
+                <input type="text" id="txtDireccion" class="text-300" readonly>
+            </li>
+            <li>
+                <label>Fecha de Emision:</label>
+                <input type="text" id="txtemision" readonly>
+            </li>
+        </ul>
+        <div id="listados">
+            <table id="tblProductosGuia">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Comprobante</th>
+                        <th>F. Emisión</th>
+                        <th>Importe Total</th>
+                        <th>Porcentaje</th>
+                        <th>Percepcion</th>
+                        <th>Importe Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tblConDescripcion"></tbody>
+                <tfoot>
+                    <tr>                        
+                        <td colspan="3"></td>
+                        <td colspan="2" class="right"><b>IMPORTE TOTAL DE MONTOS PERCIBIDOS: </b></td>
+                        <th id="totalPerc"></th>
+                        <th id="txttotal"></th>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <ul>
+            <li>
+                <b>Percepción Por Asignar: </b>
+                <input type="text" id="txtPorAsignar" readonly>
+            </li>
+        </ul>
+        <div id="divOrdenCobro">
+            
+        </div>
+    </fieldset>   
+    <input type="submit" value="Registrar" class="btnRegistrar" id="btnRegistrar">
+</form>

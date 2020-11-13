@@ -1,0 +1,42 @@
+<h2>Mantenimiento: Nuevo Tipo Operación </h2>
+<input type="hidden" value="<?php echo $titulo; ?>" id="controller">
+<script type="text/javascript">
+	$(document).ready(function(){
+		controller=$('#controller').val();
+		$('#cancelar').click(function(e){
+			e.preventDefault();
+			window.location='/'+controller+'/lista';
+		});
+	});
+</script>
+
+<fieldset>
+	<form action="/<?php echo $titulo; ?>/grabar">
+		<ul class="inline-block">
+			<li>
+				<label>Codigo</label>
+				<input required type="text" name="<?php echo $titulo.'[codigotipooperacion]'; ?>">
+			</li>
+			<li>
+				<label>Nombre</label>
+				<input required type="text" name="<?php echo $titulo.'[nombre]'; ?>">
+				
+			</li>
+			<li>
+				<label >Tipo Movimiento</label>
+				<select name="<?php echo $titulo.'[tipomovimiento]'; ?>">
+					<option value="0"></option>
+					<option value="1">Ingreso</option>
+					<option value="2">Salida</option>
+				</select>
+				
+			</li>
+			
+			<li>
+				<input type="submit" value="Grabar">
+				<button id="cancelar">Cancelar</button>
+			</li>
+		</ul>
+
+	</form>
+</fieldset>

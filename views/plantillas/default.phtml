@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title> @CELESTIUM :: Grupo CELESTIUM </title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"  />
+
+		<link type="text/css" href="/css/general.css" rel="stylesheet" >
+		<link href="/css/general-style.css" rel="stylesheet">
+		<link href="/css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+		<link href="/css/kendo.default.min.css" rel="stylesheet">
+		<link href="/css/kendo.common.min.css" rel="stylesheet">
+		<script src="/javascript/jquery-1.7.2.min.js"></script>
+		<script src="/javascript/kendo.all.min.js"></script>
+		<script src="/javascript/jquery-ui-1.8.21.custom.min.js"></script>
+		<script src="/javascript/jquery.treeview.js"></script>
+		<script src="/javascript/jquery.validate.min.js"></script>
+		<script src="/javascript/jquery.crisistemas.js"></script>
+		<script src="/javascript/general-script.js"></script>
+		<script src="/javascript/webconceptos.js"></script>
+
+
+
+	</head>
+
+	<body>
+	    <div id="header">
+	        <div class="logo"></div>
+	        <?php if($_SESSION['Autenticado']==true){ ?>
+	        <div class="cuenta">
+		        <?php
+		        if(file_exists("/imagenes/actorfoto/".$_SESSION['codigo'].".jpg")){
+		        	$foto="/imagenes/actorfoto/".$_SESSION['codigo'].".jpg";
+		        }else{
+		        	$foto="/imagenes/actorfoto/user20.jpg";
+		        }
+		        ?>
+		        <div id="foto"><img src="<?php echo $foto;?>"></div>
+		        	<h3>Hola <?php echo $_SESSION['nombres']." ".$_SESSION['apellidopaterno'];?></h3>
+		        <a href="/"><img src="/imagenes/iconos/home.png" width="40px" title="Ir al Inicio"></a>
+		        <a href="#"><img src="/imagenes/iconos/micuenta.png" width="40px" title="Mi Cuenta"></a>
+		        <a href="/actor/cambiaclave/"><img src="/imagenes/iconos/password.png" width="40px" title="Cambiar Clave"></a>
+				<a href="/actor/salir/"><img src="/imagenes/iconos/salir.png" width="40px" title="Cerrar Sesión"></a>
+				<h6>Ultimo Acceso <?php echo $_SESSION['horaacceso']; ?></h6>
+			 </div>
+			<div class="mensajeria">
+	       		<h5>Mis Notificaciones:</h5>aaa
+	       		<?php print_r($rol);?>
+	       </div>
+			 <?php
+	        }
+	        ?>
+
+	    </div>
+
+
+	    </div>
+
+		<div id="article">
+			<div id="menu">
+			<?php
+				include("menu.php");
+			?>
+			</div>
+			<div id="contenido">
+				<div class="mensajeria">
+		       		<h5>Mis Notificaciones:</h5>aaa
+		       		<?php print_r($rol);?>
+		       </div>
+				<?php include($path);?>
+			</div>
+		</div>
+
+		<div id="footer">
+		    <div class="contenido">
+		        <div class="texto">
+		           &copy; Grupo CELESTIUM 2012 Jr. Alferez F. Ricardo Herrera N° 665 - Lima Tel: 336 - 6548, Fax:
+		            336 - 6784
+		        </div>
+		    </div>
+		</div>
+	</body>
+
+</html>

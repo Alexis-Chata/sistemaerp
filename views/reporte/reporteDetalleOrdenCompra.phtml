@@ -1,0 +1,43 @@
+<script src="/javascript/reporteDetalleOrdenCompra.js"></script>
+<h2>Reporte Detalle de Productos</h2>
+<br>
+
+<fieldset style="display:inline-block">
+    <ul>
+        <li id="liProducto">
+            <label>Orden de Compra:</label>
+            <input type="text" class="text-large required uppercase" placeholder="CODIGO DE ORDEN DE COMPRA" id="txtOrdenCompra">
+        </li>
+    </ul>
+</fieldset>
+
+<fieldset>
+    <table id="imprimirtabla">
+        <thead>
+            <tr>
+                <th colspan="16" style="background:#B4D1F7;color:#830E0E;" id="tituloOC">ORDEN DE COMPRA</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>PRODUCTO</th>
+                <th>QTY</th>
+                <th>UNIT</th>
+                <th>FOB<br>UNITARIO</th>
+                <th>FOB TOTAL</th>
+                <th style="background:#C1C1C1">CANTIDAD<br>VENDIDA</th>
+                <th style="background:#C1C1C1">UNIT</th>
+                <th style="background:#C1C1C1">PRECIO<br>VENTA</th>
+                <th style="background:#C1C1C1">TOTAL VENTA</th>
+                <th style="background:#6C91FB">CONTADO</th>
+                <th style="background:#6C91FB">TOTAL<br>CONTADO</th>
+                <th style="background:#0AC557">CREDITO</th>
+                <th style="background:#0AC557">TOTAL<br>CREDITO</th>
+                <th style="background:#C1C1C1" colspan="2">STOCK</th>
+            </tr>
+        </thead>
+        <tbody id="contenedor">
+            
+        </tbody>
+    </table>
+    <button id="imprimir" ><img width="30" src="/imagenes/imprimir.gif"></button>
+</fieldset>

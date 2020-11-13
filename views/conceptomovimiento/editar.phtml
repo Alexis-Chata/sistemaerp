@@ -1,0 +1,29 @@
+<form action="/conceptomovimiento/actualiza/" method="POST">
+	<fieldset>
+		<legend>Actualizaci&oacute;n de Concepto Movimiento</legend>
+		<ul>
+			<li>
+				<label>Tipo</label>
+				<select name="Conceptomovimiento[idtipomovimiento]">
+					<?php
+						for($i=0;$i<count($Tipomovimiento);$i++){
+							if($Tipomovimiento[$i]['idtipomovimiento']==$idTipoMovimiento){
+								echo '<option selected value="'.$Tipomovimiento[$i]['idtipomovimiento'].'">'.$Tipomovimiento[$i]['nomtipmov'].'</option>';
+							}else{
+								echo '<option value="'.$Tipomovimiento[$i]['idtipomovimiento'].'">'.$Tipomovimiento[$i]['nomtipmov'].'</option>';
+							}
+						}
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Nombre</label>
+				<input type="text" name="Conceptomovimiento[nomconmov]" value="<?php echo $Conceptomovimiento[0]['nomconmov'] ?>">
+				<input type="hidden" name="idConceptoMovimiento" value="<?php echo $_REQUEST['id'] ?>">
+			</li>
+			<li>
+				<input type="submit" value="Actualizar">
+			</li>
+		</ul>
+	</fieldset>
+</form>

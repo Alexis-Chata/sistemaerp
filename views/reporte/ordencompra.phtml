@@ -1,0 +1,46 @@
+<script src="/javascript/reporte-orden-compra.js"></script>
+
+	<fieldset>
+		<legend>Filtro</legend>
+		<ul>
+			<li>
+				<label>Seleccione una de las opiones</label>
+				<input type="radio" name="rbFiltro" value="1" checked> Todos
+				&nbsp;<input type="radio" name="rbFiltro" value="2"> Por Proveedor
+				&nbsp;<input type="radio" name="rbFiltro" value="3"> Por Fecha	
+				&nbsp;<input type="radio" name="rbFiltro" value="4"> Por Rango Fecha
+			</li>
+			<li id="liProveedor">
+				<label>Proveedor</label>
+				<input type="hidden" id="urlautocomplete" value="/proveedor/autocomplete/">
+				<input type="text" id="txtBusqueda" name="txtBusqueda" size="50px" value="<?php echo $Busqueda ?>" class="uppercase" autofocus>
+				<input type="hidden" id="txtIdProveedor">
+			</li>
+			<li id="liFecha">
+				<label>Seleccione Fecha</label>
+				<input type="text" id="txtFecha" class="datepicker" readonly>
+			</li>
+			<li class="liRangoFecha">
+				<label>Fecha Inicio</label>
+				<input type="text" id="txtFechaInicio" class="datepicker" readonly>
+			</li>
+			<li class="liRangoFecha">
+				<label>Fecha Final</label>
+				<input type="text" id="txtFechaFinal" class="datepicker" readonly>
+			</li>
+			<li>
+				<button id="btnConsultar">Consultar</button>
+			</li>
+		</ul>
+	</fieldset>
+<table id="dataGridReport">
+		<thead>
+			<tr>
+				<th data-field="codigooc">Nro. Orden</th>
+				<th data-field="fordencompra">Fecha Compra</th>
+				<th data-field="nomalm">Empresa</th>
+				<th data-field="razonsocialp">Proveedor</th>
+				<th data-field="fob">Observaciones</th>
+			</tr>
+		</thead>
+</table>

@@ -1,0 +1,109 @@
+A;Serie;;F002
+A;Correlativo;;00000031
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;01
+A;TipoRutReceptor;;6
+A;RUTRecep;;10090276111
+A;RznSocRecep;;ROBERTO PAULINO BELTRAN TORIBIO
+A;DirRecep;;MZ. 179 LT. 24 A.H. SAN MARTIN DE PORRES
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;47.68
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;8.58
+A;MntTotal;;56.26
+A;FchEmis;;2017-08-31
+A;IndPercepcion;;1
+A;MntImpPercepcion;;0
+A;MntPercepcion;;0
+A;MntTotalMasPercepcion;;56.26
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;8.58
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;1
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;CS-MBP693C
+B;NmbItem;1;PARLANTE OVALADO 6X9" 3VIAS  25 ONZ 1200W T/K,CELESTIUM
+B;PrcItem;1;25.54
+B;PrcItemSinIgv;1;21.64
+B;MontoItem;1;21.64
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;3.9
+B;NroLinDet;2;2
+B;QtyItem;2;3
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;GC-37 V1.4(5MT)
+B;NmbItem;2;CABLE HDMI V1.4 C/FILTRO D/7MM BLISTER 5MT, OTTOKING
+B;PrcItem;2;4.45
+B;PrcItemSinIgv;2;3.77
+B;MontoItem;2;11.31
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0.68
+B;NroLinDet;3;3
+B;QtyItem;3;6
+B;UnmdItem;3;NIU
+B;VlrCodigo;3;CT-1039-3FT
+B;NmbItem;3;CABLE 1X1 PLUG STEREO 3.5MM 1MT TRANSPARENTE
+B;PrcItem;3;0.25
+B;PrcItemSinIgv;3;0.21
+B;MontoItem;3;1.27
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0.04
+B;NroLinDet;4;4
+B;QtyItem;4;1
+B;UnmdItem;4;NIU
+B;VlrCodigo;4;CT-1039-5FT-BK
+B;NmbItem;4;CABLE 1X1 PLUG STEREO 3.5MM 1.5MT NEGRO
+B;PrcItem;4;0.26
+B;PrcItemSinIgv;4;0.22
+B;MontoItem;4;0.22
+B;IndExe;4;10
+B;CodigoTipoIgv;4;1000
+B;TasaIgv;4;18
+B;ImpuestoIgv;4;0.04
+B;NroLinDet;5;5
+B;QtyItem;5;7
+B;UnmdItem;5;NIU
+B;VlrCodigo;5;CT-001D-2
+B;NmbItem;5;ADAPTADOR P/TV PORTATIL,12V PLUG 4.0MM 1.7MM ,SAMWIN
+B;PrcItem;5;2.23
+B;PrcItemSinIgv;5;1.89
+B;MontoItem;5;13.23
+B;IndExe;5;10
+B;CodigoTipoIgv;5;1000
+B;TasaIgv;5;18
+B;ImpuestoIgv;5;0.34
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;LIMA - LIMA - LOS OLIVOS
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEND: 336 DC: OV-17000358
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;/
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Cincuenta y Seis con 26/100 Dolares Americanos  

@@ -1,0 +1,71 @@
+A;Serie;;P001
+A;Correlativo;;00000001
+A;CODI_EMPR;;1
+A;TipoDTE;;40
+A;FchEmis;;2017-06-30
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;RUTEmis;;20509811858
+A;ComuEmis;;140101
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;UrbanizaEmis;;-
+A;ProviEmis;;LIMA
+A;DeparEmis;;LIMA
+A;DistriEmis;;LIMA
+A;PaisEmis;;PE
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoRutReceptor;;6
+A;RUTRecep;;20448524036
+A;RznSocRecep;;IMAD MAQUINARIAS S.A.C.
+A;DirRecepUbiGeo;;211102
+A;DirRecep;;JR. SUCRE NRO. 216
+A;DirRecepUrbaniza;;-
+A;DirRecepProvincia;;SAN ROMAN
+A;DirRecepDepartamento;;SAN ROMAN
+A;DirRecepDistrito;;CABANA
+A;DirRecepCodPais;;PE
+A;CodPercepcion;;01
+A;MntImpPercepcion;;2
+A;ObsPercepcion;;Se emite con facturas del periodo 06/2017
+A;MntPercepcion;;16.43
+A;MntTotalMasPercepcion;;837.95
+D;NroLinRef;1;1
+D;TpoDocRef;1;01
+D;SerieRef;1;F001
+D;FolioRef;1;00000001
+D;FechEmisDocRef;1;2017-06-30
+D;MntTotalDocRef;1;252
+D;MonedaDocRef;1;USD
+D;FechOperacion;1;2017-06-30
+D;NroOperacion;1;1
+D;ImporteOperacion;1;5.04
+D;MonedaOperacion;1;USD
+D;ImporteMovimiento;1;16.43
+D;MonedaMovimiento;1;PEN
+D;FechaMovimiento;1;2017-06-30
+D;TotalMovimiento;1;837.95
+D;Moneda;1;PEN
+D;MonedaReferencia;1;USD
+D;MonedaObjetivo;1;PEN
+D;TipoCambio;1;3.260
+D;FechTipoCambio;1;2017-06-30
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;-
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;-
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Dieciseis con 43/100 Soles 

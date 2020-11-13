@@ -1,0 +1,28 @@
+<script src="/javascript/sublinea.js"></script>
+<form action="/sublinea/graba/" method="POST">
+	<fieldset>
+		<legend>Registro de Nueva Subsublinea</legend>
+		<ul>
+		<li>
+			<label>Seleccione una L&iacute;nea</label>
+			<select  name="Sublinea[idpadre]" selected="0" required >
+				<option value="">Selecciones una Linea</option>
+				<?php
+					for($i=0;$i<count($linea);$i++){
+						echo '<option value="'.$linea[$i]['idlinea'].'">'.$linea[$i]['nomlin'].'</option>';
+					}
+				?>
+			</select>
+		</li>
+		<li>
+			<label>Nombre</label>
+			<input type="text" required name="Sublinea[nomlin]" class="uppercase" placeholder="No Ha Ingresado Datos" size="35px">
+		</li>
+		<li>
+		<!--<label>Descripcion</label>
+			<input type="text" name="Sublinea[deslin]" class="uppercase">
+		</li>-->
+		<li><input type="submit" value="Registrar"><button id="btncancelar">Cancelar</button></li>
+	</ul>
+	</fieldset>
+</form>

@@ -1,0 +1,33 @@
+<script src="/javascript/almacen.js"></script>
+<h2>Almacen : Nuevo</a></h2>
+<form action="/almacen/graba/" method="POST" id="frmAlmacenNuevo" >
+	<fieldset>
+		<legend>Registro de Nuevo Almacen</legend>
+		<ul class="inline-block">
+			<li>
+				<label>Codigo:</label>
+				<input required type="text" name="Almacen[codigoalmacen]" class="uppercase required" autofocus>
+			</li>
+			<li>
+				<label>Nombre:</label>
+				<input required type="text" name="Almacen[nomalm]" class="uppercase required" autofocus>
+			</li>
+			<li>
+				<label>Razon Social:</label>
+				<input required type="text"  name="Almacen[razsocalm]" required class="uppercase required">
+			</li>
+			<li>
+				<label>Direcci&oacute;n:</label>
+				<input required type="text"  name="Almacen[diralm]" class="uppercase required text-large">
+			</li>
+			<li>
+				<label>RUC:</label>
+				<input required type="text"  name="Almacen[rucalm]" size="11" class="numeric required" maxlength="11" minLength="11">
+			</li>
+			<li>
+				<input type="submit" value="Registrar">
+				<button id="btnCancelar">Cancelar</button>
+			</li>
+		</ul>
+	</fieldset>
+</form>

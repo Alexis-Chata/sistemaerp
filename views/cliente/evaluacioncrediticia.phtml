@@ -1,0 +1,188 @@
+<script type="text/javascript" src="/javascript/evaluacioncrediticia.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/select.css">
+<style>
+    .centro1{
+        text-align: right !important;
+    }
+    .centro2{
+        text-align: center !important;
+    }
+
+    .cajitasblancas{
+        background-color: white !important;
+    }
+    .cajitasIzq{
+        width: 60px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        border:none  !important;
+        background-color: white !important;
+    }
+    .cajitasDer{
+        margin-left: 3px !important;
+        width: 60px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        background-color: white !important;
+        border:none  !important;
+    }
+    .cajitasIzqCartera{
+        width: 40px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        border:none  !important;
+        background-color: white !important;
+    }
+    .cajitasDerCartera{
+        margin-left: 3px !important;
+        width: 40px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        background-color: white !important;
+        border:none  !important;
+    }
+
+
+
+    .cajitasIzqJS{
+        width: 60px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        border:none  !important;
+        background-color: transparent !important;
+    }
+    .cajitasDerJS{
+        margin-left: 3px !important;
+        width: 60px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        background-color: transparent !important;
+        border:none  !important;
+    }
+    .cajitasIzqCarteraJS{
+        width: 40px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        border:none  !important;
+        background-color: transparent !important;
+    }
+    .cajitasDerCarteraJS{
+        margin-left: 3px !important;
+        width: 40px !important;
+        text-align:right !important;
+        font-size:11px !important;
+        color:black !important;
+        background-color: transparent !important;
+        border:none  !important;
+    }
+    .letraResaltado{
+        color:blue !important;
+    }
+</style>
+<h2>EVALUACION CREDITICIA</h2>
+<fieldset>
+    <form id="frmCobranza" method="post">
+        <ul>
+            <li>
+                <label>Zona Geografica</label>
+                <select id="lstCategoriaPrincipal" name="lstCategoriaPrincipal" class="style">
+                    <option value="">----Zona Geografica----</option>
+                    <?php $cantidadZona = count($padre); ?>
+                    <?php for ($i = 0; $i < $cantidadZona; $i++) { ?>
+                        <option value="<?php echo $padre[$i]['idcategoria'] ?>"><?php echo $padre[$i]['nombrec'] ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li><p>
+                    <label>Zona Cobranza-Categoria</label>
+                    <select id="lstZonaCobranza" name="lstZonaCobranza" class="style">
+                        <option value="">Zona Cobranza-Categoria</option>
+                    </select></p>
+            </li>
+            <li>
+                <label>Zona Cobranza-Detalle</label>
+                <select id="lstZona" name="lstZona" class="style">
+                    <option value="">Zona Cobranza-Detalle</option>
+                </select>
+            </li>
+            <li>
+                <label>ORDENAR POR</label>
+                <select id="orden1" name="orden1" class="style">
+                    <option value="">POR ZONA</option>
+                    <option value="antiguos">CIENTES ANTIGUOS</option>
+                    <option value="recientes">CLIENTES RECIENTES</option>
+                </select>
+            </li>
+            <li>
+                <label>FILTROS</label>
+                <select id="filtro1" name="filtro1" class="style">
+                     <option value="">TODOS</option>
+                    <option value="1">CLIENTES CON DEUDA</option>
+                    <option value="2">CLIENTES SIN DEUDA</option>
+                    <option value="3">CON LINEA DE CREDITO DISPONIBLE</option>
+                    <option value="4">SIN LINEA DE CREDITO DISPONIBLE</option>
+                </select>
+            </li>
+            <li>
+                <label>AUDITADOS&nbsp;/&nbsp;NO&nbsp;AUDITADOS</label>
+                <select id="filtro2" name="filtro2" class="style">
+                    <option value="">TODOS</option>
+                    <option value="1">AUDITADOS</option>
+                    <option value="2">NO AUDITADOS</option>
+                </select>
+            </li>
+
+            <li>
+                <label>CALIFICACION </label>
+                <select id="filtro3" name="filtro3" class="style">
+                    <option value="">TODOS</option>
+                    <?php
+                        foreach ($listaCalificaciones as $v) {
+                        echo "<option value='".$v['idcalificacion']."'>".$v['nombre']."</option>";
+                        }
+                   ?>
+                </select>
+            </li>
+             <li style='display: none;'>
+                <input type="text" id="txtIn" name="txtIn" size="150">
+            </li>
+            <li style='display: none;'>
+                <label><input type="checkbox"  name='updateresumen' id='updateresumen'>update </label>
+            </li>
+
+            <!--    <li>
+                        <label>Fecha Inicio</label>
+                        <input type="text" style="background-color:skyblue" id="txtFechaInicio" name="txtFechaInicio" class="datepicker" readonly="readonly" placeholder="F. Cancelado" >
+                    </li>
+                    <li>
+                        <label>Fecha Fin</label>
+                        <input type="text" style="background-color:skyblue" id="txtFechaFinal" name="txtFechaFinal" class="datepicker" readonly="readonly" placeholder="F. Cancelado" >
+                    </li>
+            -->
+        </ul><br>
+        <ul>
+            <li>
+                <label>Cliente</label>
+                <input type="text" id="txtCliente" placeholder="Nombre Cliente" size="45">
+                <input type="hidden" id="idCliente" name="idCliente">
+            </li>
+            <li>
+            <label>Vendedor</label>
+            <input type="text" id="txtVendedor"  placeholder="Nombre Vendedor" size="50">
+            <input type="hidden" id="idVendedor" name="idVendedor">
+            </li>
+        </ul><br>
+        <ul>
+            <li><button id="btnConsultar" style="font-size: 18px;">Consultar <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/consultar.png"></button></li>
+            <li><button id="btnImprimir" style="font-size: 18px;">Imprimir <img style="vertical-align: middle;text-align: center;" width="25" heigth="25" src="/imagenes/imprimir.gif"> </button></li>
+        </ul>
+    </form>
+</fieldset>
+<div id='tblCuerpo'></div>

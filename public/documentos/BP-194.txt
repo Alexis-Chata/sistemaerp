@@ -1,0 +1,69 @@
+A;Serie;;B002
+A;Correlativo;;00000050
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. PARURO 1415, TDA 128 - LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;03
+A;TipoRutReceptor;;1
+A;RUTRecep;;44122367
+A;RznSocRecep;;YURY APAZA  MAMANI
+A;DirRecep;;JR.JUNIN NRO.524  - PUNO - SAN ROMAN - JULIACA
+A;TipoMoneda;;USD
+A;CodigoAutorizacion;;000
+A;MntNeto;;62.84
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;11.31
+A;MntTotal;;74.15
+A;FchEmis;;2017-08-21
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;11.31
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;10
+B;UnmdItem;1;NIU
+B;VlrCodigo;1;NE-B
+B;NmbItem;1;PORTAMICRO PLASTICO C/ROSCA DE METAL
+B;PrcItem;1;0.71
+B;PrcItemSinIgv;1;0.6
+B;MontoItem;1;6.02
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0.11
+B;NroLinDet;2;2
+B;QtyItem;2;5
+B;UnmdItem;2;NIU
+B;VlrCodigo;2;PA-306
+B;NmbItem;2;SET MICROFONO INALAMBRICO ALCANCE 15-20MTS VHF,220V 60HZ SEMIPROFESIONAL,ASTRID
+B;PrcItem;2;13.41
+B;PrcItemSinIgv;2;11.36
+B;MontoItem;2;56.82
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;2.05
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicsunat;01;CONTADO
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;1
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;VEN: 336 DC: 342
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;7
+E;DescripcionAdicSunat;07;Setenta y Cuatro con 15/100 Dolares Americanos  

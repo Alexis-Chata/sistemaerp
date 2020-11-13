@@ -1,0 +1,28 @@
+<script type="text/javascript" src="/javascript/wc_index.js"></script>
+<div id="index">
+<h3>Bienvenidos al Sistema @CELESTIUM </h3>
+<br><br>
+<table>
+	<thead>
+		<tr><th colspan="4"><h2>Mis Favoritos</h2></th></tr>
+		<tr>
+			<th>N°</th>
+			<th>Nombre de la ruta</th>
+			<th colspan="2">Accion</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $cantidadFavoritos=count($favoritos); ?>
+		<?php for ($i=0; $i <$cantidadFavoritos ; $i++) { ?>
+		<tr>	
+			<td class="center" style=""><?php echo $i+1; ?></td>
+			<td><a class="block" style="height: 20px; margin-left: 20px;" title="Ir" href="<?php echo strtolower($favoritos[$i]['url']); ?>"><?php echo $favoritos[$i]['descripcion']; ?></a></td>
+			<td class="center"><a title="Ir" href="<?php echo strtolower($favoritos[$i]['url']); ?>"><img width="25px" heigth="25px" src="/imagenes/iconos/arrow.png"></a></td>
+			<td class="center"><a title="Eliminar Favorito" href="/index/eliminarFavorito/<?php echo $favoritos[$i]['idfavorito'] ?>>"><img width="25px" heigth="25px" src="/imagenes/btneliminar.gif"></a></td>
+		</tr>
+		<?php } ?>
+		
+	</tbody>
+</table>
+		
+</div>

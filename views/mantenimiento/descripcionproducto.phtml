@@ -1,0 +1,109 @@
+<script src="/javascript/descripcionproducto.js"></script>
+<?php 
+$base_url = explode('?', $_SERVER["REQUEST_URI"]);
+if (isset($base_url[1])) {
+    $urlBusqueda = '/?' . $base_url[1];
+} else {
+    $urlBusqueda = '';
+}
+?>
+<div id="listados">
+    <h2 style="float:left !important;padding-bottom: 20px;width:100%">Productos :: Descripcion Auxiliar</h2></br>
+    <form method="GET" action="/mantenimiento/descripcionproducto/">
+        <div id="busqueda">
+            Busqueda: </br>
+            <input type="text" id="txtBusqueda" value="<?php echo $_REQUEST['txtBusqueda']; ?>" name="txtBusqueda" title="Ingrese un Nombre" size="50px">
+            <input type="submit" value="Ver"/>
+        </div>
+    </form>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="8">Productos con Descripcion Auxiliar</th>
+                <th colspan="3"><a href="/mantenimiento/gestiondescripcion2">
+                        <img src="/imagenes/iconos/nuevo.gif">
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Descripcion Auxiliar</th>
+                <th>Stock Actual</th>
+                <th>Stock Disp</th>
+                <th>Marca</th>
+                <th>Precio Lista S/.</th>
+                <th>Precio Lista US $</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $TProducto = sizeof($producto);
+            for ($i = 0; $i < $TProducto; $i++) {
+                $fila = "<tr>";
+                $fila .=    "<td>" . $producto[$i]['codigopa'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['nompro'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['descripcion2'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['stockactual'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['stockdisponible'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['Marca'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['preciolista'] . "</td>";
+                $fila .=    "<td>" . $producto[$i]['preciolistadolares'] . "</td>";
+                $fila .=    "<td>
+                                <a href=\"/mantenimiento/gestiondescripcion2/" . $producto[$i]['idproducto'] . "\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+                            </td>
+                            <td>
+                                <a href=\"/mantenimiento/eliminagestiondescripcion2/" . $producto[$i]['idproducto'] . "\" class='eliminarDesc'c><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+                $fila .=    "</td>";
+                $fila .= "</tr>";
+                echo $fila;
+                unset($fila);
+            }
+            ?>	
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10" align="center">
+                    <?php
+                    $pagina = $_REQUEST['id'];
+                    if ($blockpaginas * 10 < $paginacion) {
+                        $blockpaginas = $blockpaginas + 1;
+                    } else {
+                        $blockpaginas = $blockpaginas;
+                    }
+
+                    if ($pagina > 1) {
+                        echo "<a href=\"/mantenimiento/descripcionproducto/" . ($pagina - 1) . $urlBusqueda . "\"> " . "Anterior" . " </a>";
+                    }
+
+                    for ($i = 1; $i <= $blockpaginas; $i++) {
+                        $max = $i * 10;
+
+                        for ($min = $max - 9; $min <= $max; $min++) {
+                            if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
+                                if ($pagina == $min) {
+                                    echo "<a href=\"/mantenimiento/descripcionproducto/" . ($min) . $urlBusqueda . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                } else {
+                                    echo "<a href=\"/mantenimiento/descripcionproducto/" . ($min) . $urlBusqueda . "\"> " . ($min) . " </a>";
+                                }
+                            }
+                        }
+                    }
+
+                    if ($pagina < $paginacion && !empty($pagina)) {
+                        echo "<a href=\"/mantenimiento/descripcionproducto/" . ($pagina + 1) . $urlBusqueda . "\"> " . "Siguiente" . " </a>";
+                    }
+                    ?>
+                    <select id="seleccion" data-url="<?php echo $urlBusqueda; ?>">
+                        <option value=""></option>
+                    <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

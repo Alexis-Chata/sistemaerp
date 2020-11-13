@@ -1,0 +1,45 @@
+<script src="/javascript/zona.js"></script>
+<form action="/zona/actualizaclientezona/" method="POST">
+	<h2><p>EDITAR ZONA:</p></h2>
+	<ul>		
+		<li>
+			<label>Zona</label>
+			<input type="sekect" name="ClienteZona[idzona]" id="lstZonas">
+			<?php
+				$total=count($Zona);
+				for($i=0;$i<$total;$i++){
+					echo "<option value=".$Zona[$i]['idzona'].">".$Zona[$i]['nombrezona'];
+				}
+			?>
+		</li>
+		<li>
+			<label>Cliente</label>
+			<input type="text" name="ClienteZona[idcliente]" value="">
+			<?php
+				$total=count($Cliente);
+				for($i=0;$i<$total;$i++){
+					echo "<option value=".$Cliente[$i]['idcliente'].">".$Cliente[$i]['razonsocial'];
+				}
+			?>
+		</li>
+		<li>
+			<label>Observaci&oacute;n</label>
+			<input type="text" name="Zona[observacion]" value="">
+		</li>
+		<li>
+			<label>Categoria</label>
+			<select name="Zona[idcategoria]">
+				<option value=''>Selecciona la categoria</option>
+				<?php 
+				$total=count($Categoria);
+				for($i=0;$i<$total;$i++){
+					echo "<option value=".$Categoria[$i]['idcategoria']
+					.">".$Categoria[$i]['codigoc']."-".$Categoria[$i]['nombrec'];
+				}
+				?>
+			</select>
+		</li>
+	</ul>
+	<input type="hidden" name="idZona" value="<?php echo $Zona[0]['idzona']; ?>">
+	<p><input type="submit" value="..::: ACTUALIZAR :::.." ><button id="btnCancelar">Cancelar</button></p>
+</form>

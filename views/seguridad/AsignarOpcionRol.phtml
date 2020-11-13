@@ -1,0 +1,77 @@
+<div id="listados">
+<tr>
+		<th colspan="4"><h2>Seguridad: Asignar Opciones</h2></th>
+			
+			<br>
+	<form action="/seguridad/asignarxrol" method="POST">
+	<p>Rol:
+		<select id="lstRol" name="idRol">
+			<option value="0">Seleccione Rol</option>
+			<?php
+				for($i=0;$i<count($Rol);$i++){
+					$selected="";
+					if($Rol[$i]['idrol']==$idRol){
+						$selected="selected";
+					}
+					echo '<option value="'.$Rol[$i]['idrol'].'" '.$selected.'>'.$Rol[$i]['nombre'].'</option>';
+				}
+			?>
+		</select>
+
+		<input type="submit" id="btnPermisos" value="Ver Permisos">
+	</p>
+	</form>	
+		<table id="tblOpcionesxRol">
+		<thead>
+				<tr>
+				<!--<th>Id</th>-->
+			
+			</tr>
+		</thead>
+		<tbody>
+		
+<?php
+$TotalDR=count($dataRol);
+		//print_r($Listado);
+		//exit();
+		$total=count($Listado);
+			for($i=0;$i<$total;$i++){
+				$totalrow=count($Listado[$i]);
+				for($j=0;$j<$totalrow;$j++){
+					
+						$estado=0;
+							echo "<tr valign=\"center\">";
+							if($Listado[$i][$j]['nivel']==1){
+							echo "<th rowspan=\"$totalrow\">".$Listado[$i][$j]['nombre']."
+									<br><br><br>
+								</th>
+								<th>Opciones</th>
+								<th>Estado</th>
+								";
+							}else{
+								$img="eliminar.gif";
+								for($k=0;$k<$TotalDR;$k++){
+									$checked="";
+									if($dataRol[$k]['idopciones']==$Listado[$i][$j]['idopciones']){
+										$estado=$dataRol[$k]['idopciones'];
+										$checked="checked";
+										break;
+									}
+								}
+								echo "";
+								echo "<td>".$Listado[$i][$j]['nombre']."</td>";
+								echo "<td>
+									<input type=\"checkbox\" id=\"".$idRol."\" name=\"".$Listado[$i][$j]['idopciones']."\" value=\"".$Listado[$i][$j]['idopciones']."\" ".$checked." >
+									</td>";
+							}
+						echo "</tr>";
+					
+				}
+			}
+?>
+		</tbody>
+		
+		</table>
+		
+</div>
+

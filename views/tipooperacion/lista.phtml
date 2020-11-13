@@ -1,0 +1,53 @@
+<h2>Mantenimiento: Tipo Operación</h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
+				<th >Acciones</th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Tipo Movimiento</th>
+				<th>Editar</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td><?php echo $data[$i]['idtipooperacion'] ?></td>
+					<td style="text-align:center;"><?php echo $data[$i]['codigotipooperacion'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['nombre'] ?> </td>
+					<?php if ($data[$i]['tipomovimiento']==1){ 
+						$tipo="Ingreso";
+					}else if($data[$i]['tipomovimiento']==2){ 
+						$tipo="Salida";
+					}else{
+						$tipo="";
+					} ?>
+					<td style="text-align:center;"><?php echo $tipo ?> </td>
+					
+					<td ><a  href="/<?php echo $titulo ?>/editar/<?php echo $data[$i]['idtipooperacion']; ?>"><img style="margin:auto;display:block;" src="/imagenes/editar.gif"></a></td>
+					
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

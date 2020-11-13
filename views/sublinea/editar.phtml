@@ -1,0 +1,46 @@
+<script src="/javascript/sublinea.js"></script>
+<form action="/sublinea/actualiza/" method="POST">
+	<fieldset>
+		<legend>Actualizaci&oacute;n de Sublinea</legend>
+		<ul>
+			<li>
+				<label>Linea</label>
+				<select name="Sublinea[idpadre]">
+					<?php
+						/*for($i=0;$i<count($Linea);$i++){
+							echo '<option value="'.$Linea[$i]['idlinea'].'">'.$Linea[$i]['nomlin']."</option>";
+						}*/
+					?>
+
+					<?php 
+						 for($i=0;$i<count($Linea);$i++)
+					    {
+					        echo '<option value="'.$Linea[$i]['idlinea'].'"';
+					        if ($Linea[$i]['idlinea'] == $Sublinea[0]['idpadre'])
+					        {
+					            echo ' selected>';
+					        }
+					        else
+					        {
+					            echo '>';
+					        }
+					        echo $Linea[$i]['nomlin'];
+					        echo '</option>';
+					    }
+
+					?>
+				</select>
+			</li>
+			<li>
+				<label>Nombre</label>
+				<input size="80px" type="text" value="<?php echo $Sublinea[0]['nomlin'];?>" name="Sublinea[nomlin]">
+			</li>
+
+			<li>
+				<input type="hidden" name="idsublinea" value="<?php echo $Sublinea[0]['idlinea']; ?>">
+				<input type="submit" value="Actualizar">
+				<button id="btncancelar">Cancelar</button>
+			</li>
+		</ul>
+	</fieldset>
+</form>

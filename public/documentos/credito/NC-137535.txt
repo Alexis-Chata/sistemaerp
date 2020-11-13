@@ -1,0 +1,89 @@
+A;Serie;;F001
+A;Correlativo;;00000002
+A;RznSocEmis;;CORPORACION POWER ACOUSTIK S.A.C.
+A;CODI_EMPR;;1
+A;RUTEmis;;20509811858
+A;DirEmis;;JR. ALFEREZ F.RICARDO HERRERA NRO. 665 (ALT. CDRA 13 DE LA AV.ARGENTINA) LIMA - LIMA - LIMA
+A;ComuEmis;;140101
+A;NomComer;;CORPORACION POWER ACOUSTIK S.A.C.
+A;TipoDTE;;07
+A;TipoRutReceptor;;6
+A;RUTRecep;;10440136350
+A;RznSocRecep;;FIVER JHONET BENDEZU CORDERO
+A;DirRecep;;JR. CAMPO DEPORTIVO NRO. S/N (POR LA ESCUELA PRIMARIA) - AYACUCHO - LA MAR - TAMBO
+A;TipoMoneda;;USD
+A;Sustento;;Por Devolucion
+A;TipoNotaCredito;;05
+A;MntNeto;;0.16
+A;MntExe;;0.00
+A;MntExo;;0.00
+A;MntTotalIgv;;0.03
+A;MntTotal;;0.19
+A;FchEmis;;2017-07-04
+A2;CodigoImpuesto;1;1000
+A2;MontoImpuesto;1;0.03
+A2;TasaImpuesto;1;18
+B;NroLinDet;1;1
+B;QtyItem;1;5
+B;UnmdItem;1;C62
+B;VlrCodigo;1;SUT-832 10A
+B;NmbItem;1;MINIFUSIBLE MODERNO 10AMP, AUTOTECH
+B;PrcItem;1;0.02
+B;PrcItemSinIgv;1;0.02
+B;MontoItem;1;0.08
+B;IndExe;1;10
+B;CodigoTipoIgv;1;1000
+B;TasaIgv;1;18
+B;ImpuestoIgv;1;0
+B;NroLinDet;2;2
+B;QtyItem;2;2
+B;UnmdItem;2;C62
+B;VlrCodigo;2;SUT-832 15A
+B;NmbItem;2;MINIFUSIBLE MODERNO 15AMP, AUTOTECH
+B;PrcItem;2;0.02
+B;PrcItemSinIgv;2;0.02
+B;MontoItem;2;0.03
+B;IndExe;2;10
+B;CodigoTipoIgv;2;1000
+B;TasaIgv;2;18
+B;ImpuestoIgv;2;0
+B;NroLinDet;3;3
+B;QtyItem;3;5
+B;UnmdItem;3;C62
+B;VlrCodigo;3;SUT-809 30A
+B;NmbItem;3;MINIFUSIBLE 30AMP, AUTOTECH
+B;PrcItem;3;0.01
+B;PrcItemSinIgv;3;0.01
+B;MontoItem;3;0.04
+B;IndExe;3;10
+B;CodigoTipoIgv;3;1000
+B;TasaIgv;3;18
+B;ImpuestoIgv;3;0
+D;NroLinRef;1;01
+D;TpoDocRef;1;01
+D;SerieRef;1;F001
+D;FolioRef;1;00000038
+E;TipoAdicSunat;01;01
+E;NmrLineasAdicSunat;01;01
+E;DescripcionAdicSunat;01;VEN: 131DC: OV-17003669
+E;TipoAdicSunat;02;01
+E;NmrLineasAdicSunat;02;02
+E;DescripcionAdicSunat;02;-
+E;TipoAdicSunat;03;01
+E;NmrLineasAdicSunat;03;03
+E;DescripcionAdicSunat;03;-
+E;TipoAdicSunat;04;01
+E;NmrLineasAdicSunat;04;04
+E;DescripcionAdicSunat;04;-
+E;TipoAdicSunat;05;01
+E;NmrLineasAdicSunat;05;05
+E;DescripcionAdicSunat;05;-
+E;TipoAdicSunat;06;01
+E;NmrLineasAdicSunat;06;06
+E;DescripcionAdicSunat;06;-
+E;TipoAdicSunat;07;01
+E;NmrLineasAdicSunat;07;07
+E;DescripcionAdicSunat;07;Cero con 19/100 Dolares Americanos  
+E;TipoAdicSunat;08;01
+E;NmrLineasAdicSunat;08;08
+E;DescripcionAdicSunat;08;2017-07-04

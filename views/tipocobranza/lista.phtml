@@ -1,0 +1,45 @@
+<h2>Mantenimiento: <?php echo $titulo; ?></h2>
+<fieldset>
+	<pre>
+	<?php 
+	$cantidad=count($data);
+	
+	 ?>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="5">Listado</th>
+				<th><a href="/<?php echo $titulo; ?>/nuevo"><img src="/imagenes/iconos/nuevo.gif">
+					</a></th>
+			</tr>
+			<tr>
+				<th>N°</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Dia Inicio Situacion</th>
+				<th>Dia Fin Situacion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php for ($i=0; $i <$cantidad ; $i++) { ?>
+				<tr>
+					<td style="text-align:center;"><?php echo $data[$i]['idtipocobranza'] ?> </td>
+					<td style="text-align:center;"><?php echo $data[$i]['codigo'] ?> </td>
+					<td ><?php echo $data[$i]['nombre'] ?> </td>
+					<td><?php echo $data[$i]['descripcion'] ?> </td>
+					<td ><?php echo $data[$i]['diaini'] ?> </td>
+					<td><?php echo $data[$i]['diafin'] ?> </td>					
+				</tr>
+			<?php } ?>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

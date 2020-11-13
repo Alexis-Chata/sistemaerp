@@ -1,0 +1,35 @@
+<input type="hidden" id="urlpagination" value="/zona/buscar/">
+<input type="hidden" id="urleditar" value="/zona/editar/">
+<h2>Mantenimiento: Zonas</h2>
+<div>
+	<ul class="inline-block">
+		<li>
+			<label>Categorias:</label>
+			<select id="lstCategorias" name="lstCategorias">
+				<option value="">Sin filtro de Categoria
+				<?php
+					$total=count($Categoria);
+					for($i=0;$i<$total;$i++){
+						echo "<option value=".$Categoria[$i]['idcategoria'].
+							(($idcategoria==$Categoria[$i]['idcategoria'] and $idcategoria!='')?' selected ':'')
+							.">".$Categoria[$i]['codigoc']."-".$Categoria[$i]['nombrec'];
+					}
+				?>
+			</select>
+			<a href="" id="aeditarcategoria">Editar Categoria</a>||
+			<a href="/zona/nuevacategoria">Nueva Categoria</a>||
+			
+		</li>
+	</ul>
+</div>
+<table id="datagridedit">
+	<thead>
+		<tr>
+			<th data-field="idzona">Id</th>
+			<th data-field="nombrezona">Nombre</th>
+			<th data-field="codigoz">Codigo Zona</th>
+			<th data-field="observacion">Observacion</th>
+			<th data-field="nombrec">Categoria</th>
+		</tr>
+	</thead>
+</table>

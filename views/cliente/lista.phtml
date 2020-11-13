@@ -1,0 +1,136 @@
+<script src="/javascript/mantenimiento-cliente.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Seguridad: Cliente
+</h2>
+<style>
+    #blockFiltroAvanzado {
+/*        display: none;*/
+        padding: 10px;
+        background: rgb(167, 209, 233);
+        margin-top: 10px;
+    }
+    #blockFiltroAvanzado > .text-filto {
+        display: block;
+        margin-bottom: 5px;
+    }
+</style>
+<div id="listados">
+    <form method="POST" action="/cliente/busca/" id="frmBusquedaCliente">
+        <div id="busqueda" style="float:left !important;padding-bottom: 20px;width:100%">
+            <b>Busqueda:</b>
+            <input type="text" id="txtBusqueda" name="txtBusqueda" title="Ingrese Razon Social o RUC" placeholder="Ingrese Razon Social o RUC" size="50px"/>
+            <div id="blockFiltroAvanzado">
+                <ul>
+                    <li>Identificador: <input type="text" title="Identificador del cliente" name="txtIdentificador"></li>
+                    <li>Razon Social: <input type="text" title="Razon social del cliente" name="txtRazonSocial"></li>
+                    <li>D.N.I.: <input type="text" title="DNI del cliente" name="txtDni"></li>
+                    <li>R.U.C.: <input type="text" title="RUC del cliente" name="txtRuc"></li>
+                    <li>Dirección: <input type="text" title="Direccion del cliente" name="txtDireccion"></li>
+                    <li>E-mail: <input type="text" title="E-mail del cliente" name="txtEmail"></li>
+                    <li>Teléfono: <input type="text" title="Titulo del cliente" name="txtTelefono"></li>
+                    <li>Celular: <input type="text" title="Celular del cliente" name="txtCelular"></li>
+                </ul>
+            </div>
+            <input type="submit" value="Buscar"/>
+        </div>
+    </form>
+	
+    <table>
+        <thead>
+		<tr>
+			<th colspan="12">Listado de Clientes</th>
+			<th>
+				<a href="/cliente/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a>
+			</th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Razon Social</th>
+			<th>DNI</th>
+			<th>RUC</th>
+			<th>Zona</th>
+			<th>Direcci&oacute;n</th>
+			<th>E-mail</th>
+			<th>Tel&eacute;fono</th>
+			<th>Celular</th>
+			<th>Fax</th>
+			<th colspan="3">Acci&oacute;n</th>
+		</tr>
+	</thead>	
+		<tbody>
+		<?php
+			for($i=0;$i<count($Cliente);$i++){
+				echo "<tr>";
+					echo "<td>".$Cliente[$i]['idcliente']."</td>";
+					echo "<td>".$Cliente[$i]['razonsocial']."</td>";
+					echo "<td>".$Cliente[$i]['dni']."</td>";
+					echo "<td>".$Cliente[$i]['ruc']."</td>";
+					echo "<td>".$Cliente[$i]['zona']."</td>";
+					echo "<td>".$Cliente[$i]['direccion']."</td>";
+					echo "<td>".$Cliente[$i]['email']."</td>";
+					echo "<td>".$Cliente[$i]['telefono']."</td>";
+					echo "<td>".$Cliente[$i]['celular']."</td>";
+					echo "<td>".$Cliente[$i]['fax']."</td>";
+					//if ($Permiso[0]['p_actualizar']==1) {
+						echo "<td><a href=\"/cliente/editar/".$Cliente[$i]['idcliente']."\" class=\"btnEditar\"><img src=\"/imagenes/editar.gif\"></a></td>";
+                                                echo "<td><a href=\"/cliente/lineadecredito/".$Cliente[$i]['idcliente']."\" title='Añadir linea de credito'><img src=\"/imagenes/iconos/valorizar.png\" width='21px'></a></td>";
+					//}else{
+						//echo "<td></td>";
+					//}
+					//if ($Permiso[0]['p_eliminar']==1) {
+						if($_SESSION['idactor']==212){
+						echo "<td><a href=\"/cliente/eliminar/".$Cliente[$i]['idcliente']."\" class=\"btnEliminar\"><img src=\"/imagenes/eliminar.gif\"></a></td>";
+					
+					}else{
+						echo "<td></td>";
+					}
+					
+				echo "</tr>";
+			}
+		?>
+		</tbody>
+		<tfoot>
+		<tr><td colspan="13" align="center">
+		<?php
+				$pagina=$_REQUEST['id'];
+				if ($blockpaginas*10<$paginacion) {
+					$blockpaginas=$blockpaginas+1;
+				}else{
+					$blockpaginas=$blockpaginas;
+				}
+
+				if ($pagina>1) 
+				{
+					echo "<a href=\"/cliente/lista/".($pagina-1)."\"> "."Anterior"." </a>";
+				}
+				
+				for ($i=1; $i <=$blockpaginas ; $i++) { 
+					$max=$i*10;
+
+					for ($min=$max-9; $min <=$max ; $min++) { 
+						if ($pagina>=$max-9 && $pagina<=$max && $paginacion>=$min) {
+							if ($pagina==$min) {
+								echo "<a href=\"/cliente/lista/".($min)."\"> <b style='color:blue;'>".($min)." </b></a>";
+							}else{
+								echo "<a href=\"/cliente/lista/".($min)."\"> ".($min)." </a>";
+							}
+						}
+					}
+				}
+
+				if ($pagina<$paginacion) 
+				{
+					echo "<a href=\"/cliente/lista/".($pagina+1)."\"> "."Siguiente"." </a>";
+				}
+
+		?>
+		<select id="seleccion">
+			<option value=""></option>
+			<?php  for ($i=1; $i <=$paginacion ; $i++) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+			<?php } ?>
+		</select>
+		</tr>
+	</tfoot>
+</table>
+
+</div>

@@ -1,0 +1,76 @@
+<?php $idmodulo = 228;
+require_once 'evalcredenciales.php'; ?>
+<script type="text/javascript" src="/javascript/formatoInventario.js" ></script>
+<br>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">FORMATO PARA INVENTARIOS GENERALES</h2>
+<h3 style="float:left !important;padding-bottom: 20px;width:100%">"el formato ordena los productos por bloques deacuerdo al inventario pasado seleccionado"</h3>
+
+<fieldset>
+    <form  id="frmReporte"  method="post" action=""  target="_blank">
+        <ul>
+            <li>
+<?php $cantidadInventario = count($inventario); ?>
+                <label>Elija el Inventario</label>
+                <select id="lstInventario" name="lstInventario" >
+                    <?php if ($evaluarCredenciales == 1) {
+                        if ($c15_datashet != $c14_datashet) {
+                            for ($i = 0; $i < $cantidadInventario; $i++) {
+                                if ($c14_datashet == 1 and $inventario[$i]['invagrupamiento'] == 1) { ?>
+                                    <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'] . '  del  ' . $inventario[$i]['fechainv']; ?></option>
+                                <?php } ?>
+                                <?php if ($c14_datashet == 0) { ?>
+                                    <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'] . '  del  ' . $inventario[$i]['fechainv']; ?></option>
+                                <?php }
+                            }
+                        }
+                    }
+                    if ($evaluarCredenciales == 0) {
+                        for ($i = 0; $i < $cantidadInventario; $i++) {
+                            if ($inventario[$i]['invagrupamiento'] == 1) { ?>
+                                <option value="<?php echo $inventario[$i]['idinventario']; ?>" ><?php echo $inventario[$i]['codigoinv'] . '  del  ' . $inventario[$i]['fechainv']; ?></option>
+                            <?php }
+                        }
+                    } ?>
+                </select>
+            </li>
+            <li>
+<?php $cantidadBloques = count($bloques); ?>
+                <label>Anaquel</label>
+                <select id="lstBloques" name="lstBloques" style="width:120px;">
+                    <?php for ($i = 0; $i < $cantidadBloques; $i++) { ?>
+                        <option value="<?php echo $bloques[$i]['idbloque'] ?>" ><?php echo $bloques[$i]['codigo'] ?></option>
+<?php } ?>
+                </select>
+            </li>
+            <li>
+                <label>Elija el Conteo</label>
+                <select id="lstConteo" name="lstConteo" style="width:120px;">
+                    <option value="1" >conteo 1</option>
+                    <option value="2" >conteo 2</option>
+                    <option value="3" >conteo 3</option>
+                </select>
+            </li>
+            <li>
+                <label>Condicion de Stock</label>
+                <select id="lstConteo" name="lstStock" style="width:120px;">
+                    <option value="">Todos</option>
+                    <option value="1" >Con Stock</option>
+                    <option value="2" >Sin Stock</option>
+                </select>
+            </li>
+            <li style="font-weight:800;">
+                Formato&nbsp;para&nbsp;conteo&nbsp;<input type="checkbox" id="chkformatoparaconteo" name="chkformatoparaconteo" checked="true">
+            </li>
+
+            <li>
+                <label>Numero de Inventario</label>
+                <input size=45 type="text" name="txtNumeroInventario" ID="txtNumeroInventario" placeholder="Escriba el numero bajo el sgte formato: INV-AÑO000001">
+            </li>
+
+            <li>
+                <button id="btnImprimirPdf"> Imprimir  <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/iconos/pdf.gif"></button>
+                <button id="btnImprimirExcel"> Imprimir <img width="25" height="25" style="vertical-align: middle;text-align: center;" src="/imagenes/excel.png"></button>
+            </li>
+        </ul>
+    </form>
+</fieldset>

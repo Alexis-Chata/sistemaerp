@@ -1,0 +1,34 @@
+<h2>Mantenimiento: Lineas</h2>
+<div>
+	<ul class="inline-block">
+		<li>
+			<label>Lineas:</label>
+			<select id="lstLineasPadre" name="lstLineasPadre">
+				<option value="">Sin filtro de Linea
+				<?php
+					$total=count($LineaPadre);
+					for($i=0;$i<$total;$i++){
+						if($LineaPadre[$i]['idpadre']==0){
+							echo "<option value=".$LineaPadre[$i]['idlinea'].
+							(($idlineapadre==$LineaPadre[$i]['idlinea'] and $idlineapadre!='')?' selected ':'')
+							.">".$LineaPadre[$i]['nomlin'];	
+						}
+					}
+				?>
+			</select>
+			<a href="" id="aeditarlineapadre">Editar</a>||
+			<a href="/linea/nuevalineapadre">Nuevo</a>
+		</li>
+	</ul>
+</div>
+
+<input type="hidden" id="urlpagination" value="/linea/buscar/">
+<input type="hidden" id="urleditar" value="/linea/editar/">
+<table id="datagridedit">
+	<thead>
+		<tr>
+			<th data-field='idlinea'>Id Linea</th>
+			<th data-field='nomlin'>Nombre</th>
+		</tr>
+	</thead>
+</table>

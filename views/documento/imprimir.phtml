@@ -1,0 +1,39 @@
+<script src="/javascript/documento.js"></script>
+<h2>Impresion de documentos</h2>
+<fieldset>
+	<ul class="inline-block">
+		<form target="_blank" action="<?php echo $documento[0]['action'];  ?>" method="post">
+			<li>
+			<label>Serie </label>
+			<input type="text"  value="<?php echo $documento[0]['serie'] ?>" readonly="readonly">
+			</li>
+			<li>
+				<label>Numero</label>
+			<input type="text"  value="<?php echo $documento[0]['numdoc'] ?>" readonly="readonly">	
+			</li>
+			<li>
+			<label><?php echo $documento[0]['title']; ?></label>
+			<input type="text" name="numeroRelacionado" >
+			</li>
+			<li>
+				
+				<?php if ($documento[0]['tipo']==4){ ?>
+					<label>Tipo Documento Relacionado</label>
+					<select name="tipodocumento">
+						<?php for ($i=0; $i <(count($tipodocumento)+1) ; $i++) { ?>
+							<option value="<?php echo $i ?>"><?php echo $tipodocumento[$i] ?></option>
+						<?php } ?>
+					</select>
+				
+				<?php }elseif ($documento[0]['tipo']==2 || $documento[0]['tipo']==1 ){ ?>
+					<input type="hidden" value="4" name="tipodocumento">
+				<?php } ?>
+			</li>
+			
+			<input type="submit" value="Imprimir">
+			<button id="btnCancelar">cancelar</button>
+			<input type="hidden" name="idDoc" value="<?php echo $documento[0]['iddocumento'] ?>"> 
+
+		</form>
+	</ul>
+</fieldset>
