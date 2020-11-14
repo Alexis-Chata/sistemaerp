@@ -754,7 +754,7 @@ class OrdencompraController extends ApplicationGeneral {
             echo"<td>" . number_format($dataDetalleordenCompra[$i]['preciocosto'] / $tipocambio, 2) . "</td>";
             echo"<td>" . number_format($dataDetalleordenCompra[$i]['fobdoc'] * $porcentaje, 2) . "</td>";
             echo"<td>" . number_format($tipocambio, 2) . "</td>";
-            echo"<td>" . $dataDetalleordenCompra[$i][preciotopedolares] . "</td>";
+            echo"<td>" . $dataDetalleordenCompra[$i]['preciotopedolares'] . "</td>";
             echo"<td>" . number_format($preciolistaDolares, 2) . "</td>";
             echo"<td>" . number_format($dataDetalleordenCompra[$i]['preciotope'], 2) . "</td>";
             echo"<td>" . number_format($dataDetalleordenCompra[$i]['preciolista'], 2) . "</td>";

@@ -3760,7 +3760,7 @@ class ReporteController extends ApplicationGeneral {
             $body .= "<td>" . number_format($dataDetalleordenCompra[$i]['preciocosto'] / $tipocambio, 2) . "</td>";
             $body .= "<td>" . number_format($dataDetalleordenCompra[$i]['fobdoc'] * $porcentaje, 2) . "</td>";
             $body .= "<td>" . number_format($tipocambio, 2) . "</td>";
-            $body .= "<td>" . $dataDetalleordenCompra[$i][preciotopedolares] . "</td>";
+            $body .= "<td>" . $dataDetalleordenCompra[$i]['preciotopedolares'] . "</td>";
             $body .= "<td>" . number_format($preciolistaDolares, 2) . "</td>";
             $body .= "<td>" . number_format($dataDetalleordenCompra[$i]['preciotope'], 2) . "</td>";
             $body .= "<td>" . number_format($dataDetalleordenCompra[$i]['preciolista'], 2) . "</td>";

@@ -1,7 +1,7 @@
 ﻿<?php
 error_reporting(0);
 ini_set("memory_limit","1024M");
-ini_set("diplay_error","on");
+ini_set("display_error","on");
 ob_start();
 $url_items = explode("/", $_REQUEST['url']);
 // $_REQUEST['controlador'] = DesencriptaURL($url_items[0]); 

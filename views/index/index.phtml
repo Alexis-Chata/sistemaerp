@@ -15,7 +15,7 @@
 		<?php $cantidadFavoritos=count($favoritos); ?>
 		<?php for ($i=0; $i <$cantidadFavoritos ; $i++) { ?>
 		<tr>	
-			<td class="center" style=""><?php echo $i+1; ?></td>
+			<td class="center"><?php echo $i+1; ?></td>
 			<td><a class="block" style="height: 20px; margin-left: 20px;" title="Ir" href="<?php echo strtolower($favoritos[$i]['url']); ?>"><?php echo $favoritos[$i]['descripcion']; ?></a></td>
 			<td class="center"><a title="Ir" href="<?php echo strtolower($favoritos[$i]['url']); ?>"><img width="25px" heigth="25px" src="/imagenes/iconos/arrow.png"></a></td>
 			<td class="center"><a title="Eliminar Favorito" href="/index/eliminarFavorito/<?php echo $favoritos[$i]['idfavorito'] ?>>"><img width="25px" heigth="25px" src="/imagenes/btneliminar.gif"></a></td>

@@ -174,7 +174,7 @@ class AlmacenController extends ApplicationGeneral {
 
     function registra() {
         $dataMovimiento = $_REQUEST['Movimiento'];
-        $idOrdenCompra = $dataMovimiento[idordencompra];
+        $idOrdenCompra = $dataMovimiento['idordencompra'];
         $numero = $_REQUEST['txtCantidadDetalleMovimiento'];
         $producto = new Producto();
         $movimiento = new Movimiento();
@@ -228,8 +228,8 @@ class AlmacenController extends ApplicationGeneral {
         } else {
             $dataDetalleMovimiento = array_splice($_REQUEST, 3, count($_REQUEST) - 8);
             foreach ($dataDetalleMovimiento as $data) {
-                $cantidad = $data[cantidad];
-                $idProducto = $data[idproducto];
+                $cantidad = $data['cantidad'];
+                $idProducto = $data['idproducto'];
                 $dataProducto = $producto->buscaProducto($idProducto);
                 $stockActual = $dataProducto[0]['stockactual'];
                 $stockNuevo = ($operacion == '+') ? array('stockactual' => $stockActual + $cantidad) : array('stockactual' => $stockActual - $cantidad);
