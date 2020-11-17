@@ -287,6 +287,24 @@ class Producto extends Applicationbase
         return $dato;
     }
 
+    function buscaProductoAutocompleteLimpioRep($texIni, $idLinea = "")
+    {
+        $texIni = htmlentities($texIni, ENT_QUOTES, 'UTF-8');
+        $condicion = "p.estado=1 and (p.codigopa LIKE '$texIni%') and p.idtipoproducto=1 ";
+        if (!empty($idLinea)) {
+            $condicion .= "AND idlineapadre=$idLinea";
+        }
+        $producto = $this->leeRegistro("wc_producto as p left join wc_unidadmedida as u on p.unidadmedida=u.idunidadmedida", "p.unidadmedida,p.codigopa,p.nompro,p.idproducto,p.stockactual,p.stockdisponible,p.imagen,p.idalmacen,u.cod_sunat,u.nombre", "$condicion", "", "limit 0,15");
+        foreach ($producto as $valor) {
+            $titulocontrol = (html_entity_decode($valor['nompro'], ENT_QUOTES, 'UTF-8'));
+            $titulolista = (html_entity_decode($valor['codigopa'], ENT_QUOTES, 'UTF-8')) . " " . (html_entity_decode($valor['nompro'], ENT_QUOTES, 'UTF-8')) . "";
+            $imagen = $valor['imagen'];
+
+            $dato[] = array("value" => (html_entity_decode($valor['codigopa'], ENT_QUOTES, 'UTF-8')), "unidad" => $valor['unidadmedida'], "almacen" => $valor['idalmacen'], "label" => $titulolista, "id" => $valor['idproducto'], "tituloProducto" => $titulocontrol, "imagen" => $imagen, "cod_sunat" => $valor['cod_sunat'] . ' (' . $valor['nombre'] . ')');
+        }
+        return $dato;
+    }
+
     function buscaProductoAutocompleteCompras($texIni, $idLinea = "")
     {
         $texIni = htmlentities($texIni, ENT_QUOTES, 'UTF-8');

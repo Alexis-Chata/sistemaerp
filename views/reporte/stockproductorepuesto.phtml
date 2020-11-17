@@ -1,0 +1,44 @@
+<script src="/javascript/stockproducto.js"></script>
+<h2>Reportes: Stock de Repuestos</h2>
+<br>
+<fieldset style="display:inline-block">
+	<legend>Filtro</legend>
+	<ul>
+		<li>
+			<label>Seleccione una de las opiones</label>
+			<input id="todo" type="radio" name="rbFiltro" value="0" checked>
+			<label for="todo" style="display: inline-block; font-weight: 100;">Todo</label>
+			&nbsp;<input id="xrepuesto" type="radio" name="rbFiltro" value="6">
+			<label for="xrepuesto" style="display: inline-block; font-weight: 100;">Por Repuesto</label>
+		</li>
+		<li id="liProducto">
+			<label>Repuesto</label>
+			<input type="text" class="text-large required uppercase" placeholder="Ingrese Codigo del Repuesto" id="txtCodigoProductoRepuesto">
+			<input type="hidden" id="txtIdProducto">
+		</li>
+		<li id="buttomContent1">
+			<button id="btnConsultar">Consultar</button>
+		</li>
+		<li>
+			<form action="/pdf/StockProductoRep/" method="post" target="_blank">
+				<input type="submit" value="ver en pdf" id="mostrarPDF">
+				<input type="hidden" id="idProducto"  name="idProducto">
+			</form>
+		</li>
+	</ul>
+</fieldset>
+<table id="dataGridReport">
+	<thead>
+		<tr>
+			<th data-field="codigo">C&oacute;digo</th>
+			<th data-field="nompro">Descripc&oacute;n</th>
+			<th data-field="nomalm">Almacen</th>
+			<th data-field="nomlin">Linea</th>
+			<th data-field="unidadmedida">Unidad Medida</th>			
+			<th data-field="preciolistadolares">Precio Lista(US $)</th>
+                        <th data-field="preciolista">Precio Lista(S/.)</th>
+			<th data-field="stockactual">Stock Actual</th>
+			<th data-field="stockdisponible">Stock Disponible</th>
+		</tr>
+	</thead>
+</table>

@@ -311,6 +311,20 @@ class ProductoController extends ApplicationGeneral
         }
         echo json_encode($data);
     }
+
+    function buscarAutocompleteLimpioRep()
+    {
+        $texIni = $_REQUEST['term'];
+        $idLinea = $_REQUEST['idlinea'];
+        $producto = new Producto();
+        if ($_REQUEST['idlinea']) {
+            $data = $producto->buscaProductoAutocompleteLimpioRep($texIni, $idLinea);
+        } else {
+            $data = $producto->buscaProductoAutocompleteLimpioRep($texIni);
+        }
+        echo json_encode($data);
+    }
+
     function buscarAutocompleteCompras()
     {
         $texIni = $_REQUEST['term'];

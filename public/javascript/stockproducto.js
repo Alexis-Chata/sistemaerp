@@ -16,17 +16,22 @@ $(document).ready(function(){
 		$('#idSubLinea').val(idSubLinea);
 		$('#idAlmacen').val(idAlmacen);
 		$('#idProducto').val(idProducto);
-		$('#mostrarPDF').show();
 
 	});
 	$('#fsLineaSublinea').hide();
 	$('input[name="rbFiltro"]').change(function(){
+		$('#mostrarPDF').hide();
 		$('#tblStockProducto').hide();
 		$('#lstAlmacen option').eq(0).attr('selected','selected');
 		$('#lstLinea option').eq(0).attr('selected','selected');
 		$('#lstSubLinea option').eq(0).attr('selected','selected');
-		$('#txtCodigoProducto, #txtIdProducto').val('');
-		if(this.value == "1"){
+		$('#txtCodigoProducto, #txtCodigoProductoRepuesto, #txtIdProducto').val('');
+		if(this.value == "0"){
+			$('#liAlmacen').hide();
+			$('#liLinea').hide();
+			$('#liSubLinea').hide();
+			$('#liProducto').hide();
+		}else if(this.value == "1"){
 			$('#liAlmacen').hide();
 			$('#liLinea').hide();
 			$('#liSubLinea').hide();
@@ -90,6 +95,28 @@ $(document).ready(function(){
 			$('#txtIdProducto').val('');
 		}
 	});
+	/*Autocompletes*/
+    //Autocomplete Producto REPUESTO
+    $('#txtCodigoProductoRepuesto').autocomplete({
+        minLength: 2,
+        source: function (request, response) {
+            $.ajax({
+                url: "/producto/buscarAutocompleteRepuesto/",
+                dataType: "json",
+                data: {term: request.term, idlinea: $('#lstLinea option:selected').val()},
+                success: function (data) {
+                    console.log(data);
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#txtIdProducto').val(ui.item.id);
+            $('#txtTituloProducto').val(ui.item.tituloProducto);
+            $('#txtCantidadProducto').focus();
+            
+        }
+    });
 });
 msboxTitle = "Reporte de Stock de Producto";
 //Cargar listado de sub linea
@@ -129,6 +156,10 @@ function cargaTabla(msboxTitle){
 		if(idProducto == ""){
 			mensaje = "Ingrese correctamente el nombre del producto";
 		}
+	}else if(filtro == "6"){
+		if(idProducto == ""){
+			mensaje = "Ingrese correctamente el nombre del repuesto";
+		}
 	}else{
 		mensaje = "";
 	}
@@ -136,9 +167,18 @@ function cargaTabla(msboxTitle){
 		$.msgbox(msboxTitle, mensaje);
 		execute();
 	}else{
-		ruta = "/reporte/stockproducto/";
-		$.post(ruta, {idLinea: idLinea, idSubLinea: idSubLinea, idAlmacen: idAlmacen, idProducto: idProducto}, function(data){
-			$("#dataGridReport").data("kendoGrid").dataSource.data(data);
-		});
+		$('#mostrarPDF').show();
+		if(filtro == "6" || filtro == "0"){
+			ruta = "/reporte/stockproductorepuesto/";
+			$.post(ruta, {idProducto: idProducto}, function(data){
+				$("#dataGridReport").data("kendoGrid").dataSource.data(data);
+			});
+		}else{
+			ruta = "/reporte/stockproducto/";
+			$.post(ruta, {idLinea: idLinea, idSubLinea: idSubLinea, idAlmacen: idAlmacen, idProducto: idProducto}, function(data){
+				$("#dataGridReport").data("kendoGrid").dataSource.data(data);
+			});
+		}
+
 	}
 }

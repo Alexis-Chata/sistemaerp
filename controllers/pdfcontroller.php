@@ -615,6 +615,79 @@ Class PDFController extends applicationgeneral {
         $pdf->Output();
     }
 
+    function StockProductoRep() {
+
+        $idAlmacen = $_REQUEST['idAlmacen'];
+        $idLinea = $_REQUEST['idLinea'];
+        $idSubLinea = $_REQUEST['idSubLinea'];
+        $idProducto = $_REQUEST['idProducto'];
+        $repote = new Reporte();
+        $data = $repote->reporteStockProductoRep($idAlmacen, $idLinea, $idSubLinea, $idProducto);
+        // print_r($data[0]);
+        // exit;
+        $unidadMedida = $this->unidadMedida();
+        $totalStock = 0;
+        $data2 = array();
+        $i = 0;
+        for ($i = 0; $i < count($data); $i++) {
+            $data2[$i]['codigo'] = $data[$i]['codigopa'];
+            $data2[$i]['nompro'] = $data[$i]['nompro'];
+            $data2[$i]['nomalm'] = $data[$i]['nomalm'];
+            $data2[$i]['nomlin'] = $data[$i]['nomlin'];
+            $data2[$i]['preciolista'] = $data[$i]['preciolista'];
+            $data2[$i]['preciolistadolares'] = $data[$i]['preciolistadolares'];
+            $data2[$i]['unidadmedida'] = $data[$i]['unidadmedida'];
+            $data2[$i]['stockactual'] = $data[$i]['stockactual'];
+            $data2[$i]['stockdisponible'] = ($data[$i]['stockdisponible']);
+            $totalStock+=$data[$i]['stockactual'];
+        }
+
+        $cantidadData = count($data2);
+
+        /**/
+        $pdf = new PDF_Mc_Table("L", "mm", "A4");
+        $titulos = array('Codigo', 'Descripcion', 'Almacen', 'Linea', 'P. L.(S/.)', 'P. L.(US $)', 'U.M', 'S/Act', 'S/Desp');
+        $columnas = array('codigo', 'nompro', 'nomalm', 'nomlin', 'preciolista', 'preciolistadolares', 'unidadmedida', 'stockactual', 'stockdisponible');
+        $ancho = array(20, 75, 55, 50, 16, 16, 15, 13, 13);
+        $orientacion = array('C', '', '', '', 'R', 'R', 'C', 'R', 'R');
+        $pdf->_titulo = "Reporte de Stock Producto";
+
+
+        $pdf->AddPage();
+
+        $relleno = true;
+        $pdf->SetFillColor(202, 232, 234);
+        $pdf->SetTextColor(12, 78, 139);
+        $pdf->SetDrawColor(12, 78, 139);
+        $pdf->SetLineWidth(.3);
+        $pdf->SetFont('Helvetica', 'B', 8);
+        $pdf->fill($relleno);
+        //un arreglo con su medida  a lo ancho
+
+        $pdf->SetWidths($ancho);
+
+        //un arreglo con alineacion de cada celda
+
+        $pdf->SetAligns($orientacion);
+
+        for ($i = 0; $i < count($titulos); $i++) {
+            $pdf->Cell($ancho[$i], 7, $titulos[$i], 1, 0, 'C', true);
+        }
+        $pdf->Ln();
+        $pdf->SetFillColor(224, 235, 255);
+        $pdf->SetTextColor(0);
+        $pdf->SetFont('');
+        for ($i = 0; $i < $cantidadData; $i++) {
+
+            $fila = array(html_entity_decode($data2[$i]['codigo'], ENT_QUOTES, 'UTF-8'), html_entity_decode($data2[$i]['nompro'], ENT_QUOTES, 'UTF-8'), html_entity_decode($data2[$i]['nomalm'], ENT_QUOTES, 'UTF-8'), (html_entity_decode(utf8_decode($data2[$i]['nomlin']), ENT_QUOTES, 'UTF-8')), $data2[$i]['preciolista'], $data2[$i]['preciolistadolares'], $data2[$i]['unidadmedida'], $data2[$i]['stockactual'], $data2[$i]['stockdisponible']);
+            $pdf->Row($fila);
+            $relleno = !$relleno;
+            $pdf->fill($relleno);
+        }
+        $pdf->AliasNbPages();
+        $pdf->Output();
+    }
+
     function ventas() {
 
         $idLinea = $_REQUEST['linea'];
@@ -3107,6 +3180,69 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         for ($i = 0; $i < $cantidadData; $i++) {
             $modoFactura = "";
             $fila = array(($i + 1), $datos[$i]['fecha'], $datos[$i]['tipo movimiento'], $datos[$i]['concepto movimiento'], $datos[$i]['codigov'], html_entity_decode($datos[$i]['razon social'], ENT_QUOTES, 'UTF-8'), $datos[$i]['devolucion'], number_format($datos[$i]['precio'], 2), $datos[$i]['cantidad'], $datos[$i]['saldo'], number_format(round($datos[$i]['precio'], 2) * $datos[$i]['cantidad'], 2));
+            $pdf->Row($fila);
+            $relleno = !$relleno;
+            $pdf->fill($relleno);
+        }
+
+        $pdf->AliasNbPages();
+        $pdf->Output();
+    }
+
+    function reporteKardexProduccionRep() {
+        $txtFechaInicio = $_REQUEST['txtFechaInicio'];
+        $txtFechaFinal = $_REQUEST['txtFechaFinal'];
+        $codigoRep = $_REQUEST['codigoRep'];
+        $idProducto = $_REQUEST['idProducto'];
+        $idTipoMovimiento = $_REQUEST['idTipoMovimiento'];
+        $idTipoOperacion = $_REQUEST['idTipoOperacion'];
+        $txtDescripcion = $_REQUEST['txtDescripcion'];
+        $reporte = $this->AutoLoadModel('reporte');
+        $datos = $reporte->reporteKardexProduccionRepuesto($txtFechaInicio, $txtFechaFinal, $idProducto, $idTipoMovimiento, $idTipoOperacion);
+        $cantidadData = count($datos);
+        $pdf = new PDF_MC_Table("L", "mm", "A4");
+        $titulos = array('#', 'FECHA', 'T. MOV.', 'OBSERVACION', 'ORDEN', 'RAZON SOCIAL',  'PRECIO', 'CANT. ', 'SALDO', 'IMPORTE S/.');
+        $pdf->SetFont('Helvetica', 'B', 7.5);
+        $ancho = array(10, 20, 20, 35, 25, 70, 25, 20, 20, 25, 15, 20);
+        $orientacion = array('', 'C', 'C', '', 'C', '', 'C', 'C', 'C', 'C', 'C', 'R');
+
+        $tipoCambioVentas = $this->configIni($this->configIni('Globals', 'Modo'), 'TipoCambio');
+        $pdf->SetWidths($ancho);
+        if (!empty($codigoRep)) {
+        $pdf->_fecha = 'Codigo Repuesto: '.$codigoRep. '         ';
+        }
+
+        if (!empty($txtFechaFinal) || !empty($txtFechaInicio)) {
+            $fecha1 = !empty($txtFechaInicio) ? $txtFechaInicio : utf8_decode('?');
+            $fecha2 = !empty($txtFechaFinal) ? $txtFechaFinal : utf8_decode('?');
+            $pdf->_fecha .= 'Rango Fecha: ' . $fecha1 . ' - ' . $fecha2;
+        }
+
+        $pdf->_titulo = "REPORTE::KARDEX DE REPUESTO". '             ';
+        $pdf->_datoPie = $txtDescripcion . '     ' . 'Impreso el :' . date('Y-m-d H:m:s');
+        $pdf->AddPage();
+        $pdf->_titulos = $titulos;
+
+
+        $relleno = true;
+        $pdf->fill($relleno);
+        $pdf->SetFillColor(0224, 235, 255);
+        $pdf->SetTextColor(0);
+        $pdf->SetDrawColor(12, 78, 139);
+        $pdf->SetLineWidth(.3);
+        $pdf->_orientacion = $orientacion;
+        $pdf->SetAligns($orientacion);
+        $pdf->SetTitulos($titulos);
+
+        $pdf->SetFillColor(0224, 235, 255);
+        $pdf->SetTextColor(0);
+        $pdf->SetDrawColor(12, 78, 139);
+
+        $importeFactura = 0;
+        $importeBoleta = 0;
+        for ($i = 0; $i < $cantidadData; $i++) {
+            $modoFactura = "";
+            $fila = array(($i + 1), $datos[$i]['fecha'], $datos[$i]['tipo movimiento'], $datos[$i]['observacion'], $datos[$i]['codigooc'], html_entity_decode($datos[$i]['razonsocialp'], ENT_QUOTES, 'UTF-8'), number_format($datos[$i]['precio'], 2), $datos[$i]['cantidad'], $datos[$i]['saldo'], number_format(round($datos[$i]['precio'], 2) * $datos[$i]['cantidad'], 2));
             $pdf->Row($fila);
             $relleno = !$relleno;
             $pdf->fill($relleno);

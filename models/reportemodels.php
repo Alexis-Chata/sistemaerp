@@ -413,24 +413,39 @@ class Reporte extends Applicationbase {
     }
 
     function reporteStockProducto($idAlmacen, $idLinea, $idSubLinea, $idProducto) {
-        $condicion = "t1.estado=1";
+        $productoOrepuesto=" and idtipoproducto=0";
+        $condicion = "t1.estado=1".$productoOrepuesto;
         if (!empty($idAlmacen)) {
-            $condicion = "t1.idalmacen=$idAlmacen";
+            $condicion = "t1.idalmacen=$idAlmacen".$productoOrepuesto;
         }
         if (!empty($idLinea)) {
-            $condicion = "idpadre=$idLinea";
+            $condicion = "idpadre=$idLinea".$productoOrepuesto;
         }
         if (!empty($idSubLinea)) {
-            $condicion = "t2.idlinea=$idSubLinea";
+            $condicion = "t2.idlinea=$idSubLinea".$productoOrepuesto;
         }
         if (!empty($idProducto)) {
-            $condicion = "t1.idproducto=$idProducto";
+            $condicion = "t1.idproducto=$idProducto".$productoOrepuesto;
         }
         $stockProducto = $this->leeRegistro("wc_producto t1
-                                                                                        inner join  wc_linea t2 on t1.idlinea=t2.idlinea
-                                                                                        inner join wc_almacen t3 on t1.idalmacen=t3.idalmacen
-                                                                                        left join wc_unidadmedida t4 on t1.unidadmedida=t4.idunidadmedida
-                                                                                        ", "*,t4.codigo as unidadmedida", "$condicion", "", "order by idpadre,trim(t1.codigopa) asc");
+            inner join  wc_linea t2 on t1.idlinea=t2.idlinea
+            inner join wc_almacen t3 on t1.idalmacen=t3.idalmacen
+            left join wc_unidadmedida t4 on t1.unidadmedida=t4.idunidadmedida
+            ", "*,t4.codigo as unidadmedida", "$condicion", "", "order by idpadre,trim(t1.codigopa) asc");
+        return $stockProducto;
+    }
+
+    function reporteStockProductoRep($idAlmacen, $idLinea, $idSubLinea, $idProducto) {
+        $productoOrepuesto=" and idtipoproducto=1";
+        $condicion = "t1.estado=1".$productoOrepuesto;
+        if (!empty($idProducto)) {
+            $condicion = "t1.idproducto=$idProducto".$productoOrepuesto;
+        }
+        $stockProducto = $this->leeRegistro("wc_producto t1
+            inner join  wc_linea t2 on t1.idlinea=t2.idlinea
+            inner join wc_almacen t3 on t1.idalmacen=t3.idalmacen
+            left join wc_unidadmedida t4 on t1.unidadmedida=t4.idunidadmedida
+            ", "*,t4.codigo as unidadmedida", "$condicion", "", "order by idpadre,trim(t1.codigopa) asc");
         return $stockProducto;
     }
 
@@ -1289,6 +1304,27 @@ class Reporte extends Applicationbase {
                                 CASE WHEN ov.codigov<>'Null' Then c.razonsocial WHEN oc.codigooc<>'Null' Then p.razonsocialp Else 'Mov. Interno' END as 'Razon Social',
                                 CASE WHEN m.iddevolucion<>0 THEN 'Devolucion' ELSE ' ' END as Devolucion,
                                 dm.pu as 'Precio',dm.cantidad,ROUND(dm.stockactual,0) as Saldo,dm.importe as 'Monto'", $filtro, "", $order
+        );
+        return $data;
+    }
+
+    function reporteKardexProduccionRepuesto($txtFechaInicio, $txtFechaFinal, $idProducto, $idTipoMovimiento, $idTipoOperacion) {
+        $filtro = "  dm.estado=1 and m.estado=1 ";
+        $filtro .= !empty($txtFechaInicio) ? " and m.fechamovimiento>='$txtFechaInicio' " : "";
+        $filtro .= !empty($txtFechaFinal) ? " and m.fechamovimiento<='$txtFechaFinal' " : "";
+        $filtro .= !empty($idProducto) ? " and dm.idproducto='$idProducto' " : "";
+        $filtro .= !empty($idTipoOperacion) ? " and m.conceptomovimiento='$idTipoOperacion' " : "";
+        $filtro .= !empty($idTipoMovimiento) ? " and m.tipomovimiento='$idTipoMovimiento' " : "";
+        $order = "Order By m.fechamovimiento,m.idrepuesto asc";
+
+        $data = $this->leeRegistro(
+                "wc_detallerepuesto dm 
+                INNER JOIN wc_repuesto m ON dm.idrepuesto=m.idrepuesto 
+                LEFT JOIN wc_ordencompra oc ON oc.idordencompra=m.idordencompra 
+                INNER JOIN wc_movimientotipo mt ON m.tipomovimiento=mt.idmovimientotipo 
+                LEFT JOIN wc_proveedor p ON oc.idproveedor=p.idproveedor 
+                                ", "oc.codigooc ,p.razonsocialp, oc.idordencompra,m.fechamovimiento AS Fecha,mt.nombre AS 'Tipo Movimiento', dm.observacion,
+                                dm.pu AS 'Precio',dm.cantidad,ROUND(dm.stockactual,0) AS Saldo,dm.importe AS 'Monto' ", $filtro, "", $order
         );
         return $data;
     }

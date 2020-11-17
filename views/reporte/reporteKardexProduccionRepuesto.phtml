@@ -1,0 +1,37 @@
+<script src="/javascript/reporteKardexProduccion.js"></script>
+<h2>Reporte:: Kardex de Repuestos</h2>
+
+<fieldset>
+    <form action="/pdf/reporteKardexProduccionRep" method="post" name="frmConsulta" id="frmConsulta" target="_blank">
+            <ul>
+                <li>
+                    <label for="txtProducto">Codigo del Repuesto</label>
+                    <input type="text" id="txtProductoRep" name="codigoRep" class="uppercase" size="20" placeholder="Codigo Producto">
+                    <input type="hidden" id="idProducto" name="idProducto" value="0">
+                </li>
+                <li>
+                    <label for="txtDescripcion">Descripcion</label>
+                    <input type="text" id="txtDescripcion" name="txtDescripcion" class="uppercase" readonly="readonly" style="background: silver" size="65">
+                </li>
+                <li>
+                    <label for="txtFechaInicial">Fecha Inicial</label>
+                    <input type="text" class="datepicker" id="txtFechaInicio" name="txtFechaInicio" placeholder="Fecha Inicial">
+                </li>
+                <li>
+                    <label for="txtFechaFinal">Fecha Final</label>
+                    <input type="text" class="datepicker" id="txtFechaFinal" name="txtFechaFinal" placeholder="Fecha Final">
+                </li>
+            
+            </ul>
+            <br>
+            <ul>
+                <li>
+                    <button id="btnConsultaHTML">Consulta <img src="/imagenes/html5.png" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                    <button id="btnConsultaPDF">Consulta <img src="/imagenes/iconos/pdf.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                    <button id="btnConsultaExcel">Consulta <img src="/imagenes/excel.png" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                    <button id="btnImprimir"><img src="/imagenes/html5.png" alt="" width="25" height="25" style="vertical-align: middle"> Consulta <img src="/imagenes/imprimir.gif" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                    <button id="btnLimpiar">Limpiar <img src="/imagenes/limpiar.png" alt="" width="25" height="25" style="vertical-align: middle"></button>
+                </li>
+            </ul>
+    </form>
+</fieldset>

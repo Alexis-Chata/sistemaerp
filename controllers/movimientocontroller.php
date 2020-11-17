@@ -176,6 +176,7 @@ class MovimientoController extends ApplicationGeneral {
                 $data2['importe'] = $data['cantidad'] * $dataBusqueda[0]['preciocosto'];
                 $data2['stockdisponibledm'] = $stockNuevo['stockdisponible'];
                 $data2['idproducto'] = $data['idproducto'];
+                $data2['observacion'] = $data['observacion'];
                 $data2['cantidad'] = $data['cantidad'];
                 $data2['pu'] = $dataBusqueda[0]['preciocosto'];
                 $exitoDetalleMovimiento = $detalleMovimiento->grabaDetalleMovimietoRep($data2);

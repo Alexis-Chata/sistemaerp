@@ -7,6 +7,14 @@ $(document).ready(function(){
 			$('#txtDescripcion').val(ui.item.tituloProducto);
 		}
     });
+
+    $('#txtProductoRep').autocomplete({
+		source: "/producto/buscarAutocompleteLimpioRep/",
+		select: function(event, ui){
+			$('#idProducto').val(ui.item.id);
+			$('#txtDescripcion').val(ui.item.tituloProducto);
+		}
+    });
     
     $('.datepicker').css('background','#3DFF4F');
     $('#btnLimpiar').click(function(e){

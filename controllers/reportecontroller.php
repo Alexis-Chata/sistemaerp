@@ -274,6 +274,43 @@ class ReporteController extends ApplicationGeneral {
         }
     }
 
+    //Stock de producto Repuesto
+    function StockProductoRepuesto() {
+        if (count($_REQUEST) == 6) {
+            $linea = new Linea();
+            $almacen = new Almacen();
+            $data['Linea'] = $linea->listadoLineas('idpadre=0');
+            $data['Almacen'] = $almacen->listadoAlmacen();
+            $this->view->show('/reporte/stockproductorepuesto.phtml', $data);
+        } else {
+            $idAlmacen = $_REQUEST['idAlmacen'];
+            $idLinea = $_REQUEST['idLinea'];
+            $idSubLinea = $_REQUEST['idSubLinea'];
+            $idProducto = $_REQUEST['idProducto'];
+            $repote = new Reporte();
+            $data = $repote->reporteStockProductoRep($idAlmacen, $idLinea, $idSubLinea, $idProducto);
+            $unidadMedida = $this->unidadMedida();
+            $totalStock = 0;
+            $data2 = array();
+            $i = 0;
+            for ($i = 0; $i < count($data); $i++) {
+                $data2[$i]['codigo'] = $data[$i]['codigopa'];
+                $data2[$i]['nompro'] = $data[$i]['nompro'];
+                $data2[$i]['nomalm'] = $data[$i]['nomalm'];
+                $data2[$i]['nomlin'] = $data[$i]['nomlin'];
+                $data2[$i]['preciolista'] = $data[$i]['preciolista'];
+                $data2[$i]['preciolistadolares'] = $data[$i]['preciolistadolares'];
+                $data2[$i]['unidadmedida'] = $data[$i]['unidadmedida'];
+                $data2[$i]['stockactual'] = $data[$i]['stockactual'];
+                $data2[$i]['stockdisponible'] = ($data[$i]['stockdisponible']);
+                $totalStock+=$data[$i]['stockactual'];
+            }
+            $objeto = $this->formatearparakui($data2);
+            header("Content-type: application/json");
+            echo json_encode($objeto);
+        }
+    }
+
 //Reporte de orden de compra
     function ordenCompra() {
         if (count($_REQUEST) == 6) {
@@ -2267,6 +2304,10 @@ class ReporteController extends ApplicationGeneral {
 
     function reporteKardexProduccion() {
         $this->view->show('/reporte/reporteKardexProduccion.phtml', $data);
+    }
+
+    function reporteKardexProduccionRepuesto() {
+        $this->view->show('/reporte/reporteKardexProduccionRepuesto.phtml', $data);
     }
 
     function letrasxhacerplanilla() {
