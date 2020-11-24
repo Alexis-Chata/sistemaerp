@@ -1,0 +1,354 @@
+<script src="/javascript/proveedornacional-nuevo.js"></script>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Registro de Proveedor Nacional</h2>
+<form action="/proveedornacional/graba/" method="POST">
+    <fieldset>
+        <legend>Informacion General</legend>
+        <ul class="inline-block">
+            <li>
+                <label>Razon Social:</label>
+                <input type="text" id="razonsocial" name="ProveedorNacional[razonsocial]" class="txtRSocial uppercase required" size="40" required="">
+            </li>
+            <li>
+                <label>Nombre Comercial:</label>
+                <input type="text" id="razonsocial" name="ProveedorNacional[nombrecomercial]" class="uppercase required" size="40" required="">
+            </li>
+            <li>
+                <label>Localidad:</label>
+                <select id="lstDepartamento">
+                    <option value="">Departamento</option>
+                    <?php
+                    for ($i = 0; $i < count($Departamento); $i++) {
+                        echo '<option value="' . $Departamento[$i]['iddepartamento'] . '">' . $Departamento[$i]['nombredepartamento'];
+                    }
+                    ?>
+                </select>
+                <select id="lstProvincia">
+                    <option value="">Provincia</option>
+                </select>
+                <select name="ProveedorNacional[iddistrito]" class="lstDistrito" id="lstDistrito">
+                    <option value="">Distrito</option>
+                </select>
+            </li>
+            <li>
+                <label>Direcci&oacute;n:</label>
+                <input type="text" name="ProveedorNacional[direccion]" size="60" class="uppercase"> 
+            </li>
+            <li>
+                <label>Dirección Fiscal:</label>
+                <input type="text" name="ProveedorNacional[direccionfiscal]" size="60" class="uppercase"> 
+            </li>
+            <li>
+                <label>Teléfono:</label>
+                <input type="text" name="ProveedorNacional[telefono]" size="60">
+            </li>
+            <li>
+                <label>Pagina Web:</label>
+                <input type="text" name="ProveedorNacional[paginaweb]" size="60">
+            </li>
+            <li>
+                <label>E-mail:</label>
+                <input type="text" name="ProveedorNacional[email]" size="60" class="email" >
+            </li>
+            <li>
+                <label>Productos o servicios<br>principales que provee:</label>
+                <select id="lstPrductoservicio" class="required" name="ProveedorNacional[idproductoservicio]" required="">
+                    <option value=""> -- Seleccione -- </option>
+                    <?php
+                    for ($i = 0; $i < count($Productoservicios); $i++) {
+                        echo '<option value="' . $Productoservicios[$i]['idproductoservicio'] . '">' . $Productoservicios[$i]['nombre'];
+                    }
+                    ?>
+                </select>
+                <b> <a href="#" id="btnNuevoProductoServicio"><img src="/imagenes/iconos/nuevo.gif"></a> </b>
+            </li>
+        </ul>
+        <br>
+        <table style="width: 50%" id="tblDetalleProductoServicio">
+            <thead>
+                <tr>
+                    <th style="width: 90%">Nombre</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2">
+                        <a href="#" id="btnNuevoDetalleProductoServicio"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <ul class="inline-block">
+            <li>
+                <label>Representante Legal:</label>
+                <input type="text" name="ProveedorNacional[representantelegal]">
+            </li>
+            <li>
+                <label>DNI del Representante:</label>
+                <input type="text" name="ProveedorNacional[dni]">
+            </li>
+            <li>
+                <label>Tipo:</label>
+                <select name="ProveedorNacional[tipo]" class="required" id="lstTipoProveedor" required>
+                    <option value="">-- Tipo --</option>
+                    <?php
+                    for ($i = 1; $i <= count($TipoCliente); $i++) {
+                        echo '<option value="' . $i . '">' . $TipoCliente[$i];
+                    }
+                    ?>
+                </select>
+            </li>
+            <li>
+                <label>Ficha RUC:</label>
+                <input type="text" name="ProveedorNacional[ficharuc]">
+            </li>
+            <li>
+                <label id="lblRucDNI">RUC:</label>
+                <input type="text" name="ProveedorNacional[rucdni]">
+            </li>
+            <li>
+                <label>
+                    Tiene contingencia con la SUNAT,<br>Ministerio de trabajo<br>o en el sistema financiero:
+                </label>
+                <input type="checkbox" id="chkContingencia" name="chkContingencia">
+            </li>
+            <li id="blockContingencia" style="display: none">
+                <label>Explicar: </label>
+                <textarea name="ProveedorNacional[contingencias]" rows="3" class="text-600"></textarea>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Informacion Comercial</legend>
+        <table style="width: 70%" id="tblInformacionComercial">
+            <thead>
+                <tr>
+                    <th>Indique sus principales clientes</th>
+                    <th>% Participacion Ventas</th>
+                    <th>Antiguedad</th>
+                    <th style="width: 1%">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4">
+                        <a href="#" id="btnInformacionComercial"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Evaluacion Crediticia</legend>
+        <ul>
+            <li>
+                <label>Termino de Pago:</label>
+            </li>
+            <li><input type="checkbox" class="classChkDias" name="chkDiaTP15"> 15 dias</li>
+            <li><input type="checkbox" class="classChkDias" name="chkDiaTP30"> 30 dias</li>
+            <li><input type="checkbox" class="classChkDias" name="chkDiaTP45"> 45 dias</li>
+            <li><input type="checkbox" class="classChkDias" name="chkDiaTP60"> 60 dias</li>
+            <li>Otro: <input type="text" id="txtDiasTP" class="uppercase" name="txtDiaTPotro"></li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Termino de Entrega:</label>
+            </li>
+            <li><input type="checkbox" id="chkDia15TE" name="chkDia15TE"> <=15 dias</li>
+            <li><input type="number" id="chkDiaTE" class="numeric" name="chkDiaTE"> dias</li>
+            <li>Otro: <input type="text" id="chkOtroTE" class="uppercase" name="chkOtroTE"></li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Informacion Tecnica</legend>
+        <ul class="inline-block">
+            <li>
+                <label>Produccion:</label>
+                <select name="ProveedorNacional[produccion]" class="required" id="lstTipoProveedor" required>
+                    <option value="">-- Seleccione --</option>
+                    <?php
+                    for ($i = 1; $i <= count($ProduccionesIT); $i++) {
+                        echo '<option value="' . $i . '">' . $ProduccionesIT[$i];
+                    }
+                    ?>
+                </select>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>
+                <label>Detallar las certificaciones obtenidas o por obtener en tema de calidad y/o medio ambiente (ISO 9001, 14001, OHSAS18001, etc):</label>
+                <table style="width: 70%" id="tblInformacionTecnica">
+                    <thead>
+                        <tr>
+                            <th>Tipo Certificado / Autoridad</th>
+                            <th>Aprobacion Nro.</th>
+                            <th>Fecha</th>
+                            <th>Fecha Ultima Auditoria</th>
+                            <th style="width: 1%">Acci&oacute;n</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5">NO PRESENTA</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="5">
+                                <a href="#" id="btnInformacionTecnica"><img src="/imagenes/iconos/nuevo.gif"></a>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Evaluacion tecnica de sus productos, segun especificacions tecnicas y/o muestras presentadas</legend>
+        <table style="width: 80%" id="tblEvaluacionTecnica">
+            <thead>
+                <tr>
+                    <th>Producto o Servicio</th>
+                    <th>Evaluador</th>
+                    <th>Condicion</th>
+                    <th>Fecha</th>
+                    <th>Comentarios</th>
+                    <th style="width: 1%">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <a href="#" id="btnEvaluacionTecnica"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <ul>
+            <li>
+                <label>Observacions Finales: </label>
+                <textarea name="ProveedorNacional[observaciones]" rows="3" class="text-600"></textarea>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <input type="submit" value="Registrar">
+    </fieldset>
+</form>
+
+<div id="contenedorEvaluacionTecnica" title="Evaluacion Tecnica" style="display:none">
+    <ul>
+        <li>
+            <label>Producto o servicio:</label>
+            <input type="text" id="idProductoET" class="uppercase text-250">
+        </li>
+        <br>
+        <li>
+            <div id="blockEvaluadorExiste">
+                <label>Evaluador:</label>
+                <select id="idEvaluadorET">
+                    <option value=""> -- Seleccione -- </option>
+                    <?php
+                    for ($i = 0; $i < count($Evaluadores); $i++) {
+                        echo '<option value="' . $Evaluadores[$i]['idevaluador'] . '">' . $Evaluadores[$i]['nombre'];
+                    }
+                    ?>
+                </select>
+                <a href="#" id="btnNuevoEvaluador"><img src="/imagenes/iconos/nuevo.gif"></a>    
+            </div>
+            <div id="blockEvaluadorNuevo" style="display: none">
+                <label>Nuevo Evaluador:</label>
+                <input type="text" id="idTxtNuevoEvaluador">
+                <a href="#" id="btnGuardarEvaluador"><img src="/imagenes/grabar.gif" width="21" height="21"></a>
+                <b><a href="#" id="btnCerrarEvaluador"> [ Cerrar ] </a></b>
+            </div>
+        </li>
+        <br>
+        <li>
+            <label>Condicion:</label>
+            <select id="idCondicionET" required>
+                <option value="">-- Seleccione --</option>
+                <?php
+                for ($i = 1; $i <= count($Condiciones); $i++) {
+                    echo '<option value="' . $i . '">' . $Condiciones[$i];
+                }
+                ?>
+            </select>
+        </li>
+        <br>
+        <li>
+            <label>Fecha:</label>
+            <input style="background:pink;" type="text" id="idFechaET" class="datepicker" readonly>
+        </li>
+        <br>
+        <li>
+            <label>Comentarios:</label>
+            <textarea rows="3" id="idComentariosET"></textarea>
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorInformacionTecnica" title="Informacion Tecnica" style="display:none">
+    <ul>
+        <li>
+            <label>Tipo Certificado / Autoridad:</label>
+            <input type="text" id="idCertificadoIT" class="uppercase text-250">
+        </li>
+        <br>
+        <li>
+            <label>Aprobacion Nro.:</label>
+            <input type="text" id="idAprobacionIT" class="uppercase">
+        </li>
+        <br>
+        <li>
+            <label>Fecha:</label>
+            <input style="background:pink;" type="text" id="idFechaIT" class="datepicker" readonly>
+        </li>
+        <li>
+            <label>Fecha Ultima Auditoria:</label>
+            <input style="background:pink;" type="text" id="idFechaUltimaIT" class="datepicker" readonly>
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorInformacionGeneral" title="Informacion Comercial" style="display:none">
+    <ul>
+        <li>
+            <label>Principales Clientes:</label>
+            <input type="text" id="idPrincipalIC" class="uppercase text-250">
+        </li>
+        <br>
+        <li>
+            <label>%Participacion en Ventas:</label>
+            <input type="text" id="idParticipacionIC" class="uppercase">
+        </li>
+        <br>
+        <li>
+            <label>Antiguedad:</label>
+            <input type="text" id="idAntiguedadIC" class="uppercase text-250">
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorDetalleProductoServicio" title="Listado de Producto o Servicio" style="display:none">
+    <ul class="inline-block">
+        <li>
+            <label>Nombre:</label><br>
+            <input type="text" id="idNombreDetallePS" class="uppercase text-600">
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorProductoServicio" title="Producto o Servicio" style="display:none">
+    <ul class="inline-block">
+        <li>
+            <label>Nombre:</label><br>
+            <input type="text" id="idNombrePS" class="uppercase">
+        </li>
+    </ul>
+</div>

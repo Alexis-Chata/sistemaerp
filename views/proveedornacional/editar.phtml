@@ -1,0 +1,474 @@
+<script src="/javascript/proveedornacional-editar.js"></script>
+<style>
+    .block-contacto {
+        width: 95%;
+        background: #f5f5f5;
+    }
+    .bloque{
+        float:left;
+        margin : 10px;
+        min-height: 500px;
+        border : 1px dashed #444;
+        padding: 5px;
+        width: 40%;
+
+    }
+    .bloque-60{
+        float:left;
+        margin : 10px;
+        min-height: 500px;
+        border : 1px dashed #444;
+        padding: 5px;
+        width: 52%;
+    }
+</style>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Actualizacion de Proveedor Nacional</h2>
+<fieldset>
+    <div class="bloque">
+        <form action="/proveedornacional/actualiza/" method="POST" >
+            <h4>Datos Principales</h4>
+            <ul>
+                <li>
+                    <label>Razon Social:</label>
+                    <input type="hidden" name="idProveedorNacional" id="idProveedorNacional" value="<?php echo $_REQUEST['id'] ?>">
+                    <input type="text" id="razonsocial" name="ProveedorNacional[razonsocial]" class="txtRSocial uppercase required" value="<?php echo $ProveedorNacional[0]['razonsocial'] ?>" size="60" required="">
+                </li><br>
+                <li>
+                    <label>Nombre Comercial:</label>
+                    <input type="text" id="razonsocial" name="ProveedorNacional[nombrecomercial]" class="uppercase required" value="<?php echo $ProveedorNacional[0]['nombrecomercial'] ?>" size="60" required="">
+                </li><br>
+                <li>
+                    <label>Localidad:</label>
+                    <select id="lstDepartamento">
+                        <option value="">Departamento</option>
+                        <?php
+                        for ($i = 0; $i < count($Departamento); $i++) {
+                            if ($Distrito[0]['codigodepto'] == $Departamento[$i]['iddepartamento']) {
+                                echo '<option value="' . $Departamento[$i]['iddepartamento'] . '" selected>' . $Departamento[$i]['nombredepartamento'];
+                            } else {
+                                echo '<option value="' . $Departamento[$i]['iddepartamento'] . '">' . $Departamento[$i]['nombredepartamento'];
+                            }
+                        }
+                        ?>
+                    </select>
+                    <select id="lstProvincia">
+                        <option value="">Provincia</option>
+                        <?php
+                        for ($i = 0; $i < count($Provincia); $i++) {
+                            if ($Distrito[0]['idprovincia'] == $Provincia[$i]['idprovincia']) {
+                                echo '<option value="' . $Provincia[$i]['idprovincia'] . '" selected>' . $Provincia[$i]['nombreprovincia'];
+                            } else {
+                                echo '<option value="' . $Provincia[$i]['idprovincia'] . '">' . $Provincia[$i]['nombreprovincia'];
+                            }
+                        }
+                        ?>
+                    </select>
+                    <select name="ProveedorNacional[iddistrito]" class="lstDistrito" id="lstDistrito">
+                        <option value="">Distrito</option>
+                        <?php
+                        for ($i = 0; $i < count($Distrito); $i++) {
+                            if ($ProveedorNacional[0]['iddistrito'] == $Distrito[$i]['iddistrito']) {
+                                echo '<option value="' . $Distrito[$i]['iddistrito'] . '" selected>' . $Distrito[$i]['nombredistrito'];
+                            } else {
+                                echo '<option value="' . $Distrito[$i]['iddistrito'] . '">' . $Distrito[$i]['nombredistrito'];
+                            }
+                        }
+                        ?>
+                    </select>
+                </li><br>
+                <li>
+                    <label>Direcci&oacute;n:</label>
+                    <input type="text" name="ProveedorNacional[direccion]" size="60" value="<?php echo $ProveedorNacional[0]['direccion'] ?>" class="uppercase"> 
+                </li><br>
+                <li>
+                    <label>Dirección Fiscal:</label>
+                    <input type="text" name="ProveedorNacional[direccionfiscal]" size="60" value="<?php echo $ProveedorNacional[0]['direccionfiscal'] ?>" class="uppercase"> 
+                </li><br>
+                <li>
+                    <label>Teléfono:</label>
+                    <input type="text" name="ProveedorNacional[telefono]" size="60" value="<?php echo $ProveedorNacional[0]['telefono'] ?>">
+                </li><br>
+                <li>
+                    <label>Pagina Web:</label>
+                    <input type="text" name="ProveedorNacional[paginaweb]" size="60" value="<?php echo $ProveedorNacional[0]['paginaweb'] ?>">
+                </li><br>
+                <li>
+                    <label>E-mail:</label>
+                    <input type="text" name="ProveedorNacional[email]" size="60" class="email" value="<?php echo $ProveedorNacional[0]['email'] ?>">
+                </li><br>
+                <li>
+                    <label>Productos o servicios<br>principales que provee:</label>
+                    <select id="lstPrductoservicio" class="required" name="ProveedorNacional[idproductoservicio]" required="">
+                        <option value=""> -- Seleccione -- </option>
+                        <?php
+                        for ($i = 0; $i < count($Productoservicios); $i++) {
+                            echo '<option value="' . $Productoservicios[$i]['idproductoservicio'] . '"' . ($Productoservicios[$i]['idproductoservicio'] == $ProveedorNacional[0]['idproductoservicio'] ? ' selected' : '') . '>' . $Productoservicios[$i]['nombre'];
+                        }
+                        ?>
+                    </select>
+                    <b> <a href="#" id="btnNuevoProductoServicio"><img src="/imagenes/iconos/nuevo.gif"></a> </b>
+                </li><br>
+                <li>
+                    <label>Representante Legal:</label>
+                    <input type="text" name="ProveedorNacional[representantelegal]" value="<?php echo $ProveedorNacional[0]['representantelegal'] ?>">
+                </li>
+                <li>
+                    <label>DNI del Representante:</label>
+                    <input type="text" name="ProveedorNacional[dni]" value="<?php echo $ProveedorNacional[0]['dni'] ?>">
+                </li><br>
+                <li>
+                    <label>Tipo:</label>
+                    <select name="ProveedorNacional[tipo]" class="required" id="lstTipoProveedor" required>
+                        <option value="">-- Tipo --</option>
+                        <?php
+                        for ($i = 1; $i <= count($TipoProveedor); $i++) {
+                            echo '<option value="' . $i . '"' . ($ProveedorNacional[0]['tipo'] == $i ? ' selected' : '') . '>' . $TipoProveedor[$i];
+                        }
+                        ?>
+                    </select>
+                </li>
+                <li>
+                    <label>Ficha RUC:</label>
+                    <input type="text" name="ProveedorNacional[ficharuc]" value="<?php echo $ProveedorNacional[0]['ficharuc'] ?>">
+                </li>
+                <li>
+                    <label id="lblRucDNI"><?php echo ($ProveedorNacional[0]['tipo'] == 1 ? 'Dni' : 'RUC'); ?>:</label>
+                    <input type="text" name="ProveedorNacional[rucdni]" value="<?php echo $ProveedorNacional[0]['rucdni'] ?>">
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox" id="chkContingencia" name="chkContingencia"<?php echo (!empty($ProveedorNacional[0]['contingencias']) ? ' checked' : '') ?>> Tiene contingencia con la SUNAT, Ministerio de trabajo o en el sistema financiero
+                    </label>
+                </li>
+                <li id="blockContingencia"<?php echo (!empty($ProveedorNacional[0]['contingencias']) ? '' : ' style="display: none"') ?>>
+                    <label>Explicar: </label>
+                    <textarea name="ProveedorNacional[contingencias]" rows="3" style="width: 550px"><?php echo $ProveedorNacional[0]['contingencias'] ?></textarea>
+                </li>
+            </ul>
+            <hr><br>
+            <h4>Evaluacion Crediticia</h4>
+            <ul>
+                <li>
+                    <label>Termino de Pago:</label>
+                </li><br>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP15"<?php echo ($ProveedorNacional[0]['terminopago'] == '15 DIAS' ? ' checked' : ''); ?>> 15 dias</li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP30"<?php echo ($ProveedorNacional[0]['terminopago'] == '30 DIAS' ? ' checked' : ''); ?>> 30 dias</li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP45"<?php echo ($ProveedorNacional[0]['terminopago'] == '45 DIAS' ? ' checked' : ''); ?>> 45 dias</li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP60"<?php echo ($ProveedorNacional[0]['terminopago'] == '60 DIAS' ? ' checked' : ''); ?>> 60 dias</li>
+                <li>Otro: <input type="text" id="txtDiasTP" class="uppercase" name="txtDiaTPotro" value="<?php echo ($ProveedorNacional[0]['terminopago'] != '15 DIAS'&&$ProveedorNacional[0]['terminopago'] != '30 DIAS'&&$ProveedorNacional[0]['terminopago'] != '45 DIAS'&&$ProveedorNacional[0]['terminopago'] != '60 DIAS' ? $ProveedorNacional[0]['terminopago'] : ''); ?>"></li>
+            </ul>
+            <br>
+            <ul>
+                <li>
+                    <label>Termino de Entrega:</label>
+                </li><br>
+                <?php 
+                $chkOpcion1 = '';
+                $chkOpcion2 = '';
+                $chkOpcion3 = '';
+                if ($ProveedorNacional[0]['tiempoentrega'] == 'Menor o igual a 15 dias') {
+                    $chkOpcion1 = ' checked';
+                } else {
+                    $temporalChecked = explode(" ", $ProveedorNacional[0]['tiempoentrega']);
+                    if (count($temporalChecked) == 2) {
+                        if ($temporalChecked[0] >= 1 && $temporalChecked[0] <= 14 && $temporalChecked[1] == 'DIAS') {
+                            $chkOpcion2 = $temporalChecked[0];
+                        }
+                    }
+                    if (empty($chkOpcion2)) {
+                        $chkOpcion3 = $ProveedorNacional[0]['tiempoentrega'];
+                    }
+                } ?>
+                <li><input type="checkbox" id="chkDia15TE" name="chkDia15TE"<?php echo $chkOpcion1; ?>> <=15 dias</li>
+                <li><input type="number" id="chkDiaTE" class="numeric" name="chkDiaTE" value="<?php echo $chkOpcion2; ?>"> dias</li>
+                <li>Otro: <input type="text" id="chkOtroTE" class="uppercase" name="chkOtroTE" value="<?php echo $chkOpcion3; ?>"></li>
+            </ul>
+            <hr>
+            <br>
+            <ul>
+                <li>
+                    <label>Produccion:</label>
+                    <select name="ProveedorNacional[produccion]" class="required" id="lstTipoProveedor" required>
+                        <option value="">-- Seleccione --</option>
+                        <?php
+                        for ($i = 1; $i <= count($ProduccionesIT); $i++) {
+                            echo '<option value="' . $i . '"' . ($i == $ProveedorNacional[0]['produccion'] ? ' selected' : '') . '>' . $ProduccionesIT[$i];
+                        }
+                        ?>
+                    </select>
+                </li>
+                <li>
+                    <label>Observacions Finales: </label>
+                    <textarea name="ProveedorNacional[observaciones]" rows="3" style="width: 550px"><?php echo $ProveedorNacional[0]['observaciones'] ?></textarea></textarea>
+                </li>
+            </ul>
+            <hr>
+            <input type="submit" value="Actualizar">
+        </form>
+    </div>
+    <div class="bloque-60">
+        <h4>Detalle de Productos o Servicios que provee:</h4>
+        <table style="width: 100%" id="tblDetalleProductoServicio">
+            <thead>
+                <tr>
+                    <th style="width: 90%">Nombre</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody><?php
+            for ($i = 0; $i < count($productoservicios); $i++) {
+                echo '<tr>' .
+                        '<td>' . $productoservicios[$i]['nombre'] . '</td>' .
+                        '<td>' . 
+                            '<a href="#" class="btnEditarDPS" data-nombre="' . $productoservicios[$i]['nombre'] . '" data-id="' . $productoservicios[$i]['idproveedornacionalproductoservicio'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEliminarDPS" data-id="' . $productoservicios[$i]['idproveedornacionalproductoservicio'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
+                        '</td>' .
+                     '</tr>';
+            }
+            ?></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2">
+                        <a href="#" id="btnNuevoDetalleProductoServicio"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr><br>
+        <h4>Informacion Comercial:</h4>
+        <table style="width: 100%" id="tblInformacionComercial">
+            <thead>
+                <tr>
+                    <th>Indique sus principales clientes</th>
+                    <th>% Participacion Ventas</th>
+                    <th>Antiguedad</th>
+                    <th style="width: 1%">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody><?php
+            for ($i = 0; $i < count($informacioncomercial); $i++) {
+                $participacion = (empty($informacioncomercial[$i]['participacion']) ? '' : $informacioncomercial[$i]['participacion']);
+                echo '<tr>' .
+                        '<td>' . $informacioncomercial[$i]['cliente'] . '</td>' .
+                        '<td>' . $participacion . '</td>' .
+                        '<td>' . $informacioncomercial[$i]['antiguedad'] . '</td>' .
+                        '<td>' .
+                            '<a href="#" class="btnEeditarIC" data-cliente="' . $informacioncomercial[$i]['cliente'] . '" data-participacion="' . $participacion . '" data-antiguedad="' . $informacioncomercial[$i]['antiguedad'] . '" data-id="' . $informacioncomercial[$i]['idproveedornacionalinfcomercial'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEliminarIC" data-id="' . $informacioncomercial[$i]['idproveedornacionalinfcomercial'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
+                   '</tr>';
+            }
+            ?></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4">
+                        <a href="#" id="btnInformacionComercial"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr><br>
+        <h4>Informacion Tecnica:</h4>
+        <label>Detallar las certificaciones obtenidas o por obtener en tema de calidad y/o medio ambiente (ISO 9001, 14001, OHSAS18001, etc):</label>
+        <table style="width: 100%" id="tblInformacionTecnica">
+            <thead>
+                <tr>
+                    <th>Tipo Certificado / Autoridad</th>
+                    <th>Aprobacion Nro.</th>
+                    <th>Fecha</th>
+                    <th>Fecha Ultima Auditoria</th>
+                    <th style="width: 1%">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody><?php
+            $tamanioIT = count($informicontecnica);
+            for ($i = 0; $i < $tamanioIT; $i++) {
+                if ($informicontecnica[$i]['fecha'] == '0000-00-00') {
+                    $informicontecnica[$i]['fecha'] = '';
+                } else {
+                    $informicontecnica[$i]['fecha'] = str_replace("-", "/", $informicontecnica[$i]['fecha']);
+                }
+                if ($informicontecnica[$i]['fultimaauditoria'] == '0000-00-00') {
+                    $informicontecnica[$i]['fultimaauditoria'] = '';
+                } else {
+                    $informicontecnica[$i]['fultimaauditoria'] = str_replace("-", "/", $informicontecnica[$i]['fultimaauditoria']);
+                }
+                echo '<tr>' .
+                        '<td>' . $informicontecnica[$i]['certificado'] . '</td>' .
+                        '<td>' . $informicontecnica[$i]['aprobacionnro'] . '</td>' .
+                        '<td>' . $informicontecnica[$i]['fecha'] . '</td>' .
+                        '<td>' . $informicontecnica[$i]['fultimaauditoria'] . '</td>' .
+                        '<td>' .
+                            '<a href="#" class="btnEeditarIT" data-certificado="' . $informicontecnica[$i]['certificado'] . '" data-aprobacionnro="' . $informicontecnica[$i]['aprobacionnro'] . '" data-fecha="' . $informicontecnica[$i]['fecha'] . '" data-fultimaauditoria="' . $informicontecnica[$i]['fultimaauditoria'] . '" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEliminarIT" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
+                   '</tr>';
+            }
+            if ($tamanioIT == 0) {
+                echo '<tr>
+                        <td colspan="5">NO PRESENTA</td>
+                    </tr>';
+            }
+            ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">
+                        <a href="#" id="btnInformacionTecnica"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr><br>
+        <h4>Evaluacion tecnica de sus productos, segun especificacions tecnicas y/o muestras presentadas:</h4>
+        <table style="width: 100%" id="tblEvaluacionTecnica">
+            <thead>
+                <tr>
+                    <th>Producto o Servicio</th>
+                    <th>Evaluador</th>
+                    <th>Condicion</th>
+                    <th>Fecha</th>
+                    <th>Comentarios</th>
+                    <th style="width: 1%">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody><?php
+            for ($i = 0; $i < count($evaluaciontecnica); $i++) {
+                $evaluaciontecnica[$i]['fecha'] = ($evaluaciontecnica[$i]['fecha'] == '0000-00-00' ? '' : $evaluaciontecnica[$i]['fecha']);
+                echo '<tr>' .
+                        '<td class="classProductoET">' . $evaluaciontecnica[$i]['productoservicio'] . '</td>' .
+                        '<td class="classEvaluadorET">' . $evaluaciontecnica[$i]['nombreevaluador'] . '</td>' .
+                        '<td class="classCondicionET">' . $Condiciones[$evaluaciontecnica[$i]['condicion']] . '</td>' .
+                        '<td class="classFechaET">' . $evaluaciontecnica[$i]['fecha'] . '</td>' .
+                        '<td class="classComentariosET">' . $evaluaciontecnica[$i]['comentarios'] . '</td>' .
+                        '<td>' .
+                            '<a href="#" class="btnEditarET" data-comentarios="' . $evaluaciontecnica[$i]['comentarios'] . '" data-productoservicio="' . $evaluaciontecnica[$i]['productoservicio'] . '" data-idevaluador="' . $evaluaciontecnica[$i]['idevaluador'] . '" data-condicion="' . $evaluaciontecnica[$i]['condicion'] . '" data-fecha="' . $evaluaciontecnica[$i]['fecha'] . '" data-id="' . $evaluaciontecnica[$i]['idproveedornacionaevaltecnica'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEliminarET" data-id="' . $evaluaciontecnica[$i]['idproveedornacionaevaltecnica'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
+                        '</td>' .
+                   '</tr>';
+            }
+            ?></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <a href="#" id="btnEvaluacionTecnica"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</fieldset>
+
+<div id="contenedorEvaluacionTecnica" title="Evaluacion Tecnica" style="display:none">
+    <ul>
+        <li>
+            <label>Producto o servicio:</label>
+            <input type="hidden" id="idTextIdET">
+            <input type="text" id="idProductoET" class="uppercase text-250">
+        </li>
+        <br>
+        <li>
+            <div id="blockEvaluadorExiste">
+                <label>Evaluador:</label>
+                <select id="idEvaluadorET">
+                    <option value=""> -- Seleccione -- </option>
+                    <?php
+                    for ($i = 0; $i < count($Evaluadores); $i++) {
+                        echo '<option value="' . $Evaluadores[$i]['idevaluador'] . '">' . $Evaluadores[$i]['nombre'];
+                    }
+                    ?>
+                </select>
+                <a href="#" id="btnNuevoEvaluador"><img src="/imagenes/iconos/nuevo.gif"></a>    
+            </div>
+            <div id="blockEvaluadorNuevo" style="display: none">
+                <label>Nuevo Evaluador:</label>
+                <input type="text" id="idTxtNuevoEvaluador">
+                <a href="#" id="btnGuardarEvaluador"><img src="/imagenes/grabar.gif" width="21" height="21"></a>
+                <b><a href="#" id="btnCerrarEvaluador"> [ Cerrar ] </a></b>
+            </div>
+        </li>
+        <br>
+        <li>
+            <label>Condicion:</label>
+            <select id="idCondicionET" required>
+                <option value="">-- Seleccione --</option>
+                <?php
+                for ($i = 1; $i <= count($Condiciones); $i++) {
+                    echo '<option value="' . $i . '">' . $Condiciones[$i];
+                }
+                ?>
+            </select>
+        </li>
+        <br>
+        <li>
+            <label>Fecha:</label>
+            <input style="background:pink;" type="text" id="idFechaET" class="datepicker" readonly>
+        </li>
+        <br>
+        <li>
+            <label>Comentarios:</label>
+            <textarea rows="3" id="idComentariosET"></textarea>
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorInformacionTecnica" title="Informacion Tecnica" style="display:none">
+    <ul>
+        <li>
+            <label>Tipo Certificado / Autoridad:</label>
+            <input type="hidden" id="idTextIdIT">
+            <input type="text" id="idCertificadoIT" class="uppercase text-250">
+        </li>
+        <br>
+        <li>
+            <label>Aprobacion Nro.:</label>
+            <input type="text" id="idAprobacionIT" class="uppercase">
+        </li>
+        <br>
+        <li>
+            <label>Fecha:</label>
+            <input style="background:pink;" type="text" id="idFechaIT" class="datepicker" readonly>
+        </li>
+        <li>
+            <label>Fecha Ultima Auditoria:</label>
+            <input style="background:pink;" type="text" id="idFechaUltimaIT" class="datepicker" readonly>
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorInformacionGeneral" title="Informacion Comercial" style="display:none">
+    <ul>
+        <li>
+            <label>Principales Clientes:</label>
+            <input type="hidden" id="idTextIdIC">
+            <input type="text" id="idPrincipalIC" class="uppercase text-250">
+        </li>
+        <br>
+        <li>
+            <label>%Participacion en Ventas:</label>
+            <input type="text" id="idParticipacionIC" class="uppercase">
+        </li>
+        <br>
+        <li>
+            <label>Antiguedad:</label>
+            <input type="text" id="idAntiguedadIC" class="uppercase text-250">
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorDetalleProductoServicio" title="Listado de Producto o Servicio" style="display:none">
+    <ul class="inline-block">
+        <li>
+            <label>Nombre:</label><br>
+            <input type="hidden" id="idTextIdPS">
+            <input type="text" id="idNombreDetallePS" class="uppercase text-600">
+        </li>
+    </ul>
+</div>
+
+<div id="contenedorProductoServicio" title="Producto o Servicio" style="display:none">
+    <ul class="inline-block">
+        <li>
+            <label>Nombre:</label><br>
+            <input type="text" id="idNombrePS" class="uppercase">
+        </li>
+    </ul>
+</div>

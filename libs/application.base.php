@@ -443,7 +443,6 @@ protected function scriptArrayCompleto($sql) {
             $sql.="'" . str_replace("'", "&#39;", mb_strtoupper($data[$columnas[$i]])) . "',";
         }
         $sql.="Now()," . $_SESSION['idactor'] . ")";
-
         $this->conectar();
         $resultado = mysql_query($sql) or die(mysql_error());
         $id = mysql_insert_id();
@@ -496,7 +495,7 @@ protected function scriptArrayCompleto($sql) {
         $sql = "Delete from " . $tabla . " ";
         if (!empty($filtro)) {
             $sql.=" Where " . $filtro;
-        }
+        }//echo $sql.'<br>';
         $this->conectar();
         $resultado = mysql_query($sql) or die(mysql_error());
         $this->desconectar();

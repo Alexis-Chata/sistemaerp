@@ -1,0 +1,59 @@
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Listado : Proveedor Nacional</h2>
+<form method="POST" action="/proveedornacional/busqueda/">
+    <div id="busqueda">Busqueda: <input type="text" id="txtBusqueda" placeholder="RAZON SOCIAL | RUC | DNI" value="<?php echo $texto; ?>" name="txtBusqueda" size="50px">
+        <input type="submit" value="Ver">
+    </div>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th colspan="7">Listado de Proveedores Nacionales</th>
+            <th><a href="/proveedornacional/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
+        </tr>
+        <tr>
+            <th>Razon Social</th>
+            <th>RUC/DNI</th>
+            <th>Actividad Economica</th>
+            <th>Produccion</th>
+            <th>Rep. Legal</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $tam = count($proveedornacional);
+        for ($i = 0; $i < $tam; $i++) {
+            $fila = "<tr>";
+            $fila .= "<td>" . $proveedornacional[$i]['razonsocial'] . "</td>";
+            $fila .= "<td>" . $proveedornacional[$i]['rucdni'] . "</td>";
+            $fila .= "<td>" . $proveedornacional[$i]['actividadeconomica'] . "</td>";
+            $fila .= "<td>" . $ProduccionesIT[$proveedornacional[$i]['produccion']] . "</td>";
+            $fila .= "<td>" . $proveedornacional[$i]['representantelegal'] . "</td>";
+            $fila .= "<td>" . $proveedornacional[$i]['telefono'] . "</td>";
+            $fila .= "<td>" . $proveedornacional[$i]['email'] . "</td>";
+            $fila .= "<td width=\"100px\">
+                        <a href=\"/proveedornacional/editar/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+                        <a href=\"/proveedornacional/eliminar/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+            $fila .= "</td>";
+            $fila .= "</tr>";
+            echo $fila;
+            unset($fila);
+        }
+        ?>	
+    </tbody>
+    <tfoot>
+        <tr><td colspan="8" align="center">
+                <?php
+                for ($i = 0; $i < $paginacion; $i++) {
+                    echo "<a href=\"/proveedornacional/listado/" . ($i + 1) . "\">Pag.  " . ($i + 1) . " </a>";
+                    if ($paginacion - $i > 1) {
+                        echo "||";
+                    }
+                }
+                ?>
+            </td>
+        </tr>
+    </tfoot>
+</table>
