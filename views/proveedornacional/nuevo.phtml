@@ -1,6 +1,6 @@
 <script src="/javascript/proveedornacional-nuevo.js"></script>
 <h2 style="float:left !important;padding-bottom: 20px;width:100%">Registro de Proveedor Nacional</h2>
-<form action="/proveedornacional/graba/" method="POST">
+<form action="/proveedornacional/graba/" method="POST" enctype="multipart/form-data">
     <fieldset>
         <legend>Informacion General</legend>
         <ul class="inline-block">
@@ -50,7 +50,7 @@
                 <input type="text" name="ProveedorNacional[email]" size="60" class="email" >
             </li>
             <li>
-                <label>Productos o servicios<br>principales que provee:</label>
+                <label>Productos o servicios<br>principales que provee(CIU):</label>
                 <select id="lstPrductoservicio" class="required" name="ProveedorNacional[idproductoservicio]" required="">
                     <option value=""> -- Seleccione -- </option>
                     <?php
@@ -101,12 +101,35 @@
             </li>
             <li>
                 <label>Ficha RUC:</label>
-                <input type="text" name="ProveedorNacional[ficharuc]">
+                <input type="file" name="txtficharucpdf" id="idFichaRuc" accept="application/pdf">
+                <a href="#" id="btnEliminarFichaRuc" style="font-weight: bold; color: blue">[ Limpiar ]</a>
             </li>
             <li>
                 <label id="lblRucDNI">RUC:</label>
                 <input type="text" name="ProveedorNacional[rucdni]">
             </li>
+        </ul>
+        <br>
+        <table style="width: 70%" id="tblContacto">
+            <thead>
+                <tr>
+                    <th>Nombres y Apellidos</th>
+                    <th>Cargo</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">
+                        <a href="#" id="btnNuevocontacto"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <ul class="inline-block">
             <li>
                 <label>
                     Tiene contingencia con la SUNAT,<br>Ministerio de trabajo<br>o en el sistema financiero:
@@ -240,6 +263,46 @@
         <input type="submit" value="Registrar">
     </fieldset>
 </form>
+
+<div id="contenedorContacto" title="Personal de Contacto" style="display:none">
+    <ul>
+        <li>
+            <label>Nombres y Apellidos:</label>
+            <input type="text" id="idNombreC" class="uppercase text-300">
+        </li>
+        <br>
+        <li>
+            <div id="blockCargoExiste">
+                <label>Cargo:</label>
+                <select id="idCargoC">
+                    <option value=""> -- Seleccione -- </option>
+                    <?php
+                    for ($i = 0; $i < count($Cargos); $i++) {
+                        echo '<option value="' . $Cargos[$i]['idcargo'] . '">' . $Cargos[$i]['nombre'];
+                    }
+                    ?>
+                </select>
+                <a href="#" id="btnNuevoCargo"><img src="/imagenes/iconos/nuevo.gif"></a>    
+            </div>
+            <div id="blockCargoNuevo" style="display: none">
+                <label>Nuevo Cargo:</label>
+                <input type="text" id="idTxtNuevoCargo">
+                <a href="#" id="btnGuardarCargo"><img src="/imagenes/grabar.gif" width="21" height="21"></a>
+                <b><a href="#" id="btnCerrarCargo"> [ Cerrar ] </a></b>
+            </div>
+        </li>
+        <br>
+        <li>
+            <label>Telefono:</label>
+            <input type="text" id="idTelefonoC" class="uppercase text-300">
+        </li>
+        <br>
+        <li>
+            <label>Correo:</label>
+            <input type="text" id="idCorreoC" class="uppercase text-300">
+        </li>
+    </ul>
+</div>
 
 <div id="contenedorEvaluacionTecnica" title="Evaluacion Tecnica" style="display:none">
     <ul>

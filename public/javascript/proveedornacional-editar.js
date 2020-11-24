@@ -42,8 +42,8 @@ $(document).on('ready', function () {
     
     $('#chkDiaTE').change(function () {
         if ($(this).val().length > 0) {
-            if (parseInt($(this).val()) > 14) {
-                $(this).val('14');
+            if (parseInt($(this).val()) < 16) {
+                $(this).val('16');
             } else if (parseInt($(this).val()) < 1) {
                 $(this).val('1');
             }
@@ -90,6 +90,62 @@ $(document).on('ready', function () {
             });
         } else {
             $('#idTxtNuevoEvaluador').focus();
+        }
+        return false;
+    });
+    
+    
+    $('#btnEliminarFichaRuc').click(function () {
+        if (confirm('¿Esta seguro de eliminar la ficha RUC?')) {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/proveedornacional/ficharuc_eliminar',
+                type: 'post',
+                data: {
+                    'idProveedorNacional': $('#idProveedorNacional').val(),
+                }, success: function (resp) {
+                }
+            });
+            $('.BlocFichaRUC1').html('');
+            $('#idFichaRuc').attr('name', 'txtficharucpdf');
+            $('.BlocFichaRUC2').show();
+        }
+        return false;
+    });
+    
+    $('#btnLimpiarFichaRuc').click(function () {
+        $('#idFichaRuc').val('');
+        return false;
+    });
+    
+    $('#tblInformacionTecnica').on('click', '.btnEliminarIT', function () {
+        if (confirm('¿Esta seguro de eliminar el item de la informacion tecnica?')) {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/proveedornacional/informaciontecnica_eliminar',
+                type: 'post',
+                data: {
+                    'ideliminar' :id
+                }, success: function (resp) {
+                }
+            });
+            $(this).parents('tr').remove();
+        }
+        return false;
+    });
+        
+    $('#tblContacto').on('click', '.btnEliminarC', function () {
+        if (confirm('¿Esta seguro de eliminar al contacto?')) {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/proveedornacional/contacto_eliminar',
+                type: 'post',
+                data: {
+                    'ideliminar' :id
+                }, success: function (resp) {
+                }
+            });
+            $(this).parents('tr').remove();
         }
         return false;
     });
@@ -394,6 +450,106 @@ $(document).on('ready', function () {
         $('#blockEvaluadorExiste').show();
         $('#contenedorEvaluacionTecnica').dialog('open');
         return false;
+    });
+    
+    $('#tblContacto').on('click', '.btnEditarC', function () {
+        $('#blockCargoNuevo').hide();
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').show();
+        
+        $('#idTextIdC').val($(this).data('id'));
+        $('#idNombreC').val($(this).data('nombre'));
+        $('#idCargoC').val($(this).data('idcargo'));
+        $('#idTelefonoC').val($(this).data('telefono'));
+        $('#idCorreoC').val($(this).data('correo'));
+        $('#contenedorContacto').dialog('open');
+        return false;
+    });
+    
+    $('#btnNuevocontacto').click(function () {
+        $('#blockCargoNuevo').hide();
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').show();
+        
+        $('#idNombreC').val('');
+        $('#idTextIdC').val('');
+        $('#idCargoC').val('');
+        $('#idTelefonoC').val('');
+        $('#idCorreoC').val('');
+        $('#contenedorContacto').dialog('open');
+        return false;
+    });
+    
+    $('#btnNuevoCargo').click(function () {
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').hide();
+        $('#blockCargoNuevo').show();
+        $('#idTxtNuevoCargo').focus();
+        return false;
+    });
+    
+    $('#btnCerrarCargo').click(function () {
+        $('#blockCargoNuevo').hide();
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').show();
+        return false;
+    });
+    
+    $('#btnGuardarCargo').click(function () {
+        if ($('#idTxtNuevoCargo').val().length > 0) {
+            $.ajax({
+                url: '/proveedornacional/nuevocontacto_guardar',
+                data:{'txtNuevoCargo': $('#idTxtNuevoCargo').val()},
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    $('#idTxtNuevoCargo').val('');
+                    $('#idCargoC').html(data);
+                    $('#blockCargoNuevo').hide();
+                    $('#blockCargoExiste').show();
+                }
+            });
+        } else {
+            $('#idTxtNuevoCargo').focus();
+        }
+        return false;
+    });
+    
+    $('#contenedorContacto').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 390,
+        buttons: {
+            Cerrar: function () {
+                $('#contenedorContacto').dialog('close');
+            },
+            Guardar: function () {
+                if ($('#idNombreC').val().length > 0) {
+                    $.ajax({
+                        url: '/proveedornacional/contacto_guardar',
+                        type: 'post',
+                        data: {
+                            'idTextIdC' :$('#idTextIdC').val(),
+                            'idProveedorNacional' :$('#idProveedorNacional').val(),
+                            'idNombreC' :$('#idNombreC').val(),
+                            'idCargoC' :$('#idCargoC').val(),
+                            'idTelefonoC' :$('#idTelefonoC').val(),
+                            'idCorreoC' :$('#idCorreoC').val()
+                        }, success: function (resp) {                
+                            $('#tblContacto tbody').html(resp);
+                        }
+                    });
+                    $('#idNombreC').val('');
+                    $('#idTextIdC').val('');
+                    $('#idCargoC').val('');
+                    $('#idTelefonoC').val('');
+                    $('#idCorreoC').val('');
+                    $('#contenedorContacto').dialog('close');
+                } else {
+                     $('#idNombreC').focus();
+                }
+            }
+        }, close: function () {}
     });
     
 });

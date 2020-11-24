@@ -25,7 +25,7 @@
 <h2 style="float:left !important;padding-bottom: 20px;width:100%">Actualizacion de Proveedor Nacional</h2>
 <fieldset>
     <div class="bloque">
-        <form action="/proveedornacional/actualiza/" method="POST" >
+        <form action="/proveedornacional/actualiza/" method="POST" enctype="multipart/form-data">
             <h4>Datos Principales</h4>
             <ul>
                 <li>
@@ -97,7 +97,7 @@
                     <input type="text" name="ProveedorNacional[email]" size="60" class="email" value="<?php echo $ProveedorNacional[0]['email'] ?>">
                 </li><br>
                 <li>
-                    <label>Productos o servicios<br>principales que provee:</label>
+                    <label>Productos o servicios<br>principales que provee(CIU):</label>
                     <select id="lstPrductoservicio" class="required" name="ProveedorNacional[idproductoservicio]" required="">
                         <option value=""> -- Seleccione -- </option>
                         <?php
@@ -127,10 +127,27 @@
                         ?>
                     </select>
                 </li>
+                <br>
                 <li>
                     <label>Ficha RUC:</label>
-                    <input type="text" name="ProveedorNacional[ficharuc]" value="<?php echo $ProveedorNacional[0]['ficharuc'] ?>">
+                    <?php if (!empty($ProveedorNacional[0]['ficharuc'])) {
+                        echo '<div class="BlocFichaRUC1">' .
+                                '<a href="/proveedornacional/ficharuc/' . $ProveedorNacional[0]['ficharuc'] . '" target="_blank" style="font-weight: bold; color: blue">[ Ver PDF ]</a> ' .
+                                '<a href="#" id="btnEliminarFichaRuc" style="font-weight: bold; color: red">[ Eliminar Ficha RUC]</a>' .
+                             '</div>';
+                        echo '<div class="BlocFichaRUC2" style="display: none">' .
+                                '<input type="file" id="idFichaRuc" accept="application/pdf"> ' .
+                                '<a href="#" id="btnLimpiarFichaRuc" style="font-weight: bold; color: blue">[ Limpiar ]</a>' .
+                             '</div>';
+                    } else {
+                        echo '<div class="BlocFichaRUC2">' .
+                                '<input type="file" name="txtficharucpdf" id="idFichaRuc" accept="application/pdf"> ' .
+                                '<a href="#" id="btnLimpiarFichaRuc" style="font-weight: bold; color: blue">[ Limpiar ]</a>' .
+                         '</div>';
+                    }  
+                    ?>
                 </li>
+                <br>
                 <li>
                     <label id="lblRucDNI"><?php echo ($ProveedorNacional[0]['tipo'] == 1 ? 'Dni' : 'RUC'); ?>:</label>
                     <input type="text" name="ProveedorNacional[rucdni]" value="<?php echo $ProveedorNacional[0]['rucdni'] ?>">
@@ -151,11 +168,11 @@
                 <li>
                     <label>Termino de Pago:</label>
                 </li><br>
-                <li><input type="checkbox" class="classChkDias" name="chkDiaTP15"<?php echo ($ProveedorNacional[0]['terminopago'] == '15 DIAS' ? ' checked' : ''); ?>> 15 dias</li>
-                <li><input type="checkbox" class="classChkDias" name="chkDiaTP30"<?php echo ($ProveedorNacional[0]['terminopago'] == '30 DIAS' ? ' checked' : ''); ?>> 30 dias</li>
-                <li><input type="checkbox" class="classChkDias" name="chkDiaTP45"<?php echo ($ProveedorNacional[0]['terminopago'] == '45 DIAS' ? ' checked' : ''); ?>> 45 dias</li>
-                <li><input type="checkbox" class="classChkDias" name="chkDiaTP60"<?php echo ($ProveedorNacional[0]['terminopago'] == '60 DIAS' ? ' checked' : ''); ?>> 60 dias</li>
-                <li>Otro: <input type="text" id="txtDiasTP" class="uppercase" name="txtDiaTPotro" value="<?php echo ($ProveedorNacional[0]['terminopago'] != '15 DIAS'&&$ProveedorNacional[0]['terminopago'] != '30 DIAS'&&$ProveedorNacional[0]['terminopago'] != '45 DIAS'&&$ProveedorNacional[0]['terminopago'] != '60 DIAS' ? $ProveedorNacional[0]['terminopago'] : ''); ?>"></li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP15"<?php echo (strtoupper($ProveedorNacional[0]['terminopago']) == '15 DIAS' ? ' checked' : ''); ?>> 15 dias</li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP30"<?php echo (strtoupper($ProveedorNacional[0]['terminopago']) == '30 DIAS' ? ' checked' : ''); ?>> 30 dias</li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP45"<?php echo (strtoupper($ProveedorNacional[0]['terminopago']) == '45 DIAS' ? ' checked' : ''); ?>> 45 dias</li>
+                <li><input type="checkbox" class="classChkDias" name="chkDiaTP60"<?php echo (strtoupper($ProveedorNacional[0]['terminopago']) == '60 DIAS' ? ' checked' : ''); ?>> 60 dias</li>
+                <li>Otro: <input type="text" id="txtDiasTP" class="uppercase" name="txtDiaTPotro" value="<?php echo (strtoupper($ProveedorNacional[0]['terminopago']) != '15 DIAS'&&strtoupper($ProveedorNacional[0]['terminopago']) != '30 DIAS'&&strtoupper($ProveedorNacional[0]['terminopago']) != '45 DIAS'&&strtoupper($ProveedorNacional[0]['terminopago']) != '60 DIAS' ? $ProveedorNacional[0]['terminopago'] : ''); ?>"></li>
             </ul>
             <br>
             <ul>
@@ -166,12 +183,12 @@
                 $chkOpcion1 = '';
                 $chkOpcion2 = '';
                 $chkOpcion3 = '';
-                if ($ProveedorNacional[0]['tiempoentrega'] == 'Menor o igual a 15 dias') {
+                if (strtoupper($ProveedorNacional[0]['tiempoentrega']) == 'MENOR O IGUAL A 15 DIAS') {
                     $chkOpcion1 = ' checked';
                 } else {
-                    $temporalChecked = explode(" ", $ProveedorNacional[0]['tiempoentrega']);
+                    $temporalChecked = explode(" ", strtoupper($ProveedorNacional[0]['tiempoentrega']));
                     if (count($temporalChecked) == 2) {
-                        if ($temporalChecked[0] >= 1 && $temporalChecked[0] <= 14 && $temporalChecked[1] == 'DIAS') {
+                        if ($temporalChecked[0] >= 16 && $temporalChecked[1] == 'DIAS') {
                             $chkOpcion2 = $temporalChecked[0];
                         }
                     }
@@ -230,6 +247,40 @@
                 <tr>
                     <th colspan="2">
                         <a href="#" id="btnNuevoDetalleProductoServicio"><img src="/imagenes/iconos/nuevo.gif"></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr><br>
+        <h4>Contactos:</h4>
+        <table style="width: 100%" id="tblContacto">
+            <thead>
+                <tr>
+                    <th>Nombres y Apellidos</th>
+                    <th>Cargo</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody><?php
+            for ($i = 0; $i < count($contactos); $i++) {
+                echo '<tr>' .
+                        '<td>' . $contactos[$i]['nombre'] . '</td>' .
+                        '<td>' . $contactos[$i]['nombrecargo'] . '</td>' .
+                        '<td>' . $contactos[$i]['telefono'] . '</td>' .
+                        '<td>' . $contactos[$i]['correo'] . '</td>' .
+                        '<td>' . 
+                            '<a href="#" class="btnEditarC" data-correo="' . $contactos[$i]['correo'] . '" data-telefono="' . $contactos[$i]['telefono'] . '" data-idcargo="' . $contactos[$i]['idcargo'] . '" data-nombre="' . $contactos[$i]['nombre'] . '" data-id="' . $contactos[$i]['idproveedornacionalcontacto'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEliminarC" data-id="' . $contactos[$i]['idproveedornacionalcontacto'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
+                        '</td>' .
+                     '</tr>';
+            }
+            ?></tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">
+                        <a href="#" id="btnNuevocontacto"><img src="/imagenes/iconos/nuevo.gif"></a>
                     </th>
                 </tr>
             </tfoot>
@@ -356,6 +407,47 @@
         </table>
     </div>
 </fieldset>
+
+<div id="contenedorContacto" title="Personal de Contacto" style="display:none">
+    <ul>
+        <li>
+            <label>Nombres y Apellidos:</label>
+            <input type="hidden" id="idTextIdC">
+            <input type="text" id="idNombreC" class="uppercase text-300">
+        </li>
+        <br>
+        <li>
+            <div id="blockCargoExiste">
+                <label>Cargo:</label>
+                <select id="idCargoC">
+                    <option value=""> -- Seleccione -- </option>
+                    <?php
+                    for ($i = 0; $i < count($Cargos); $i++) {
+                        echo '<option value="' . $Cargos[$i]['idcargo'] . '">' . $Cargos[$i]['nombre'];
+                    }
+                    ?>
+                </select>
+                <a href="#" id="btnNuevoCargo"><img src="/imagenes/iconos/nuevo.gif"></a>    
+            </div>
+            <div id="blockCargoNuevo" style="display: none">
+                <label>Nuevo Cargo:</label>
+                <input type="text" id="idTxtNuevoCargo">
+                <a href="#" id="btnGuardarCargo"><img src="/imagenes/grabar.gif" width="21" height="21"></a>
+                <b><a href="#" id="btnCerrarCargo"> [ Cerrar ] </a></b>
+            </div>
+        </li>
+        <br>
+        <li>
+            <label>Telefono:</label>
+            <input type="text" id="idTelefonoC" class="uppercase text-300">
+        </li>
+        <br>
+        <li>
+            <label>Correo:</label>
+            <input type="text" id="idCorreoC" class="uppercase text-300">
+        </li>
+    </ul>
+</div>
 
 <div id="contenedorEvaluacionTecnica" title="Evaluacion Tecnica" style="display:none">
     <ul>

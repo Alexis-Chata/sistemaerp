@@ -26,12 +26,21 @@ class Proveedornacional extends Applicationbase {
         return $this->leeRegistro($this->tabla, "", "estado=1", "", "");
     }
 
-    function verificarProveedornacional($razonsocial, $rucdni) {
-        return $this->leeRegistro($this->tabla, "idproveedornacional", "estado=1 and razonsocial='$razonsocial' and rucdni='$rucdni'", "", "");
+    function verificarProveedornacional($razonsocial, $rucdni, $idproveedornacional = "") {
+        $filtro = "estado=1 and razonsocial='$razonsocial' and rucdni='$rucdni'";
+        if (!empty($idproveedornacional)) {
+            $filtro .= " and idproveedornacional !='$idproveedornacional'";
+        }
+        return $this->leeRegistro($this->tabla, "idproveedornacional", $filtro, "", "");
     }
 
     function grabar($data) {
         return $this->grabaRegistro($this->tabla, $data);
+    }
+    
+    function actualiza($data, $idproveedornacional) {
+        $exito = $this->actualizaRegistro($this->tabla, $data, "idproveedornacional=$idproveedornacional");
+        return $exito;
     }
     
     function buscarxnombre($inicio, $tamanio, $nombre) {

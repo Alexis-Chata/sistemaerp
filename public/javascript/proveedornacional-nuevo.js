@@ -42,8 +42,8 @@ $(document).on('ready', function () {
     
     $('#chkDiaTE').change(function () {
         if ($(this).val().length > 0) {
-            if (parseInt($(this).val()) > 14) {
-                $(this).val('14');
+            if (parseInt($(this).val()) < 16) {
+                $(this).val('16');
             } else if (parseInt($(this).val()) < 1) {
                 $(this).val('1');
             }
@@ -59,6 +59,21 @@ $(document).on('ready', function () {
         }
     });
     
+    $('#btnNuevoCargo').click(function () {
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').hide();
+        $('#blockCargoNuevo').show();
+        $('#idTxtNuevoCargo').focus();
+        return false;
+    });
+    
+    $('#btnCerrarCargo').click(function () {
+        $('#blockCargoNuevo').hide();
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').show();
+        return false;
+    });
+    
     $('#btnNuevoEvaluador').click(function () {
         $('#idTxtNuevoEvaluador').val('');
         $('#blockEvaluadorExiste').hide();
@@ -71,6 +86,26 @@ $(document).on('ready', function () {
         $('#blockEvaluadorNuevo').hide();
         $('#idTxtNuevoEvaluador').val('');
         $('#blockEvaluadorExiste').show();
+        return false;
+    });
+    
+    $('#btnGuardarCargo').click(function () {
+        if ($('#idTxtNuevoCargo').val().length > 0) {
+            $.ajax({
+                url: '/proveedornacional/nuevocontacto_guardar',
+                data:{'txtNuevoCargo': $('#idTxtNuevoCargo').val()},
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    $('#idTxtNuevoCargo').val('');
+                    $('#idCargoC').html(data);
+                    $('#blockCargoNuevo').hide();
+                    $('#blockCargoExiste').show();
+                }
+            });
+        } else {
+            $('#idTxtNuevoCargo').focus();
+        }
         return false;
     });
     
@@ -94,7 +129,6 @@ $(document).on('ready', function () {
         return false;
     });
     
-    
     $('#tblEvaluacionTecnica').on('click', '.btnEliminarET', function () {
         $(this).parents('tr').remove();
         return false;
@@ -107,6 +141,16 @@ $(document).on('ready', function () {
     
     $('#tblInformacionComercial').on('click', '.btnEliminarIC', function () {
         $(this).parents('tr').remove();
+        return false;
+    });
+    
+    $('#tblContacto').on('click', '.btnEliminarC', function () {
+        $(this).parents('tr').remove();
+        return false;
+    });
+    
+    $('#btnEliminarFichaRuc').click(function () {
+        $('#idFichaRuc').val('');
         return false;
     });
     
@@ -133,17 +177,26 @@ $(document).on('ready', function () {
             Guardar: function () {
                 if ($('#idProductoET').val().length > 0) {
                     var bandera = 0;
+                    var temporalEvaluador = $("#idEvaluadorET option:selected").text();
+                    if ($('#idEvaluadorET').val() == '') {
+                        temporalEvaluador = '';
+                    }
+                    
+                    var temporalCondicion = $("#idCondicionET option:selected").text();
+                    if ($('#idCondicionET').val() == '') {
+                        temporalCondicion = '';
+                    }
                     $('.classProductoET').each(function () {
                         var padre = $(this).parents('tr');
-                        if ($(this).html() == $('#idProductoET').val() && padre.find('.classEvaluadorET').html() == $('#idEvaluadorET').val() && padre.find('.classCondicionET').html() == $('#idCondicionET').val() && padre.find('.classFechaET').html() == $('#idFechaET').val()) {
+                        if ($(this).html() == $('#idProductoET').val() && padre.find('.classEvaluadorET').html() == temporalEvaluador && padre.find('.classCondicionET').html() == temporalCondicion && padre.find('.classFechaET').html() == $('#idFechaET').val()) {
                             bandera = 1;
                         }
                     });
                     if (bandera == 0) {
                         var fila = '<tr>' +
                                         '<td class="classProductoET">' + $('#idProductoET').val() + '</td>' +
-                                        '<td class="classEvaluadorET">' + $("#idEvaluadorET option:selected").text() + '</td>' +
-                                        '<td class="classCondicionET">' + $("#idCondicionET option:selected").text() + '</td>' +
+                                        '<td class="classEvaluadorET">' + temporalEvaluador + '</td>' +
+                                        '<td class="classCondicionET">' + temporalCondicion + '</td>' +
                                         '<td class="classFechaET">' + $('#idFechaET').val() + '</td>' +
                                         '<td class="classComentariosET">' + $('#idComentariosET').val() + '</td>' +
                                         '<td>' + 
@@ -290,6 +343,55 @@ $(document).on('ready', function () {
         }, close: function () {}
     });
     
+    $('#contenedorContacto').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 390,
+        buttons: {
+            Cerrar: function () {
+                $('#contenedorContacto').dialog('close');
+            },
+            Guardar: function () {
+                if ($('#idNombreC').val().length > 0) {
+                    var bandera = 0;
+                    var temporalCargo = $("#idCargoC option:selected").text();
+                    if ($('#idCargoC').val() == '') {
+                        temporalCargo = '';
+                    }
+                    $('.classNombreC').each(function () {
+                        var padre = $(this).parents('tr');
+                        if ($(this).html() == $('#idNombreC').val() && padre.find('.classCargoC').html() == temporalCargo) {
+                            bandera = 1;
+                        }
+                    });
+                    if (bandera == 0) {
+                        var fila = '<tr>' +
+                                        '<td class="classNombreC">' + $('#idNombreC').val() + '</td>' +
+                                        '<td class="classCargoC">' + temporalCargo + '</td>' +
+                                        '<td>' + $('#idTelefonoC').val() + '</td>' +
+                                        '<td>' + $('#idCorreoC').val() + '</td>' +
+                                        '<td>' + 
+                                            '<input type="hidden" name="txtNombresC[]" value="' + $('#idNombreC').val() + '">' +
+                                            '<input type="hidden" name="txtCargosC[]" value="' + $('#idCargoC').val() + '">' +
+                                            '<input type="hidden" name="txtTelefonosC[]" value="' + $('#idTelefonoC').val() + '">' +
+                                            '<input type="hidden" name="txtCorreosC[]" value="' + $('#idCorreoC').val() + '">' +
+                                            '<a href="#" class="btnEliminarC"><img src=\"/imagenes/eliminar.gif\"></a>' + 
+                                        '</td>' +
+                                   '</tr>';
+                        $('#tblContacto tbody').append(fila);
+                    }
+                    $('#idNombreC').val('');
+                    $('#idCargoC').val('');
+                    $('#idTelefonoC').val('');
+                    $('#idCorreoC').val('');
+                    $('#contenedorContacto').dialog('close');
+                } else {
+                     $('#idNombreC').focus();
+                }
+            }
+        }, close: function () {}
+    });
+    
     $('#contenedorProductoServicio').dialog({
         autoOpen: false,
         modal: true,
@@ -318,6 +420,14 @@ $(document).on('ready', function () {
         }, close: function () {}
     });
     
+    $('#btnNuevocontacto').click(function () {
+        $('#blockCargoNuevo').hide();
+        $('#idTxtNuevoCargo').val('');
+        $('#blockCargoExiste').show();
+        $('#contenedorContacto').dialog('open');
+        return false;
+    });
+       
     $('#btnInformacionComercial').click(function () {
         $('#contenedorInformacionGeneral').dialog('open');
         return false;

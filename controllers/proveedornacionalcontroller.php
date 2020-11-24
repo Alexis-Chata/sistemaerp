@@ -1,7 +1,7 @@
 <?php
 
 class ProveedornacionalController extends ApplicationGeneral {
-
+    
     public function eliminarEncuesta() {
         if(unlink('public/encuesta/'.$_REQUEST['parameters'][1].'/'.$_REQUEST['parameters'][2])){
             $proveedornacional = new Proveedornacional();
@@ -108,6 +108,8 @@ class ProveedornacionalController extends ApplicationGeneral {
         $departamento = new Departamento();
         $productoservicio = new Productoservicio();
         $valuador = new Evaluador();
+        $cargo = new Cargo();
+        $data['Cargos'] = $cargo->listadoCargos();
         $data['Productoservicios'] = $productoservicio->listadoProductoservicio();
         $data['Evaluadores'] = $valuador->listadoEvaluadores();
         $data['Departamento'] = $departamento->listado();
@@ -116,6 +118,26 @@ class ProveedornacionalController extends ApplicationGeneral {
         $data['Condiciones'] = $archivoConfig['Condicion'];
         $data['ProduccionesIT'] = $archivoConfig['InformacionTecnicaProduccion'];
         $this->view->show('/proveedornacional/nuevo.phtml', $data);
+    }
+    
+    public function nuevocontacto_guardar() {
+        $nombre = $_REQUEST['txtNuevoCargo'];
+        $cargo = new Cargo();
+        $idNuevoId = 0;
+        if (!empty($nombre)) {
+            $dataCargo = $cargo->verificarCargo($nombre);
+            if (count($dataCargo) > 0) {
+                $idNuevoId = $dataCargo[0]['idcargo'];
+            } else {
+                $dataNuevo['nombre'] = $nombre;
+                $idNuevoId = $cargo->grabar($dataNuevo);
+            }
+        }
+        $cargos = $cargo->listadoCargos();
+        echo '<option value=""> -- Seleccione -- </option>';
+        for ($i = 0; $i < count($cargos); $i++) {
+            echo '<option value="' . $cargos[$i]['idcargo'] . '"' . ($cargos[$i]['idcargo'] == $idNuevoId ? ' selected' : '') . '>' . $cargos[$i]['nombre'] . '</option>';
+        }
     }
     
     public function nuevoevaluador_guardar() {
@@ -188,7 +210,7 @@ class ProveedornacionalController extends ApplicationGeneral {
         $chkOtroTE = $_REQUEST['chkOtroTE'];
         
         if ($chkDia15TE) {
-            $dataProveedorNacional['tiempoentrega'] = 'Menor o igual a 15 dias';
+            $dataProveedorNacional['tiempoentrega'] = 'MENOR O IGUAL A 15 DIAS';
         } else if ($chkDiaTE) {
             $dataProveedorNacional['tiempoentrega'] = $chkDiaTE . ' dias';
         } else {
@@ -198,8 +220,13 @@ class ProveedornacionalController extends ApplicationGeneral {
         $proveedornacionalmodel = new Proveedornacional();
         $dataVerificarExistencia = $proveedornacionalmodel->verificarProveedornacional($dataProveedorNacional['razonsocial'], $dataProveedorNacional['rucdni']);
         if (count($dataVerificarExistencia) == 0) {
+            if(isset($_FILES['txtficharucpdf']) && $_FILES['txtficharucpdf']['type']=='application/pdf'){
+                $dataProveedorNacional['ficharuc'] = date('Ymd His') . '_' . $_FILES['txtficharucpdf']['name'];
+                if (!move_uploaded_file ($_FILES['txtficharucpdf']['tmp_name'] , './public/ficharuc/' . $dataProveedorNacional['ficharuc'])) {
+                    $dataProveedorNacional['ficharuc'] = '';
+                }
+            }
             $idnuevoproveedornacional = $proveedornacionalmodel->grabar($dataProveedorNacional);
-            
             
             $arrayNombreDPS = $_REQUEST['txtNombreDPS'];
             $tamNPDS = count($arrayNombreDPS);
@@ -247,8 +274,8 @@ class ProveedornacionalController extends ApplicationGeneral {
             if ($tamIT > 0) {
                 $proveedornacionalinftecnicamodel = new Proveedornacionalinftecnica();
                 $dataNuevoPNIT['idproveedornacional'] = $idnuevoproveedornacional;
-                for ($i = 0; $i < $tamIC; $i++) {
-                    if (!empty($arrayPrincipalesIC[$i])) {
+                for ($i = 0; $i < $tamIT; $i++) {
+                    if (!empty($arrayCertificadoIT[$i])) {
                         $dataVerificarPNIT = $proveedornacionalinftecnicamodel->verificar($idnuevoproveedornacional, $arrayCertificadoIT[$i], $arrayAprobacionIT[$i]);
                         if (count($dataVerificarPNIT == 0)) {
                             $dataNuevoPNIT['certificado'] = $arrayCertificadoIT[$i];
@@ -285,47 +312,123 @@ class ProveedornacionalController extends ApplicationGeneral {
                     }
                 }
             }
+            
+            $arrayNombresC = $_REQUEST['txtNombresC'];
+            $arrayCargosC = $_REQUEST['txtCargosC'];
+            $arrayTelefonosC = $_REQUEST['txtTelefonosC'];
+            $arrayCorreosC = $_REQUEST['txtCorreosC'];
+            $tamC = count($arrayNombresC);
+            if ($tamC > 0) {
+                $proveedornacionalcontactomodel = new Proveedornacionalcontacto();
+                $dataNuevoPNC['idproveedornacional'] = $idnuevoproveedornacional;
+                for ($i = 0; $i < $tamC; $i++) {
+                    if (!empty($arrayNombresC[$i])) {
+                        $dataVerificarPNC = $proveedornacionalcontactomodel->verificar($idnuevoproveedornacional, $arrayNombresC[$i], $arrayCargosC[$i]);
+                        if (count($dataVerificarPNC == 0)) {
+                            $dataNuevoPNC['nombre'] = $arrayNombresC[$i];
+                            $dataNuevoPNC['idcargo'] = $arrayCargosC[$i];
+                            $dataNuevoPNC['telefono'] = $arrayTelefonosC[$i];
+                            $dataNuevoPNC['correo'] = $arrayCorreosC[$i];
+                            $proveedornacionalcontactomodel->grabar($dataNuevoPNC);
+                        }
+                    }
+                }
+            }
         }
-        
+        $ruta['ruta'] = "/proveedornacional/listado";
+        $this->view->show("ruteador.phtml", $ruta);
     }
     
     public function editar() {
         $id = $_REQUEST['id'];
-        $productoservicio = new Productoservicio();
-        $proveedornacional = new Proveedornacional();
-        $distrito = new Distrito();
-        $provincia = new Provincia();
-        $departamento = new Departamento();
-        $dataProveedorNacional = $proveedornacional->buscaProveedorNacional($id);
-        $data['Productoservicios'] = $productoservicio->listadoProductoservicio();
-        
-        $proveedornacionalinfcomercialmodel = new Proveedornacionalinfcomercial();
-        $data['informacioncomercial'] = $proveedornacionalinfcomercialmodel->listadoxproveedornacional($id);
-        $proveedornacionalinftecnicamodel = new Proveedornacionalinftecnica();
-        $data['informicontecnica'] = $proveedornacionalinftecnicamodel->listadoxproveedornacional($id);
-        $proveedornacionalevaltecnicamodel = new Proveedornacionalevaltecnica();
-        $data['evaluaciontecnica'] = $proveedornacionalevaltecnicamodel->listadoxproveedornacional($id);
-        
-        $proveedornacionalproductoserviciomodel = new Proveedornacionalproductoservicio();
-        $data['productoservicios'] = $proveedornacionalproductoserviciomodel->listadoxproveedornacional($id);
-        
-        $data['Departamento'] = $departamento->listado();
-        if ($dataProveedorNacional[0]['iddistrito'] > 0) {
-            $dataDistrito = $distrito->buscarxid($dataProveedorNacional[0]['iddistrito']);
-            $data['Provincia'] = $provincia->listado($dataDistrito[0]['codigodepto']);
-            $data['Distrito'] = $distrito->listado($dataDistrito[0]['idprovincia']);
+        if ($id > 0) {
+            $productoservicio = new Productoservicio();
+            $proveedornacional = new Proveedornacional();
+            $distrito = new Distrito();
+            $provincia = new Provincia();
+            $departamento = new Departamento();
+            $dataProveedorNacional = $proveedornacional->buscaProveedorNacional($id);
+            if (count($dataProveedorNacional) > 0) {
+                $data['Productoservicios'] = $productoservicio->listadoProductoservicio();
+
+                $proveedornacionalinfcomercialmodel = new Proveedornacionalinfcomercial();
+                $data['informacioncomercial'] = $proveedornacionalinfcomercialmodel->listadoxproveedornacional($id);
+                $proveedornacionalinftecnicamodel = new Proveedornacionalinftecnica();
+                $data['informicontecnica'] = $proveedornacionalinftecnicamodel->listadoxproveedornacional($id);
+                $proveedornacionalevaltecnicamodel = new Proveedornacionalevaltecnica();
+                $data['evaluaciontecnica'] = $proveedornacionalevaltecnicamodel->listadoxproveedornacional($id);
+                $proveedornacionalcontactomodel = new Proveedornacionalcontacto();
+                $data['contactos'] = $proveedornacionalcontactomodel->listadoxproveedornacional($id);
+
+                $proveedornacionalproductoserviciomodel = new Proveedornacionalproductoservicio();
+                $data['productoservicios'] = $proveedornacionalproductoserviciomodel->listadoxproveedornacional($id);
+
+                $data['Departamento'] = $departamento->listado();
+                if ($dataProveedorNacional[0]['iddistrito'] > 0) {
+                    $dataDistrito = $distrito->buscarxid($dataProveedorNacional[0]['iddistrito']);
+                    $data['Provincia'] = $provincia->listado($dataDistrito[0]['codigodepto']);
+                    $data['Distrito'] = $distrito->listado($dataDistrito[0]['idprovincia']);
+                }
+
+                $data['ProveedorNacional'] = $dataProveedorNacional;
+                $data['TipoProveedor'] = $this->tipoCliente();
+                $archivoConfig = parse_ini_file("config.ini", true);
+
+                $valuador = new Evaluador();
+                $data['Evaluadores'] = $valuador->listadoEvaluadores();
+
+                $cargo = new Cargo();
+                $data['Cargos'] = $cargo->listadoCargos();
+
+                $data['Condiciones'] = $archivoConfig['Condicion'];
+                $data['ProduccionesIT'] = $archivoConfig['InformacionTecnicaProduccion'];
+                $this->view->show("proveedornacional/editar.phtml", $data);
+            } else {
+                $ruta['ruta'] = "/proveedornacional/listado";
+                $this->view->show("ruteador.phtml", $ruta);
+            }
+        } else {
+            $ruta['ruta'] = "/proveedornacional/listado";
+            $this->view->show("ruteador.phtml", $ruta);
         }
-        
-        $data['ProveedorNacional'] = $dataProveedorNacional;
-        $data['TipoProveedor'] = $this->tipoCliente();
-        $archivoConfig = parse_ini_file("config.ini", true);
-        
-        $valuador = new Evaluador();
-        $data['Evaluadores'] = $valuador->listadoEvaluadores();
-        
-        $data['Condiciones'] = $archivoConfig['Condicion'];
-        $data['ProduccionesIT'] = $archivoConfig['InformacionTecnicaProduccion'];
-        $this->view->show("proveedornacional/editar.phtml", $data);
+    }
+
+    function contacto_guardar() {
+        $idNombreC = $_REQUEST['idNombreC'];
+        $idCargoC = $_REQUEST['idCargoC'];
+        $idTelefonoC = $_REQUEST['idTelefonoC'];
+        $idCorreoC = $_REQUEST['idCorreoC'];
+        $idProveedorNacional = $_REQUEST['idProveedorNacional'];    
+        if ($idProveedorNacional > 0 && !empty($idNombreC)) {
+            $idTextIdC = ($_REQUEST['idTextIdC'] > 0 ? $_REQUEST['idTextIdC'] : '');            
+            $proveedornacionalcontactomodel = new Proveedornacionalcontacto();
+            $datacontacto = $proveedornacionalcontactomodel->verificar($idProveedorNacional, $idNombreC, $idCargoC, $idTextIdC);
+            if (count($datacontacto) == 0) {
+                $dataNuevo['nombre'] = $idNombreC;
+                $dataNuevo['idcargo'] = $idCargoC;
+                $dataNuevo['telefono'] = $idTelefonoC;
+                $dataNuevo['correo'] = $idCorreoC;
+                if (!empty($idTextIdC)) {
+                    $proveedornacionalcontactomodel->actualiza($dataNuevo, $idTextIdC);
+                } else {
+                    $dataNuevo['idproveedornacional'] = $idProveedorNacional;
+                    $proveedornacionalcontactomodel->grabar($dataNuevo);
+                }
+            }
+            $contactos = $proveedornacionalcontactomodel->listadoxproveedornacional($idProveedorNacional);
+            for ($i = 0; $i < count($contactos); $i++) {
+                echo '<tr>' .
+                        '<td>' . $contactos[$i]['nombre'] . '</td>' .
+                        '<td>' . $contactos[$i]['nombrecargo'] . '</td>' .
+                        '<td>' . $contactos[$i]['telefono'] . '</td>' .
+                        '<td>' . $contactos[$i]['correo'] . '</td>' .
+                        '<td>' . 
+                            '<a href="#" class="btnEditarC" data-correo="' . $contactos[$i]['correo'] . '" data-telefono="' . $contactos[$i]['telefono'] . '" data-idcargo="' . $contactos[$i]['idcargo'] . '" data-nombre="' . $contactos[$i]['nombre'] . '" data-id="' . $contactos[$i]['idproveedornacionalcontacto'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEliminarC" data-id="' . $contactos[$i]['idproveedornacionalcontacto'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
+                        '</td>' .
+                     '</tr>';
+            }
+        }
     }
     
     function evaluaciontecnica_guardar() {
@@ -489,6 +592,20 @@ class ProveedornacionalController extends ApplicationGeneral {
         }
     }
     
+    function informaciontecnica_eliminar() {
+        $id = $_REQUEST['ideliminar'];
+        $proveedornacionalinftecnicamodel = new Proveedornacionalinftecnica();
+        $dataAct['estado'] = 0;
+        $proveedornacionalinftecnicamodel->actualiza($dataAct, $id);
+    }
+    
+    function contacto_eliminar() {
+        $id = $_REQUEST['ideliminar'];
+        $proveedornacionalcontactomodel = new Proveedornacionalcontacto();
+        $dataAct['estado'] = 0;
+        $proveedornacionalcontactomodel->actualiza($dataAct, $id);
+    }
+    
     function evaluaciontecnica_eliminar() {
         $id = $_REQUEST['ideliminar'];
         $proveedornacionalevaltecnicamodel = new Proveedornacionalevaltecnica();
@@ -524,6 +641,7 @@ class ProveedornacionalController extends ApplicationGeneral {
         $proveedornacional = new Proveedornacional();        
         $archivoConfig = parse_ini_file("config.ini", true);
         $data['ProduccionesIT'] = $archivoConfig['InformacionTecnicaProduccion'];
+        $data['EstadoSPN'] = $archivoConfig['EstadoPN'];
         $data['proveedornacional'] = $proveedornacional->listaProveedoresNacionalPaginado($_REQUEST['id']);
         $data['paginacion'] = $proveedornacional->paginadoProveedoresNacional();
         $this->view->show('/proveedornacional/listado.phtml', $data);
@@ -535,6 +653,87 @@ class ProveedornacionalController extends ApplicationGeneral {
         $data['proveedornacional'] = $proveedornacional->buscarxnombre(0, 10, $texto);
         $data['texto'] = $texto;
         $this->view->show("proveedornacional/listado.phtml", $data);
+    }
+    
+    function actualiza() {
+        $idProveedorNacional = $_REQUEST['idProveedorNacional'];
+        if ($idProveedorNacional > 0) {
+            $dataProveedorNacional = $_REQUEST['ProveedorNacional'];
+            $chkContingencia = $_REQUEST['chkContingencia'];
+            if (!$chkContingencia) {
+                $dataProveedorNacional['contingencias'] = '';
+            }
+
+            $chkDiaTP15 = $_REQUEST['chkDiaTP15'];
+            $chkDiaTP30 = $_REQUEST['chkDiaTP30'];
+            $chkDiaTP45 = $_REQUEST['chkDiaTP45'];
+            $chkDiaTP60 = $_REQUEST['chkDiaTP60'];
+            $txtDiaTPotro = $_REQUEST['txtDiaTPotro'];
+
+            if ($chkDiaTP15) {
+                $dataProveedorNacional['terminopago'] = '15 dias';
+            } else if ($chkDiaTP30) {
+                $dataProveedorNacional['terminopago'] = '30 dias';
+            } else if ($chkDiaTP45) {
+                $dataProveedorNacional['terminopago'] = '45 dias';
+            } else if ($chkDiaTP60) {
+                $dataProveedorNacional['terminopago'] = '60 dias';
+            } else {
+                $dataProveedorNacional['terminopago'] = $txtDiaTPotro;
+            }
+
+            $chkDia15TE = $_REQUEST['chkDia15TE'];
+            $chkDiaTE = $_REQUEST['chkDiaTE'];
+            $chkOtroTE = $_REQUEST['chkOtroTE'];
+
+            if ($chkDia15TE) {
+                $dataProveedorNacional['tiempoentrega'] = 'MENOR O IGUAL A 15 DIAS';
+            } else if ($chkDiaTE) {
+                $dataProveedorNacional['tiempoentrega'] = $chkDiaTE . ' dias';
+            } else {
+                $dataProveedorNacional['tiempoentrega'] = $chkOtroTE;
+            }
+
+            $proveedornacionalmodel = new Proveedornacional();
+            $dataVerificarExistencia = $proveedornacionalmodel->verificarProveedornacional($dataProveedorNacional['razonsocial'], $dataProveedorNacional['rucdni'], $idProveedorNacional);
+            if (count($dataVerificarExistencia) == 0) {
+                if(isset($_FILES['txtficharucpdf']) && $_FILES['txtficharucpdf']['type']=='application/pdf'){
+                    $dataProveedorNacional['ficharuc'] = date('Ymd His') . '_' . $_FILES['txtficharucpdf']['name'];
+                    if (!move_uploaded_file ($_FILES['txtficharucpdf']['tmp_name'] , './public/ficharuc/' . $dataProveedorNacional['ficharuc'])) {
+                        $dataProveedorNacional['ficharuc'] = '';
+                    }
+                }
+                $proveedornacionalmodel->actualiza($dataProveedorNacional, $idProveedorNacional);
+            }
+        }
+        $ruta['ruta'] = "/proveedornacional/listado";
+        $this->view->show("ruteador.phtml", $ruta);
+    }
+        
+    function ficharuc_eliminar() {
+        $id = $_REQUEST['idProveedorNacional'];
+        $proveedornacional = new Proveedornacional();
+        $dataAct['ficharuc'] = '';
+        $proveedornacional->actualiza($dataAct, $id);
+    }
+    
+    function ficharuc() {
+        $fichatecnica = "public/ficharuc/" . $_REQUEST['id'];
+        if (file_exists($fichatecnica)) {
+            header('Content-type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $fichatecnica . '"');
+            readfile($fichatecnica);
+        } else {
+            echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";
+        }
+    }
+    
+    function proveedornacional_situacion() {
+        $situacion = $_REQUEST['situacion'];
+        $idproveedornacional = $_REQUEST['idproveedornacional'];
+        $proveedornacional = new Proveedornacional();
+        $dataAct['situacion'] = $situacion;
+        $proveedornacional->actualiza($dataAct, $idproveedornacional);
     }
     
 }

@@ -1,3 +1,4 @@
+<script src="/javascript/proveedornacional_listado.js"></script>
 <h2 style="float:left !important;padding-bottom: 20px;width:100%">Listado : Proveedor Nacional</h2>
 <form method="POST" action="/proveedornacional/busqueda/">
     <div id="busqueda">Busqueda: <input type="text" id="txtBusqueda" placeholder="RAZON SOCIAL | RUC | DNI" value="<?php echo $texto; ?>" name="txtBusqueda" size="50px">
@@ -15,9 +16,9 @@
             <th>RUC/DNI</th>
             <th>Actividad Economica</th>
             <th>Produccion</th>
-            <th>Rep. Legal</th>
             <th>Telefono</th>
             <th>Email</th>
+            <th>Situacion</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -30,12 +31,20 @@
             $fila .= "<td>" . $proveedornacional[$i]['rucdni'] . "</td>";
             $fila .= "<td>" . $proveedornacional[$i]['actividadeconomica'] . "</td>";
             $fila .= "<td>" . $ProduccionesIT[$proveedornacional[$i]['produccion']] . "</td>";
-            $fila .= "<td>" . $proveedornacional[$i]['representantelegal'] . "</td>";
             $fila .= "<td>" . $proveedornacional[$i]['telefono'] . "</td>";
             $fila .= "<td>" . $proveedornacional[$i]['email'] . "</td>";
+            $fila .= "<td>";
+            $fila .= '<select class="classSituacion">
+                        <option value=""> -- Seleccione -- </option>';
+            for ($j = 1; $j <= count($EstadoSPN); $j++) {
+                $fila .= '<option value="' . $j. '"' . ($proveedornacional[$i]['situacion'] == $j ? ' selected' : '') .'>' . $EstadoSPN[$j] . "</option>";
+            }
+            $fila .= "</select> ";
+            $fila .= ' <a href="#" class="classSituacionGuardar" data-id="' . $proveedornacional[$i]['idproveedornacional'] . '" style="display: none"><img src="/imagenes/grabar.gif" width="21" height="21"></a>';
+            $fila .= "</td>";
             $fila .= "<td width=\"100px\">
                         <a href=\"/proveedornacional/editar/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
-                        <a href=\"/proveedornacional/eliminar/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
+                        <a href=\"/proveedornacional/eliminar/" . $proveedornacional[$i]['idproveedornacional'] . "\" class='eliminarProveedorN'><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
             $fila .= "</td>";
             $fila .= "</tr>";
             echo $fila;
