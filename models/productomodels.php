@@ -230,7 +230,7 @@ class Producto extends Applicationbase
 		foreach ($producto as $valor) {
 			$condicionpadre = "idproductorepuesto=" . $valor['idproducto'];
 			$productoPadre = $this->leeRegistro("`wc_productopadre`
-			INNER JOIN `dbceletium`.`wc_producto` 
+			INNER JOIN `wc_producto` 
 				ON (`wc_productopadre`.`idproducto` = `wc_producto`.`idproducto`)", "`wc_productopadre`.`idproductorepuesto`,codigopa,nompro,`wc_producto`.idproducto", "$condicionpadre", "codigopa", "");
 			//var_dump($productoPadre);die();
 			$mensaje_SV = "Disponible:" . $valor['stockdisponible'] . " - Real:" . $valor['stockactual'];
