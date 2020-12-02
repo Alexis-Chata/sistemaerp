@@ -448,6 +448,35 @@ class Reporte extends Applicationbase {
             ", "*,t4.codigo as unidadmedida", "$condicion", "", "order by idpadre,trim(t1.codigopa) asc");
         return $stockProducto;
     }
+    
+    function reporteListaPrecio_consinstock($idAlmacen, $idLinea, $idSubLinea, $idProducto, $lstStock = "") {
+        $condicion = "t1.estado=1";        
+        if (!empty($idAlmacen)) {
+            $condicion = "t1.idalmacen=$idAlmacen";
+        }
+        if (!empty($idLinea)) {
+            $condicion = "idpadre=$idLinea";
+        }
+        if (!empty($idSubLinea)) {
+            $condicion = "t2.idlinea=$idSubLinea";
+        }
+        if (!empty($idProducto)) {
+            $condicion = "t1.idproducto=$idProducto";
+        }
+        if ($lstStock == 1) {
+            $condicion .= " and t1.stockactual>0";
+        } else if ($lstStock == 2) {
+            $condicion .= " and t1.stockactual=0";
+        }
+        
+        $stockProducto = $this->leeRegistro("wc_producto t1
+                                                inner join  wc_linea t2 on t1.idlinea=t2.idlinea
+                                                inner join wc_almacen t3 on t1.idalmacen=t3.idalmacen
+                                                left join wc_unidadmedida t4 on t1.unidadmedida=t4.idunidadmedida
+                                                left join wc_empaque em on t1.empaque=em.idempaque
+                                                ", "*,t4.nombre as nombremedida", "$condicion and t1.estado=1", "", "order by t2.nomlin,t2.idpadre,t2.idlinea,t1.idproducto asc");
+        return $stockProducto;
+    }
 
     function reporteListaPrecio($idAlmacen, $idLinea, $idSubLinea, $idProducto) {
         $condicion = "t1.estado=1";

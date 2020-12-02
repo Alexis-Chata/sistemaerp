@@ -29,13 +29,17 @@
             <h4>Datos Principales</h4>
             <ul>
                 <li>
+                    <label>Codigo:</label>
+                    <span style="color: red; font-weight: bold"><?php echo "S" . str_pad($ProveedorNacional[0]['idproveedornacional'], 5, "0", STR_PAD_LEFT) ?></span>
+                </li><br>
+                <li>
                     <label>Razon Social:</label>
                     <input type="hidden" name="idProveedorNacional" id="idProveedorNacional" value="<?php echo $_REQUEST['id'] ?>">
                     <input type="text" id="razonsocial" name="ProveedorNacional[razonsocial]" class="txtRSocial uppercase required" value="<?php echo $ProveedorNacional[0]['razonsocial'] ?>" size="60" required="">
                 </li><br>
                 <li>
                     <label>Nombre Comercial:</label>
-                    <input type="text" id="razonsocial" name="ProveedorNacional[nombrecomercial]" class="uppercase required" value="<?php echo $ProveedorNacional[0]['nombrecomercial'] ?>" size="60" required="">
+                    <input type="text" id="razonsocial" name="ProveedorNacional[nombrecomercial]" class="uppercase" value="<?php echo $ProveedorNacional[0]['nombrecomercial'] ?>" size="60">
                 </li><br>
                 <li>
                     <label>Localidad:</label>
@@ -98,7 +102,7 @@
                 </li><br>
                 <li>
                     <label>Productos o servicios<br>principales que provee(CIU):</label>
-                    <select id="lstPrductoservicio" class="required" name="ProveedorNacional[idproductoservicio]" required="">
+                    <select id="lstPrductoservicio" style="width: 100%" class="required" name="ProveedorNacional[idproductoservicio]" required="">
                         <option value=""> -- Seleccione -- </option>
                         <?php
                         for ($i = 0; $i < count($Productoservicios); $i++) {
@@ -113,7 +117,15 @@
                     <input type="text" name="ProveedorNacional[representantelegal]" value="<?php echo $ProveedorNacional[0]['representantelegal'] ?>">
                 </li>
                 <li>
-                    <label>DNI del Representante:</label>
+                    <label>Documento de Identidad:</label>
+                    <select name="ProveedorNacional[tipodocumento]">
+                        <option value="">-- Documento --</option>
+                        <?php
+                        for ($i = 1; $i <= count($DocumentoIdentidad); $i++) {
+                            echo '<option value="' . $i . '"' . ($ProveedorNacional[0]['tipodocumento'] == $i ? ' selected' : '') . '>' . $DocumentoIdentidad[$i];
+                        }
+                        ?>
+                    </select>
                     <input type="text" name="ProveedorNacional[dni]" value="<?php echo $ProveedorNacional[0]['dni'] ?>">
                 </li><br>
                 <li>
@@ -149,7 +161,7 @@
                 </li>
                 <br>
                 <li>
-                    <label id="lblRucDNI"><?php echo ($ProveedorNacional[0]['tipo'] == 1 ? 'Dni' : 'RUC'); ?>:</label>
+                    <label id="lblRucDNI"><?php echo ($ProveedorNacional[0]['tipo'] == 1 ? 'Dni/RUC' : 'RUC'); ?>:</label>
                     <input type="text" name="ProveedorNacional[rucdni]" value="<?php echo $ProveedorNacional[0]['rucdni'] ?>">
                 </li>
                 <li>
@@ -204,7 +216,7 @@
             <br>
             <ul>
                 <li>
-                    <label>Produccion:</label>
+                    <label>Produccion o Servicio:</label>
                     <select name="ProveedorNacional[produccion]" class="required" id="lstTipoProveedor" required>
                         <option value="">-- Seleccione --</option>
                         <?php
@@ -444,7 +456,7 @@
         <br>
         <li>
             <label>Correo:</label>
-            <input type="text" id="idCorreoC" class="uppercase text-300">
+            <input type="text" id="idCorreoC" class="text-300">
         </li>
     </ul>
 </div>

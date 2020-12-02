@@ -2,7 +2,7 @@ $(document).on('ready', function () {
     
     $('#lstTipoProveedor').change(function () {
         if ($(this).val() == 1) {
-            $('#lblRucDNI').html('Dni:');
+            $('#lblRucDNI').html('Dni/RUC:');
         } else {
             $('#lblRucDNI').html('RUC:');
         }

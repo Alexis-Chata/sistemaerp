@@ -2689,8 +2689,9 @@ class ReporteController extends ApplicationGeneral {
             $idSubLinea = $_REQUEST['idSubLinea'];
             $idProducto = $_REQUEST['idProducto'];
             $moneda = $_REQUEST['opcmoneda'];
+            $lstStock = $_REQUEST['tipoStock'];
             $reporte = new Reporte();
-            $data = $reporte->reporteListaPrecio($idAlmacen, $idLinea, $idSubLinea, $idProducto);
+            $data = $reporte->reporteListaPrecio_consinstock($idAlmacen, $idLinea, $idSubLinea, $idProducto, $lstStock);
             $rutaImagen = $this->rutaImagenesProducto();
             $unidadMedida = $this->unidadMedida();
             $data2 = array();

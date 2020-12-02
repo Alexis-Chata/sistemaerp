@@ -27,6 +27,7 @@ class Proveedornacional extends Applicationbase {
     }
 
     function verificarProveedornacional($razonsocial, $rucdni, $idproveedornacional = "") {
+        $razonsocial = htmlentities($razonsocial, ENT_QUOTES, 'UTF-8');
         $filtro = "estado=1 and razonsocial='$razonsocial' and rucdni='$rucdni'";
         if (!empty($idproveedornacional)) {
             $filtro .= " and idproveedornacional !='$idproveedornacional'";
@@ -60,7 +61,7 @@ class Proveedornacional extends Applicationbase {
         $data = $this->leeRegistroPaginado(
                 $this->tabla . " proveedornacinal 
                 inner join wc_productoservicio productoservicio on productoservicio.idproductoservicio = proveedornacinal.idproductoservicio", 
-                "proveedornacinal.*, productoservicio.nombre as actividadeconomica", "proveedornacinal.estado=1", "", $pagina);
+                "proveedornacinal.*, productoservicio.nombre as actividadeconomica", "proveedornacinal.estado=1", "proveedornacinal.idproveedornacional desc", $pagina);
         return $data;
     }
     

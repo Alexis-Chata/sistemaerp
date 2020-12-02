@@ -8,14 +8,15 @@
 <table>
     <thead>
         <tr>
-            <th colspan="7">Listado de Proveedores Nacionales</th>
+            <th colspan="8">Listado de Proveedores Nacionales</th>
             <th><a href="/proveedornacional/nuevo"><img src="/imagenes/iconos/nuevo.gif"></a></th>
         </tr>
         <tr>
+            <th>Codigo</th>
             <th>Razon Social</th>
             <th>RUC/DNI</th>
             <th>Actividad Economica</th>
-            <th>Produccion</th>
+            <th>Produccion o Servicio</th>
             <th>Telefono</th>
             <th>Email</th>
             <th>Situacion</th>
@@ -27,6 +28,7 @@
         $tam = count($proveedornacional);
         for ($i = 0; $i < $tam; $i++) {
             $fila = "<tr>";
+            $fila .= "<td>S" . str_pad($proveedornacional[$i]['idproveedornacional'], 5, "0", STR_PAD_LEFT) . "</td>";
             $fila .= "<td>" . $proveedornacional[$i]['razonsocial'] . "</td>";
             $fila .= "<td>" . $proveedornacional[$i]['rucdni'] . "</td>";
             $fila .= "<td>" . $proveedornacional[$i]['actividadeconomica'] . "</td>";
@@ -43,7 +45,8 @@
             $fila .= ' <a href="#" class="classSituacionGuardar" data-id="' . $proveedornacional[$i]['idproveedornacional'] . '" style="display: none"><img src="/imagenes/grabar.gif" width="21" height="21"></a>';
             $fila .= "</td>";
             $fila .= "<td width=\"100px\">
-                        <a href=\"/proveedornacional/editar/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/editar.gif\"></a>
+                        <a href=\"/proveedornacional/encuesta/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/facturacion.png\" width='25px'></a> 
+                        <a href=\"/proveedornacional/editar/" . $proveedornacional[$i]['idproveedornacional'] . "\" ><img src=\"/imagenes/iconos/editar.gif\"></a> 
                         <a href=\"/proveedornacional/eliminar/" . $proveedornacional[$i]['idproveedornacional'] . "\" class='eliminarProveedorN'><img src=\"/imagenes/iconos/eliminar.gif\"></a>";
             $fila .= "</td>";
             $fila .= "</tr>";
@@ -53,7 +56,7 @@
         ?>	
     </tbody>
     <tfoot>
-        <tr><td colspan="8" align="center">
+        <tr><td colspan="9" align="center">
                 <?php
                 for ($i = 0; $i < $paginacion; $i++) {
                     echo "<a href=\"/proveedornacional/listado/" . ($i + 1) . "\">Pag.  " . ($i + 1) . " </a>";

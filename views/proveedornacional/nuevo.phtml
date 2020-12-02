@@ -10,7 +10,7 @@
             </li>
             <li>
                 <label>Nombre Comercial:</label>
-                <input type="text" id="razonsocial" name="ProveedorNacional[nombrecomercial]" class="uppercase required" size="40" required="">
+                <input type="text" id="razonsocial" name="ProveedorNacional[nombrecomercial]" class="uppercase" size="40">
             </li>
             <li>
                 <label>Localidad:</label>
@@ -85,7 +85,15 @@
                 <input type="text" name="ProveedorNacional[representantelegal]">
             </li>
             <li>
-                <label>DNI del Representante:</label>
+                <label>Documento de Identidad:</label>
+                <select name="ProveedorNacional[tipodocumento]">
+                    <option value="">-- Documento --</option>
+                    <?php
+                    for ($i = 1; $i <= count($DocumentoIdentidad); $i++) {
+                        echo '<option value="' . $i . '">' . $DocumentoIdentidad[$i];
+                    }
+                    ?>
+                </select>
                 <input type="text" name="ProveedorNacional[dni]">
             </li>
             <li>
@@ -189,7 +197,7 @@
         <legend>Informacion Tecnica</legend>
         <ul class="inline-block">
             <li>
-                <label>Produccion:</label>
+                <label>Produccion o Servicio:</label>
                 <select name="ProveedorNacional[produccion]" class="required" id="lstTipoProveedor" required>
                     <option value="">-- Seleccione --</option>
                     <?php
@@ -299,7 +307,7 @@
         <br>
         <li>
             <label>Correo:</label>
-            <input type="text" id="idCorreoC" class="uppercase text-300">
+            <input type="text" id="idCorreoC" class="text-300">
         </li>
     </ul>
 </div>

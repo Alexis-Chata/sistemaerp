@@ -32,7 +32,8 @@ $(document).ready(function(){
 		$('#idLinea').val(idLinea);
 		$('#idSubLinea').val(idSubLinea);
 		$('#idAlmacen').val(idAlmacen);
-		$('#idProducto').val(idProducto)		
+		$('#idProducto').val(idProducto);
+                $('#tipoStock').val(tipoStock);
 		$('#mostrarPDF').show();
                 $('#mostrarExcel').show();
 	});
@@ -101,6 +102,7 @@ function cargaTabla(msboxTitle){
 	idAlmacen = $('#lstAlmacen option:selected').val();
 	idProducto = $('#txtIdProducto').val();
 	filtro = $('input[name="rbFiltro"]:checked').val();
+        tipoStock = $('#lstStock').val();
 	mensaje = "";
 	if(filtro == "2"){
 		if(idAlmacen == ""){
@@ -126,7 +128,7 @@ function cargaTabla(msboxTitle){
 		execute();
 	}else{
 		ruta = "/reporte/listagerencial/";
-		$.post(ruta, {idLinea: idLinea, idSubLinea: idSubLinea, idAlmacen: idAlmacen, idProducto: idProducto, opcmoneda: $('input:radio[name=opcmoneda]:checked').val()}, function(data){
+		$.post(ruta, {idLinea: idLinea, idSubLinea: idSubLinea, idAlmacen: idAlmacen, idProducto: idProducto, opcmoneda: $('input:radio[name=opcmoneda]:checked').val(), tipoStock: tipoStock}, function(data){
 			$("#dataGridReport").data("kendoGrid").dataSource.data(data);
 		});
 	}

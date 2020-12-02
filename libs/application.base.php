@@ -104,6 +104,28 @@ Class Applicationbase {
         }
     }
 
+        protected function sp_buscaOrdenxNumeroLetra($numeroletra = "") {
+        $sql = "CALL sp_buscaOrdenxNumeroLetra('%".$numeroletra."%');";
+        if (!empty($opciones)) {
+            $sql.=" " . $opciones;
+        }//echo $sql."</br>";
+        $this->conectar();
+        $sql = strtolower($sql);
+        $resultado = mysql_query($sql) or die(mysql_error());
+        if ($resultado) {
+            $num_resultado = mysql_num_rows($resultado);
+            for ($i = 0; $i < $num_resultado; $i++) {
+                $fila = mysql_fetch_array($resultado);
+                $data[] = $fila;
+            }
+            $this->desconectar();
+            return $data;
+        } else {
+            return mysql_error();
+        }
+    }
+
+
     protected function leeRegistroA($tabla, $columnas, $filtro, $orden, $opciones = "") {
 
         if (empty($columnas)) {

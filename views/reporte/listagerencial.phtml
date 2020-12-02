@@ -19,6 +19,14 @@
 			&nbsp;<input type="radio" name="rbFiltro" value="4"> Por Sub Linea	
 			&nbsp;<input type="radio" name="rbFiltro" value="5"> Por Producto
 		</li>
+                <li>
+                <label>Condicion de Stock</label>
+                <select id="lstStock" name="lstStock" style="width:120px;">
+                    <option value="">Todos</option>
+                    <option value="1" >Con Stock</option>
+                    <option value="2" >Sin Stock</option>
+                </select>
+            </li>
 		<li id="liAlmacen">
 			<label>Almacen</label>
 			<select id="lstAlmacen">
@@ -62,6 +70,7 @@
                                 <input type="hidden" id="idAlmacen"  name="idAlmacen">
 				<input type="hidden" id="idProducto"  name="idProducto">
 				<input type="hidden" id="idLinea" name="idLinea">
+                                <input type="hidden" id="tipoStock" name="tipoStock">
 				<input type="hidden" id="idSubLinea" name="idSubLinea">
 			</form>
 		</li>

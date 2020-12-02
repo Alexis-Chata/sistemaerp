@@ -117,6 +117,8 @@ class ProveedornacionalController extends ApplicationGeneral {
         $archivoConfig = parse_ini_file("config.ini", true);
         $data['Condiciones'] = $archivoConfig['Condicion'];
         $data['ProduccionesIT'] = $archivoConfig['InformacionTecnicaProduccion'];
+        $data['DocumentoIdentidad'] = $archivoConfig['DocumentoIdentidad'];
+        
         $this->view->show('/proveedornacional/nuevo.phtml', $data);
     }
     
@@ -185,6 +187,13 @@ class ProveedornacionalController extends ApplicationGeneral {
         $chkContingencia = $_REQUEST['chkContingencia'];
         if (!$chkContingencia) {
             $dataProveedorNacional['contingencias'] = '';
+        }
+        if (empty($dataProveedorNacional['dni'])) {
+            $dataProveedorNacional['tipodocumento'] = '';
+        } else {
+            if (empty($dataProveedorNacional['tipodocumento'])) {
+                $dataProveedorNacional['tipodocumento'] = 1;
+            }
         }
         
         $chkDiaTP15 = $_REQUEST['chkDiaTP15'];
@@ -382,6 +391,7 @@ class ProveedornacionalController extends ApplicationGeneral {
 
                 $data['Condiciones'] = $archivoConfig['Condicion'];
                 $data['ProduccionesIT'] = $archivoConfig['InformacionTecnicaProduccion'];
+                $data['DocumentoIdentidad'] = $archivoConfig['DocumentoIdentidad'];
                 $this->view->show("proveedornacional/editar.phtml", $data);
             } else {
                 $ruta['ruta'] = "/proveedornacional/listado";
@@ -662,6 +672,13 @@ class ProveedornacionalController extends ApplicationGeneral {
             $chkContingencia = $_REQUEST['chkContingencia'];
             if (!$chkContingencia) {
                 $dataProveedorNacional['contingencias'] = '';
+            }
+            if (empty($dataProveedorNacional['dni'])) {
+                $dataProveedorNacional['tipodocumento'] = '';
+            } else {
+                if (empty($dataProveedorNacional['tipodocumento'])) {
+                    $dataProveedorNacional['tipodocumento'] = 1;
+                }
             }
 
             $chkDiaTP15 = $_REQUEST['chkDiaTP15'];

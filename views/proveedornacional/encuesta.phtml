@@ -27,7 +27,7 @@
     padding: 5px;
     }
 </style>
-<h2 style="float:left !important;padding-bottom: 20px;width:100%">Actualizacion de Proveedor Nacional</h2>
+<h2 style="float:left !important;padding-bottom: 20px;width:100%">Adjuntar Encuesta del Proveedor Nacional</h2>
 <fieldset>
     <div class="bloque">
         <form action="/proveedornacional/grabaencuesta/" method="POST" enctype="multipart/form-data">
@@ -102,8 +102,8 @@
                     <input type="text" name="ProveedorNacional[email]" size="60" class="email" value="<?php echo $ProveedorNacional[0]['email'] ?>" readonly>
                 </li><br>
                 <li>
-                    <label>Productos o servicios<br>principales que provee:</label>
-                    <select id="lstPrductoservicio" class="" disabled name="ProveedorNacional[idproductoservicio]" ="">
+                    <label>Productos o servicios<br>principales que provee(CIU):</label>
+                    <select id="lstPrductoservicio" style="width: 100%" class="" disabled name="ProveedorNacional[idproductoservicio]" ="">
                         <option value=""> -- Seleccione -- </option>
                         <?php
                         for ($i = 0; $i < count($Productoservicios); $i++) {

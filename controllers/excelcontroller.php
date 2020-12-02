@@ -2405,6 +2405,7 @@ Class ExcelController extends ApplicationGeneral {
         $idSubLinea = $_REQUEST['idSubLinea'];
         $idProducto = $_REQUEST['idProducto'];
         $moneda = $_REQUEST['idmoneda'];
+        $lstStock = $_REQUEST['tipoStock'];
 
         $baseURL = ROOT . 'descargas' . DS;
         $idActor = $_SESSION['idactor'];
@@ -2469,7 +2470,7 @@ Class ExcelController extends ApplicationGeneral {
         $reporte = new Reporte();
         $linea = $this->AutoLoadModel('linea');
         $tipoCambio = $this->AutoLoadModel('tipocambio');
-        $data = $reporte->reporteListaPrecio($idAlmacen, $idLinea, $idSubLinea, $idProducto);
+        $data = $reporte->reporteListaPrecio_consinstock($idAlmacen, $idLinea, $idSubLinea, $idProducto, $lstStock);
 
         $contador = $contador + 3;
         $objPHPExcel->setActiveSheetIndex(0)

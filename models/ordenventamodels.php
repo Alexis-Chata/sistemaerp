@@ -619,15 +619,16 @@ Class OrdenVenta extends Applicationbase {
         return $dato;        
     }
 
-    function buscaOrdenxNumeroLetra($numeroletra) {
-        $cliente = $this->leeRegistro("`wc_ordenventa` ov "
-                . "inner join `wc_ordencobro` oc on ov.`idordenventa`=oc.`idordenventa` "
-                . "inner join `wc_detalleordencobro` doc on doc.`idordencobro`=oc.`idordencobro`",
-                "", 
-                " ov.`esguiado`=1 and "
-                . "doc.`formacobro`= 3 and "
-                . "doc.`estado`= 1 and "
-                . "doc.`numeroletra` LIKE '%$numeroletra%'  ", "", "group by ov.`codigov` limit 0,10");
+        function buscaOrdenxNumeroLetra($numeroletra) {
+        // $cliente = $this->leeRegistro("`wc_ordenventa` ov "
+        //         . "inner join `wc_ordencobro` oc on ov.`idordenventa`=oc.`idordenventa` "
+        //         . "inner join `wc_detalleordencobro` doc on doc.`idordencobro`=oc.`idordencobro`",
+        //         "", 
+        //         " ov.`esguiado`=1 and "
+        //         . "doc.`formacobro`= 3 and "
+        //         . "doc.`estado`= 1 and "
+        //         . "doc.`numeroletra` LIKE '%$numeroletra%'  ", "", "group by ov.`codigov` limit 0,10");
+        $cliente = $this->sp_buscaOrdenxNumeroLetra($numeroletra);
         $modoFacturacion = $this->modoFacturacion();
         foreach ($cliente as $valor) {
             $dato[] = array("value" => $valor['numeroletra'],
