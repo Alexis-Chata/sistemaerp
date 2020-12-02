@@ -3437,7 +3437,7 @@ class Reporte extends Applicationbase {
     }
 
     
-function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion = "") {
+function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion = "", $importeov, $anuladas) {
         $sql .= "select  ov.*,cliente.dni,cliente.ruc,ov.estado as 'estado_ov',ov.IdMoneda as 'idmoneda',
                     (case when cliente.razonsocial is null then concat(cliente.nombrecli, ' ', cliente.apellido1, ' ', cliente.apellido2) else cliente.razonsocial end) as razonsocial
                     from wc_ordenventa ov
@@ -3459,13 +3459,19 @@ function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion
         } else if ($situacion == 2) {
             $sql .= " and ov.situacion='Cancelado'";
         }
+        if ($importeov != "") {
+            $sql .= " and ov.importeov" . $importeov . "";
+        }
+        if ($anuladas == 0) {
+            $sql .= " and ov.importedevolucion >= ov.importeov";
+        }
         
-        $sql .= " order by ov.fordenventa asc;";
+        $sql .= " order by ov.fordenventa asc;";echo $sql."<br>";
         $scriptArrayCompleto = $this->scriptArrayCompleto($sql);
         return $scriptArrayCompleto;
     }
 
-    function listar_ovs_de_comprobantesFaltantes($fechaini, $fechafin, $idmoneda, $get_segregado_idordenventas1, $situacion = "") {
+    function listar_ovs_de_comprobantesFaltantes($fechaini, $fechafin, $idmoneda, $get_segregado_idordenventas1, $situacion = "", $importeov,$anuladas) {
         $sql .= "select doc.iddocumento,doc.idordenventa,doc.serie,doc.numdoc,doc.nombredoc,doc.fechadoc,ov.codigov,ov.IdMoneda
                     from wc_documento doc,wc_ordenventa ov
                     where doc.nombredoc in('1','2')
@@ -3487,7 +3493,13 @@ function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion
         } else if ($situacion == 2) {
             $sql .= " and ov.situacion='Cancelado'";
         }
-        $sql .= " order by doc.idordenventa asc;";
+        if ($importeov != "") {
+            $sql .= " and ov.importeov" . $importeov . "";
+        }
+        if ($anuladas == 0) {
+            $sql .= " and ov.importedevolucion >= ov.importeov";
+        }
+        $sql .= " order by doc.idordenventa asc;";echo $sql."<br>";
         $scriptArrayCompleto = $this->scriptArrayCompleto($sql);
         return $scriptArrayCompleto;
     }

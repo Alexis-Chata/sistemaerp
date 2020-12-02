@@ -6774,6 +6774,8 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         $url_fechafin=$_REQUEST['txtFechaFinal'];
         $url_idmoneda=$_REQUEST['cmbMoneda'];
         $url_situacion=$_REQUEST['cmbSituacion'];
+        $url_monto=$_REQUEST['cmbMonto'];
+        $url_anulados=$_REQUEST['cmbAnulados'];
         $url_opcion = $_REQUEST['cmbFiltro']; // 0 = todo, 1 = facturado, 2 = no facturado
         $esAnulado=$_REQUEST['cmbEstado'];
         $filtro="";
@@ -6781,7 +6783,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         if($url_idmoneda==2){ $filtro="SOLO EN DOLARES"; }
 
         $reporte = $this->AutoLoadModel('reporte');
-        $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini,$url_fechafin,$url_idmoneda, $url_situacion);
+        $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini,$url_fechafin,$url_idmoneda, $url_situacion,$url_monto,$url_anulados);
         //********************************* Proceso de trasmutacion de ovs generadas de otros dias pero facturadas segun la fecha enviada
         $get_segregado_idordenventas1='';
         for ($i = 0; $i < count($listar_ventasfacturadonofacturado1); $i++) {
@@ -6791,7 +6793,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         $get_segregado_idordenventas1=substr($get_segregado_idordenventas1,0,-1);
         $listar_ovs_de_comprobantesFaltantes = array();
         if ($url_opcion != 2) {
-            $listar_ovs_de_comprobantesFaltantes = $reporte->listar_ovs_de_comprobantesFaltantes($url_fechaini,$url_fechafin,$url_idmoneda,$get_segregado_idordenventas1, $url_situacion);
+            $listar_ovs_de_comprobantesFaltantes = $reporte->listar_ovs_de_comprobantesFaltantes($url_fechaini,$url_fechafin,$url_idmoneda,$get_segregado_idordenventas1, $url_situacion,$url_monto,$url_anulados);
         }
         $idordenventa=-1;
         $get_segregado_idordenventasFaltantes='';
