@@ -3463,7 +3463,7 @@ function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion
             $sql .= " and ov.importeov" . $importeov . "";
         }
         if ($anuladas == 0) {
-            $sql .= " and ov.importedevolucion >= ov.importeov";
+            $sql .= " and ov.importedevolucion < ov.importeov";
         }
         
         $sql .= " order by ov.fordenventa asc;";//echo $sql."<br>";
@@ -3497,7 +3497,7 @@ function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion
             $sql .= " and ov.importeov" . $importeov . "";
         }
         if ($anuladas == 0) {
-            $sql .= " and ov.importedevolucion >= ov.importeov";
+            $sql .= " and ov.importedevolucion < ov.importeov";
         }
         $sql .= " order by doc.idordenventa asc;";//echo $sql."<br>";
         $scriptArrayCompleto = $this->scriptArrayCompleto($sql);
