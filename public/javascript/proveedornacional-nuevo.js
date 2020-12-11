@@ -161,7 +161,7 @@ $(document).on('ready', function () {
             numero ++;
         });
         if (numero == 0) {
-            $('#tblInformacionTecnica tbody').html('<tr><td colspan="5">NO PRESENTA</td></tr>');
+            $('#tblInformacionTecnica tbody').html('<tr><td colspan="6">NO PRESENTA</td></tr>');
         }
         return false;
     });
@@ -236,7 +236,7 @@ $(document).on('ready', function () {
                     $('.classCertificadoIT').each(function () {
                         numero++;
                         var padre = $(this).parents('tr');
-                        if ($(this).html() == $('#idCertificadoIT').val() && padre.find('.classAprobacionIT').html() == $('#idAprobacionIT').val() && padre.find('.classFechaIT').html() == $('#idFechaIT').val() && padre.find('.classFechaUltimaIT').html() == $('#idFechaUltimaIT').val()) {
+                        if ($(this).html() == $('#idCertificadoIT').val() && padre.find('.classAprobacionIT').html() == $('#idAprobacionIT').val() && padre.find('.classFechaIT').html() == $('#idFechaIT').val() && padre.find('.classFechaVencimientoIT').html() == $('#idFechaVencimientoIT').val() && padre.find('.classFechaUltimaIT').html() == $('#idFechaUltimaIT').val()) {
                             bandera = 1;
                         }
                     });
@@ -248,11 +248,13 @@ $(document).on('ready', function () {
                                         '<td class="classCertificadoIT">' + $('#idCertificadoIT').val() + '</td>' +
                                         '<td class="classAprobacionIT">' + $('#idAprobacionIT').val() + '</td>' +
                                         '<td class="classFechaIT">' + $('#idFechaIT').val() + '</td>' +
+                                        '<td class="classFechaVencimientoIT">' + $('#idFechaVencimientoIT').val() + '</td>' +
                                         '<td class="classFechaUltimaIT">' + $('#idFechaUltimaIT').val() + '</td>' +
                                         '<td>' + 
                                             '<input type="hidden" name="txtCertificadoIT[]" value="' + $('#idCertificadoIT').val() + '">' + 
                                             '<input type="hidden" name="txtAprobacionIT[]" value="' + $('#idAprobacionIT').val() + '">' + 
                                             '<input type="hidden" name="txtFechaIT[]" value="' + $('#idFechaIT').val() + '">' + 
+                                            '<input type="hidden" name="txtFechaVencimientoIT[]" value="' + $('#idFechaVencimientoIT').val() + '">' + 
                                             '<input type="hidden" name="txtFechaUltimaIT[]" value="' + $('#idFechaUltimaIT').val() + '">' + 
                                             '<a href="#" class="btnEliminarIT"><img src=\"/imagenes/eliminar.gif\"></a></td>' +
                                    '</tr>';
@@ -261,6 +263,7 @@ $(document).on('ready', function () {
                     $('#idCertificadoIT').val('');
                     $('#idAprobacionIT').val('');
                     $('#idFechaIT').val('');
+                    $('#idFechaVencimientoIT').val('');
                     $('#idFechaUltimaIT').val('');
                     $('#contenedorInformacionTecnica').dialog('close');
                 } else {

@@ -338,6 +338,7 @@
                     <th>Tipo Certificado / Autoridad</th>
                     <th>Aprobacion Nro.</th>
                     <th>Fecha</th>
+                    <th>Fecha Vencimiento</th>
                     <th>Fecha Ultima Auditoria</th>
                     <th style="width: 1%">Acci&oacute;n</th>
                 </tr>
@@ -350,6 +351,11 @@
                 } else {
                     $informicontecnica[$i]['fecha'] = str_replace("-", "/", $informicontecnica[$i]['fecha']);
                 }
+                if ($informicontecnica[$i]['fechavencimiento'] == '0000-00-00') {
+                    $informicontecnica[$i]['fechavencimiento'] = '';
+                } else {
+                    $informicontecnica[$i]['fechavencimiento'] = str_replace("-", "/", $informicontecnica[$i]['fechavencimiento']);
+                }
                 if ($informicontecnica[$i]['fultimaauditoria'] == '0000-00-00') {
                     $informicontecnica[$i]['fultimaauditoria'] = '';
                 } else {
@@ -359,22 +365,23 @@
                         '<td>' . $informicontecnica[$i]['certificado'] . '</td>' .
                         '<td>' . $informicontecnica[$i]['aprobacionnro'] . '</td>' .
                         '<td>' . $informicontecnica[$i]['fecha'] . '</td>' .
+                        '<td>' . $informicontecnica[$i]['fechavencimiento'] . '</td>' .
                         '<td>' . $informicontecnica[$i]['fultimaauditoria'] . '</td>' .
                         '<td>' .
-                            '<a href="#" class="btnEeditarIT" data-certificado="' . $informicontecnica[$i]['certificado'] . '" data-aprobacionnro="' . $informicontecnica[$i]['aprobacionnro'] . '" data-fecha="' . $informicontecnica[$i]['fecha'] . '" data-fultimaauditoria="' . $informicontecnica[$i]['fultimaauditoria'] . '" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEeditarIT" data-certificado="' . $informicontecnica[$i]['certificado'] . '" data-aprobacionnro="' . $informicontecnica[$i]['aprobacionnro'] . '" data-fecha="' . $informicontecnica[$i]['fecha'] . '" data-fechavencimiento="' . $informicontecnica[$i]['fechavencimiento'] . '" data-fultimaauditoria="' . $informicontecnica[$i]['fultimaauditoria'] . '" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/editar.gif"></a> ' . 
                             '<a href="#" class="btnEliminarIT" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
                    '</tr>';
             }
             if ($tamanioIT == 0) {
                 echo '<tr>
-                        <td colspan="5">NO PRESENTA</td>
+                        <td colspan="6">NO PRESENTA</td>
                     </tr>';
             }
             ?>
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="5">
+                    <th colspan="6">
                         <a href="#" id="btnInformacionTecnica"><img src="/imagenes/iconos/nuevo.gif"></a>
                     </th>
                 </tr>
@@ -530,6 +537,10 @@
         <li>
             <label>Fecha:</label>
             <input style="background:pink;" type="text" id="idFechaIT" class="datepicker" readonly>
+        </li>
+        <li>
+            <label>Fecha Vencimiento:</label>
+            <input style="background:pink;" type="text" id="idFechaVencimientoIT" class="datepicker" readonly>
         </li>
         <li>
             <label>Fecha Ultima Auditoria:</label>

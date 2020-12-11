@@ -255,7 +255,8 @@ $(document).on('ready', function () {
                             'idTextIdIT' :$('#idTextIdIT').val(),
                             'idCertificadoIT' :$('#idCertificadoIT').val(),
                             'idAprobacionIT' :$('#idAprobacionIT').val(),
-                            'idFechaIT' :$('#idFechaIT').val(),
+                            'idFechaIT':$('#idFechaIT').val(),
+                            'idFechaVencimientoIT': $('#idFechaVencimientoIT').val(),
                             'idFechaUltimaIT' :$('#idFechaUltimaIT').val()
                         }, success: function (resp) {                
                             $('#tblInformacionTecnica tbody').html(resp);
@@ -265,6 +266,7 @@ $(document).on('ready', function () {
                     $('#idCertificadoIT').val('');
                     $('#idAprobacionIT').val('');
                     $('#idFechaIT').val('');
+                    $('#idFechaVencimientoIT').val('');
                     $('#idFechaUltimaIT').val('');
                     $('#contenedorInformacionTecnica').dialog('close');
                 } else {
@@ -406,7 +408,8 @@ $(document).on('ready', function () {
     
     $('#tblInformacionTecnica').on('click', '.btnEeditarIT', function () {
         $('#idFechaUltimaIT').val($(this).data('fultimaauditoria'));
-        $('#idFechaIT').val($(this).data('fecha'));
+        $('#idFechaIT').val($(this).data('fecha'));        
+        $('#idFechaVencimientoIT').val($(this).data('fechavencimiento'));
         $('#idAprobacionIT').val($(this).data('aprobacionnro'));
         $('#idCertificadoIT').val($(this).data('certificado'));
         $('#idTextIdIT').val($(this).data('id'));
@@ -419,6 +422,7 @@ $(document).on('ready', function () {
         $('#idCertificadoIT').val('');
         $('#idAprobacionIT').val('');
         $('#idFechaIT').val('');
+        $('#idFechaVencimientoIT').val('');
         $('#idFechaUltimaIT').val('');
         $('#contenedorInformacionTecnica').dialog('open');
         return false;

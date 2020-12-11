@@ -278,6 +278,7 @@ class ProveedornacionalController extends ApplicationGeneral {
             $arrayCertificadoIT = $_REQUEST['txtCertificadoIT'];
             $arrayAprobacionIT = $_REQUEST['txtAprobacionIT'];
             $arrayFechaIT = $_REQUEST['txtFechaIT'];
+            $arrayFechaVencimientoIT = $_REQUEST['txtFechaVencimientoIT'];
             $arrayFechaUltimaIT = $_REQUEST['txtFechaUltimaIT'];
             $tamIT = count($arrayCertificadoIT);
             if ($tamIT > 0) {
@@ -290,6 +291,7 @@ class ProveedornacionalController extends ApplicationGeneral {
                             $dataNuevoPNIT['certificado'] = $arrayCertificadoIT[$i];
                             $dataNuevoPNIT['aprobacionnro'] = $arrayAprobacionIT[$i];
                             $dataNuevoPNIT['fecha'] = $arrayFechaIT[$i];
+                            $dataNuevoPNIT['fechavencimiento'] = $arrayFechaVencimientoIT[$i];
                             $dataNuevoPNIT['fultimaauditoria'] = $arrayFechaUltimaIT[$i];
                             $proveedornacionalinftecnicamodel->grabar($dataNuevoPNIT);
                         }
@@ -489,6 +491,7 @@ class ProveedornacionalController extends ApplicationGeneral {
         $idCertificadoIT = $_REQUEST['idCertificadoIT'];
         $idAprobacionIT = $_REQUEST['idAprobacionIT'];
         $idFechaIT = $_REQUEST['idFechaIT'];
+        $idFechaVencimientoIT = $_REQUEST['idFechaVencimientoIT'];
         $idFechaUltimaIT = $_REQUEST['idFechaUltimaIT'];
         $idProveedorNacional = $_REQUEST['idProveedorNacional'];    
         if ($idProveedorNacional > 0 && !empty($idCertificadoIT)) {
@@ -499,6 +502,7 @@ class ProveedornacionalController extends ApplicationGeneral {
                 $dataNuevo['certificado'] = $idCertificadoIT;
                 $dataNuevo['aprobacionnro'] = $idAprobacionIT;
                 $dataNuevo['fecha'] = $idFechaIT;
+                $dataNuevo['fechavencimiento'] = $idFechaVencimientoIT;
                 $dataNuevo['fultimaauditoria'] = $idFechaUltimaIT;
                 if (!empty($idTextIdIC)) {
                     $proveedornacionalinftecnicamodel->actualiza($dataNuevo, $idTextIdIC);
@@ -515,6 +519,11 @@ class ProveedornacionalController extends ApplicationGeneral {
                 } else {
                     $informicontecnica[$i]['fecha'] = str_replace("-", "/", $informicontecnica[$i]['fecha']);
                 }
+                if ($informicontecnica[$i]['fechavencimiento'] == '0000-00-00') {
+                    $informicontecnica[$i]['fechavencimiento'] = '';
+                } else {
+                    $informicontecnica[$i]['fechavencimiento'] = str_replace("-", "/", $informicontecnica[$i]['fechavencimiento']);
+                }
                 if ($informicontecnica[$i]['fultimaauditoria'] == '0000-00-00') {
                     $informicontecnica[$i]['fultimaauditoria'] = '';
                 } else {
@@ -524,15 +533,16 @@ class ProveedornacionalController extends ApplicationGeneral {
                         '<td>' . $informicontecnica[$i]['certificado'] . '</td>' .
                         '<td>' . $informicontecnica[$i]['aprobacionnro'] . '</td>' .
                         '<td>' . $informicontecnica[$i]['fecha'] . '</td>' .
+                        '<td>' . $informicontecnica[$i]['fechavencimiento'] . '</td>' .
                         '<td>' . $informicontecnica[$i]['fultimaauditoria'] . '</td>' .
                         '<td>' .
-                            '<a href="#" class="btnEeditarIT" data-certificado="' . $informicontecnica[$i]['certificado'] . '" data-aprobacionnro="' . $informicontecnica[$i]['aprobacionnro'] . '" data-fecha="' . $informicontecnica[$i]['fecha'] . '" data-fultimaauditoria="' . $informicontecnica[$i]['fultimaauditoria'] . '" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/editar.gif"></a> ' . 
+                            '<a href="#" class="btnEeditarIT" data-certificado="' . $informicontecnica[$i]['certificado'] . '" data-aprobacionnro="' . $informicontecnica[$i]['aprobacionnro'] . '" data-fecha="' . $informicontecnica[$i]['fecha'] . '" data-fechavencimiento="' . $informicontecnica[$i]['fechavencimiento'] . '" data-fultimaauditoria="' . $informicontecnica[$i]['fultimaauditoria'] . '" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/editar.gif"></a> ' . 
                             '<a href="#" class="btnEliminarIT" data-id="' . $informicontecnica[$i]['idproveedornacionalinftecnica'] . '"><img src="/imagenes/eliminar.gif"></a>' . 
                    '</tr>';
             }
             if ($tamanioIT == 0) {
                 echo '<tr>
-                        <td colspan="5">NO PRESENTA</td>
+                        <td colspan="6">NO PRESENTA</td>
                     </tr>';
             }
         }
