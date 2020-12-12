@@ -20,6 +20,8 @@ $(document).ready(function () {
     valorActividad = false;
     fecharenovado = $('#fecharenovado');
     montorenovado = $('#montorenovado');
+    contenedorCargarGasto=$('#contenedorCargarGasto');
+    contenedorCargarGasto.hide();
 
     padregeneral = "";
     montogeneral = 0;
@@ -30,6 +32,68 @@ $(document).ready(function () {
     valorSaldo = 0;
     montoadicional = $('#montoadicional');
     fechavencimientogeneral = "";
+
+    $(".cargargasto").live("click",function(e){
+		e.preventDefault();
+		elemento=$(this);
+		padregeneral=$(this).parents('tr');
+		padregeneral.addClass('active-row');
+        $('#lstcobrador').val('');
+		$('#contenedorCargarGasto').dialog('open');			
+    });
+    
+    $('#contenedorCargarGasto').dialog({
+		modal:true,
+		width:500,
+		autoOpen:false,
+		buttons:{
+			"Cargar":function(){
+				inputcargargasto=$('#inputcargargasto').val();
+				if ($('#inputcargargasto').val()!="") {
+						if (inputcargargasto!=0) {
+								// console.log(inputcargargasto);
+								// console.log($('#txtIdOrden').val());
+								// console.log($('#codigov').val());
+								// console.log($('.active-row  .iddetalleordencobro').val());
+								$.ajax({
+								url:'/ordencobro/cargargasto',
+								type:'post',
+								dataType:'json',
+								data:{'importegasto':inputcargargasto,'iddetalleordencobro':$('.active-row .iddetalleordencobro').val()},
+								success:function(resp){
+                                    console.log(resp);
+                                    $('#contenedorCargarGasto').dialog('close');
+									cargaDetalleOrdenCobro2();
+								}
+							});
+						}else{
+								$('#lb_msj').html('Ingrese un valor valido').css('color','red');
+						}
+				}else{
+						$('#lb_msj').html('Ingrese monto de gasto').css('color','red');
+				}                                
+			}
+		},
+		close:function(){
+			$('#inputcargargasto').val('');
+			$('#lb_msj').val('');
+			padregeneral.removeClass();
+		}
+	});
+
+	$(document).on('keydown', 'input[pattern]', function(e){
+		var input = $(this);
+		var oldVal = input.val();
+		var regex = new RegExp(input.attr('pattern'), 'g');
+	  
+		setTimeout(function(){
+		  var newVal = input.val();
+		  if(!regex.test(newVal)){
+			input.val(oldVal); 
+		  }
+		}, 0);
+	  });
+
 
     $('#txtOrdenVenta').autocomplete({
         source: "/ordenventa/PendientesxPagar/",

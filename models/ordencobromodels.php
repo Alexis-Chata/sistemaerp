@@ -1,11 +1,22 @@
 <?php
 	class OrdenCobro extends Applicationbase{
 		private $tabla="wc_ordencobro";
+		private $tabla1="wc_ordengasto";
 		private $tablas="wc_ordenventa,wc_ordencobro,";
 		function listado($idordencobro=""){
 			$filtro=($idordencobro!=""?("idordencobro=".$idordencobro." and "):"");
 			$data=$this->leeRegistro($this->tabla,"",$filtro,"");
 			return $data;
+		}
+		function cargargastodetalleordencobro($data){
+			$data['estado']=1;
+			$exito=$this->grabaRegistro($this->tabla1,$data);
+			return  $exito;
+		}
+		function cargargasto($data){
+			$data['estado']=1;
+			$exito=$this->grabaRegistro($this->tabla1,$data);
+			return  $exito;
 		}
 		function grabaOrdencobro($data){
 			$data['estado']=1;
@@ -45,9 +56,16 @@
 			$exito=$this->actualizaRegistro($this->tabla,$data,"idordencobro=$idOrdencobro");
 			return $exito;
 		}
-
+		function actualizaOrdengasto($data,$idordenventa,$idtipogasto){
+			$exito=$this->actualizaRegistro($this->tabla1,$data,"idordenventa=$idordenventa and idtipogasto=$idtipogasto");
+			return $exito;
+		}
 		function buscaOrdencobro($idOrdencobro){
 			$data=$this->leeRegistro($this->tabla,"","idordencobro=$idOrdencobro","");
+			return $data;
+		}
+		function buscaOrdengastoxidovxtipogasto($idordenventa,$idtipogasto){
+			$data=$this->leeRegistro($this->tabla1,"","idordenventa=$idordenventa and idtipogasto=$idtipogasto","");
 			return $data;
 		}
 		function listarxguia($idguia){
