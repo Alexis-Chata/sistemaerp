@@ -201,7 +201,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 		$DetalleOrdencobro=New DetalleOrdencobro();
 
 		$idtipogasto=4;
-		$importegasto=1200;//$_REQUEST['importegasto'];
+		$importegasto=$_REQUEST['importegasto'];
 		$iddetalleordencobro=$_REQUEST['iddetalleordencobro']?$_REQUEST['iddetalleordencobro']:$_REQUEST['id'];
 
 		$DetalleOrdenCobro=$DetalleOrdencobro->buscaDetalleOrdencobro($iddetalleordencobro);
@@ -212,8 +212,8 @@ Class OrdenCobroController extends ApplicationGeneral{
 		$dataCargarGastoDetalleOrdenCobro['formacobro']=2;
 		$dataCargarGastoDetalleOrdenCobro['fechagiro']=$DetalleOrdenCobro[0]['fechagiro'];
 		$dataCargarGastoDetalleOrdenCobro['fvencimiento']=$DetalleOrdenCobro[0]['fvencimiento'];
-		$dataCargarGastoDetalleOrdenCobro['referencia']=$DetalleOrdenCobro[0]['numeroletra'];
-		$dataCargarGastoDetalleOrdenCobro['tipopago']=4;
+		$dataCargarGastoDetalleOrdenCobro['referencia']='GC'.$DetalleOrdenCobro[0]['numeroletra'];
+		$dataCargarGastoDetalleOrdenCobro['tipopago']=$idtipogasto;
 		//var_dump($dataCargarGastoDetalleOrdenCobro);
 		if(!empty($importegasto)){
 			$data0=$DetalleOrdencobro->grabaDetalleOrdenVentaCobro($dataCargarGastoDetalleOrdenCobro);
@@ -229,11 +229,65 @@ Class OrdenCobroController extends ApplicationGeneral{
 						$data['idordenventa']=$bOrdenCobro[0]['idordenventa'];
 						$data['importegasto']=$importegasto;
 						$data['idtipogasto']=$idtipogasto;
-						$data=$ordencobro->cargargasto($data);
+						$data2=$ordencobro->cargargasto($data);
+						echo json_encode($data2);
 					}else{
-						$dataUpdateOrdenGasto['importegasto']=$bOrdenGasto[0]['importegasto']+$importegasto;
+						$dataUpdateOrdenGasto['importegasto']=floatval($bOrdenGasto[0]['importegasto'])+$importegasto;
 						$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$bOrdenGasto[0]['idordenventa'],$bOrdenGasto[0]['idordenventa']);
-					}//echo json_encode($bOrdenGasto);
+						echo json_encode($data2);
+					}
+				}
+			}
+			//echo json_encode($data1);
+		}else{echo ('cargargasto es un metodo _POST');}
+		
+		//echo json_encode($data0);
+	}
+
+	function anulargasto($iddetalleordencobro){
+		$ordencobro=New OrdenCobro();
+		$DetalleOrdencobro=New DetalleOrdencobro();
+
+		$idtipogasto=4;
+		//$importegasto=$_REQUEST['importegasto'];
+		$iddetalleordencobro=$_REQUEST['iddetalleordencobro']?$_REQUEST['iddetalleordencobro']:$_REQUEST['id'];
+		
+		$dataAnularGastoDetalleOrdenCobro['saldodoc']=0;
+		$dataAnularGastoDetalleOrdenCobro['situacion']='anulado';
+		$data1=$DetalleOrdencobro->actualizar_cargado($dataAnularGastoDetalleOrdenCobro,$iddetalleordencobro);
+
+		$DetalleOrdenCobro=$DetalleOrdencobro->buscaDetalleOrdencobro($iddetalleordencobro);
+
+		$dataCargarGastoDetalleOrdenCobro['idordencobro']=$DetalleOrdenCobro[0]['idordencobro'];
+		$dataCargarGastoDetalleOrdenCobro['importedoc']=$importegasto;
+		$dataCargarGastoDetalleOrdenCobro['saldodoc']=$importegasto;
+		$dataCargarGastoDetalleOrdenCobro['formacobro']=2;
+		$dataCargarGastoDetalleOrdenCobro['fechagiro']=$DetalleOrdenCobro[0]['fechagiro'];
+		$dataCargarGastoDetalleOrdenCobro['fvencimiento']=$DetalleOrdenCobro[0]['fvencimiento'];
+		$dataCargarGastoDetalleOrdenCobro['referencia']='GC'.$DetalleOrdenCobro[0]['numeroletra'];
+		$dataCargarGastoDetalleOrdenCobro['tipopago']=$idtipogasto;
+		//var_dump($dataCargarGastoDetalleOrdenCobro);
+		if(!empty($importegasto)){
+			$data0=$DetalleOrdencobro->grabaDetalleOrdenVentaCobro($dataCargarGastoDetalleOrdenCobro);
+			if($data0){
+				$bOrdenCobro=$ordencobro->buscaOrdencobro($DetalleOrdenCobro[0]['idordencobro']);
+
+				$dataUpdateOrdenCobro['importeordencobro']=$bOrdenCobro[0]['importeordencobro']+$importegasto;
+				$dataUpdateOrdenCobro['saldoordencobro']=$bOrdenCobro[0]['saldoordencobro']+$importegasto;
+				$data1=$ordencobro->actualizaOrdencobro($dataUpdateOrdenCobro,$DetalleOrdenCobro[0]['idordencobro']);
+				if($data1){
+					$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);
+					if($bOrdenGasto==null){
+						$data['idordenventa']=$bOrdenCobro[0]['idordenventa'];
+						$data['importegasto']=$importegasto;
+						$data['idtipogasto']=$idtipogasto;
+						$data2=$ordencobro->cargargasto($data);
+						echo json_encode($data2);
+					}else{
+						$dataUpdateOrdenGasto['importegasto']=floatval($bOrdenGasto[0]['importegasto'])+$importegasto;
+						$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$bOrdenGasto[0]['idordenventa'],$bOrdenGasto[0]['idordenventa']);
+						echo json_encode($data2);
+					}
 				}
 			}
 			//echo json_encode($data1);
@@ -471,6 +525,11 @@ Class OrdenCobroController extends ApplicationGeneral{
 			
 			$detalleOrdenCobro=New DetalleOrdenCobro();
 			$dataDetalleOrdenCobro=$detalleOrdenCobro->listadoxidOrdenCobro($dataOrdenCobro[$y]['idordencobro']);
+			foreach ($dataDetalleOrdenCobro as $key) {
+				if($key['situacion']!='anulado'){
+					$referencias[]=$key['referencia'];
+				}
+			}
 			$dataBusqueda=$detalleOrdenCobro->listadoxidOrdenCobroxrenovado($dataOrdenCobro[$y]['idordencobro']);
 			$cantidad=count($dataBusqueda);
 			//echo '<tr><td>la cantidad es '.$cantidad."</td></tr>";
@@ -546,7 +605,13 @@ Class OrdenCobroController extends ApplicationGeneral{
 						
 					
 					if ($formacobro=='Letras' && $dataDetalleOrdenCobro[$i]['situacion']=='') {
-						echo "<td><span class='c1_datashet'><button class='cargargasto' style='width: 95px;'>Cargar Gasto</button></span></td>";
+						if(in_array('GC'.$dataDetalleOrdenCobro[$i]['numeroletra'], $referencias)){
+							echo "<td class='bold' style='vertical-align: middle;'>GASTO CARGADO</td>";
+						}else{
+							echo "<td><span class='c1_datashet'><button class='cargargasto' style='width: 100px;'>Cargar Gasto</button></span></td>";
+						}
+					}else if($formacobro=='Crédito' && strpos($dataDetalleOrdenCobro[$i]['referencia'], 'GC')!==false) {
+						echo "<td><span class='c1_datashet'><button class='anulargasto' style='width: 100px;'>Anular Gasto</button></span></td>";
 					}else{
 						echo "<td></td>";
 					}
@@ -578,6 +643,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 				
 			}
 			echo "<tr ><td style='background:silver;' colspan='13'>&nbsp</td></tr>";
+			//var_dump($referencias);var_dump($dataDetalleOrdenCobro);
 		}
 	}
         

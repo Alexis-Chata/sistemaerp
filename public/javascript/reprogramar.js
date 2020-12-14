@@ -36,7 +36,8 @@ $(document).ready(function () {
     $(".cargargasto").live("click",function(e){
 		e.preventDefault();
 		elemento=$(this);
-		padregeneral=$(this).parents('tr');
+        padregeneral=$(this).parents('tr');
+        console.log(padregeneral);
 		padregeneral.addClass('active-row');
         $('#lstcobrador').val('');
 		$('#contenedorCargarGasto').dialog('open');			
@@ -51,15 +52,11 @@ $(document).ready(function () {
 				inputcargargasto=$('#inputcargargasto').val();
 				if ($('#inputcargargasto').val()!="") {
 						if (inputcargargasto!=0) {
-								// console.log(inputcargargasto);
-								// console.log($('#txtIdOrden').val());
-								// console.log($('#codigov').val());
-								// console.log($('.active-row  .iddetalleordencobro').val());
 								$.ajax({
 								url:'/ordencobro/cargargasto',
 								type:'post',
 								dataType:'json',
-								data:{'importegasto':inputcargargasto,'iddetalleordencobro':$('.active-row .iddetalleordencobro').val()},
+								data:{'importegasto':inputcargargasto,'iddetalleordencobro':padregeneral.children('input.iddetalleordencobro').val()},
 								success:function(resp){
                                     console.log(resp);
                                     $('#contenedorCargarGasto').dialog('close');
@@ -72,6 +69,43 @@ $(document).ready(function () {
 				}else{
 						$('#lb_msj').html('Ingrese monto de gasto').css('color','red');
 				}                                
+			}
+		},
+		close:function(){
+			$('#inputcargargasto').val('');
+			$('#lb_msj').val('');
+			padregeneral.removeClass();
+		}
+    });
+    
+    $(".anulargasto").live("click",function(e){
+		e.preventDefault();
+		elemento=$(this);
+        padregeneral=$(this).parents('tr');
+        console.log(padregeneral);
+		padregeneral.addClass('active-row');
+        $('#lstcobrador').val('');
+		$('#contenedorAnularGasto').dialog('open');			
+    });
+    
+    $('#contenedorAnularGasto').dialog({
+		modal:true,
+		width:500,
+		autoOpen:false,
+		buttons:{
+			"Aceptar":function(){
+				inputcargargasto=$('#inputcargargasto').val();
+                $.ajax({
+                    url:'/ordencobro/anulargasto',
+                    type:'post',
+                    dataType:'json',
+                    data:{'iddetalleordencobro':padregeneral.children('input.iddetalleordencobro').val()},
+                    success:function(resp){
+                        console.log(resp);
+                        $('#contenedorCargarGasto').dialog('close');
+                        cargaDetalleOrdenCobro2();
+                    }
+                });                               
 			}
 		},
 		close:function(){
