@@ -277,7 +277,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 				$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$idordenventa,$idtipogasto);
 				echo json_encode($data2);
 			}
-		}
+		}else{echo ('cargargasto es un metodo _POST');}
 
 		//echo json_encode($bOrdenGasto);
 	}
