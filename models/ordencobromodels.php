@@ -60,6 +60,10 @@
 			$exito=$this->actualizaRegistro($this->tabla1,$data,"idordenventa=$idordenventa and idtipogasto=$idtipogasto");
 			return $exito;
 		}
+		function eliminarOrdengasto($idordengasto){
+			$exito=$this->eliminaRegistro($this->tabla1,"idordengasto=$idordengasto");
+			return $exito;
+		}
 		function buscaOrdencobro($idOrdencobro){
 			$data=$this->leeRegistro($this->tabla,"","idordencobro=$idOrdencobro","");
 			return $data;

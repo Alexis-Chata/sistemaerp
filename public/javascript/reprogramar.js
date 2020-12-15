@@ -102,7 +102,7 @@ $(document).ready(function () {
                     data:{'iddetalleordencobro':padregeneral.children('input.iddetalleordencobro').val()},
                     success:function(resp){
                         console.log(resp);
-                        $('#contenedorCargarGasto').dialog('close');
+                        $('#contenedorAnularGasto').dialog('close');
                         cargaDetalleOrdenCobro2();
                     }
                 });                               

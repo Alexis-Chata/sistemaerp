@@ -233,7 +233,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 						echo json_encode($data2);
 					}else{
 						$dataUpdateOrdenGasto['importegasto']=floatval($bOrdenGasto[0]['importegasto'])+$importegasto;
-						$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$bOrdenGasto[0]['idordenventa'],$bOrdenGasto[0]['idordenventa']);
+						$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$bOrdenGasto[0]['idordenventa'],$idtipogasto);
 						echo json_encode($data2);
 					}
 				}
@@ -249,51 +249,37 @@ Class OrdenCobroController extends ApplicationGeneral{
 		$DetalleOrdencobro=New DetalleOrdencobro();
 
 		$idtipogasto=4;
-		//$importegasto=$_REQUEST['importegasto'];
 		$iddetalleordencobro=$_REQUEST['iddetalleordencobro']?$_REQUEST['iddetalleordencobro']:$_REQUEST['id'];
 		
+		$DetalleOrdenCobro=$DetalleOrdencobro->buscaDetalleOrdencobro($iddetalleordencobro);
+		$importedoc=$DetalleOrdenCobro[0]['importedoc'];
+		$idordencobro=$DetalleOrdenCobro[0]['idordencobro'];
+
 		$dataAnularGastoDetalleOrdenCobro['saldodoc']=0;
 		$dataAnularGastoDetalleOrdenCobro['situacion']='anulado';
-		$data1=$DetalleOrdencobro->actualizar_cargado($dataAnularGastoDetalleOrdenCobro,$iddetalleordencobro);
 
-		$DetalleOrdenCobro=$DetalleOrdencobro->buscaDetalleOrdencobro($iddetalleordencobro);
+		$bOrdenCobro=$ordencobro->buscaOrdencobro($idordencobro);
+		$idordenventa=$bOrdenCobro[0]['idordenventa'];
+		$dataUpdateOrdenCobro['importeordencobro']=$bOrdenCobro[0]['importeordencobro']-$importedoc;
+		$dataUpdateOrdenCobro['saldoordencobro']=$bOrdenCobro[0]['saldoordencobro']-$importedoc;
 
-		$dataCargarGastoDetalleOrdenCobro['idordencobro']=$DetalleOrdenCobro[0]['idordencobro'];
-		$dataCargarGastoDetalleOrdenCobro['importedoc']=$importegasto;
-		$dataCargarGastoDetalleOrdenCobro['saldodoc']=$importegasto;
-		$dataCargarGastoDetalleOrdenCobro['formacobro']=2;
-		$dataCargarGastoDetalleOrdenCobro['fechagiro']=$DetalleOrdenCobro[0]['fechagiro'];
-		$dataCargarGastoDetalleOrdenCobro['fvencimiento']=$DetalleOrdenCobro[0]['fvencimiento'];
-		$dataCargarGastoDetalleOrdenCobro['referencia']='GC'.$DetalleOrdenCobro[0]['numeroletra'];
-		$dataCargarGastoDetalleOrdenCobro['tipopago']=$idtipogasto;
-		//var_dump($dataCargarGastoDetalleOrdenCobro);
-		if(!empty($importegasto)){
-			$data0=$DetalleOrdencobro->grabaDetalleOrdenVentaCobro($dataCargarGastoDetalleOrdenCobro);
-			if($data0){
-				$bOrdenCobro=$ordencobro->buscaOrdencobro($DetalleOrdenCobro[0]['idordencobro']);
+		$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);
 
-				$dataUpdateOrdenCobro['importeordencobro']=$bOrdenCobro[0]['importeordencobro']+$importegasto;
-				$dataUpdateOrdenCobro['saldoordencobro']=$bOrdenCobro[0]['saldoordencobro']+$importegasto;
-				$data1=$ordencobro->actualizaOrdencobro($dataUpdateOrdenCobro,$DetalleOrdenCobro[0]['idordencobro']);
-				if($data1){
-					$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);
-					if($bOrdenGasto==null){
-						$data['idordenventa']=$bOrdenCobro[0]['idordenventa'];
-						$data['importegasto']=$importegasto;
-						$data['idtipogasto']=$idtipogasto;
-						$data2=$ordencobro->cargargasto($data);
-						echo json_encode($data2);
-					}else{
-						$dataUpdateOrdenGasto['importegasto']=floatval($bOrdenGasto[0]['importegasto'])+$importegasto;
-						$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$bOrdenGasto[0]['idordenventa'],$bOrdenGasto[0]['idordenventa']);
-						echo json_encode($data2);
-					}
-				}
+		if($_POST['iddetalleordencobro']){
+			$data0=$DetalleOrdencobro->actualizar_cargado($dataAnularGastoDetalleOrdenCobro,$iddetalleordencobro);
+			$data1=$ordencobro->actualizaOrdencobro($dataUpdateOrdenCobro,$idordencobro);
+	
+			if($bOrdenGasto[0]['importegasto']=$importedoc){
+				$data2=$ordencobro->eliminarOrdengasto($bOrdenGasto[0]['idordengasto']);
+				echo json_encode($data2);
+			}else{
+				$dataUpdateOrdenGasto['importeordencobro']=$bOrdenGasto[0]['importegasto']-$importedoc;
+				$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$idordenventa,$idtipogasto);
+				echo json_encode($data2);
 			}
-			//echo json_encode($data1);
-		}else{echo ('cargargasto es un metodo _POST');}
-		
-		//echo json_encode($data0);
+		}
+
+		//echo json_encode($bOrdenGasto);
 	}
 
     function buscarDetalleOrdenCobro2()
@@ -593,13 +579,15 @@ Class OrdenCobroController extends ApplicationGeneral{
 				echo "<td >".$tipoGasto->nombreGasto($dataDetalleOrdenCobro[$i]['tipogasto']). "</td>";
 
 				if (strcmp($dataDetalleOrdenCobro[$i]['situacion'],"")==0 && $dataDetalleOrdenCobro[$i]['renovado']==0 ) {
-					
-					if($dataDetalleOrdenCobro[$i]['saldodoc']==$dataDetalleOrdenCobro[$i]['importedoc']){
-						echo "<td><button class=anular Pago>Anular</button></td>";
-					}else{
+					if($formacobro=='Crédito' && strpos($dataDetalleOrdenCobro[$i]['referencia'], 'GC')!==false) {
 						echo "<td>&nbsp;</td>";
+					}else{
+						if($dataDetalleOrdenCobro[$i]['saldodoc']==$dataDetalleOrdenCobro[$i]['importedoc']){
+							echo "<td><button class=anular Pago>Anular</button></td>";
+						}else{
+							echo "<td>&nbsp;</td>";
+						}
 					}
-					
 					
 					echo "<td><button class=modificar Pago>Reprogramar</button></td>";		
 						
