@@ -3,10 +3,23 @@
 <div id="listados">
 	<table>
 		<thead>
-			<tr>
-				<td colspan="7">
-					<a href="/tipocambio/nuevo">Agregar Tipo de cambio(+)</a>
-			</tr>
+			<?php 
+			if($tipocambio[0]['estado']==1){
+				if ($tipocambio[0]['fechatc']!=date("Y-m-d")) {
+					echo "<tr>
+						<td colspan='7'>
+							<a href='/tipocambio/nuevo'>Agregar Tipo de cambio(+)</a>
+						</td>
+					</tr>";
+				}
+			}else{
+				echo "<tr>
+						<td colspan='7'>
+							<a href='/tipocambio/nuevo'>Agregar Tipo de cambio(+)</a>
+						</td>
+					</tr>";
+			}
+			?>
 			<tr>
 				<th>Estado</th>
 				<th>Fecha</th>

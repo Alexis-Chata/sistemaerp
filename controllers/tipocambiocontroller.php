@@ -55,7 +55,14 @@ Class TipoCambioController extends applicationgeneral{
 	function grabarVigente(){
 		$data=$_REQUEST['TipoCambio'];
 		$tipocambio=New TipoCambio();
-		$exito=$tipocambio->grabavigente($data);
+		$consultaTipocambio=$tipocambio->consultalista();
+		if($consultaTipocambio[0]['estado']==1){
+			if ($consultaTipocambio[0]['fechatc']!=date("Y-m-d")) {echo "af";
+				$exito=$tipocambio->grabavigente($data);
+			}
+		}else{
+			$exito=$tipocambio->grabavigente($data);
+		}
 		$ruta['ruta']="/tipocambio/gestionar";
 		$this->view->show("ruteador.phtml",$ruta);
 	}
