@@ -148,6 +148,9 @@ Class IngresosController extends ApplicationGeneral {
         $numerorecibo = $_REQUEST['numerorecibo'];
         $fechapago = $_REQUEST['fechapago'];
         
+        $idsIngresos = $_REQUEST['idsIngresos'];
+        $observacionesrecibo = (!empty($_REQUEST['observacionesrecibo']) ? $_REQUEST['observacionesrecibo'] : '');
+        
         $ordencobro = $this->AutoLoadModel('ordencobro');
         $detOrdenCobro = $this->AutoLoadModel('detalleordencobro');
         $doci = $this->AutoLoadModel('detalleordencobroingreso');
@@ -162,44 +165,208 @@ Class IngresosController extends ApplicationGeneral {
         $saldoordencobroA = round($ordencobroantiguo[0]['saldoordencobro'], 2);
         //registra un nuevo ingreso
         
-        $observacionesrecibo = $_REQUEST['observacionesrecibo'];
-        $ingreso['observaciones'] = (!empty($observacionesrecibo) ? $observacionesrecibo : '');
-        $ingreso['idordenventa'] = $idordenventa;
-        $ingreso['idcliente'] = $idcliente;
-        $ingreso['idcobrador'] = $idcobrador;
-        $ingreso['montoingresado'] = $monto;
-        $ingreso['montoasignado'] = $monto;
-        $ingreso['saldo'] = 0;
-        $ingreso['esvalidado'] = 1;
-        $ingreso['tipocobro'] = 9;
-        $ingreso['nrorecibo'] = $numerorecibo;
-        $ingreso['nrodoc'] = $numeroletra;
-        $ingreso['fcobro'] = date('Y-m-d', strtotime($fechapago));
-        $graba = $objIngreso->graba($ingreso);
-        if ($graba) {
-            //actualiza detalleOrdenCobro
-            $data['situacion'] = 'cancelado';
-            $data['fechapago'] = date('Y-m-d', strtotime($fechapago));
-            $data['saldodoc'] = 0;
-            $exito = $detOrdenCobro->actualizaDetalleOrdencobro($data, $iddetalleordencobro);
-            //Registramos un detalleordencobroingreso
-            $data2['iddetalleordencobro'] = $iddetalleordencobro;
-            $data2['idingreso'] = $graba;
-            $data2['montop'] = $monto;
-            $exito2 = $doci->grabadetalleordencobroingreso($data2);
-            if ($exito2 && $exito) {
-                //actualizamos el orden de cobro
-                $dataoc['saldoordencobro'] = $saldoordencobroA - $monto;
-                if ($dataoc['saldoordencobro'] < 0.1) {
-                    $dataoc['situacion'] = "cancelado";
+        $arrayIngresos = explode(";", $idsIngresos);
+        $cantidadingresos = count($arrayIngresos) - 1;
+        if ($cantidadingresos > 0) {            
+            $montoAcumulado = 0;
+            $arraIngresosValidados = array();
+            $contadorIng = 0;
+            $banderaIngreso = 1;
+            for ($i = 0; $i < $cantidadingresos && $banderaIngreso == 1; $i++) {                
+                $temporalIngreso = $objIngreso->buscaxidyOV($arrayIngresos[$i], $idordenventa);
+                if (count($temporalIngreso) > 0) {                    
+                    if ($montoAcumulado < $monto && $temporalIngreso[0]['saldo'] > 0) {
+                        $arraIngresosValidados[$contadorIng]['idingresos'] = $temporalIngreso[0]['idingresos'];
+                        $arraIngresosValidados[$contadorIng]['observaciones'] = $temporalIngreso[0]['observaciones'] . ':: ' . $observacionesrecibo;
+                        //$arraIngresosValidados[$contadorIng]['asignaciontempora'] = round($temporalIngreso[0]['saldo'], 2);
+                        if($montoAcumulado+$temporalIngreso[0]['saldo'] > $monto) {
+                            echo ' >>>> montacumulado: ' . $montoAcumulado . ' >>> Temporaingresosaldo: ' . $temporalIngreso[0]['saldo'] . '  >>> Monto: ' . $monto. '  ||| ';
+                            //echo ' >asignaciontempora: ' . $arraIngresosValidados[$contadorIng]['asignaciontempora'] . ' - acumulado_monto: ' . round($montoAcumulado - $monto, 2) . ' - ';
+                            $arraIngresosValidados[$contadorIng]['asignaciontempora'] = round($monto-$montoAcumulado, 2);
+                            //echo ' :: m1: ' . $montoAcumulado . ' :: ';
+                            $montoAcumulado = $monto;
+                            //echo ' :: m2: ' . $monto . ' ___  ' . $montoAcumulado . ' :: ';
+                            $i = $cantidadingresos;
+                            echo ' - asignaciontemporanuevo: ' . $arraIngresosValidados[$contadorIng]['asignaciontempora'] . ' <<<<';
+                        } else {
+                            $arraIngresosValidados[$contadorIng]['asignaciontempora'] = $temporalIngreso[0]['saldo'];
+                            $montoAcumulado += round($temporalIngreso[0]['saldo'], 2);
+                            //echo " ELSE: montoacumulado: " . $montoAcumulado . "   > salfo: " . round($temporalIngreso[0]['saldo'], 2) . ' ||| ';
+                        }
+                        //print_r("*************************** " . $contadorIng . " ***************");
+                        $arraIngresosValidados[$contadorIng]['saldo'] = round($temporalIngreso[0]['saldo'] - $arraIngresosValidados[$contadorIng]['asignaciontempora'], 2);
+                        $arraIngresosValidados[$contadorIng]['montoasignado'] = round($temporalIngreso[0]['montoasignado'] + $arraIngresosValidados[$contadorIng]['asignaciontempora'], 2);
+                        $contadorIng++;
+                    }
+                } else {
+                    $banderaIngreso = 0;
                 }
-                $exito2 = $ordencobro->actualizaOrdencobro($dataoc, $idordencobro);
-                echo $exito2;
-            } else {
-                echo 'segundo error';
+            }
+            if ($banderaIngreso == 1 && $montoAcumulado == $monto) {
+                $acumuladorSaldoIngreso = 0;
+                for ($i = 0; $i < $contadorIng; $i++) {
+                    $auxIdIngreso = $arraIngresosValidados[$i]['idingresos'];
+                    $dataingresoorden['montop'] = $arraIngresosValidados[$i]['asignaciontempora'];
+                    print_r($arraIngresosValidados[$i]);
+                    unset($arraIngresosValidados[$i]['idingresos']);
+                    unset($arraIngresosValidados[$i]['asignaciontempora']);
+                    $exito_y = $objIngreso->actualizaxid($arraIngresosValidados[$i], $auxIdIngreso);
+                    if ($exito_y) {
+                        $acumuladorSaldoIngreso += $dataingresoorden['montop'];
+                        $dataingresoorden['montop'] = $dataingresoorden['montop'];
+                        $dataingresoorden['iddetalleordencobro'] = $iddetalleordencobro;
+                        $dataingresoorden['idingreso'] = $auxIdIngreso;
+                        $graba_n = $doci->grabadetalleordencobroingreso($dataingresoorden);
+                        if (!$graba_n) {
+                            echo 'segundo error';
+                        }
+                    } else {
+                        echo 'primer error';
+                    }
+                }
+                $data['situacion'] = 'cancelado';
+                $data['fechapago'] = date('Y-m-d', strtotime($fechapago));
+                $data['saldodoc'] = 0;
+                $exito = $detOrdenCobro->actualizaDetalleOrdencobro($data, $iddetalleordencobro);
+                
+                if ($exito) {
+                    //actualizamos el orden de cobro
+                    $dataoc['saldoordencobro'] = $saldoordencobroA - $monto;
+                    if ($dataoc['saldoordencobro'] < 0.1) {
+                        $dataoc['situacion'] = "cancelado";
+                    }
+                    $exito2 = $ordencobro->actualizaOrdencobro($dataoc, $idordencobro);
+                    
+                    $ingreso['observaciones'] = 'CLIENTE AMORTIZO PARA PAGO DE LETRA';
+                    $ingreso['idordenventa'] = $idordenventa;
+                    $ingreso['idcliente'] = $idcliente;
+                    $ingreso['idcobrador'] = $idcobrador;
+                    $ingreso['montoingresado'] = $monto;
+                    $ingreso['montoasignado'] = 0.0000009;
+                    $ingreso['saldo'] = 0;
+                    $ingreso['montoamortizado'] = $monto;
+                    $ingreso['esvalidado'] = 1;
+                    $ingreso['tipocobro'] = 9;
+                    $ingreso['nrorecibo'] = $numerorecibo;
+                    $ingreso['nrodoc'] = $numeroletra;
+                    $ingreso['fcobro'] = date('Y-m-d', strtotime($fechapago));
+                    $graba = $objIngreso->graba($ingreso);
+                    echo $exito2;
+                } else {
+                    echo 'segundo error de ingresos';
+                }
             }
         } else {
-            echo 'primer error';
+            $ingreso['observaciones'] = (!empty($observacionesrecibo) ? $observacionesrecibo : '');
+            $ingreso['idordenventa'] = $idordenventa;
+            $ingreso['idcliente'] = $idcliente;
+            $ingreso['idcobrador'] = $idcobrador;
+            $ingreso['montoingresado'] = $monto;
+            $ingreso['montoasignado'] = $monto;
+            $ingreso['saldo'] = 0;
+            $ingreso['esvalidado'] = 1;
+            $ingreso['tipocobro'] = 9;
+            $ingreso['nrorecibo'] = $numerorecibo;
+            $ingreso['nrodoc'] = $numeroletra;
+            $ingreso['fcobro'] = date('Y-m-d', strtotime($fechapago));
+            $graba = $objIngreso->graba($ingreso);
+            if ($graba) {
+                //actualiza detalleOrdenCobro
+                $data['situacion'] = 'cancelado';
+                $data['fechapago'] = date('Y-m-d', strtotime($fechapago));
+                $data['saldodoc'] = 0;
+                $exito = $detOrdenCobro->actualizaDetalleOrdencobro($data, $iddetalleordencobro);
+                //Registramos un detalleordencobroingreso
+                $data2['iddetalleordencobro'] = $iddetalleordencobro;
+                $data2['idingreso'] = $graba;
+                $data2['montop'] = $monto;
+                $exito2 = $doci->grabadetalleordencobroingreso($data2);
+                if ($exito2 && $exito) {
+                    //actualizamos el orden de cobro
+                    $dataoc['saldoordencobro'] = $saldoordencobroA - $monto;
+                    if ($dataoc['saldoordencobro'] < 0.1) {
+                        $dataoc['situacion'] = "cancelado";
+                    }
+                    $exito2 = $ordencobro->actualizaOrdencobro($dataoc, $idordencobro);
+                    echo $exito2;
+                } else {
+                    echo 'segundo error';
+                }
+            } else {
+                echo 'primer error';
+            }
+        }
+    }
+    
+    function IngresosxOrdenventa_cajabanco() {
+        $ingresos = $this->AutoLoadModel('ingresos');
+        //$dataDOC = $this->AutoLoadModel('detalleordencobra');
+        $dataDOC = new detalleOrdenCobro();
+        $idordenventa = $_REQUEST['id'];
+        $iddoc = $_REQUEST['iddoc'];
+        $dataGuia = $this->AutoLoadModel("OrdenVenta");
+        $idMoneda = $dataGuia->BuscarCampoOVxId($idordenventa, "idmoneda"); //PREGUNTAR SI ACTUAL O AL ELEGIDO EN LA COMPRA
+        $simbolo = ($idMoneda == 1) ? "S/" : "US $";
+
+        $dataIngresos = $ingresos->listarIngresosConCobrador_consaldo($idordenventa);
+        $cantidad = count($dataIngresos);
+        $dataDOC = $dataDOC->buscaDetalleOrdencobro_pendiente($iddoc);
+
+        if (count($dataDOC) > 0) {
+            echo "<tbody>
+                <tr>";
+            $fila .= "<th>Seleccion</th>";
+            $fila .= "<th>Cobrador</th>";
+            $fila .= "<th>Tipo Ingreso</th>";
+            $fila .= "<th>M. Ingresado</th>";
+            $fila .= "<th>M. Asignado</th>";
+            $fila .= "<th>Saldo</th>";
+            $fila .= "<th>M. Liberado</th>";
+            $fila .= "<th>M. Anulado</th>";
+            $fila .= "<th>F. Cobro</th>";
+            $fila .= "<th>N° recibo</th>";
+            $fila .= "<th>N° Operacion</th>";
+            $fila .= "</tr>";
+            $auxSaldo = $dataDOC[0]['saldodoc'];
+            $acumuladoImporte = 0;
+            for ($i = 0; $i < $cantidad; $i++) {
+                $checked = '';
+                if ($dataDOC[0]['saldodoc'] > 0) {
+                    $checked = ' checked';
+                    $dataDOC[0]['saldodoc'] -= $dataIngresos[$i]['saldo'];
+                    $acumuladoImporte += $dataIngresos[$i]['saldo'];
+                }
+                $fila .= "<tr class='rowLe" . $dataIngresos[$i]['idingresos'] . "'>";
+                $fila .= "<td><input type='checkbox' class='classIngresos' data-saldo='" . $dataIngresos[$i]['saldo'] . "' " . $checked . " value='" . $dataIngresos[$i]['idingresos'] . "'></td>";
+                $fila .= "<td>" . ($dataIngresos[$i]['nombres'] . ' ' . $dataIngresos[$i]['apellidopaterno'] . ' ' . $dataIngresos[$i]['apellidomaterno']) . "</td>";
+                $fila .= "<td>" . $this->configIni("TipoIngreso", $dataIngresos[$i]['tipocobro']) . " " . $dataIngresos[$i]['tipo'] . "</td>";
+                $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoingresado'], 2) . "</td>";
+                $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoasignado'], 2) . "</td>";
+                $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['saldo'], 2) . "<input type='hidden' class='saldo' value='" . $dataIngresos[$i]['saldo'] . "'></td>";
+                $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoliberado'], 2) . "</td>";
+                $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoanulado'], 2) . "</td>";
+                $fila .= "<td>" . ($dataIngresos[$i]['fcobro']) . "</td>";
+                $fila .= "<td>" . ($dataIngresos[$i]['nrorecibo']) . "</td>";
+                $fila .= "<td>" . ($dataIngresos[$i]['nrooperacion']) . "</td>";
+                $fila .= "</tr>";
+            }
+            echo $fila;
+            $diferencia = $auxSaldo - $acumuladoImporte;
+            if ($diferencia > 0) {
+                $diferencia = "Faltan " . $diferencia;
+            } else if ($diferencia < 0) {
+                $diferencia = "Sobra " . ($diferencia*-1);
+            }
+            echo "<tr><td colspan='12'>&nbsp;</td></tr>";
+            echo "<tr>"
+                    . "<th colspan='2'>Total a pagar:</th>"
+                    . "<td colspan='2'>" . $simbolo . " <span id='idBlockSaldo'>" . $auxSaldo . "</span></td>"
+                    . "<th colspan='2'>ingreso Acumulado:</th>"
+                    . "<td colspan='2'>" . $simbolo . " <span id='idBlockAcumulado'>" . $acumuladoImporte . "</span></td>"
+                    . "<th>Diferencia:</th>"
+                    . "<td colspan='2' style='color: red; font-weight: bold'><span id='idBlockDiferencia'>" . ($diferencia) . "</span> (" . $simbolo . ")</td>"
+                 . "</tr>";
+            echo "</tbody>";
         }
     }
 
@@ -2339,6 +2506,7 @@ Class IngresosController extends ApplicationGeneral {
         $fila .= "<th>Saldo</th>";
         $fila .= "<th>M. Liberado</th>";
         $fila .= "<th>M. Anulado</th>";
+        $fila .= "<th>M. Amortizado</th>";
         $fila .= "<th>F. Cobro</th>";
         $fila .= "<th>N° recibo</th>";
         $fila .= "<th>N° Operacion</th>";
@@ -2355,6 +2523,7 @@ Class IngresosController extends ApplicationGeneral {
             $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['saldo'], 2) . "<input type='hidden' class='saldo' value='" . $dataIngresos[$i]['saldo'] . "'></td>";
             $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoliberado'], 2) . "</td>";
             $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoanulado'], 2) . "</td>";
+            $fila .= "<td> " . $simbolo . " " . number_format($dataIngresos[$i]['montoamortizado'], 2) . "</td>";
             $fila .= "<td>" . ($dataIngresos[$i]['fcobro']) . "</td>";
             $fila .= "<td>" . ($dataIngresos[$i]['nrorecibo']) . "</td>";
             $fila .= "<td>" . ($dataIngresos[$i]['nrooperacion']) . "</td>";
@@ -2693,6 +2862,7 @@ Class IngresosController extends ApplicationGeneral {
             $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['saldo'], 2)) . "</td>";
             $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['montoanulado'], 2)) . "</td>";
             $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['montoliberado'], 2)) . "</td>";
+            $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['montoamortizado'], 2)) . "</td>";
             $columna .= "<td>" . $dataIngresos[$i]['observaciones'] . "</td>";
             $columna .= "</tr>";
         }
@@ -2700,8 +2870,8 @@ Class IngresosController extends ApplicationGeneral {
             echo "<tr><td>No se Encontraron Datos</td></tr>";
         } else {
             $columna .= "<tr><td style='background:white;' colspan='14'>&nbsp</td></tr>";
-            $columna .= "<tr><td colspan='8'>&nbsp</td><th >Total Ingresos  S/.</th><td>" . number_format($acumulaxIdMoneda['S/']['total'], 2) . "</td><th>Total Saldo S/. </th><td>" . number_format($acumulaxIdMoneda['S/']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
-            $columna .= "<tr><td colspan='8'>&nbsp</td><th >Total Ingresos US $</th><td>" . number_format($acumulaxIdMoneda['US $']['total'], 2) . "</td><th>Total Saldo US $</th><td>" . number_format($acumulaxIdMoneda['US $']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
+            $columna .= "<tr><td colspan='9'>&nbsp</td><th >Total Ingresos  S/.</th><td>" . number_format($acumulaxIdMoneda['S/']['total'], 2) . "</td><th>Total Saldo S/. </th><td>" . number_format($acumulaxIdMoneda['S/']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
+            $columna .= "<tr><td colspan='9'>&nbsp</td><th >Total Ingresos US $</th><td>" . number_format($acumulaxIdMoneda['US $']['total'], 2) . "</td><th>Total Saldo US $</th><td>" . number_format($acumulaxIdMoneda['US $']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
             echo $columna;
         }
     }
@@ -2771,15 +2941,16 @@ Class IngresosController extends ApplicationGeneral {
             $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['saldo'], 2)) . "</td>";
             $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['montoanulado'], 2)) . "</td>";
             $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['montoliberado'], 2)) . "</td>";
+            $columna .= "<td>" . $simboloMoneda . " " . (number_format($dataIngresos[$i]['montoamortizado'], 2)) . "</td>";
             $columna .= "<td>" . $dataIngresos[$i]['observaciones'] . "</td>";
             $columna .= "</tr>";
         }
         if ($cantidad == 0) {
             echo "<tr><td>No se Encontraron Datos</td></tr>";
         } else {
-            $columna .= "<tr><td style='background:white;' colspan='13'>&nbsp</td></tr>";
-            $columna .= "<tr><td colspan='7'>&nbsp</td><th >Total Ingresos  S/.</th><td>" . number_format($acumulaxIdMoneda['S/']['total'], 2) . "</td><th>Total Saldo S/. </th><td>" . number_format($acumulaxIdMoneda['S/']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
-            $columna .= "<tr><td colspan='7'>&nbsp</td><th >Total Ingresos US $</th><td>" . number_format($acumulaxIdMoneda['US $']['total'], 2) . "</td><th>Total Saldo US $</th><td>" . number_format($acumulaxIdMoneda['US $']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
+            $columna .= "<tr><td style='background:white;' colspan='14'>&nbsp</td></tr>";
+            $columna .= "<tr><td colspan='8'>&nbsp</td><th >Total Ingresos  S/.</th><td>" . number_format($acumulaxIdMoneda['S/']['total'], 2) . "</td><th>Total Saldo S/. </th><td>" . number_format($acumulaxIdMoneda['S/']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
+            $columna .= "<tr><td colspan='8'>&nbsp</td><th >Total Ingresos US $</th><td>" . number_format($acumulaxIdMoneda['US $']['total'], 2) . "</td><th>Total Saldo US $</th><td>" . number_format($acumulaxIdMoneda['US $']['saldo'], 2) . "</td><td></td><td></td><td></td></tr>";
             echo $columna;
         }
     }

@@ -39,9 +39,19 @@ class Ingresos extends Applicationbase {
         $data = $this->leeRegistro($this->tabla, "", " esvalidado=1 and estado=1 situacionpago=0 and idvendedor=" . $idvendedor, "");
         return $data;
     }
+    
+    function buscaxidyOV($idingresos, $idordenventa) {
+        $data = $this->leeRegistro($this->tabla, "", "estado=1 and idingresos='$idingresos' and idordenventa='$idordenventa'", "");
+        return $data;
+    }
 
     function buscaxid($idingresos) {
         $data = $this->leeRegistro($this->tabla, "", "estado=1 and idingresos='$idingresos'", "");
+        return $data;
+    }
+    
+    function listarIngresosConCobrador_consaldo($idOrdenVenta, $filtro = "") {
+        $data = $this->leeRegistro("`wc_actor` wc_actor inner join `wc_ingresos` wc_ingresos on wc_actor.`idactor`=wc_ingresos.`idcobrador`", "", "wc_ingresos.`idOrdenVenta`='$idOrdenVenta' and wc_ingresos.`estado`=1 and wc_ingresos.`saldo` > 0 and esvalidado=1" . $filtro, "");
         return $data;
     }
 

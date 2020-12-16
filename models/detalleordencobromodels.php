@@ -86,6 +86,11 @@ class detalleOrdenCobro extends Applicationbase {
                                    inner join wc_actor actor on actor.nombrecompleto = doc.numerounico and actor.estado = 1", "actor.idactor", "doc.iddetalleordencobro='$iddetalleordencobro' and doc.estado = 1 and doc.numerounico!=''", "", "limit 1");
         return (count($data) > 0 ? $data[0]['idactor'] : 0);
     }
+    
+    function buscaDetalleOrdencobro_pendiente($iddetalleordencobro) {
+        $data = $this->leeRegistro($this->tabla, "*", "iddetalleordencobro='$iddetalleordencobro' and situacion='' and estado=1", "");
+        return $data;
+    }
 
     function buscaDetalleOrdencobro2($iddetalleordencobro) {
         $data = $this->leeRegistro(
