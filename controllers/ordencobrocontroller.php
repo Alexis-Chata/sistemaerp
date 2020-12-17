@@ -226,6 +226,9 @@ Class OrdenCobroController extends ApplicationGeneral{
 				$data1=$ordencobro->actualizaOrdencobro($dataUpdateOrdenCobro,$DetalleOrdenCobro[0]['idordencobro']);
 				if($data1){
 					$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);
+
+					$dataUpdateOrdenVenta['situacion']='Pendiente';
+					$ordencobro->actualizaOrdenVenta($dataUpdateOrdenVenta,$bOrdenCobro[0]['idordenventa']);
 					if($bOrdenGasto==null){
 						$data['idordenventa']=$bOrdenCobro[0]['idordenventa'];
 						$data['importegasto']=$importegasto;
@@ -264,7 +267,9 @@ Class OrdenCobroController extends ApplicationGeneral{
 		$dataUpdateOrdenCobro['importeordencobro']=$bOrdenCobro[0]['importeordencobro']-$importedoc;
 		$dataUpdateOrdenCobro['saldoordencobro']=$bOrdenCobro[0]['saldoordencobro']-$importedoc;
 		if($dataUpdateOrdenCobro['saldoordencobro']==0){
-			$dataUpdateOrdenCobro['situacion']='Pendiente';
+			$dataUpdateOrdenCobro['situacion']='cancelado';
+			$dataUpdateOrdenVenta['situacion']='cancelado';
+			$ordencobro->actualizaOrdenVenta($dataUpdateOrdenVenta,$idordenventa);
 		}
 
 		$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);

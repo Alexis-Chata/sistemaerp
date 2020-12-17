@@ -2,6 +2,7 @@
 	class OrdenCobro extends Applicationbase{
 		private $tabla="wc_ordencobro";
 		private $tabla1="wc_ordengasto";
+		private $tabla2="wc_ordenventa";
 		private $tablas="wc_ordenventa,wc_ordencobro,";
 		function listado($idordencobro=""){
 			$filtro=($idordencobro!=""?("idordencobro=".$idordencobro." and "):"");
@@ -50,6 +51,10 @@
 
 		function actualizaOrdencobroxfiltro($data,$filtro){
 			$exito=$this->actualizaRegistro($this->tabla,$data,$filtro);
+			return $exito;
+		}
+		function actualizaOrdenVenta($data,$idOrdenventa){
+			$exito=$this->actualizaRegistro($this->tabla2,$data,"idordenventa=$idOrdenventa");
 			return $exito;
 		}
 		function actualizaOrdencobro($data,$idOrdencobro){
