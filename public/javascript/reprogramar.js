@@ -49,19 +49,24 @@ $(document).ready(function () {
 		autoOpen:false,
 		buttons:{
 			"Cargar":function(){
-				inputcargargasto=$('#inputcargargasto').val();
+                inputcargargasto=$('#inputcargargasto').val();
+                iddetalleordencobro=padregeneral.children('input.iddetalleordencobro').val();
 				if ($('#inputcargargasto').val()!="") {
 						if (inputcargargasto!=0) {
 								$.ajax({
 								url:'/ordencobro/cargargasto',
 								type:'post',
 								dataType:'json',
-								data:{'importegasto':inputcargargasto,'iddetalleordencobro':padregeneral.children('input.iddetalleordencobro').val()},
+								data:{'importegasto':inputcargargasto,'iddetalleordencobro':iddetalleordencobro},
 								success:function(resp){
                                     console.log(resp);
                                     $('#contenedorCargarGasto').dialog('close');
 									cargaDetalleOrdenCobro2();
-								}
+                                },
+                                error: function (error) {
+                                    $('#contenedorAnularGasto').dialog('close');
+                                    cargaDetalleOrdenCobro2();
+                                }
 							});
 						}else{
 								$('#lb_msj').html('Ingrese un valor valido').css('color','red');
@@ -94,14 +99,19 @@ $(document).ready(function () {
 		autoOpen:false,
 		buttons:{
 			"Aceptar":function(){
-				inputcargargasto=$('#inputcargargasto').val();
+                inputcargargasto=$('#inputcargargasto').val();
+                iddetalleordencobro=padregeneral.children('input.iddetalleordencobro').val();
                 $.ajax({
                     url:'/ordencobro/anulargasto',
                     type:'post',
                     dataType:'json',
-                    data:{'iddetalleordencobro':padregeneral.children('input.iddetalleordencobro').val()},
+                    data:{'iddetalleordencobro':iddetalleordencobro},
                     success:function(resp){
                         console.log(resp);
+                        $('#contenedorAnularGasto').dialog('close');
+                        cargaDetalleOrdenCobro2();
+                    },
+                    error: function (error) {
                         $('#contenedorAnularGasto').dialog('close');
                         cargaDetalleOrdenCobro2();
                     }

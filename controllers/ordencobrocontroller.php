@@ -222,6 +222,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 
 				$dataUpdateOrdenCobro['importeordencobro']=$bOrdenCobro[0]['importeordencobro']+$importegasto;
 				$dataUpdateOrdenCobro['saldoordencobro']=$bOrdenCobro[0]['saldoordencobro']+$importegasto;
+				$dataUpdateOrdenCobro['situacion']='Pendiente';
 				$data1=$ordencobro->actualizaOrdencobro($dataUpdateOrdenCobro,$DetalleOrdenCobro[0]['idordencobro']);
 				if($data1){
 					$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);
@@ -262,6 +263,9 @@ Class OrdenCobroController extends ApplicationGeneral{
 		$idordenventa=$bOrdenCobro[0]['idordenventa'];
 		$dataUpdateOrdenCobro['importeordencobro']=$bOrdenCobro[0]['importeordencobro']-$importedoc;
 		$dataUpdateOrdenCobro['saldoordencobro']=$bOrdenCobro[0]['saldoordencobro']-$importedoc;
+		if($dataUpdateOrdenCobro['saldoordencobro']==0){
+			$dataUpdateOrdenCobro['situacion']='Pendiente';
+		}
 
 		$bOrdenGasto=$ordencobro->buscaOrdengastoxidovxtipogasto($bOrdenCobro[0]['idordenventa'],$idtipogasto);
 
@@ -269,11 +273,11 @@ Class OrdenCobroController extends ApplicationGeneral{
 			$data0=$DetalleOrdencobro->actualizar_cargado($dataAnularGastoDetalleOrdenCobro,$iddetalleordencobro);
 			$data1=$ordencobro->actualizaOrdencobro($dataUpdateOrdenCobro,$idordencobro);
 	
-			if($bOrdenGasto[0]['importegasto']=$importedoc){
+			if($bOrdenGasto[0]['importegasto']==$importedoc){
 				$data2=$ordencobro->eliminarOrdengasto($bOrdenGasto[0]['idordengasto']);
 				echo json_encode($data2);
 			}else{
-				$dataUpdateOrdenGasto['importeordencobro']=$bOrdenGasto[0]['importegasto']-$importedoc;
+				$dataUpdateOrdenGasto['importegasto']=$bOrdenGasto[0]['importegasto']-$importedoc;
 				$data2=$ordencobro->actualizaOrdengasto($dataUpdateOrdenGasto,$idordenventa,$idtipogasto);
 				echo json_encode($data2);
 			}
@@ -618,14 +622,23 @@ Class OrdenCobroController extends ApplicationGeneral{
 					
 					echo "<td></td>";
 					echo "<td></td>";
-					echo "<td>";
+					if ($formacobro=='Letras' && $dataDetalleOrdenCobro[$i]['situacion']=='cancelado') {
+						if(in_array('GC'.$dataDetalleOrdenCobro[$i]['numeroletra'], $referencias)){
+							echo "<td class='bold' style='vertical-align: middle;'>GASTO CARGADO</td>";
+						}else{
+							echo "<td><span class='c1_datashet'><button class='cargargasto' style='width: 100px;'>Cargar Gasto</button></span></td>";
+						}
+					}else if($formacobro=='Crédito' && strpos($dataDetalleOrdenCobro[$i]['referencia'], 'GC')!==false) {
+						echo "<td><span class='c1_datashet'><button class='anulargasto' style='width: 100px;'>Anular Gasto".strpos($dataDetalleOrdenCobro[$i]['referencia'], 'GC')!==false."</button></span></td>";
+					}else{
+						echo "<td></td>";
+					}
 					echo "<input type='hidden' value='".$simboloMoneda."' id='SMoneda'>";
 					echo "<input class='iddetalle' type='hidden' value='".$dataDetalleOrdenCobro[$i]['iddetalleordencobro']."'>";
 					echo "<input class='formacobro' type='hidden' value='".$dataDetalleOrdenCobro[$i]['formacobro']."'>";
 					echo "<input class='iddetalleordencobro' type='hidden' value='".$dataDetalleOrdenCobro[$i]['iddetalleordencobro']."'>";
 					echo "<input class='valorLetra' type='hidden' value='".round($dataDetalleOrdenCobro[$i]['importedoc'],2)."'>";
 					echo "<input class='valorSaldo' type='hidden' value='".round($dataDetalleOrdenCobro[$i]['saldodoc'],2)."'>";
-					echo "</td>";
 					echo "</tr>";
 				}
 				
