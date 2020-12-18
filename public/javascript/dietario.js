@@ -349,7 +349,7 @@ $(document).ready(function () {
 
             montoadicional.val('');
             lblDias.val();
-
+            padregeneral.removeClass();
         }
     });
 

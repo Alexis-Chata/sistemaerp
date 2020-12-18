@@ -244,6 +244,7 @@ $(document).ready(function () {
             //console.log($('#formularioModificar').serialize());
             if (validaTotalModificar(valorSaldo) == true) {
                 if (validarVaciosModificar() == true) {
+                    $("#prueba").css("pointer-events", "none");
                     modificar();
                 } else {
                     alert('Ingrese las Cantidad con sus respectivos dias ');
@@ -256,6 +257,7 @@ $(document).ready(function () {
             montoTotalDeuda = parseFloat($('#totalImporteDeuda').val());
             if (validaTotalModificar(montoTotalDeuda) == true) {
                 if (validarVaciosModificar() == true) {
+                    $("#prueba").css("pointer-events", "none");
                     reprogramacionTotalDeuda();
                 } else {
                     alert('Ingrese las Cantidad con sus respectivos dias ');
@@ -608,6 +610,7 @@ function modificar() {
             cargaDetalleOrdenCobro2();
             finalizarAutorizacion();
             $('#contenedorModificar').dialog('close');
+            $("#prueba").css("pointer-events", "auto");
         },
         error: function (error) {
             console.log('error');
@@ -626,6 +629,7 @@ function reprogramacionTotalDeuda() {
             verificarCobro();
             finalizarAutorizacion();
             $('#contenedorModificar').dialog('close');
+            $("#prueba").css("pointer-events", "auto");
         },
         error: function (error) {
             console.log('error');
