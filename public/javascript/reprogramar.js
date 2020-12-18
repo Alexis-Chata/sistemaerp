@@ -53,6 +53,7 @@ $(document).ready(function () {
                 iddetalleordencobro=padregeneral.children('input.iddetalleordencobro').val();
 				if ($('#inputcargargasto').val()!="") {
 						if (inputcargargasto!=0) {
+                            $(".ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only").css("pointer-events", "none");
 								$.ajax({
 								url:'/ordencobro/cargargasto',
 								type:'post',
@@ -79,7 +80,8 @@ $(document).ready(function () {
 		close:function(){
 			$('#inputcargargasto').val('');
 			$('#lb_msj').val('');
-			padregeneral.removeClass();
+            padregeneral.removeClass();
+            $(".ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only").css("pointer-events", "auto");
 		}
     });
     
@@ -99,6 +101,7 @@ $(document).ready(function () {
 		autoOpen:false,
 		buttons:{
 			"Aceptar":function(){
+                $(".ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only").css("pointer-events", "none");
                 inputcargargasto=$('#inputcargargasto').val();
                 iddetalleordencobro=padregeneral.children('input.iddetalleordencobro').val();
                 $.ajax({
@@ -121,7 +124,8 @@ $(document).ready(function () {
 		close:function(){
 			$('#inputcargargasto').val('');
 			$('#lb_msj').val('');
-			padregeneral.removeClass();
+            padregeneral.removeClass();
+            $(".ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only").css("pointer-events", "auto");
 		}
 	});
 
