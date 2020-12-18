@@ -251,6 +251,10 @@ Class IngresosController extends ApplicationGeneral {
                     $ingreso['nrodoc'] = $numeroletra;
                     $ingreso['fcobro'] = date('Y-m-d', strtotime($fechapago));
                     $graba = $objIngreso->graba($ingreso);
+                    $data2DOCI['iddetalleordencobro'] = $iddetalleordencobro;
+                    $data2DOCI['idingreso'] = $graba;
+                    $data2DOCI['montop'] = 0;
+                    $exito2 = $doci->grabadetalleordencobroingreso($data2DOCI);
                     echo $exito2;
                 } else {
                     echo 'segundo error de ingresos';
@@ -1711,15 +1715,19 @@ Class IngresosController extends ApplicationGeneral {
                         if ($exito3) {
                             //recuperamos el saldo del ingreso
                             $datosIngreso = $ingresos->buscaxid($idingresos);
-                            echo 'cantidad' . count($dataIngreso);
-                            $saldoIngreso = round($datosIngreso[0]['saldo'], 2);
-                            $montoasignado = round($datosIngreso[0]['montoasignado'], 2);
-                            $nuevoSaldoIngreso = $saldoIngreso + $importe;
-                            $nuevoMontoAsignado = $montoasignado - $importe;
-                            //actualizamos el ingreso
-                            $dataIngreso['saldo'] = $nuevoSaldoIngreso;
-                            $dataIngreso['montoasignado'] = $nuevoMontoAsignado;
-                            $exitoI = $ingresos->actualizaxid($dataIngreso, $idingresos);
+                            if ($datosIngreso[0]['montoingresado'] == $datosIngreso[0]['montoamortizado']) {
+                                $exitoI = $ingresos->eliminar($idingresos);
+                            } else {
+                                echo 'cantidad' . count($dataIngreso);
+                                $saldoIngreso = round($datosIngreso[0]['saldo'], 2);
+                                $montoasignado = round($datosIngreso[0]['montoasignado'], 2);
+                                $nuevoSaldoIngreso = $saldoIngreso + $importe;
+                                $nuevoMontoAsignado = $montoasignado - $importe;
+                                //actualizamos el ingreso
+                                $dataIngreso['saldo'] = $nuevoSaldoIngreso;
+                                $dataIngreso['montoasignado'] = $nuevoMontoAsignado;
+                                $exitoI = $ingresos->actualizaxid($dataIngreso, $idingresos);
+                            }
                             if ($exitoI) {
                                 echo 'correcto';
                             } else {
