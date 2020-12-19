@@ -785,7 +785,7 @@ class documentocontroller extends ApplicationGeneral {
                         echo '<td>Anulado' . $datadocumento[$i]['motivo'] . '</td>';
                     } elseif ($datadocumento[$i]['esImpreso'] != 1 && $datadocumento[$i]['esAnulado'] != 1) {
                         echo '<td></td>';
-                        echo '<td> <a href="#" id="' . $datadocumento[$i]['iddocumento'] . '" class="imprimir c7_datashet"><img style="margin:auto;display:block" src="/imagenes/imprimir.gif"></a> </td>';
+                        echo '<td> <a href="#" id="' . $datadocumento[$i]['iddocumento'] . '" class="imprimir c7_datashet"><img style="margin:auto;display:block" src="/imagenes/imprimir.gif"></a> <input type="number" step="1" min="0" placeholder="0" id="noimprimir" autocomplete="off"></td>';
                     } elseif ($datadocumento[$i]['esImpreso'] == 1 && $datadocumento[$i]['esAnulado'] != 1) {
                         echo '<td></td>';
                         echo '<td> <button class="anular c9_datashet"> Anular</button> </td>';
@@ -872,7 +872,7 @@ class documentocontroller extends ApplicationGeneral {
                         echo '<td colspan="2">Anulado&nbsp</td>
                                                                                             <td>' . $datadocumento[$i]['motivo'] . '</td>';
                     } elseif ($datadocumento[$i]['esImpreso'] != 1 && $datadocumento[$i]['esAnulado'] != 1) {
-                        echo '<td colspan="2"> <a href="#" id="' . $datadocumento[$i]['iddocumento'] . '"  class="imprimir c8_datashet"><img style="margin:auto;display:block" src="/imagenes/imprimir.gif"></a> </td>';
+                        echo '<td colspan="2"> <a href="#" id="' . $datadocumento[$i]['iddocumento'] . '"  class="imprimir c8_datashet"><img style="margin:auto;display:block" src="/imagenes/imprimir.gif"></a> <input type="number" step="1" min="0" placeholder="0" id="noimprimir" autocomplete="off"></td>';
                     } elseif ($datadocumento[$i]['esImpreso'] == 1 && $datadocumento[$i]['esAnulado'] != 1) {
                         echo '<td colspan="2"></td>
                                                                                             <td > <button class="anular c4_datashet"> Anular</button> </td>';
@@ -1193,6 +1193,8 @@ class documentocontroller extends ApplicationGeneral {
     }
 
     function generaGuia() {
+        $_REQUEST['parameters'][1]=$_REQUEST['parameters'][1]?intval($_REQUEST['parameters'][1]):0;
+        //var_dump($_REQUEST['parameters'][1]);
         $pdf = $this->AutoLoadModel('pdf');
         $ordenventa = $this->AutoLoadModel('documento');
         $idDoc = $_REQUEST['id'];
@@ -1259,6 +1261,7 @@ class documentocontroller extends ApplicationGeneral {
             $datos['hojas'] = $cantidadDocumentos;
             $datos['Factura'] = $dataGuia;
             $datos['DetalleFactura'] = $data;
+            $datos['noImprimir'] = $_REQUEST['parameters'][1];
             $datos['maximoItem'] = $maximoItem;
             $this->view->show('/documento/generaGuia.phtml', $datos);
         }

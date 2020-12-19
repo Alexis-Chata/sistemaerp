@@ -71,8 +71,9 @@ $(document).ready(function () {
             numdocGeneral = padre.find('.numdoc').val();
             serieGeneral = padre.find('.serie').val();
             iddocumentogeneral = $(this).attr('id');
+            noimprimir = $('#noimprimir').val();
             orden = $('#txtIdOrden').val();
-            ruta = rutaDocumento(tipodoc, orden, iddocumentogeneral);
+            ruta = rutaDocumento(tipodoc, orden, iddocumentogeneral, noimprimir);
             //console.log(iddocumentogeneral);
             console.log(numdocGeneral);
             console.log(serieGeneral);
@@ -195,7 +196,7 @@ function rutaDocumento(lista, idordenventa, iddocumentogeneral) {
     } else if (lista == 2) {
         return rut = '/documento/generaBoleta/' + iddocumentogeneral;
     } else if (lista == 4) {
-        return rut = '/documento/generaGuia/' + iddocumentogeneral;
+        return rut = '/documento/generaGuia/' + iddocumentogeneral + '/' + noimprimir;
     } else if (lista == 5) {
         return rut = '/documento/generaNotaCredito/' + iddocumentogeneral;
     } else if (lista == 6) {
