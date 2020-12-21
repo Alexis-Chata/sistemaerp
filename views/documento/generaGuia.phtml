@@ -84,7 +84,12 @@ for($z=0;$z<$pages;$z++){
 		</tr>
 		<tr class="su">
 			<th class="th1">&nbsp;</th>
-			<th colspan="5" style="text-align: left;width:685"><?php echo substr($Factura[0]['direccion_despacho'].' - '.$Factura[0]['nombredepartamento'].' - '.$Factura[0]['nombreprovincia'].' - '.$Factura[0]['nombredistrito'],0,101); ?></th>
+			<th colspan="5" style="text-align: left;width:685">
+			<?php if (empty($direc_desp0)) {
+				echo substr($Factura[0]['direccion_despacho'].' - '.$Factura[0]['nombredepartamento'].' - '.$Factura[0]['nombreprovincia'].' - '.$Factura[0]['nombredistrito'],0,101); 
+			}else{
+				echo substr($Factura[0]['direccion_despacho'].' - '.$direc_desp0,0,101); 
+			}?></th>
 
 		</tr>
 		<tr class="su">

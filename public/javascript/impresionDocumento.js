@@ -71,9 +71,10 @@ $(document).ready(function () {
             numdocGeneral = padre.find('.numdoc').val();
             serieGeneral = padre.find('.serie').val();
             iddocumentogeneral = $(this).attr('id');
-            noimprimir = $('#noimprimir').val();
+            noimprimir = $('#noimprimir').val()?$('#noimprimir').val():0;
+            dist_prov_depa = $('#dist_prov_depa').val();
             orden = $('#txtIdOrden').val();
-            ruta = rutaDocumento(tipodoc, orden, iddocumentogeneral, noimprimir);
+            ruta = rutaDocumento(tipodoc, orden, iddocumentogeneral, noimprimir, dist_prov_depa);
             //console.log(iddocumentogeneral);
             console.log(numdocGeneral);
             console.log(serieGeneral);
@@ -190,13 +191,13 @@ function rutaDocumentoVer(lista, idordenventa, iddocumentogeneral) {
     }
 }
 
-function rutaDocumento(lista, idordenventa, iddocumentogeneral) {
+function rutaDocumento(lista, idordenventa, iddocumentogeneral, noimprimir, dist_prov_depa) {
     if (lista == 1) {
         return rut = '/documento/generaFactura/' + iddocumentogeneral;
     } else if (lista == 2) {
         return rut = '/documento/generaBoleta/' + iddocumentogeneral;
-    } else if (lista == 4) {
-        return rut = '/documento/generaGuia/' + iddocumentogeneral + '/' + noimprimir;
+    } else if (lista == 4) {console.log('/documento/generaGuia/' + iddocumentogeneral + '/' + noimprimir + '/' + dist_prov_depa);
+        return rut = '/documento/generaGuia/' + iddocumentogeneral + '/' + noimprimir + '/' + dist_prov_depa;
     } else if (lista == 5) {
         return rut = '/documento/generaNotaCredito/' + iddocumentogeneral;
     } else if (lista == 6) {
