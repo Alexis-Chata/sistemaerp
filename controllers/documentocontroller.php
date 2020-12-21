@@ -1236,7 +1236,7 @@ class documentocontroller extends ApplicationGeneral {
                 $dataGuia[0]['condiciones'] = "LETRAS";
             }
             $data = $pdf->buscarDetalleOrdenVenta($buscaGuia[0]['idordenventa']);
-            $cantidad = count($data);
+            $cantidad = count($data)-$_REQUEST['parameters'][1];
             $datos['PartidaRegistral'] = '';
             for ($iPel = 0; $iPel < $cantidad; $iPel++) {
                 if ($data[$iPel]['peligro'] == 1) {
