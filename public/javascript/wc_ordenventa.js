@@ -221,11 +221,11 @@ $(document).ready(function () {
             click++;
         }
     });
-
+    $('#txtOrdenVenta').focus();
 });
 
 function buscaOrdenCobro() {
-    var ordenVenta = $('#txtIdOrden').val();
+    var ordenVenta = $('#txtIdOrden').val()?$('#txtIdOrden').val():0;
     var ruta = "/ordencobro/buscarxOrdenVenta/" + ordenVenta;
     $.getJSON(ruta, function (data) {
         $('#razonsocial').val(data.razonsocial);
@@ -240,10 +240,14 @@ function buscaOrdenCobro() {
 
 function cargaDetalleOrdenCobro() {
     var ordenVenta = $('#txtIdOrden').val();
-    var ruta = "/ordencobro/buscarDetalleOrdenCobro/" + ordenVenta;
-    $.post(ruta, function (data) {
-        $('#tblDetalleOrdenCobro tbody').html(data);
-    });
+    if(ordenVenta){
+        var ruta = "/ordencobro/buscarDetalleOrdenCobro/" + ordenVenta;
+        $.post(ruta, function (data) {
+            $('#tblDetalleOrdenCobro tbody').html(data);
+        });
+    }else{
+        $('#tblDetalleOrdenCobro tbody').html('');
+    }
 }
 
 function verificarrecibo(nrorecibo) {

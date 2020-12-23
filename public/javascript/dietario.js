@@ -822,12 +822,12 @@ $(document).ready(function () {
         }
         //console.log()		
     }
-
+    $('#txtOrdenVenta2').focus();
 });
 
 
 function buscaOrdenCobro() {
-    var ordenVenta = $('#txtIdOrden').val();
+    var ordenVenta = $('#txtIdOrden').val()?$('#txtIdOrden').val():0;
     var ruta = "/ordencobro/buscarxOrdenVenta/" + ordenVenta;
     $.getJSON(ruta, function (data) {
         $('#razonsocial').val(data.razonsocial);
@@ -864,10 +864,14 @@ function cargaDetalleOrdenCobro() {
 }
 function cargaDetalleOrdenCobro2() {
     var ordenVenta = $('#txtIdOrden').val();
-    var ruta = "/ordencobro/buscarDetalleOrdenCobro2/" + ordenVenta;
-    $.post(ruta, function (data) {
-        $('#tblDetalleOrdenCobro tbody').html(data);
-    });
+    if(ordenVenta){
+        var ruta = "/ordencobro/buscarDetalleOrdenCobro2/" + ordenVenta;
+        $.post(ruta, function (data) {
+            $('#tblDetalleOrdenCobro tbody').html(data);
+        });
+    }else{
+        $('#tblDetalleOrdenCobro tbody').html('');
+    }
 }
 
 function verificarrecibo(nrorecibo) {

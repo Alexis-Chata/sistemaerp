@@ -455,7 +455,7 @@ $(document).ready(function () {
             }
         }
     })
-
+    $('#txtOrdenVenta').focus();
 });
 
 function buscarValorGasto(idOrdenVenta, idTipoGasto) {
@@ -475,7 +475,7 @@ function buscarValorGasto(idOrdenVenta, idTipoGasto) {
 }
 
 function buscaOrdenCobro() {
-    var ordenVenta = $('#txtIdOrden').val();
+    var ordenVenta = $('#txtIdOrden').val()?$('#txtIdOrden').val():0;
     var ruta = "/ordencobro/buscarxOrdenVenta/" + ordenVenta;
     $.getJSON(ruta, function (data) {
         $('#razonsocial').val(data.razonsocial);
@@ -490,11 +490,14 @@ function buscaOrdenCobro() {
 
 function cargaDetalleOrdenCobro2() {
     var ordenVenta = $('#txtIdOrden').val();
-    var ruta = "/ordencobro/buscaDetalleOrdencobroReprogramar/" + ordenVenta;
-    $.post(ruta, function (data) {
-        $('#tblDetalleOrdenCobro tbody').html(data);
-    });
-
+    if(ordenVenta){
+        var ruta = "/ordencobro/buscaDetalleOrdencobroReprogramar/" + ordenVenta;
+        $.post(ruta, function (data) {
+            $('#tblDetalleOrdenCobro tbody').html(data);
+        });
+    }else{
+        $('#tblDetalleOrdenCobro tbody').html('');
+    }
 }
 
 function imprimircliente() {
@@ -826,10 +829,12 @@ function calcularTotal() {
 }
 
 function cargartabladocumentos(idordenventa) {
-
-    var ruta = "/documento/documentosxordenventa/" + idordenventa;
-    $.post(ruta, function (data) {
-        $('#tbldocumentos tbody').html(data);
-
-    });
+    if(idordenventa){
+        var ruta = "/documento/documentosxordenventa/" + idordenventa;
+        $.post(ruta, function (data) {
+            $('#tbldocumentos tbody').html(data);
+        });
+    }else{
+        $('#tbldocumentos tbody').html('');
+    }
 }
