@@ -34,7 +34,7 @@ $(document).ready(function () {
     $('#btnEmitir').click(function () {
         $(this).attr('href', '/facturacion/generarnotacreditodevolucion/' + $('#txtIdDevolucion').val());
     });
-    
+    $('#txtOrdenVenta').focus(); 
 });
 
 function verDevolucion(iddevolucion) {

@@ -97,7 +97,7 @@ $(document).ready(function () {
             anularDocumento(iddocumentogeneral, tipodoc);
         }
     });
-
+    $('#lstTipoDocumento').focus();
 });
 
 function abrirVentana(ruta) {

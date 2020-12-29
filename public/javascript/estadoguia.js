@@ -47,7 +47,7 @@ $(document).ready(function(){
 			$('#respMotivo').html('');
 		}
 	});
-	
+	$('#txtOrdenVenta').focus();
 });	
 
 $('.grabar').live('click',function(e){
@@ -98,10 +98,14 @@ $('#grabarPorcentaje').live('click',function(e){
 
 
 function MostrarOrdenVenta(idordenventa){
-	var ruta = "/ordenventa/CabeceraEstadoGuia/" + idordenventa;
-	$.post(ruta, function(data){
-		$('#tblDetalleOrdenVenta thead').html(data);	
-	});
+	if(idordenventa){
+		var ruta = "/ordenventa/CabeceraEstadoGuia/" + idordenventa;
+		$.post(ruta, function(data){
+			$('#tblDetalleOrdenVenta thead').html(data);	
+		});
+	}else{
+		$('#tblDetalleOrdenVenta thead').html('');	
+	}
 	cargaDetalleOrdenCobro(idordenventa);
 	cargaDetalleOrdenVenta(idordenventa);
 	cargartabladocumentos(idordenventa);
@@ -110,29 +114,39 @@ function MostrarOrdenVenta(idordenventa){
 
 
 function cargaDetalleOrdenVenta(idordenventa){
-	var ruta = "/ordenventa/DetalleGuiaMadre/" + idordenventa;
-	$.post(ruta, function(data){
-		$('#tblDetalleOrdenVenta tbody').html(data);	
-	});
-
+	if(idordenventa){
+		var ruta = "/ordenventa/DetalleGuiaMadre/" + idordenventa;
+		$.post(ruta, function(data){
+			$('#tblDetalleOrdenVenta tbody').html(data);	
+		});
+	}else{
+		$('#tblDetalleOrdenVenta tbody').html('');	
+	}
 
 }
 
 function cargaDetalleOrdenCobro(idordenventa){
-	var ruta = "/ordencobro/buscarDetalleOrdenCobroEstadoGuia/" + idordenventa;
-	$.post(ruta, function(data){
-		$('#tblDetalleOrdenCobro tbody').html(data);	
-	});
+	if(idordenventa){
+		var ruta = "/ordencobro/buscarDetalleOrdenCobroEstadoGuia/" + idordenventa;
+		$.post(ruta, function(data){
+			$('#tblDetalleOrdenCobro tbody').html(data);	
+		});
+	}else{
+		$('#tblDetalleOrdenCobro tbody').html('');	
+	}
 }
 
 
 function cargartabladocumentos(idordenventa){
+	if(idordenventa){
+		var ruta = "/documento/documentosxordenventa/" + idordenventa;
+		$.post(ruta, function(data){
+			$('#tbldocumentos tbody').html(data);	
 
-	var ruta = "/documento/documentosxordenventa/" + idordenventa;
-	$.post(ruta, function(data){
-		$('#tbldocumentos tbody').html(data);	
-
-	});
+		});
+	}else{
+		$('#tbldocumentos tbody').html('');	
+	}
 }
 
 

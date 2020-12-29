@@ -1252,6 +1252,11 @@ Class OrdenVentaController extends ApplicationGeneral {
         $texIni = $_REQUEST['term'];
         $ordenVenta = new OrdenVenta();
         $data = $ordenVenta->buscaOrdenxPagarEstadoLetra($texIni);
+        if (!$data) {
+            $data[0]['value']=$texIni;
+            $data[0]['label']='no encontrado';
+            $data[0]['id']=null;
+        }
         echo json_encode($data);
     }
 
