@@ -627,7 +627,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 					
 					echo "<td></td>";
 					echo "<td></td>";
-					if ($formacobro=='Letras' && $dataDetalleOrdenCobro[$i]['situacion']=='cancelado') {
+					if ($formacobro=='Letras') {
 						if(in_array('GC'.$dataDetalleOrdenCobro[$i]['numeroletra'], $referencias)){
 							echo "<td class='bold' style='vertical-align: middle;'>GASTO CARGADO</td>";
 						}else{
