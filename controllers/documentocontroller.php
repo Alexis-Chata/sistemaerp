@@ -1259,6 +1259,9 @@ class documentocontroller extends ApplicationGeneral {
             $filtro2 = "iddocumento='" . $idDoc . "'";
             $exitoE = $ordenventa->actualizarDocumento($data2, $filtro2);
             $datos['hojas'] = $cantidadDocumentos;
+            if ($ordenventa->FacturaActiva($buscaGuia[0]['idordenventa'])) {
+                $dataGuia[0]['percepcion']=null;
+            }
             $datos['Factura'] = $dataGuia;
             $datos['DetalleFactura'] = $data;
             $datos['noImprimir'] = $_REQUEST['parameters'][1];

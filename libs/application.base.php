@@ -89,7 +89,7 @@ Class Applicationbase {
             $sql.=" " . $opciones;
         }//echo $sql."</br>";
         $this->conectar();
-        $sql = strtolower($sql);
+        $sql = strtolower($sql);//echo $sql;
         $resultado = mysql_query($sql) or die(mysql_error());
         if ($resultado) {
             $num_resultado = mysql_num_rows($resultado);

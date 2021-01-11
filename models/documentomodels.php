@@ -4,6 +4,16 @@ class Documento extends Applicationbase {
 
     private $tabla = "wc_documento";
 
+    function FacturaActiva($idordenventa) {
+        $data = $this->leeRegistro($this->tabla, "", "idordenventa=".$idordenventa." and nombredoc=1 and esanulado=0 and estado=1", "");
+        if (isset($data)) {
+            return false;
+        }else{
+            return true;
+        }
+        
+    }
+
     function grabaDocumento($data) {
         $exito = $this->grabaRegistro($this->tabla, $data);
         return $exito;
