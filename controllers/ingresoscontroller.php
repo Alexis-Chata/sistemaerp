@@ -2536,7 +2536,7 @@ Class IngresosController extends ApplicationGeneral {
             $fila .= "<td>" . ($dataIngresos[$i]['nrorecibo']) . "</td>";
             $fila .= "<td>" . ($dataIngresos[$i]['nrooperacion']) . "</td>";
             $fila .= "<td>" . ($dataIngresos[$i]['observaciones']) . "</td>";
-            $fila .= "<td>" . ($dataIngresos[$i]['montoasignado'] == 0 ? ($dataIngresos[$i]['saldo'] > 0 ? ($dataIngresos[$i]['tipocobro'] == 8 ? '':'<button class="anularLetra c2_datashet" data-id="' . $dataIngresos[$i]['idingresos'] . '">Anular</button>') : '')  : '') . "</td>";
+            $fila .= "<td>" . ($dataIngresos[$i]['montoasignado'] == 0 ? ($dataIngresos[$i]['saldo'] > 0 ? ($dataIngresos[$i]['tipocobro'] == 8 ? '<button class="anularLetra c2_datashet" data-id="' . $dataIngresos[$i]['idingresos'] . '">Anular</button>':'') : '')  : '') . "</td>";
             $fila .= "</tr>";
         }
         echo $fila;
