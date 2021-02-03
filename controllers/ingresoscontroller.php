@@ -159,10 +159,10 @@ Class IngresosController extends ApplicationGeneral {
         //recuperamos los datos del detalleordencobro como el idordencobro
         $datadetordencobro = $detOrdenCobro->buscaDetalleOrdencobro($iddetalleordencobro);
         $idordencobro = $datadetordencobro[0]['idordencobro'];
-        $monto = round($datadetordencobro[0]['importedoc'], 2);
+        $monto = round($datadetordencobro[0]['importedoc'], 3);
         //recuperamos algunos datos del antiguo ordencobro
         $ordencobroantiguo = $ordencobro->buscaOrdencobro($idordencobro);
-        $saldoordencobroA = round($ordencobroantiguo[0]['saldoordencobro'], 2);
+        $saldoordencobroA = round($ordencobroantiguo[0]['saldoordencobro'], 3);
         //registra un nuevo ingreso
         
         $arrayIngresos = explode(";", $idsIngresos);
@@ -179,30 +179,32 @@ Class IngresosController extends ApplicationGeneral {
                         $arraIngresosValidados[$contadorIng]['idingresos'] = $temporalIngreso[0]['idingresos'];
                         $arraIngresosValidados[$contadorIng]['observaciones'] = $temporalIngreso[0]['observaciones'] . ':: ' . $observacionesrecibo;
                         //$arraIngresosValidados[$contadorIng]['asignaciontempora'] = round($temporalIngreso[0]['saldo'], 2);
-                        if($montoAcumulado+$temporalIngreso[0]['saldo'] > $monto) {
+                        $temporalMAcumulado = round($montoAcumulado, 3) + round($temporalIngreso[0]['saldo'], 3);
+                        if($temporalMAcumulado > $monto) {
                             echo ' >>>> montacumulado: ' . $montoAcumulado . ' >>> Temporaingresosaldo: ' . $temporalIngreso[0]['saldo'] . '  >>> Monto: ' . $monto. '  ||| ';
                             //echo ' >asignaciontempora: ' . $arraIngresosValidados[$contadorIng]['asignaciontempora'] . ' - acumulado_monto: ' . round($montoAcumulado - $monto, 2) . ' - ';
-                            $arraIngresosValidados[$contadorIng]['asignaciontempora'] = round($monto-$montoAcumulado, 2);
+                            $arraIngresosValidados[$contadorIng]['asignaciontempora'] = round($monto, 3)-round($montoAcumulado, 3);
                             //echo ' :: m1: ' . $montoAcumulado . ' :: ';
                             $montoAcumulado = $monto;
                             //echo ' :: m2: ' . $monto . ' ___  ' . $montoAcumulado . ' :: ';
                             $i = $cantidadingresos;
                             echo ' - asignaciontemporanuevo: ' . $arraIngresosValidados[$contadorIng]['asignaciontempora'] . ' <<<<';
                         } else {
-                            $arraIngresosValidados[$contadorIng]['asignaciontempora'] = $temporalIngreso[0]['saldo'];
-                            $montoAcumulado += round($temporalIngreso[0]['saldo'], 2);
+                            $arraIngresosValidados[$contadorIng]['asignaciontempora'] = round($temporalIngreso[0]['saldo'], 3);
+                            $montoAcumulado += round($temporalIngreso[0]['saldo'], 3);
                             //echo " ELSE: montoacumulado: " . $montoAcumulado . "   > salfo: " . round($temporalIngreso[0]['saldo'], 2) . ' ||| ';
                         }
                         //print_r("*************************** " . $contadorIng . " ***************");
-                        $arraIngresosValidados[$contadorIng]['saldo'] = round($temporalIngreso[0]['saldo'] - $arraIngresosValidados[$contadorIng]['asignaciontempora'], 2);
-                        $arraIngresosValidados[$contadorIng]['montoasignado'] = round($temporalIngreso[0]['montoasignado'] + $arraIngresosValidados[$contadorIng]['asignaciontempora'], 2);
+                        $arraIngresosValidados[$contadorIng]['saldo'] = round($temporalIngreso[0]['saldo'], 3) - round($arraIngresosValidados[$contadorIng]['asignaciontempora'], 3);
+                        $arraIngresosValidados[$contadorIng]['montoasignado'] = round($temporalIngreso[0]['montoasignado'], 3) + round($arraIngresosValidados[$contadorIng]['asignaciontempora'], 3);
                         $contadorIng++;
                     }
                 } else {
                     $banderaIngreso = 0;
                 }
             }
-            if ($banderaIngreso == 1 && $montoAcumulado == $monto) {
+
+            if ($banderaIngreso == 1 && round($montoAcumulado, 3) == round($monto, 3)) {
                 $acumuladorSaldoIngreso = 0;
                 for ($i = 0; $i < $contadorIng; $i++) {
                     $auxIdIngreso = $arraIngresosValidados[$i]['idingresos'];
@@ -331,14 +333,14 @@ Class IngresosController extends ApplicationGeneral {
             $fila .= "<th>N° recibo</th>";
             $fila .= "<th>N° Operacion</th>";
             $fila .= "</tr>";
-            $auxSaldo = $dataDOC[0]['saldodoc'];
+            $auxSaldo = round($dataDOC[0]['saldodoc'], 2);
             $acumuladoImporte = 0;
             for ($i = 0; $i < $cantidad; $i++) {
                 $checked = '';
                 if ($dataDOC[0]['saldodoc'] > 0) {
                     $checked = ' checked';
-                    $dataDOC[0]['saldodoc'] -= $dataIngresos[$i]['saldo'];
-                    $acumuladoImporte += $dataIngresos[$i]['saldo'];
+                    $dataDOC[0]['saldodoc'] = round($dataDOC[0]['saldodoc'], 3) - round($dataIngresos[$i]['saldo'], 3);
+                    $acumuladoImporte += round($dataIngresos[$i]['saldo'], 3);
                 }
                 $fila .= "<tr class='rowLe" . $dataIngresos[$i]['idingresos'] . "'>";
                 $fila .= "<td><input type='checkbox' class='classIngresos' data-saldo='" . $dataIngresos[$i]['saldo'] . "' " . $checked . " value='" . $dataIngresos[$i]['idingresos'] . "'></td>";
@@ -355,7 +357,7 @@ Class IngresosController extends ApplicationGeneral {
                 $fila .= "</tr>";
             }
             echo $fila;
-            $diferencia = $auxSaldo - $acumuladoImporte;
+            $diferencia = round($auxSaldo, 3) - round($acumuladoImporte, 3);
             if ($diferencia > 0) {
                 $diferencia = "Faltan " . $diferencia;
             } else if ($diferencia < 0) {

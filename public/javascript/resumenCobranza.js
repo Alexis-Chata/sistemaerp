@@ -70,7 +70,7 @@ $(document).on('ready', function () {
             $('#frmLetras').attr('action', '/excel/detalladodeletras');
             $('#frmLetras').submit();
         } else if ($('#idcmbCondicionIncobrable').val() == 2) {
-            $('#frmLetras').attr('action', '/excel/detalladoCreditos');
+            $('#frmLetras').attr('action', '/excel2/detalladoCreditos_incobrablesypesados');
             $('#frmLetras').submit();
         } else if ($('#idcmbCondicionIncobrable').val() == 3) {
             if ($('#chk10').is(':checked') ) {

@@ -59,7 +59,7 @@ class Reporte extends Applicationbase {
         return $data;
     }
 
-    function resumenPesados_detalle($txtFechaInicio = "", $txtFechaFinal = "", $lstCategoria = "", $lstZona = "", $txtIdCliente = "", $txtidOrdenVenta = "", $lstMoneda = "", $cmbCondicion = "") {
+    function resumenPesados_detalle($cmtEtapa, $txtFechaInicio = "", $txtFechaFinal = "", $lstCategoria = "", $lstZona = "", $txtIdCliente = "", $txtidOrdenVenta = "", $lstMoneda = "", $cmbCondicion = "") {        
         $condicion = "wc_detalleordencobro.situacion = '' and "
                 . "wc_detalleordencobro.estado = 1 and "
                 . "wc_ordencobro.estado = 1 and "
@@ -88,12 +88,17 @@ class Reporte extends Applicationbase {
         if (!empty($lstMoneda)) {
             $condicion .= ' and wc_ordenventa.IdMoneda=' . $lstMoneda;
         }
+        if ($cmtEtapa == 1) {
+            $condicion .= " and wc_ordenventa.fordenventa <= '2020-03-16'";
+        } else if ($cmtEtapa == 2) {
+            $condicion .= " and wc_ordenventa.fordenventa >= '2020-03-17'";
+        }
         if (!empty($cmbCondicion) && $cmbCondicion != 4 && $cmbCondicion != 2) {
             $condicion .= ' and wc_detalleordencobro.formacobro=' . $cmbCondicion;
         } else if ($cmbCondicion == 2) {
             $condicion .= " and wc_detalleordencobro.`situacion`='' and
                         wc_detalleordencobro.`formacobro`='2' and
-                        wc_detalleordencobro.`montoprotesto`=0";
+                        (substring( wc_detalleordencobro.referencia,9,1)!='p' and substring( wc_detalleordencobro.referencia,11,1)!='p')";
         } else if ($cmbCondicion == 4) {
             $condicion .= " and wc_detalleordencobro.`situacion`!='reprogramado' and
                         wc_detalleordencobro.`situacion`!='anulado' and
@@ -3034,6 +3039,88 @@ class Reporte extends Applicationbase {
                                     "group by categoria.idpadrec, 
                                   ordenventa.IdMoneda
                                   order by categoria.idpadrec asc");
+        return $data;
+    }
+    
+    function resumenDetalladoCreditos_nuevo($cmtEtapa, $txtFechaInicio = "", $txtFechaFinal = "", $get_lstPrincipal = "", $get_lstCategoria ="", $lstZona = "", $txtIdCliente = "", $txtidOrdenVenta = "", $lstMoneda = "") {        
+        $condicion = "wc_detalleordencobro.situacion = '' and "
+                . "wc_detalleordencobro.estado = 1 and "
+                . "wc_ordencobro.estado = 1 and "                
+                . "wc_detalleordencobro.saldodoc > 0 and "
+                . "wc_ordenventa.estado = 1 and "
+                . "wc_ordenventa.esanulado = 0 ";
+        if (!empty($txtFechaInicio)) {
+            $condicion .= " and wc_ordenventa.fechacreacion >= '" . $txtFechaInicio . "'";
+        }
+        if (!empty($txtFechaFinal)) {
+            $condicion .= " and wc_ordenventa.fechacreacion <= '" . $txtFechaFinal . "'";
+        }
+        if (!empty($get_lstPrincipal)) {
+            $condicion .= ' and wc_categoria.idpadrec=' . $get_lstPrincipal;
+        } else {
+            $condicion .= ' and wc_categoria.idpadrec in (39,40, 48)';
+        }
+        if (!empty($get_lstCategoria)) {
+            $condicion .= ' and wc_categoria.idcategoria=' . $get_lstCategoria;
+        }
+        if (!empty($lstZona)) {
+            $condicion .= ' and wc_zona.idzona=' . $lstZona;
+        }
+        if (!empty($txtIdCliente)) {
+            $condicion .= ' and wc_cliente.idcliente=' . $txtIdCliente;
+        }
+        if (!empty($txtidOrdenVenta)) {
+            $condicion .= ' and wc_ordenventa.idordenventa=' . $txtidOrdenVenta;
+        }
+        if (!empty($lstMoneda)) {
+            $condicion .= ' and wc_ordenventa.IdMoneda=' . $lstMoneda;
+        }
+        if ($cmtEtapa == 1) {
+            $condicion .= " and wc_ordenventa.fordenventa <= '2020-03-16'";
+        } else if ($cmtEtapa == 2) {
+            $condicion .= " and wc_ordenventa.fordenventa >= '2020-03-17'";
+        }
+
+        $condicion .= " and wc_detalleordencobro.`situacion`='' and
+                    wc_detalleordencobro.`formacobro`='2' and
+                    (substring( wc_detalleordencobro.referencia,9,1)!='p' and substring( wc_detalleordencobro.referencia,11,1)!='p')";
+        
+        $data = $this->leeRegistro(
+                "`wc_ordenventa` wc_ordenventa
+                 INNER JOIN `wc_actor` wc_actor ON wc_actor.`idactor` = wc_ordenventa.`idvendedor`
+                 INNER JOIN `wc_cliente` wc_cliente ON wc_cliente.`idcliente` = wc_ordenventa.`idcliente`
+                 INNER JOIN `wc_distrito` wc_distrito ON wc_cliente.`iddistrito` = wc_distrito.`iddistrito`
+                    INNER JOIN `wc_provincia` wc_provincia ON wc_distrito.`idprovincia` = wc_provincia.`idprovincia`
+                    INNER JOIN `wc_departamento` wc_departamento ON wc_provincia.`iddepartamento` = wc_departamento.`iddepartamento`
+                 INNER JOIN `wc_clientezona` wc_clientezona ON wc_ordenventa.`idclientezona` = wc_clientezona.`idclientezona`
+                 INNER JOIN `wc_zona` wc_zona ON wc_clientezona.`idzona` = wc_zona.`idzona`
+                 INNER JOIN `wc_categoria` wc_categoria ON wc_zona.`idcategoria` = wc_categoria.`idcategoria`
+                 INNER JOIN `wc_ordencobro` wc_ordencobro ON wc_ordencobro.`idordenventa`=wc_ordenventa.`idordenventa` and wc_ordencobro.`estado` = 1
+                 INNER JOIN `wc_detalleordencobro` wc_detalleordencobro ON wc_detalleordencobro.`idordencobro`=wc_ordencobro.`idordencobro` and wc_detalleordencobro.`estado`=1", 
+                "wc_ordenventa.idmoneda,
+                 wc_ordenventa.idordenventa,
+                 wc_ordenventa.codigov,
+                 wc_ordenventa.fordenventa,
+                 wc_ordenventa.situacion as situacionov,
+                 wc_ordenventa.idvendedor,
+                 concat(wc_actor.nombres, ' ', wc_actor.apellidopaterno, ' ', wc_actor.apellidomaterno) as vendedor,
+                 wc_cliente.razonsocial,
+                 wc_cliente.direccion,
+                 (case when wc_cliente.ruc is null then wc_cliente.dni else wc_cliente.ruc end) as ruc,
+                 wc_ordencobro.situacion as situacionoc,
+                 wc_ordencobro.femision,
+                 wc_provincia.`nombreprovincia`,
+                        wc_departamento.`nombredepartamento`,
+                        wc_distrito.`nombredistrito`,
+                 wc_ordencobro.importeordencobro,
+                 wc_ordencobro.saldoordencobro,
+                 wc_categoria.`idcategoria`, 
+                 wc_categoria.`idpadrec`, 
+                 wc_detalleordencobro.recepcionLetras as recepLetra,
+                 wc_detalleordencobro.*,
+                 wc_ordenventa.importepagado, substring( wc_detalleordencobro.referencia,9,1) as referencia1, substring( wc_detalleordencobro.referencia,11,1) as referencia2", $condicion, 
+                "wc_actor.idactor, wc_ordenventa.idordenventa, wc_ordencobro.idordencobro, wc_detalleordencobro.iddetalleordencobro asc");
+        
         return $data;
     }
 

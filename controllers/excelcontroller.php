@@ -6213,6 +6213,7 @@ Class ExcelController extends ApplicationGeneral {
             $contador++;
             $reporte = $this->AutoLoadModel('reporte');
             $ordenGasto = $this->AutoLoadModel('ordengasto');
+            
             $listado = $reporte->resumenDetalladoCreditos($cmtEtapa, $get_txtFechaInicio, $get_txtFechaFin, $get_lstPrincipal, $get_lstCategoria, $get_lstZona, $get_lstEstado, $get_cmbCondVencimiento2, $get_txtIdCliente, $get_txtIdOrdenVenta, $get_lstMoneda, $get_cmbCondVencimiento3);
 
             $tam = count($listado);
