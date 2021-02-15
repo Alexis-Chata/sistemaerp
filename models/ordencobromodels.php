@@ -90,6 +90,10 @@
 			$data=$this->leeRegistro($this->tabla,"",$filtro,"","");
 			return $data;
 		}
+		function OrdenVentabuscaxFiltro($filtro){
+			$data=$this->leeRegistro($this->tabla2,"",$filtro,"","");
+			return $data;
+		}
 		function buscafechavencimiento($idordenventa){
 			$data=$this->leeRegistro(
 					"wc_ordencobro ord 

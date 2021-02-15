@@ -1132,11 +1132,14 @@ function actualizadetalleordencobro()
 		$ordencobro=New OrdenCobro();
 		$ordenventa=New OrdenVenta();
 		$dataOrdenCobro=$ordencobro->buscaxFiltro("idordenventa='$idOrdenVenta' and situacion='Pendiente'");
+		$dataOrdenCobroFecha=$ordencobro->OrdenVentabuscaxFiltro("idordenventa='$idOrdenVenta'");
 
-		
+
 		if (empty($dataOrdenCobro)) {
 			$data['situacion']="cancelado";
-			$data['fechaCancelado']=date('Y-m-d');
+			if ($dataOrdenCobroFecha[0]['fechaCancelado'] == '0000-00-00') {
+				$data['fechaCancelado']=date('Y-m-d');
+			}
 			$exito=$ordenventa->actualizaOrdenVenta($data,$idOrdenVenta);
 			echo $exito;
 		}else{

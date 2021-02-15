@@ -90,4 +90,7 @@ if ($url!=strtoupper("/documento/generaGuia") && $url!=strtoupper("/documento/ge
 				}
 			}
 			cambiar_altura();
+			$(document).ready(function() {
+				setTimeout(cambiar_altura(), 2000);
+			});
 		</script>
