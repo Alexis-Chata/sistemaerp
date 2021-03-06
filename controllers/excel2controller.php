@@ -5540,5 +5540,252 @@ Class Excel2Controller extends ApplicationGeneral {
         readfile($filename);
         unlink($filename);
     }
+    
+    function rankingingresos_resumen() {
+        set_time_limit(1800);
+        $baseURL = ROOT . 'descargas' . DS;
+        $idActor = $_SESSION['idactor'];
+        $fechaCreacion = date('Y-m-d_h.m.s');
+        $basenombre = 'ranking_ingresos_x_cobrador_resumen.xls';
+        $filename = $baseURL . $idActor . '_' . $fechaCreacion . '_' . $basenombre;
+
+        $fechaInicio = !empty($_REQUEST['fechaInicio']) ? date('Y-m-d', strtotime($_REQUEST['fechaInicio'])) : null;
+        $fechaFinal = !empty($_REQUEST['fechaFinal']) ? date('Y-m-d', strtotime($_REQUEST['fechaFinal'])) : null;
+        $nroRecibo = $_REQUEST['nroRecibo'];
+        $idOrdenVenta = $_REQUEST['idOrdenVenta'];
+        $idCliente = $_REQUEST['idCliente'];
+        $idCobrador = $_REQUEST['idCobrador'];
+        $idTipoCobro = $_REQUEST['idTipoCobro'];
+        $simbolo = $_REQUEST['simbolo'];
+        $monto = $_REQUEST['monto'];
+        $cmbtipo = $_REQUEST['cmbTipo'];
+        if ($idtipocobro != 1 && $idtipocobro != 3) {
+            $cmbtipo = '';
+        }
+        $this->configIniTodo('TipoIngreso');
+        $this->AutoLoadLib('PHPExcel');
+        $objPHPExcel = new PHPExcel();
+        
+
+        $sharedStyle6 = new PHPExcel_Style();
+        $sharedStyle6->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('argb' => 'FFBBCCCC')
+            ), 'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ), 'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ))
+        );
+
+        $sharedStyle5 = new PHPExcel_Style();
+        $sharedStyle5->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('argb' => 'FFAECECC')
+            ), 'borders' => array(
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ))
+        );
+
+        $sharedStyle4 = new PHPExcel_Style();
+        $sharedStyle4->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('argb' => 'FFAA8888')
+            ), 'borders' => array(
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ))
+        );
+
+        $sharedStyle3 = new PHPExcel_Style();
+        $sharedStyle3->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('argb' => 'FFCCDDF7')
+            ), 'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ))
+        );
+
+        $sharedStyle2 = new PHPExcel_Style();
+        $sharedStyle2->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID
+            ), 'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ))
+        );
+
+        $sharedStyle1 = new PHPExcel_Style();
+        $sharedStyle1->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('argb' => 'FFCCCCCC')
+            ), 'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ), 'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ))
+        );
+
+        $sharedStyle0 = new PHPExcel_Style();
+        $sharedStyle0->applyFromArray(array(
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('argb' => 'FF81BEF7')
+            ), 'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+            ), 'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+            ))
+        );
+
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        
+        $contador = 1;
+
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':F' . $contador);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($contador) . ":F" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A' . ($contador), "RESUMEN DE RANKING DE COBRANZAS GENERAL");
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
+        $contador++;
+
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':B' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('C' . $contador . ':D' . $contador);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle6, "A" . ($contador) . ":B" . ($contador));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "C" . ($contador) . ":D" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A' . ($contador), "FECHA: ")
+                ->setCellValue('C' . ($contador), $fechaInicio . " - " . $fechaFinal);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
+        $contador++;
+
+        $nombremoneda = "Soles";
+        $moneda = "S/. ";
+
+        for ($vuelta = 1; $vuelta <= 2; $vuelta++) {
+            $contador++;
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':F' . $contador);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle6, "A" . ($contador) . ":F" . ($contador));
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFont()->setBold(true);
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFill()->setRotation(1);
+            $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A' . ($contador), "Resumen de Ranking de Cobranza en " . $nombremoneda);
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
+            $contador++;
+            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle3, "A" . ($contador) . ":F" . ($contador));
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':A' . $contador);
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B' . $contador . ':B' . $contador);
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('C' . $contador . ':C' . $contador);
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('D' . $contador . ':D' . $contador);
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $contador . ':E' . $contador);
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('F' . $contador . ':F' . $contador);
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFont()->setBold(true);
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFill()->setRotation(1);
+            $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A' . ($contador), "Nro.")
+                    ->setCellValue('B' . ($contador), "Cobrador")
+                    ->setCellValue('C' . ($contador), "Total")
+                    ->setCellValue('D' . ($contador), "Contado")
+                    ->setCellValue('E' . ($contador), "Crédito")
+                    ->setCellValue('F' . ($contador), "Letra");
+            $contador++;
+
+            $ingresos = $this->AutoLoadModel('ingresos');
+            $dataIngresos = $ingresos->rankingGeneralXVendedor($fechaInicio, $fechaFinal, $idOrdenVenta, $idCliente, $idCobrador, $idTipoCobro, $cmbtipo, $nroRecibo, $simbolo, $monto, $vuelta);
+            $tam = count($dataIngresos);
+            $total = 0;
+            $totales[1] = 0.00;
+            $totales[2] = 0.00;
+            $totales[3] = 0.00;
+            for ($i = 0; $i < $tam; $i++) {
+                $montos[1] = 0.00;
+                $montos[2] = 0.00;
+                $montos[3] = 0.00;              
+                $dataCobrador = $ingresos->rankingDetalladoXVendedor_resumen($fechaInicio, $fechaFinal, $idOrdenVenta, $idCliente, $dataIngresos[$i]['idcobrador'], $idTipoCobro, $cmbtipo, $nroRecibo, $simbolo, $monto, $vuelta);
+                $tamanio = count($dataCobrador);
+                for ($j = 0; $j < $tamanio; $j++) {
+                    $montos[$dataCobrador[$j]['formacobro']] += $dataCobrador[$j]['totalasignado'];
+                }
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":F" . ($contador));
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFill()->setRotation(1);
+                $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('A' . ($contador), " " . ($i + 1))
+                        ->setCellValue('B' . ($contador), $dataIngresos[$i]['nombrecobrador'])
+                        ->setCellValue('C' . ($contador), $moneda . number_format($dataIngresos[$i]['totalcobrado'], 2))
+                        ->setCellValue('D' . ($contador), $moneda . number_format($montos[1], 2))
+                        ->setCellValue('E' . ($contador), $moneda . number_format($montos[2], 2))
+                        ->setCellValue('F' . ($contador), $moneda . number_format($montos[3], 2));
+                $contador++;
+                $total += $dataIngresos[$i]['totalcobrado'];
+                $totales[1] += $montos[1];
+                $totales[2] += $montos[2];
+                $totales[3] += $montos[3];
+            }
+            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($contador) . ":F" . ($contador));
+            $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':B' . $contador);
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFont()->setBold(true);
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":F" . ($contador))->getFill()->setRotation(1);
+            $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A' . ($contador), "MONTO TOTAL COBRADO: ")
+                    ->setCellValue('C' . ($contador), $moneda . number_format($total, 2))
+                    ->setCellValue('D' . ($contador), $moneda . number_format($totales[1], 2))
+                    ->setCellValue('E' . ($contador), $moneda . number_format($totales[2], 2))
+                    ->setCellValue('F' . ($contador), $moneda . number_format($totales[3], 2));
+            $contador++;
+            $contador++;
+            $nombremoneda = "Dolares";
+            $moneda = "US $. ";
+        }
+
+        $objPHPExcel->getActiveSheet()->setTitle('Ranking Resumen');
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save($filename);
+        header('Content-Description: File Transfer');
+        header('Content-type: application/force-download');
+        header('Content-Disposition: attachment; filename=' . basename($filename));
+        header('Content-Transfer-Encoding: binary');
+        header("Content-type: application/octet-stream");
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filename));
+        ob_clean();
+        flush();
+        readfile($filename);
+        unlink($filename);
+    }
 
 }

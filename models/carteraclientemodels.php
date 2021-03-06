@@ -244,7 +244,7 @@ class CarteraCliente extends Applicationbase {
         $condicion .= !empty($this->depa) ? " and t.iddepartamento='$this->depa' " : "";
         $condicion .= !empty($this->prov) ? " and p.idprovincia='$this->prov' " : "";
         $condicion .= !empty($this->dist) ? " and d.iddistrito='$this->dist' " : "";
-        $condicion .= !empty($this->aprobados) ? " and " . $this->aprobados . " " : "";
+        $condicion .= !empty($this->aprobados) ? " and " . str_replace('ov.', 'uov.', $this->aprobados) . " " : "";
         $condicion .= !empty($seleccion) ? $seleccion : "";
         $inner_join = '';
         $select = '';
@@ -332,7 +332,7 @@ class CarteraCliente extends Applicationbase {
         $condicion.=!empty($this->depa) ? " and t.iddepartamento='$this->depa' " : "";
         $condicion.=!empty($this->prov) ? " and p.idprovincia='$this->prov' " : "";
         $condicion.=!empty($this->dist) ? " and d.iddistrito='$this->dist' " : "";
-        $condicion.=!empty($this->aprobados) ? " and " . $this->aprobados . " " : "";
+        $condicion.=!empty($this->aprobados) ? " and " . str_replace('ov.', 'uov.', $this->aprobados) . " " : "";
         if (!empty($deuda)) {
             if ($deuda == 'D') {
                 $condicion.=" and rvc.deudatotal >= 1";

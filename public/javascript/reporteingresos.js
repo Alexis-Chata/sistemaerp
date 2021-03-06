@@ -141,6 +141,23 @@ $(document).ready(function () {
             $('#idCobrador').val(ui.item.id);
         }
     });
+    
+    $('#rankingResumen').click(function () {        
+        if ($('#fechaInicio').val().length == 0) {
+            $('#fechaInicio').focus();
+            return false;
+        } else if ($('#fechaFinal').val().length == 0) {
+            $('#fechaFinal').focus();
+            return false;
+        } else if ($('#simbolo').val() != '' && $('#monto').val().length == 0) {
+            $('#monto').focus();
+            return false;
+        } else {
+            $('#frmingresos').attr('action', '/excel2/rankingingresos_resumen');
+            return true;
+        }
+
+    });
 
     $('#ranking').click(function () {
         if ($('#fechaInicio').val().length == 0) {
@@ -153,6 +170,7 @@ $(document).ready(function () {
             $('#monto').focus();
             return false;
         } else {
+            $('#frmingresos').attr('action', '/excel/rankingingresos');
             return true;
         }
 

@@ -17,7 +17,7 @@ for($z=0;$z<$pages;$z++){
 <input type="hidden" value="35" id="numerodoc">
 
 <!--<a href="#" id="print" ><img src="/imagenes/imprimir.gif"></a>-->
-<button onclick="window.print();">Imrpimir</button>
+<button onclick="window.print();">Imprimir</button>
 </div>
     
 <div id="muestra">
@@ -151,23 +151,24 @@ for($z=0;$z<$pages;$z++){
 		</tr>
 		<tr>
 			<td width="60"><?php  ?></td>
-			<td width="80"><?php echo date('d'); ?></td>
+			<td width="80"><?php echo $dia_fecha; ?></td>
 			<td width="110"><?php echo $mes; ?></td>
-			<td width="35"><?php echo date('Y'); ?></td>
+			<td width="35"><?php echo $anio_fecha; ?></td>
 			<td width="300"></td>
 			<td style="width:20px;text-align: right;"></td>
 			<td style="width:100px;text-align: right;"><?php echo $Factura[0]['simbolomoneda'].' '.number_format($importetotal,2); ?></td>
 		</tr>
+                <?php if ($porcentaje_percepcion > 0) { ?>
 		<tr>
 			<td width="60"><?php  ?></td>
 			<td width="80"></td>
 			<td width="110"></td>
 			<td width="35"></td>
 			
-			<td colspan="2" style="width:320px;text-align: center;">Total + Percepcion(2%)</td>
-			<td style="width:100px;text-align: right;"><?php echo $Factura[0]['simbolomoneda'].' '.number_format(($importetotal*1.02),2); ?></td>
+			<td colspan="2" style="width:320px;text-align: center;">Total + Percepcion(<?php echo $porcentaje_percepcion; ?>%)</td>
+			<td style="width:100px;text-align: right;"><?php echo $Factura[0]['simbolomoneda'].' '.number_format(($importetotal+($importetotal*($porcentaje_percepcion/100))),2); ?></td>
 		</tr>
-		
+                <?php } ?>
 	</table>
 </div>
  

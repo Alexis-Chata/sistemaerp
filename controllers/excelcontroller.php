@@ -3410,7 +3410,7 @@ Class ExcelController extends ApplicationGeneral {
         $this->AutoLoadLib('PHPExcel');
         $objPHPExcel = new PHPExcel();
 
-        $titulos = array('Codigo', 'Descipcion', 'FOB($)', 'CIF($)', 'P.L.($)', 'S.A', 'S.D', 'Compra', 'U.M');
+        $titulos = array('Codigo', 'Descipcion', 'FOB($)', 'CIF($)', 'P.L.($)', 'S.A', 'S.D', 'Compra', 'U.M', 'Pcs', 'Ctn');
 
         $sharedStyle1 = new PHPExcel_Style();
         $sharedStyle1->applyFromArray(array(
@@ -3460,13 +3460,15 @@ Class ExcelController extends ApplicationGeneral {
         $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
 
         $contador = 0;
         $contador++;
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':I' . $contador);
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":I" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':K' . $contador);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":K" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), "REPORTE ORDEN COMPRA # " . $codigoocX);
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
 
@@ -3480,10 +3482,12 @@ Class ExcelController extends ApplicationGeneral {
                 ->setCellValue('F' . ($contador), $titulos[5])
                 ->setCellValue('G' . ($contador), $titulos[6])
                 ->setCellValue('H' . ($contador), $titulos[7])
-                ->setCellValue('I' . ($contador), $titulos[8]);
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($contador) . ":I" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFill()->setRotation(1);
+                ->setCellValue('I' . ($contador), $titulos[8])
+                ->setCellValue('J' . ($contador), $titulos[9])
+                ->setCellValue('K' . ($contador), $titulos[10]);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($contador) . ":K" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFill()->setRotation(1);
         $contador ++;
 
         for ($i = 0; $i < count($data); $i++) {
@@ -3502,23 +3506,25 @@ Class ExcelController extends ApplicationGeneral {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['stockdisponible']);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $data[$i]['cantidadrecibidaoc']);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), html_entity_decode($data[$i]['codigo'], ENT_QUOTES, 'UTF-8'));
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $data[$i]['piezas']);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $data[$i]['carton']);
             $contador ++;
         }
 
         $contador++;
         $contador++;
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':I' . $contador);
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":I" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':K' . $contador);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":K" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), 'TOTAL $.  ' . number_format($importe, 2));
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
         $contador++;
         $contador++;
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':I' . $contador);
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":I" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":I" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':K' . $contador);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":K" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":K" . ($contador))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), "F. Ingreso : " . $data[0]['fordencompra'] . " - F. A .LLegada: " . $data[0]['faproxllegada']);
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
 

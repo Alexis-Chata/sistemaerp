@@ -281,6 +281,28 @@ class Ingresos extends Applicationbase {
                                 "ingresos.tipo, ingresos.idingresos, ingresos.tipocobro, ingresos.idbanco, ingresos.idbancocheque, sum(ingresos.montoasignado) as totalasignado", $condicion, "", "group by ingresos.tipocobro, ingresos.idbanco, ingresos.tipo");
         return $data;
     }
+    
+    function rankingDetalladoXVendedor_resumen($fechaInicio, $fechaFinal, $idOrdenVenta, $idCliente, $idCobrador, $idTipoCobro, $cmbtipo, $nroRecibo, $simbolo, $monto, $moneda) {
+        $condicion = "ingresos.montoasignado>0 and ingresos.esvalidado=1 and ingresos.estado=1";
+        $condicion .= (!empty($fechaInicio) ? " and ingresos.fcobro>='$fechaInicio'" : "");
+        $condicion .= (!empty($fechaFinal) ? " and ingresos.fcobro<='$fechaFinal'" : "");
+        $condicion .= (!empty($idOrdenVenta) ? " and ingresos.idOrdenVenta='$idOrdenVenta'" : "");
+        $condicion .= (!empty($idCliente) ? " and ingresos.idcliente='$idCliente'" : "");
+        $condicion .= (!empty($idCobrador) ? " and ingresos.idcobrador='$idCobrador'" : "");    
+        $condicion .= (!empty($idTipoCobro) ? " and ingresos.tipocobro='$idTipoCobro'" : ""); 
+        $condicion .= (!empty($nroRecibo) ? " and ingresos.nrorecibo='$nroRecibo'" : "");
+        $condicion .= (!empty($cmbtipo) ? " and ingresos.tipo='$cmbtipo'" : "");
+        if (!empty($simbolo)&&!empty($monto)) {
+            $condicion .= " and ingresos.montoasignado>='$monto'";
+        }
+        $data = $this->leeRegistro($this->tabla . " ingresos
+                                inner join wc_ordenventa ordenventa on ordenventa.idordenventa = ingresos.idOrdenVenta and ordenventa.IdMoneda='$moneda'
+                                inner join wc_detalleordencobroingreso doci on doci.idingreso = ingresos.idingresos and doci.estado = 1 and doci.montop > 0.01
+                                inner join wc_detalleordencobro doc on doc.iddetalleordencobro = doci.iddetalleordencobro and doc.estado = 1
+                                inner join wc_actor cobrador on cobrador.idactor = ingresos.idcobrador", 
+                                "doc.formacobro, sum(doci.montop) as totalasignado", $condicion, "", "group by doc.formacobro");
+        return $data;
+    }
 
 }
 

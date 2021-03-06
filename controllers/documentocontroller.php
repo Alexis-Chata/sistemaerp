@@ -785,7 +785,13 @@ class documentocontroller extends ApplicationGeneral {
                         echo '<td>Anulado' . $datadocumento[$i]['motivo'] . '</td>';
                     } elseif ($datadocumento[$i]['esImpreso'] != 1 && $datadocumento[$i]['esAnulado'] != 1) {
                         echo '<td></td>';
-                        echo '<td> <a href="#" id="' . $datadocumento[$i]['iddocumento'] . '" class="imprimir c7_datashet"><img style="margin:auto;display:block" src="/imagenes/imprimir.gif"></a> <input type="number" step="1" min="0" placeholder="0" id="noimprimir" autocomplete="off"><br> <input type="text" id="dist_prov_depa" placeholder="Distrito"></td>';
+                        echo '<td> <a href="#" id="' . $datadocumento[$i]['iddocumento'] . '" class="imprimir c7_datashet"><img style="margin:auto;display:block" src="/imagenes/imprimir.gif"></a>';
+                        if ($tipodoc == 4) {
+                            echo ' <input type="number" step="1" min="0" placeholder="0" id="noimprimir" autocomplete="off"><br> <input type="text" id="dist_prov_depa" placeholder="Distrito">';
+                        } else if ($tipodoc == 1) {
+                            echo '<br> <input type="text" id="id_fecha_exacta" class="datepicker" placeholder="dd/mm/aaaa">';
+                        }
+                        echo '</td>';
                     } elseif ($datadocumento[$i]['esImpreso'] == 1 && $datadocumento[$i]['esAnulado'] != 1) {
                         echo '<td></td>';
                         echo '<td> <button class="anular c9_datashet"> Anular</button> </td>';
@@ -1097,6 +1103,8 @@ class documentocontroller extends ApplicationGeneral {
     }
 
     function generaFactura() {
+        $percepcion_seleccionada=$_REQUEST['parameters'][1] ? $_REQUEST['parameters'][1]*100:'';
+        $fecha_exacta=$_REQUEST['parameters'][2]? str_replace('.', '/', $_REQUEST['parameters'][2]):'';
         $pdf = $this->AutoLoadModel('pdf');
         $ordenventa = $this->AutoLoadModel('documento');
         $EnLetras = New EnLetras();
@@ -1122,7 +1130,7 @@ class documentocontroller extends ApplicationGeneral {
             $dataFactura[0]['numeroRelacionado'] = $numeroRelacionado;
             $dataFactura[0]['numeroFactura'] = $numeroFactura;
             $dataFactura[0]['serieFactura'] = $serieFactura;
-            $dataFactura[0]['fecha'] = date('d/m/Y');
+            $dataFactura[0]['fecha'] = (empty($fecha_exacta) ? date('d/m/Y') : $fecha_exacta);
             $dataFactura[0]['referencia'] = 'VEN: ' . $dataFactura[0]['idvendedor'] . ' DC: ' . $dataFactura[0]['codigov'];
             $data = $pdf->buscarDetalleOrdenVenta($buscaFactura[0]['idordenventa']);
             $dataCobro = $pdf->buscarOrdenCompraxId($buscaFactura[0]['idordenventa']);
@@ -1187,7 +1195,18 @@ class documentocontroller extends ApplicationGeneral {
             $datos['Factura'] = $dataFactura;
             $datos['DetalleFactura'] = $dataN;
             $datos['letras'] = $EnLetras;
-            $datos['mes'] = $meses[date('n')];
+            if (empty($fecha_exacta)) {
+                $datos['dia_fecha'] = date('d');
+                $datos['anio_fecha'] = date('Y');
+                $datos['mes'] = $meses[date('n')];
+            } else {
+                $arrayMesTemporal = explode('/', $fecha_exacta);
+                $datos['dia_fecha'] = $arrayMesTemporal[0];
+                $datos['anio_fecha'] = $arrayMesTemporal[2];
+                $datos['mes'] = $meses[$arrayMesTemporal[1]*1];
+            }
+            
+            $datos['porcentaje_percepcion'] = $percepcion_seleccionada;
             $this->view->showImpr('/documento/generaFactura.phtml', $datos);
         }
     }

@@ -1746,10 +1746,10 @@ if($idProducto!==''){
         $datos = $ordenCompra->reporteOrdenCompraRevision($idOrdenCompra, $idProducto);
         $cantidadData = count($datos);
         $pdf = new PDF_MC_Table("P", "mm", "A4");
-        $titulos = array('Codigo', 'Descripcion', 'FOB($)', 'CIF($)', 'P.L.($)', 'S.A', 'S.D', 'Compra', 'U.M');
+        $titulos = array('Codigo', 'Descripcion', 'FOB($)', 'CIF($)', 'P.L.($)', 'S.A', 'S.D', 'Compra', 'U.M', 'Pcs', 'Ctn');
         $pdf->SetFont('Helvetica', 'B', 6.5);
-        $ancho = array(25, 70, 15, 15, 15, 15, 12, 12, 12);
-        $orientacion = array('', '', 'R', 'R', 'R', 'C', 'C', 'C', '');
+        $ancho = array(20, 70, 13, 13, 13, 13, 12, 12, 10, 7, 8);
+        $orientacion = array('', '', 'R', 'R', 'R', 'C', 'C', 'C', '', 'C', 'C');
 
 
         $pdf->SetWidths($ancho);
@@ -1781,7 +1781,7 @@ if($idProducto!==''){
                 $preciolistadolares = $datos[$i]['preciolista']*$datos[$i]['valortipocambio'];
             }
 
-            $fila = array(html_entity_decode($datos[$i]['codigopa'], ENT_QUOTES, 'UTF-8'), html_entity_decode($datos[$i]['nompro'], ENT_QUOTES, 'UTF-8'), number_format($datos[$i]['fobdoc'], 2), number_format($datos[$i]['cifventasdolares'], 2), number_format($preciolistadolares, 2), round($datos[$i]['stockactual']), $datos[$i]['stockdisponible'], $datos[$i]['cantidadrecibidaoc'], html_entity_decode($datos[$i]['codigo'], ENT_QUOTES, 'UTF-8'));
+            $fila = array(html_entity_decode($datos[$i]['codigopa'], ENT_QUOTES, 'UTF-8'), html_entity_decode($datos[$i]['nompro'], ENT_QUOTES, 'UTF-8'), number_format($datos[$i]['fobdoc'], 2), number_format($datos[$i]['cifventasdolares'], 2), number_format($preciolistadolares, 2), round($datos[$i]['stockactual']), $datos[$i]['stockdisponible'], $datos[$i]['cantidadrecibidaoc'], html_entity_decode($datos[$i]['codigo'], ENT_QUOTES, 'UTF-8'), $datos[$i]['piezas'], $datos[$i]['carton']);
             $importe+=$preciolistadolares * $datos[$i]['cantidadrecibidaoc'];
             $pdf->Row($fila);
             $relleno = !$relleno;

@@ -73,8 +73,9 @@ $(document).ready(function () {
             iddocumentogeneral = $(this).attr('id');
             noimprimir = $('#noimprimir').val()?$('#noimprimir').val():0;
             dist_prov_depa = $('#dist_prov_depa').val();
+            id_fecha_exacta = $('#id_fecha_exacta').val();
             orden = $('#txtIdOrden').val();
-            ruta = rutaDocumento(tipodoc, orden, iddocumentogeneral, noimprimir, dist_prov_depa);
+            ruta = rutaDocumento(tipodoc, orden, iddocumentogeneral, noimprimir, dist_prov_depa, id_fecha_exacta);
             //console.log(iddocumentogeneral);
             console.log(numdocGeneral);
             console.log(serieGeneral);
@@ -191,9 +192,14 @@ function rutaDocumentoVer(lista, idordenventa, iddocumentogeneral) {
     }
 }
 
-function rutaDocumento(lista, idordenventa, iddocumentogeneral, noimprimir, dist_prov_depa) {
+function rutaDocumento(lista, idordenventa, iddocumentogeneral, noimprimir, dist_prov_depa, id_fecha_exacta) {
     if (lista == 1) {
-        return rut = '/documento/generaFactura/' + iddocumentogeneral;
+        if (id_fecha_exacta.length > 0) {
+            id_fecha_exacta = id_fecha_exacta.toString().replace('/', '.');
+            id_fecha_exacta = id_fecha_exacta.toString().replace('/', '.');
+        }
+        
+        return rut = '/documento/generaFactura/' + iddocumentogeneral + '/' + $('#lstValorPercepcion').val() + '/' + id_fecha_exacta;
     } else if (lista == 2) {
         return rut = '/documento/generaBoleta/' + iddocumentogeneral;
     } else if (lista == 4) {console.log('/documento/generaGuia/' + iddocumentogeneral + '/' + noimprimir + '/' + dist_prov_depa);
