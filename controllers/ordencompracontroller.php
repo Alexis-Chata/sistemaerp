@@ -503,6 +503,9 @@ class OrdencompraController extends ApplicationGeneral {
                 } else {
                     $dataDetalleordencompra = $detalleOrdenCompra->listaDetalleOrdenCompra($id);
                 }
+                if ($dataOrdenCompra[0]['cifcpa'] > 0) {
+                    $porcifventas = $dataOrdenCompra[0]['cifcpa'];
+                }
                 $tipocambio = $dataOrdenCompra[0]['tipocambiovigente'];
                 $idtipocambio = $dataOrdenCompra[0]['idtipocambiovigente'];
                 $cantidad = count($dataDetalleordencompra);
@@ -670,7 +673,7 @@ class OrdencompraController extends ApplicationGeneral {
             $detalleOrdenCompra = $this->AutoLoadModel('detalleordencompra');
             $dataOrdenCompra = $ordenCompra->ListaCuadroUtilidad($year);
             $data['Detalle'] = $detalleOrdenCompra->listaDetalleOrdenCompraxFecha($year);
-            $data['Ordencompra'] = $dataOrdenCompra;
+            $data['Ordencompra'] = $dataOrdenCompra;            
         }
         $this->view->show('/ordencompra/utilidadxContainer.phtml', $data);
     }
@@ -687,6 +690,9 @@ class OrdencompraController extends ApplicationGeneral {
         $cantidad = count($dataDetalleordenCompra);
         $tipocambio = $dataOrdenCompra[0]['tipocambiovigente'];
         $porcentaje = (($data['porcifventas'] + 100) / 100);
+        if ($dataOrdenCompra[0]['cifcpa'] > 0) {
+            $porcentaje = (($dataOrdenCompra[0]['cifcpa'] + 100) / 100);
+        }
         $totalUtilidad = 0;
         $utilidadDolares = 0;
         $utilidadDolaresxProducto = 0;
@@ -1030,6 +1036,10 @@ class OrdencompraController extends ApplicationGeneral {
             $ordenCompra = new Ordencompra();
             $Ordencompra = $ordenCompra->editaOrdenCompra($idordencompra);
             if ($Ordencompra[0]['valorizado'] == 1) {
+                $porcifventas = $this->configIni('Parametros', 'PorCifVentas');
+                if ($Ordencompra[0]['cifcpa'] > 0) {
+                    $porcifventas = $Ordencompra[0]['cifcpa'];
+                }
                 $Detalleordencompra = array();
                 if ($Ordencompra[0]['nuevoformato']==1 &&$Ordencompra[0]['actualizado'] == 0) {
                     $docmodel = new Detalleordencompra();
@@ -1120,7 +1130,7 @@ class OrdencompraController extends ApplicationGeneral {
                     //$total=$ciftotal+$advalorenvalor+$tasadespacho+$flat+$VoBo+$gate_in+$box_fee+$insurance_fee+$sobre_estadia+$doc_fee+$gas_adm+$fleteInterno+$agenteaduanas+$cadic1+$cadic2+$cadic3;
                     $total = $ciftotal + $Detalleordencompra[$i]['sada'] + $Detalleordencompra[$i]['scto'] + $Detalleordencompra[$i]['fargo'] + $VoBo + $Detalleordencompra[$i]['devctndr'] + $fleteInterno + $agenteaduanas + $advalorenvalor + $Detalleordencompra[$i]['goemp'];
                     //$total=$total;
-                    $totalunitario = $fob*1.3;
+                    $totalunitario = $fob*((($porcifventas + 100) / 100));
                     $porcentaje = round((($total/$ciftotal) - 1), 2)*100 ;
 
                     //$TOTALporcentaje += $porcentaje;

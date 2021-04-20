@@ -8,6 +8,8 @@ $(document).ready(function () {
     });
 
     if ($('#vbimportaciones').val()==1) {
+        
+        $('#idCifPorcentajeCPA').attr('disabled','disabled');
 		$('input').attr('disabled','disabled');
 		$('select').attr('disabled','disabled');
 		
@@ -49,6 +51,17 @@ $(document).ready(function () {
         }*/
         recalcularFobDetalle();
     });
+    
+    $('#idCifPorcentajeCPA').change(function () {
+        if ($(this).val() == '') {
+            $(this).val('30');
+        } else if (parseFloat($(this).val()) <= 0 || parseFloat($(this).val()) > 100) {
+            $(this).val('30');
+        }
+        recalcularFobDetalle();
+    });
+    
+    
     
     $('#txtFleteOC').on('blur', function () {
         var totalConceptoPorcentaje = totalConcepto('.txtCarton');
@@ -248,8 +261,13 @@ function recalcularxFila(element) {
     var costototal = cif + sada + sscto + fargo + vobo + devctndr + fleteinterno + agenteaduanas + advaloremv + goemp;
     
     element.find('.txtTotalDetalle').val(costototal.toFixed(2));
-    
-    var cifventas = fobunitario*1.3;
+    if ($('#idCifPorcentajeCPA').val() == '') {
+        $('#idCifPorcentajeCPA').val('30');
+    } else if (parseFloat($('#idCifPorcentajeCPA').val()) <= 0 || parseFloat($('#idCifPorcentajeCPA').val()) > 100) {
+        $('#idCifPorcentajeCPA').val('30');
+    }
+    var CifPorcentajeCPA = (parseFloat($('#idCifPorcentajeCPA').val())/100) + 1;
+    var cifventas = fobunitario*CifPorcentajeCPA;
     element.find('.txtTotalUnitarioDetalle').val(cifventas.toFixed(2));   
     var cifTotalOC = totalConcepto('.txtciftotal');
     $('#txtTotalCifOC').val(cifTotalOC.toFixed(2));

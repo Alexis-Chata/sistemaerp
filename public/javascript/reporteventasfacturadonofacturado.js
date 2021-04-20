@@ -78,7 +78,7 @@ $(document).ready(function(){
     
 //   ****** 
     $('#btnExcel').click(function () {
-            $('#frmConsulta').attr('action', '/excel/ventasfacturadonofacturado1');
+            $('#frmConsulta').attr('action', '/excel2/ventasfacturadonofacturado1');
             $('#frmConsulta').submit();            
     });
     $('#btnPdf').click(function () {

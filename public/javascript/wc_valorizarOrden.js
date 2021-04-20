@@ -15,6 +15,7 @@ $(document).ready(function(){
 	// 	//recalcularDetalles();
 	// });
 	if ($('#vbimportaciones').val()==1) {
+            $('#idCifPorcentajeCPA').attr('disabled','disabled');
 		$('input').attr('disabled','disabled');
 		$('select').attr('disabled','disabled');
 		

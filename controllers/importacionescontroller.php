@@ -362,6 +362,10 @@ Class importacionescontroller extends ApplicationGeneral {
             $rutaImagen = $this->rutaImagenesProducto();
             $Ordencompra = $ordenCompra->editaOrdenCompra($id);
             $Detalleordencompra = $detalleOrdenCompra->listaDetalleOrdenCompra($id);
+            $porcifventas = $this->configIni('Parametros', 'PorCifVentas');
+            if ($Ordencompra[0]['cifcpa'] > 0) {
+                $porcifventas = $Ordencompra[0]['cifcpa'];
+            }
             echo '<table id="tblDetalleOrdenCompra">
                     <thead>
                         <tr>
@@ -380,7 +384,7 @@ Class importacionescontroller extends ApplicationGeneral {
                             <th rowspan="2">ADV<br>($.)</th>			
                             <th rowspan="2">GO<br>EMP</th>
                             <th rowspan="2" colspan="2">Costo Total</th>
-                            <th rowspan="2">CIF CPA<br>(30%)</th>
+                            <th rowspan="2">CIF CPA<br>(' . $porcifventas . '%)</th>
                         </tr>
                         <tr>
                             <th>Flt.</th>
@@ -483,7 +487,7 @@ Class importacionescontroller extends ApplicationGeneral {
                 //$total=$ciftotal+$advalorenvalor+$tasadespacho+$flat+$VoBo+$gate_in+$box_fee+$insurance_fee+$sobre_estadia+$doc_fee+$gas_adm+$fleteInterno+$agenteaduanas+$cadic1+$cadic2+$cadic3;
                 $total = $ciftotal + $Detalleordencompra[$i]['sada'] + $Detalleordencompra[$i]['scto'] + $Detalleordencompra[$i]['fargo'] + $VoBo + $Detalleordencompra[$i]['devctndr'] + $fleteInterno + $agenteaduanas + $advalorenvalor + $Detalleordencompra[$i]['goemp'];
                 //$total=$total;
-                $totalunitario = $fob*1.3;
+                $totalunitario = $fob*((($porcifventas + 100) / 100));
                 $porcentaje = round((($total/$ciftotal) - 1), 2)*100 ;
                 $TOTALporcentaje += $porcentaje;
                 $TOTALcostototal += $total;

@@ -1144,7 +1144,6 @@ function actualizadetalleordencobro()
 			echo $exito;
 		}else{
 			$data['situacion']="Pendiente";
-			$data['fechaCancelado']=null;
 			$exito=$ordenventa->actualizaOrdenVenta($data,$idOrdenVenta);
 			echo $exito;
 			echo $cantidadOrdenCobro;

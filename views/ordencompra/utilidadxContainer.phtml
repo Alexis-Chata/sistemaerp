@@ -60,7 +60,14 @@
                                 $preciolistaDolares = $Detalle[$x]['preciolista'] / $tipocambio;
                                 $cantidad += $Detalle[$x]['cantidadrecibidaoc'];
                             }
-                            $cifventas = $Detalle[$x]['fobdoc'] * $porcentaje;
+                            if ($Ordencompra[$i]['cifcpa'] > 0) {
+                                $porcentajeTexto = $Ordencompra[$i]['cifcpa'];
+                                $cifventas = $Detalle[$x]['fobdoc'] * $Ordencompra[$i]['cifcpa'];
+                            } else {
+                                $porcentajeTexto = $porcifventas;
+                                $cifventas = $Detalle[$x]['fobdoc'] * $porcentaje;
+                            }
+                            
                             $descuento13 = $preciolistaDolares - ($preciolistaDolares * 0.13);
                             $descuento5 = $descuento13 - ($descuento13 * 0.05);
                             $descuento95 = $descuento5 - ($descuento5 * 0.095);
@@ -74,7 +81,7 @@
 
                     <td colspan="2"><?php echo $cantidad; ?></td>
                     <td colspan="2"><?php echo number_format($utilidadTotal, 2); ?></td>
-                    <td><a class="detalledelMovimiento" id="<?php echo $Ordencompra[$i]['idordencompra'] ?>" href=""><img style="margin:auto;display:block" title="ver" width="15" high="15" src="/imagenes/ver.gif"> </a> </td>
+                    <td><a class="detalledelMovimiento" data-porcentaje="<?php echo $porcentajeTexto; ?>" id="<?php echo $Ordencompra[$i]['idordencompra'] ?>" href=""><img style="margin:auto;display:block" title="ver" width="15" high="15" src="/imagenes/ver.gif"> </a> </td>
                 </tr>
 
 <?php } ?>
@@ -97,7 +104,7 @@
                 <th>UNIT</th>
                 <th colspan="2">PSC X CTN</th>
                 <th>FOB Unitario (US $)</th>
-                <th>Cif <br>Ventas (30%)<br> (US $)</th>
+                <th>Cif <br>Ventas (<span id="idTextoPorcentaje">350</span>%)<br> (US $)</th>
                 <th>Tipo de<br> Cambio <br>(US $)</th>
                 <th>Neto <br>(US $)</th>
                 <th>Precio <br>Lista<br> US $</th>

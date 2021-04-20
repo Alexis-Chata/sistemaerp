@@ -318,8 +318,10 @@ Class OrdenVenta extends Applicationbase {
 
     function listaOVAprobados($fechainicio, $fechafinal, $idvendedor) {
         $data = $this->leeRegistro($this->tabla . " ov " .
-                "inner join wc_cliente cliente on cliente.idcliente = ov.idcliente",
-                "ov.*, 
+                " left join wc_devolucion devolucion on devolucion.idordenventa = ov.idordenventa and devolucion.registrado=1 and devolucion.aprobado=1 and devolucion.fechaaprobada>='$fechainicio 00:00:00' and devolucion.fechaaprobada<='$fechafinal 23:59:59' and devolucion.estado=1" .
+                " inner join wc_cliente cliente on cliente.idcliente = ov.idcliente",
+                "ov.*,
+                 sum(devolucion.importetotal) as importetotaldevuelto,   
                  (case when cliente.razonsocial is null then concat(cliente.nombrecli, ' ', cliente.apellido1, ' ', cliente.apellido2) else cliente.razonsocial end) as razonsocial",
                 "ov.estado=1 and "
                 . "ov.esguiado=1 and "
@@ -329,7 +331,7 @@ Class OrdenVenta extends Applicationbase {
                 . "ov.fordenventa>='$fechainicio' and "
                 . "ov.fordenventa<='$fechafinal'",
                 "",
-                "");
+                "group by ov.idordenventa");
         return $data;
     }
     

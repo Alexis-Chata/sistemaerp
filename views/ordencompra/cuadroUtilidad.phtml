@@ -75,7 +75,7 @@ require_once 'evalcredenciales.php'; ?>
                         <th>UNIT</th>
                         <th colspan="2">PSC X CTN</th>
                         <th>FOB Unitario<br>(US $)</th>
-                        <th>Cif <br>Ventas (30%)<br> (US $)</th>
+                        <th>Cif <br>Ventas (<?php echo ($Ordencompra[0]['cifcpa'] == 0) ? '30' : $Ordencompra[0]['cifcpa'];?>%)<br> (US $)</th>
                         <th>Tipo de<br> Cambio <br>(US $)</th>
                         <th>Neto <br>(US $)</th>
                         <th>Precio <br>Lista<br> US $</th>

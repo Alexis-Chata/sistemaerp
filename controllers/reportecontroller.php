@@ -738,7 +738,7 @@ class ReporteController extends ApplicationGeneral {
                                                         <table class='filaOculta' style='display:none;margin:0px'><tr><td colspan='15'><a class='ver' href='#'>&nbsp<img src='/imagenes/iconos/OrdenAbajo.gif'></a></td></tr></table>
                                                         <table class='tblchildren' style='margin:0px;padding:0px;'>
                                                                 <thead>
-                                                                        <tr class='ocultarImpresion'>
+                                                                        <tr class=''>
                                                                                 <th style='width:70mm'>Direccion</th>
 
                                                                                 <th style='width:30mm'>Estado</th>
@@ -751,6 +751,8 @@ class ReporteController extends ApplicationGeneral {
                                                                                 <th>Indicador</th>
                                                                                 <th>Importe</th>
                                                                                 <th>Percepcion</th>
+                                                                                <th>Protesto</th>
+                                                                                <th>Total</th>
                                                                                 <th>Saldo</th>
                                                                                 <th>Situacion</th>
                                                                                 <th style='width:25mm'>Referencia <a class='ocultar' style='margin-left:0px;' href='#'><img src='/imagenes/iconos/OrdenArriba.gif'></a></th>
@@ -767,6 +769,22 @@ class ReporteController extends ApplicationGeneral {
             }else {
                 echo "<td >&nbsp;</td>";
             }
+            
+            $temporalImporteDoc = $datareporte[$i]['importedoc'];
+            $temporalTOALImporteDoc = $datareporte[$i]['importedoc'];
+            $temporalmontoprotesto = '';
+            /*
+            if ($temporalImporteDoc-$percepcion <=0 ) {
+                $temporalImporteDoc = '-';
+                $temporalTOALImporteDoc = $percepcion;
+            }
+            */
+            $datareporte[$i]['proviene']  = strtoupper($datareporte[$i]['proviene']);
+            if (($datareporte[$i]['proviene'] == 'GAST. PROTE.' || $datareporte[$i]['proviene'] == 'PROTE.')) {
+                $temporalmontoprotesto = $datareporte[$i]['montoprotesto'];
+                $temporalImporteDoc = $temporalImporteDoc - $temporalmontoprotesto;
+                $temporalmontoprotesto = $simbolomoneda . " " . $temporalmontoprotesto;
+            }
 
             echo "
                     <td ><h4><strong>" . ($dias == 10 ? 'PROTESTO - ' : "") . "</strong>" . ($datareporte[$i]['idtipocobranza'] == 4 ? 'INCOBRABLES' : strtoupper($tipo->NombreTipoCobranzaxDiasVencidos($datareporte[$i]['diffechas']))) . "</h4></td>
@@ -777,12 +795,14 @@ class ReporteController extends ApplicationGeneral {
                     <td >" . $this->FechaFormatoCorto($datareporte[$i]['fechapago']) . "</td>
                     <td >" . $datareporte[$i]['numerounico'] . "</td>
                     <td >" . $datareporte[$i]['recepcionletras'] . "</td>
-                    <td >" . $simbolomoneda . " " . number_format($datareporte[$i]['importedoc'], 2) . "</td>
+                    <td >" . $temporalImporteDoc . "</td>
                     <td >" . (!empty($percepcion) ? ($simbolomoneda . " " . number_format($percepcion, 2)) : '') . "</td>
+                    <td >" . $temporalmontoprotesto . "</td>
+                    <td >" . $simbolomoneda . " " . $temporalTOALImporteDoc . "</td>    
                     <td >" . $simbolomoneda . " " . number_format($datareporte[$i]['saldodoc'], 2) . "</td>
                     <td >" . ($datareporte[$i]['situacion'] == '' ? 'Pendiente' : $datareporte[$i]['situacion']) . "</td>
                     <td >" . strtoupper($datareporte[$i]['proviene'] . " " . substr($datareporte[$i]['referencia'], 0, 11)) . "</td>
-            </tr>";
+            </tr>"; // GAST. PROTE.
             if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
                 $cont = 0;
                 echo "</tbody>
@@ -3650,7 +3670,13 @@ class ReporteController extends ApplicationGeneral {
         $dataDetalleordenCompra = $detalleOrdenCompra->listaDetalleOrdenCompra($id);
         $cantidad = count($dataDetalleordenCompra);
         $tipocambio = $dataOrdenCompra[0]['tipocambiovigente'];
+        
         $porcentaje = (($data['porcifventas'] + 100) / 100);
+        if ($dataOrdenCompra[0]['cifcpa'] > 0) {
+            $porcentaje = (($dataOrdenCompra[0]['cifcpa'] + 100) / 100);
+        }
+                            
+        
         $totalUtilidad = 0;
         $utilidadDolares = 0;
         $utilidadDolaresxProducto = 0;
@@ -4362,6 +4388,7 @@ class ReporteController extends ApplicationGeneral {
     
     function reposiciondeitems_consultar() {
         set_time_limit(1800);
+        $ordenCompra = $this->AutoLoadModel('ordencompra');
         $idproducto = $_REQUEST['idProducto'];
         $reporte = $this->AutoLoadModel('reporte');
         $soloCompras = $reporte->reporteKardexProduccionDetallado("", "", $idproducto, 1, "", "m.idordencompra!=''");
@@ -4488,10 +4515,18 @@ class ReporteController extends ApplicationGeneral {
         }
         if ($tamSoloCompras > 0 && count($dataProducto) > 0) {
             $detalleOrdenCompra = $this->AutoLoadModel('detalleordencompra');
+            
             $data['porcifventas'] = $this->configIni('Parametros', 'PorCifVentas');
             $porcentaje = (($data['porcifventas'] + 100) / 100);
+            
+            
             $cantidad = count($dataCompra);
             for ($z = $cantidad - 1; $z >= 0; $z--) {
+                $porcentaje = (($data['porcifventas'] + 100) / 100);
+                $cifventacpa_ordencompra = $ordenCompra->solicitarCifventascpa($dataCompra[$z]['codigooc']);
+                if ($cifventacpa_ordencompra > 0) {
+                    $porcentaje = (($cifventacpa_ordencompra + 100) / 100);
+                }
                 echo '<table>
                         <tbody>
                             <tr>

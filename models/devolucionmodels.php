@@ -436,8 +436,9 @@ class devolucion extends Applicationbase {
     }
 
     public function totalDevolucionXVendedor($fechaInicio, $fechaFin, $idvendedor) {
+        // fordenventa>='$fechainicio' and fordenventa<='$fechafinal'
         $data = $this->leeRegistro("wc_devolucion devolucion
-                                inner join wc_ordenventa ordenventa on ordenventa.idordenventa = devolucion.idordenventa and ordenventa.idvendedor='$idvendedor'", 
+                                inner join wc_ordenventa ordenventa on ordenventa.idordenventa = devolucion.idordenventa and ordenventa.idvendedor='$idvendedor' and fordenventa>='$fechaInicio' and fordenventa<='$fechaFin'", 
                                 "sum(devolucion.importetotal) as importetotal, ordenventa.idMoneda", 
                                 "devolucion.registrado=1 and devolucion.aprobado=1 and devolucion.fechaaprobada>='$fechaInicio 00:00:00' and devolucion.fechaaprobada<='$fechaFin 23:59:59' and devolucion.estado=1", "", "group by ordenventa.idMoneda");
         return $data;

@@ -70,6 +70,11 @@ class Ordencompra extends Applicationbase {
         $cantOrdCom = $this->contarRegistro($this->tabla, "registrado=0");
         return $cantOrdCom;
     }
+    
+    function solicitarCifventascpa($codigoc) {
+        $data = $this->leeRegistro($this->tabla, "cifcpa", "codigooc='$codigoc'", "", "limit 1");
+        return $data[0]['cifcpa'];
+    }
 
     function editaOrdenCompra($idOrdenCompra) {
         $data = $this->leeRegistro($this->tabla, "", "idordencompra=$idOrdenCompra", "");

@@ -173,6 +173,8 @@ $(document).ready(function () {
     });
     $('.detalledelMovimiento').click(function (e) {
         e.preventDefault();
+        var textPorcentaje = $(this).data('porcentaje');
+        $('#idTextoPorcentaje').html(textPorcentaje);
         idcontenedor = $(this).attr('id');
         //alert(idcontenedor);
         $.ajax({

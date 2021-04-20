@@ -9073,6 +9073,7 @@ Class ExcelController extends ApplicationGeneral {
                 'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
             ), 'alignment' => array(
                 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
             ), 'font' => array(
                 'name' => 'Times New Roman'
             )
@@ -9108,6 +9109,7 @@ Class ExcelController extends ApplicationGeneral {
                 'left' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
             ), 'alignment' => array(
                 'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
             ), 'font' => array(
                 'name' => 'Times New Roman'
             )
@@ -9171,32 +9173,34 @@ Class ExcelController extends ApplicationGeneral {
         $cont++;
         $cont++;
 
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($cont) . ":K" . ($cont + 1));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($cont) . ":L" . ($cont + 1));
         $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $cont . ':A' . ($cont + 1));
         $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B' . $cont . ':B' . ($cont + 1));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . $cont . ':K' . ($cont + 1));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('C' . $cont . ':D' . $cont);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $cont . ':F' . $cont);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . $cont . ':H' . $cont);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('I' . $cont . ':J' . $cont);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":K" . ($cont + 1))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":K" . ($cont + 1))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('C' . $cont . ':C' . ($cont + 1));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('L' . $cont . ':L' . ($cont + 1));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('D' . $cont . ':E' . $cont);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('F' . $cont . ':G' . $cont);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('H' . $cont . ':I' . $cont);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . $cont . ':K' . $cont);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":L" . ($cont + 1))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":L" . ($cont + 1))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A' . ($cont), "Fecha")
                 ->setCellValue('B' . ($cont), "Razon Social")
-                ->setCellValue('C' . ($cont), "Ventas")
-                ->setCellValue('E' . ($cont), "Devolucion")
-                ->setCellValue('G' . ($cont), "Total Venta")
-                ->setCellValue('I' . ($cont), "Comision " . $porcentajeComision . "%")
-                ->setCellValue('K' . ($cont), "A Pagar")
-                ->setCellValue('C' . ($cont + 1), "Dolares")
-                ->setCellValue('D' . ($cont + 1), "Soles")
-                ->setCellValue('E' . ($cont + 1), "Dolares")
-                ->setCellValue('F' . ($cont + 1), "Soles")
-                ->setCellValue('G' . ($cont + 1), "Dolares")
-                ->setCellValue('H' . ($cont + 1), "Soles")
-                ->setCellValue('I' . ($cont + 1), "Dolares")
-                ->setCellValue('J' . ($cont + 1), "Soles");
+                ->setCellValue('C' . ($cont), "Codigo")
+                ->setCellValue('D' . ($cont), "Ventas")
+                ->setCellValue('F' . ($cont), "Devolucion")
+                ->setCellValue('H' . ($cont), "Total Venta")
+                ->setCellValue('J' . ($cont), "Comision " . $porcentajeComision . "%")
+                ->setCellValue('L' . ($cont), "A Pagar")
+                ->setCellValue('D' . ($cont + 1), "Dolares")
+                ->setCellValue('E' . ($cont + 1), "Soles")
+                ->setCellValue('F' . ($cont + 1), "Dolares")
+                ->setCellValue('G' . ($cont + 1), "Soles")
+                ->setCellValue('H' . ($cont + 1), "Dolares")
+                ->setCellValue('I' . ($cont + 1), "Soles")
+                ->setCellValue('J' . ($cont + 1), "Dolares")
+                ->setCellValue('K' . ($cont + 1), "Soles");
         $ordenventa = $this->AutoLoadModel('ordenventa');
 
         $cont++;
@@ -9222,7 +9226,7 @@ Class ExcelController extends ApplicationGeneral {
 
         for ($i = 0; $i < $tam; $i++) {
             $TempComisionSoles = 0;
-            $TempComision = ($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']) * ($porcentajeComision / 100);
+            $TempComision = ($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']) * ($porcentajeComision / 100);
             $aprobadosoles = '-';
             $aprobadodolares = '-';
             $devolucionsoles = '-';
@@ -9232,105 +9236,142 @@ Class ExcelController extends ApplicationGeneral {
             $comisionsoles = '-';
             $comisiondolares = '-';
             if ($registros[$i]['IdMoneda'] == 1) {
-                $totalSoles += ($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']);
+                $totalSoles += ($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']);
                 $totalComisionSoles += $TempComision;
                 $TempComisionSoles = $TempComision;
 
                 $aprobadosoles = "S/ " . number_format($registros[$i]['importeaprobado'], 2);
                 $TOTAL_aprobadosoles += $registros[$i]['importeaprobado'];
-                $devolucionsoles = "S/ " . number_format($registros[$i]['importedevolucion'], 2);
-                $TOTAL_devolucionsoles += $registros[$i]['importedevolucion'];
-                $tempsoles = "S/ " . number_format($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion'], 2);
+                $devolucionsoles = "S/ " . number_format($registros[$i]['importetotaldevuelto'], 2);
+                $TOTAL_devolucionsoles += $registros[$i]['importetotaldevuelto'];
+                $tempsoles = "S/ " . number_format($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto'], 2);
 
-                $comisionsoles = "S/ " . number_format(($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']) * ($porcentajeComision / 100), 2);
-                $TOTAL_comisionsoles += ($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']) * ($porcentajeComision / 100);
+                $comisionsoles = "S/ " . number_format(($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']) * ($porcentajeComision / 100), 2);
+                $TOTAL_comisionsoles += ($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']) * ($porcentajeComision / 100);
             } else {
-                $totalDolares += ($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']);
+                $totalDolares += ($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']);
                 $totalComisionDolares += $TempComision;
                 $TempComisionSoles = $TempComision * $valortc;
                 $aprobadodolares = "$" . number_format($registros[$i]['importeaprobado'], 2);
                 $TOTAL_aprobadodolares += $registros[$i]['importeaprobado'];
-                $devoluciondolares = "$" . number_format($registros[$i]['importedevolucion'], 2);
-                $TOTAL_devoluciondolares += $registros[$i]['importedevolucion'];
-                $tempdolares = "$" . number_format($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion'], 2);
-                $comisiondolares = "$" . number_format(($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']) * ($porcentajeComision / 100), 2);
-                $TOTAL_comisiondolares += ($registros[$i]['importeaprobado'] - $registros[$i]['importedevolucion']) * ($porcentajeComision / 100);
+                $devoluciondolares = "$" . number_format($registros[$i]['importetotaldevuelto'], 2);
+                $TOTAL_devoluciondolares += $registros[$i]['importetotaldevuelto'];
+                $tempdolares = "$" . number_format($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto'], 2);
+                $comisiondolares = "$" . number_format(($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']) * ($porcentajeComision / 100), 2);
+                $TOTAL_comisiondolares += ($registros[$i]['importeaprobado'] - $registros[$i]['importetotaldevuelto']) * ($porcentajeComision / 100);
             }
-            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "C" . ($cont) . ":K" . ($cont));
-            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle3, "A" . ($cont) . ":B" . ($cont));
-            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle3, "F" . ($cont) . ":F" . ($cont));
-            $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":K" . ($cont))->getFill()->setRotation(1);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "D" . ($cont) . ":L" . ($cont));
+            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle3, "A" . ($cont) . ":C" . ($cont));
+            $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle3, "G" . ($cont) . ":G" . ($cont));
+            $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":L" . ($cont))->getFill()->setRotation(1);
             $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A' . ($cont), $registros[$i]['fechadespacho'])
                     ->setCellValue('B' . ($cont), (html_entity_decode($registros[$i]['razonsocial'], ENT_QUOTES, 'UTF-8')))
-                    ->setCellValue('C' . ($cont), $aprobadodolares)
-                    ->setCellValue('D' . ($cont), $aprobadosoles)
-                    ->setCellValue('E' . ($cont), $devoluciondolares)
-                    ->setCellValue('F' . ($cont), $devolucionsoles)
-                    ->setCellValue('G' . ($cont), $tempdolares)
-                    ->setCellValue('H' . ($cont), $tempsoles)
-                    ->setCellValue('I' . ($cont), $comisiondolares)
-                    ->setCellValue('J' . ($cont), $comisionsoles)
-                    ->setCellValue('K' . ($cont), 'S/ ' . number_format($TempComisionSoles, 2));
+                    ->setCellValue('C' . ($cont), $registros[$i]['codigov'])
+                    ->setCellValue('D' . ($cont), $aprobadodolares)
+                    ->setCellValue('E' . ($cont), $aprobadosoles)
+                    ->setCellValue('F' . ($cont), $devoluciondolares)
+                    ->setCellValue('G' . ($cont), $devolucionsoles)
+                    ->setCellValue('H' . ($cont), $tempdolares)
+                    ->setCellValue('I' . ($cont), $tempsoles)
+                    ->setCellValue('J' . ($cont), $comisiondolares)
+                    ->setCellValue('K' . ($cont), $comisionsoles)
+                    ->setCellValue('L' . ($cont), 'S/ ' . number_format($TempComisionSoles, 2));
             $cont++;
         }
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "C" . ($cont) . ":K" . ($cont));
-        $objPHPExcel->getActiveSheet()->getStyle("C" . ($cont) . ":K" . ($cont))->getFill()->setRotation(1);
-        $objPHPExcel->getActiveSheet()->getStyle("C" . ($cont) . ":K" . ($cont))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "D" . ($cont) . ":L" . ($cont));
+        $objPHPExcel->getActiveSheet()->getStyle("D" . ($cont) . ":L" . ($cont))->getFill()->setRotation(1);
+        $objPHPExcel->getActiveSheet()->getStyle("D" . ($cont) . ":L" . ($cont))->getFont()->setBold(true);
 
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('C' . ($cont), '$' . number_format($TOTAL_aprobadodolares, 2))
-                ->setCellValue('D' . ($cont), 'S/ ' . number_format($TOTAL_aprobadosoles, 2))
-                ->setCellValue('E' . ($cont), '$' . number_format($TOTAL_devoluciondolares, 2))
-                ->setCellValue('F' . ($cont), 'S/ ' . number_format($TOTAL_devolucionsoles, 2))
-                ->setCellValue('G' . ($cont), '$' . number_format($totalDolares, 2))
-                ->setCellValue('H' . ($cont), 'S/ ' . number_format($totalSoles, 2))
-                ->setCellValue('I' . ($cont), '$' . number_format($TOTAL_comisiondolares, 2))
-                ->setCellValue('J' . ($cont), 'S/ ' . number_format($TOTAL_comisionsoles, 2))
-                ->setCellValue('K' . ($cont), "S/ " . number_format(($totalComisionDolares * $valortc) + $totalComisionSoles, 2));
+                ->setCellValue('D' . ($cont), '$' . number_format($TOTAL_aprobadodolares, 2))
+                ->setCellValue('E' . ($cont), 'S/ ' . number_format($TOTAL_aprobadosoles, 2))
+                ->setCellValue('F' . ($cont), '$' . number_format($TOTAL_devoluciondolares, 2))
+                ->setCellValue('G' . ($cont), 'S/ ' . number_format($TOTAL_devolucionsoles, 2))
+                ->setCellValue('H' . ($cont), '$' . number_format($totalDolares, 2))
+                ->setCellValue('I' . ($cont), 'S/ ' . number_format($totalSoles, 2))
+                ->setCellValue('J' . ($cont), '$' . number_format($TOTAL_comisiondolares, 2))
+                ->setCellValue('K' . ($cont), 'S/ ' . number_format($TOTAL_comisionsoles, 2))
+                ->setCellValue('L' . ($cont), "S/ " . number_format(($totalComisionDolares * $valortc) + $totalComisionSoles, 2));
 
         $cont++;
         $cont++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "G" . ($cont) . ":I" . ($cont + 5));
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyleVerde, "G" . ($cont + 7) . ":I" . ($cont + 7));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . $cont . ':I' . ($cont));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 1) . ':I' . ($cont + 1));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 2) . ':I' . ($cont + 2));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 3) . ':I' . ($cont + 3));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 4) . ':I' . ($cont + 4));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 5) . ':I' . ($cont + 5));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 7) . ':I' . ($cont + 7));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "G" . ($cont) . ":J" . ($cont + 3));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "G" . ($cont+5) . ":J" . ($cont + 10));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyleVerde, "G" . ($cont + 12) . ":J" . ($cont + 13));
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":L" . ($cont + 13))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("A" . ($cont) . ":L" . ($cont + 13))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . $cont . ':J' . ($cont));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 1) . ':J' . ($cont + 1));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 2) . ':J' . ($cont + 2));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 3) . ':J' . ($cont + 3));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 5) . ':J' . ($cont + 5));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 6) . ':J' . ($cont + 6));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 7) . ':J' . ($cont + 7));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 8) . ':J' . ($cont + 8));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 9) . ':J' . ($cont + 9));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 10) . ':J' . ($cont + 10));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . ($cont + 12) . ':J' . ($cont + 13));
+        
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('G' . ($cont), "IMPORTE VENTA SOLES: ")
-                ->setCellValue('G' . ($cont + 1), "IMPORTE VENTA DOLARES: ")
-                ->setCellValue('G' . ($cont + 2), "IMPORTE COMISION SOLES: ")
-                ->setCellValue('G' . ($cont + 3), "IMPORTE COMISION DOLARES: ")
-                ->setCellValue('G' . ($cont + 4), "TIPO CAMBIO SUNAT: ")
-                ->setCellValue('G' . ($cont + 5), "COMISION DOLARES EN SOLES: ")
-                ->setCellValue('G' . ($cont + 7), "COMISION TOTAL EN SOLES: ");
+                ->setCellValue('G' . ($cont + 1), "IMPORTE DEVOLUCION SOLES: ")
+                ->setCellValue('G' . ($cont + 2), "IMPORTE VENTA NETA SOLES: ")
+                ->setCellValue('G' . ($cont + 3), "IMPORTE COMISION SOLES: ")
+                
+                ->setCellValue('G' . ($cont + 5), "IMPORTE VENTA DOLARES: ")
+                ->setCellValue('G' . ($cont + 6), "IMPORTE DEVOLUCION DOLARES: ")
+                ->setCellValue('G' . ($cont + 7), "IMPORTE VENTA NETA DOLARES: ")
+                ->setCellValue('G' . ($cont + 8), "IMPORTE COMISION DOLARES: ")
+                ->setCellValue('G' . ($cont + 9), "TIPO CAMBIO SUNAT: ")
+                ->setCellValue('G' . ($cont + 10), "COMISION DOLARES EN SOLES: ")
+                
+                ->setCellValue('G' . ($cont + 12), "COMISION TOTAL EN SOLES: ");
 
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "J" . ($cont) . ":K" . ($cont + 5));
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyleAmarillo, "J" . ($cont + 7) . ":K" . ($cont + 7));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . $cont . ':K' . ($cont));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . ($cont + 1) . ':K' . ($cont + 1));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . ($cont + 2) . ':K' . ($cont + 2));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . ($cont + 3) . ':K' . ($cont + 3));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . ($cont + 4) . ':K' . ($cont + 4));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . ($cont + 5) . ':K' . ($cont + 5));
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . ($cont + 7) . ':K' . ($cont + 7));
-        $objPHPExcel->getActiveSheet()->getStyle("G" . ($cont) . ":K" . ($cont + 5))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("G" . ($cont) . ":K" . ($cont + 5))->getFill()->setRotation(1);
-        $objPHPExcel->getActiveSheet()->getStyle("G" . ($cont + 7) . ":K" . ($cont + 7))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("G" . ($cont + 7) . ":K" . ($cont + 7))->getFill()->setRotation(1);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "K" . ($cont) . ":L" . ($cont + 3));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "K" . ($cont+5) . ":L" . ($cont + 10));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyleAmarillo, "K" . ($cont + 12) . ":L" . ($cont + 13));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . $cont . ':L' . ($cont));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 1) . ':L' . ($cont + 1));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 2) . ':L' . ($cont + 2));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 3) . ':L' . ($cont + 3));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 5) . ':L' . ($cont + 5));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 6) . ':L' . ($cont + 6));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 7) . ':L' . ($cont + 7));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 8) . ':L' . ($cont + 8));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 9) . ':L' . ($cont + 9));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 10) . ':L' . ($cont + 10));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . ($cont + 12) . ':L' . ($cont + 13));
+        $objPHPExcel->getActiveSheet()->getStyle("H" . ($cont) . ":L" . ($cont + 10))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("H" . ($cont) . ":L" . ($cont + 10))->getFill()->setRotation(1);
+        $objPHPExcel->getActiveSheet()->getStyle("H" . ($cont + 12) . ":L" . ($cont + 13))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("H" . ($cont + 12) . ":L" . ($cont + 13))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('J' . ($cont), "S/ " . number_format($totalSoles, 2))
-                ->setCellValue('J' . ($cont + 1), "$" . number_format($totalDolares, 2))
-                ->setCellValue('J' . ($cont + 2), "S/ " . number_format($totalComisionSoles, 2))
-                ->setCellValue('J' . ($cont + 3), "$" . number_format($totalComisionDolares, 2))
-                ->setCellValue('J' . ($cont + 4), "S/ " . $valortc)
-                ->setCellValue('J' . ($cont + 5), "S/ " . number_format($totalComisionDolares * $valortc, 2))
-                ->setCellValue('J' . ($cont + 7), "S/ " . number_format(($totalComisionDolares * $valortc) + $totalComisionSoles, 2));
+                ->setCellValue('K' . ($cont), "S/ " . number_format($TOTAL_aprobadosoles, 2))
+                ->setCellValue('K' . ($cont + 1), "S/ " . number_format($TOTAL_devolucionsoles, 2))
+                ->setCellValue('K' . ($cont + 2), "S/ " . number_format($totalSoles, 2))
+                ->setCellValue('K' . ($cont + 3), "S/ " . number_format($TOTAL_comisionsoles, 2))
+                
+                ->setCellValue('K' . ($cont + 5), "$ " . number_format($TOTAL_aprobadodolares, 2))
+                ->setCellValue('K' . ($cont + 6), "$ " . number_format($TOTAL_devoluciondolares, 2))
+                ->setCellValue('K' . ($cont + 7), "$ " . number_format($totalDolares, 2))
+                ->setCellValue('K' . ($cont + 8), "$ " . number_format($TOTAL_comisiondolares, 2))
+                ->setCellValue('K' . ($cont + 9), "S/ " . $valortc)
+                ->setCellValue('K' . ($cont + 10), "S/ " . number_format($totalComisionDolares * $valortc, 2))
+                ->setCellValue('K' . ($cont + 12), "S/ " . number_format(($totalComisionDolares * $valortc) + $totalComisionSoles, 2));
 
+        
+        /*$objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('D' . ($cont), '$' . number_format($TOTAL_aprobadodolares, 2))
+                ->setCellValue('E' . ($cont), 'S/ ' . number_format($TOTAL_aprobadosoles, 2))
+                ->setCellValue('F' . ($cont), '$' . number_format($TOTAL_devoluciondolares, 2))
+                ->setCellValue('G' . ($cont), 'S/ ' . number_format($TOTAL_devolucionsoles, 2))
+                ->setCellValue('H' . ($cont), '$' . number_format($totalDolares, 2))
+                ->setCellValue('I' . ($cont), 'S/ ' . number_format($totalSoles, 2))
+                ->setCellValue('J' . ($cont), '$' . number_format($TOTAL_comisiondolares, 2))
+                ->setCellValue('K' . ($cont), 'S/ ' . number_format($TOTAL_comisionsoles, 2))
+                ->setCellValue('L' . ($cont), "S/ " . number_format(($totalComisionDolares * $valortc) + $totalComisionSoles, 2));
+         */
         $objPHPExcel->getActiveSheet()->setTitle('Ventas ' . $meses[$lstMes] . ' ' . $lstAnio);
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
@@ -11065,707 +11106,6 @@ Class ExcelController extends ApplicationGeneral {
 //          $columna.="<tr><td colspan='7'>&nbsp</td><th >Total Ingresos US $</th><td>".number_format($acumulaxIdMoneda['US $']['total'],2)."</td><th>Total Saldo US $</th><td>".number_format($acumulaxIdMoneda['US $']['saldo'],2)."</td><td></td><td></td><td></td></tr>";
     }
     
-
-    public function ventasfacturadonofacturado1() {
-        set_time_limit(1000);
-        $url_fechaini = $_REQUEST['txtFechaInicio'];
-        $url_fechafin = $_REQUEST['txtFechaFinal'];
-        $url_idmoneda = $_REQUEST['cmbMoneda'];
-        $url_situacion=$_REQUEST['cmbSituacion'];
-        $url_monto=$_REQUEST['cmbMonto'];
-        $url_anulados=$_REQUEST['cmbAnulados'];
-        $url_opcion = $_REQUEST['cmbFiltro']; // 0 = todo, 1 = facturado, 2 = no facturado
-        $esAnulado = $_REQUEST['cmbEstado'];
-        $filtro = "";
-        if ($url_idmoneda == 1) {
-            $filtro = "VENTAS SOLO EN SOLES";
-        }
-        if ($url_idmoneda == 2) {
-            $filtro = "VENTAS SOLO EN DOLARES";
-        }
-        $reporte = $this->AutoLoadModel('reporte');
-        $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini, $url_fechafin, $url_idmoneda, $url_situacion,$url_monto,$url_anulados);
-        //********************************* Proceso de trasmutacion de ovs generadas de otros dias pero facturadas segun la fecha enviada
-        $get_segregado_idordenventas1 = '';
-        for ($i = 0; $i < count($listar_ventasfacturadonofacturado1); $i++) {
-            $idordenventa = $listar_ventasfacturadonofacturado1[$i]['idordenventa'];
-            $get_segregado_idordenventas1 .= $idordenventa . ',';
-        }
-        $get_segregado_idordenventas1 = substr($get_segregado_idordenventas1, 0, -1);
-        $listar_ovs_de_comprobantesFaltantes = array();
-        if ($url_opcion != 2) {
-            $listar_ovs_de_comprobantesFaltantes = $reporte->listar_ovs_de_comprobantesFaltantes($url_fechaini, $url_fechafin, $url_idmoneda, $get_segregado_idordenventas1, $url_situacion,$url_monto,$url_anulados);
-        }
-        $idordenventa = -1;
-        $get_segregado_idordenventasFaltantes = '';
-        for ($i = 0; $i < count($listar_ovs_de_comprobantesFaltantes); $i++) {
-            if ($idordenventa != $listar_ovs_de_comprobantesFaltantes[$i]['idordenventa']) {
-                $idordenventa = $listar_ovs_de_comprobantesFaltantes[$i]['idordenventa'];
-                $get_segregado_idordenventasFaltantes .= $idordenventa . ',';
-            }
-        }
-        $get_segregado_idordenventasFaltantes = substr($get_segregado_idordenventasFaltantes, 0, -1);
-        if ($get_segregado_idordenventas1 != "" and $get_segregado_idordenventasFaltantes == "") {
-            $get_segregado_total = $get_segregado_idordenventas1;
-        }
-        if ($get_segregado_idordenventas1 == "" and $get_segregado_idordenventasFaltantes != "") {
-            $get_segregado_total = $get_segregado_idordenventasFaltantes;
-        }
-        if ($get_segregado_idordenventas1 != "" and $get_segregado_idordenventasFaltantes != "") {
-            $get_segregado_total = $get_segregado_idordenventas1 . ',' . $get_segregado_idordenventasFaltantes;
-        }
-        $data = $reporte->ventasfacturadonofacturado2($get_segregado_total);
-        //*********************************
-
-        $baseURL = ROOT . 'descargas' . DS;
-        $idActor = $_SESSION['idactor'];
-        $fechaCreacion = date('Y-m-d_h.m.s');
-        $basenombre = 'reporteVentasFacturadoNoFacturado.xls';
-        $filename = $baseURL . $idActor . '_' . $fechaCreacion . '_' . $basenombre;
-
-        $this->AutoLoadLib('PHPExcel');
-        $objPHPExcel = new PHPExcel();
-
-        $titulos = array('N', 'FECHA.OV', 'FECHA.DES', 'ORD VENTA', 'RUC/DNI', 'CLIENTE', 'FACTURA', 'BOLETA', 'GUIA REMI', 'BI FACTURA', 'IGV FACT', 'BI BOLETA', 'IMPORT GUIA', 'TOTAL', 'Monto Perce', '%', 'Est Guia', 'Est comprobante');
-        $sharedStyle1 = new PHPExcel_Style();
-        $sharedStyle1->applyFromArray(array(
-            'fill' => array(
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => array('argb' => 'FFCCFFCC')
-            ),
-            'borders' => array(
-                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
-            )
-                )
-        );
-
-        $sharedStyle0 = new PHPExcel_Style();
-        $sharedStyle0->applyFromArray(array(
-            'fill' => array(
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => array('argb' => 'FF81BEF7')
-            ),
-            'borders' => array(
-                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
-            )
-                )
-        );
-
-        $sharedStyle2 = new PHPExcel_Style();
-        $sharedStyle2->applyFromArray(array(
-            'fill' => array(
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => array('rgb' => 'FFFFFFFF')
-            ),
-            'borders' => array(
-                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-                'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
-            ),
-            'alignment' => array(
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
-            )
-                )
-        );
-
-
-        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('P')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
-
-
-        $contador = 0;
-
-
-        $contador++;
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':R' . $contador);
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":R" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFill()->setRotation(1);
-        if ($url_opcion == 0) {
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), "REPORTE DE VENTAS DE LO FACTURADO Y NO FACTURADO DEL " . $url_fechaini . " AL " . $url_fechafin);
-        } else if ($url_opcion == 1) {
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), "REPORTE DE VENTAS DE LO FACTURADO DEL " . $url_fechaini . " AL " . $url_fechafin);
-        } else if ($url_opcion == 2) {
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), "REPORTE DE VENTAS DE LO NO FACTURADO DEL " . $url_fechaini . " AL " . $url_fechafin);
-        }
-
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
-        $contador++;
-        $contador++;
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':R' . $contador);
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "A" . ($contador) . ":R" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFill()->setRotation(1);
-
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), $filtro);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador))->getFont()->setBold(true);
-        $contador++;
-
-
-
-        $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A' . ($contador), $titulos[0])
-                ->setCellValue('B' . ($contador), $titulos[1])
-                ->setCellValue('C' . ($contador), $titulos[2])
-                ->setCellValue('D' . ($contador), $titulos[3])
-                ->setCellValue('E' . ($contador), $titulos[4])
-                ->setCellValue('F' . ($contador), $titulos[5])
-                ->setCellValue('G' . ($contador), $titulos[6])
-                ->setCellValue('H' . ($contador), $titulos[7])
-                ->setCellValue('I' . ($contador), $titulos[8])
-                ->setCellValue('J' . ($contador), $titulos[9])
-                ->setCellValue('K' . ($contador), $titulos[10])
-                ->setCellValue('L' . ($contador), $titulos[11])
-                ->setCellValue('M' . ($contador), $titulos[12])
-                ->setCellValue('N' . ($contador), $titulos[13])
-                ->setCellValue('O' . ($contador), $titulos[14])
-                ->setCellValue('P' . ($contador), $titulos[15])
-                ->setCellValue('Q' . ($contador), $titulos[16])
-                ->setCellValue('R' . ($contador), $titulos[17]);
-
-
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($contador) . ":R" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFill()->setRotation(1);
-        $contador ++;
-
-
-        $nro_aumentador = 0;
-        $sum_importeGuia_soles = 0.00;
-        $sum_biBoleta_soles = 0.00;
-        $sum_totalcomprobante_soles = 0.00;
-        $sum_subtotalFactura_soles = 0.00;
-        $sum_igvFactura_soles = 0.00;
-        $sum_percepcion_soles = 0.00;
-        $sum_importeGuia_dolares = 0.00;
-        $sum_biBoleta_dolares = 0.00;
-        $sum_totalcomprobante_dolares = 0.00;
-        $sum_subtotalFactura_dolares = 0.00;
-        $sum_igvFactura_dolares = 0.00;
-        $sum_percepcion_dolares = 0.00;
-        $idordenventaTemp = -1;
-        for ($i = 0; $i < count($data); $i++) {
-            $serieGRemision = '';
-            $numGRemision = '';
-            $serieFactura = "";
-            $correlativoFactura = "";
-            $comprobanteFactura = "";
-
-            $importeGuia_soles = 0.00;
-            $subtotalFactura_soles = 0.00;
-            $igvFactura_soles = 0.00;
-            $totalcomprobante_soles = 0.00;
-            $percepcion_soles = 0.00;
-            $biBoleta_soles = 0.00;
-            $porcentaje_percepcion_soles = '';
-
-            $importeGuia_dolares = 0.00;
-            $subtotalFactura_dolares = 0.00;
-            $igvFactura_dolares = 0.00;
-            $totalcomprobante_dolares = 0.00;
-            $percepcion_dolares = 0.00;
-            $biBoleta_dolares = 0.00;
-            $porcentaje_percepcion_dolares = '';
-
-            $que_comprobante_se_sumara = "";
-            $serieBoleta = "";
-            $correlativoBoleta = "";
-            $comprobanteBoleta = '';
-            $tipocomprobante = '';
-            $electronico = '';
-            $moneda = '';
-            $estado_ov = '';
-            $estadoComprobante = '';
-            $documento = new Documento();
-            $listar_comprobantes = $documento->listar_comprobantes($data[$i]['idordenventa'], $esAnulado);
-
-
-            $tiene_comprobantes = count($listar_comprobantes);
-            $listar_guia_remision = $documento->listar_guia_remision($data[$i]['idordenventa']);
-            $tiene_guia_remision = count($listar_guia_remision);
-
-
-            if ($data[$i]['estado_ov'] == '1') {
-                $estado_ov = 'Activo';
-            }
-            if ($data[$i]['estado_ov'] == '0') {
-                $estado_ov = 'Anulado';
-            }
-
-            //*************SE HACE DOS IMPRESIONES porque cuando comprobantes es igual a CERO  solo se imprime una fila
-            //*************PERO CUANDO TIENE COMPROBANTES NO SABEMOS CUANTOS COMPROBANTES TENDRA UNA MISMA GUIA
-            //*************POR ENDE UNA GUIA PUEDE TENER VARIAS FACTURAS (VARIAS IMPRESIONES EN UNA MISMA GUIA)
-            if ($tiene_comprobantes == 0 && ($url_opcion == 2 || $url_opcion == 0)) {
-                if ($tiene_comprobantes == 0 and $tiene_guia_remision >= 1) {
-                    $serieGRemision = $listar_guia_remision[0]['serie'];
-                    $numGRemision = $listar_guia_remision[0]['numdoc'];
-                    //start solo suma guia que esta activa y lo hace una sola vez por orden
-                    if ($idordenventaTemp != $data[$i]['idordenventa'] and $data[$i]['estado_ov'] == '1') {
-                        if ($data[$i]['idmoneda'] == '1') {
-                            $importeGuia_soles = $data[$i]['importeov'];
-                            $sum_importeGuia_soles = $sum_importeGuia_soles + $importeGuia_soles;
-                        }
-                        if ($data[$i]['idmoneda'] == '2') {
-                            $importeGuia_dolares = $data[$i]['importeov'];
-                            $sum_importeGuia_dolares = $sum_importeGuia_dolares + $importeGuia_dolares;
-                        }
-                    }
-                    //end solo suma guia que esta activa y lo hace una sola vez por orden
-                }
-
-                //START  CUANDO SOLO TIENE ORDEN DE VENTA Y NO TIENE GUIA DE REMISION, NI FACTURA, NI BOLETA
-                if ($tiene_comprobantes == 0 and $tiene_guia_remision == 0 and $data[$i]['estado_ov'] == '1') {
-                    //start suma el vaor de la ov a la constantes del total de guias de remision y lo hace una sola vez por orden
-                    if ($idordenventaTemp != $data[$i]['idordenventa'] and $data[$i]['estado_ov'] == '1') {
-                        if ($data[$i]['idmoneda'] == '1') {
-                            $importeGuia_soles = $data[$i]['importeov'];
-                            $sum_importeGuia_soles = $sum_importeGuia_soles + $importeGuia_soles;
-                        }
-                        if ($data[$i]['idmoneda'] == '2') {
-                            $importeGuia_dolares = $data[$i]['importeov'];
-                            $sum_importeGuia_dolares = $sum_importeGuia_dolares + $importeGuia_dolares;
-                        }
-                    }
-                    //end suma el vaor de la ov a la constantes del total de guias de remision y lo hace una sola vez por orden
-                }
-                //END  CUANDO SOLO TIENE ORDEN DE VENTA Y NO TIENE GUIA DE REMISION, NI FACTURA, NI BOLETA
-                //          ***************************************************************************************************
-                // START  ORDENADO DE VARIABLES PARA IMPRIMIR FILA
-                if ($data[$i]['ruc'] == '') {
-                    $ruc_dni = $data[$i]['dni'];
-                } else {
-                    $ruc_dni = $data[$i]['ruc'];
-                }
-
-                if ($data[$i]['idmoneda'] == '1') {
-                    $moneda = 'S/';
-                }
-                if ($data[$i]['idmoneda'] == '2') {
-                    $moneda = 'US $';
-                }
-
-                if ($subtotalFactura_soles > 0) {
-                    $percepcion_soles = $moneda . ' ' . number_format($percepcion_soles, 2);
-                    $porcentaje_percepcion_soles = $data[$i]['percepcion'] * 100;
-                    $porcentaje_percepcion_soles = $porcentaje_percepcion_soles . '%';
-                } else {
-                    $percepcion_soles = '';
-                    $porcentaje_percepcion_soles = '';
-                }
-
-                if ($subtotalFactura_dolares > 0) {
-                    $percepcion_dolares = $moneda . ' ' . number_format($percepcion_dolares, 2);
-                    $porcentaje_percepcion_dolares = $data[$i]['percepcion'] * 100;
-                    $porcentaje_percepcion_dolares = $porcentaje_percepcion_dolares . '%';
-                } else {
-                    $percepcion_dolares = '';
-                    $porcentaje_percepcion_dolares = '';
-                }
-
-                $nro_aumentador = $nro_aumentador + 1;
-
-                if ($data[$i]['idmoneda'] == '1') {
-                    //***********************
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), $nro_aumentador);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . ($contador), $data[$i]['fordenventa']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C' . ($contador), $data[$i]['fechadespacho']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . ($contador), $data[$i]['codigov']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $ruc_dni);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $data[$i]['razonsocial']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $comprobanteFactura);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteBoleta);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $serieGRemision . '-' . $numGRemision);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $moneda . ' ' . number_format($subtotalFactura_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($igvFactura_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($biBoleta_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($importeGuia_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($totalcomprobante_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $percepcion_soles);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $porcentaje_percepcion_soles);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $estado_ov);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estadoComprobante);
-                    $contador ++;
-                    //***********************
-                }
-                if ($data[$i]['idmoneda'] == '2') {
-                    //***********************
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), $nro_aumentador);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . ($contador), $data[$i]['fordenventa']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C' . ($contador), $data[$i]['fechadespacho']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . ($contador), $data[$i]['codigov']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $ruc_dni);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $data[$i]['razonsocial']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $comprobanteFactura);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteBoleta);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $serieGRemision . '-' . $numGRemision);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $moneda . ' ' . number_format($subtotalFactura_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($igvFactura_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($biBoleta_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($importeGuia_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($totalcomprobante_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $percepcion_dolares);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $porcentaje_percepcion_dolares);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $estado_ov);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estadoComprobante);
-                    $contador ++;
-                    //***********************
-                }
-
-                // END  ORDENADO DE VARIABLES PARA IMPRIMIR FILA
-                //              ****************************************************************************************************
-            }
-
-
-
-            if ($tiene_comprobantes >= 1 && ($url_opcion == 1 || $url_opcion == 0)) { // recrrera comprobantes asi esten anulados o activos pero solo sumara los activos
-                //start limpia variables por vuelta
-                $serieGRemision = '';
-                $numGRemision = '';
-                $importeGuia_soles = 0.00;
-                $importeGuia_dolares = 0.00;
-                //end limpia variables por vuelta
-
-
-                $serieGRemision = $listar_guia_remision[0]['serie'];
-                $numGRemision = $listar_guia_remision[0]['numdoc'];
-                //start solo suma guia que esta activa y lo hace una sola vez por orden
-                if ($idordenventaTemp != $data[$i]['idordenventa'] and $data[$i]['estado_ov'] == '1') {
-                    if ($data[$i]['idmoneda'] == '1') {
-                        $importeGuia_soles = $data[$i]['importeov'];
-                        $sum_importeGuia_soles = $sum_importeGuia_soles + $importeGuia_soles;
-                    }
-                    if ($data[$i]['idmoneda'] == '2') {
-                        $importeGuia_dolares = $data[$i]['importeov'];
-                        $sum_importeGuia_dolares = $sum_importeGuia_dolares + $importeGuia_dolares;
-                    }
-                }
-                //end solo suma guia que esta activa y lo hace una sola vez por orden
-
-                for ($j = 0; $j < count($listar_comprobantes); $j++) {
-                    //start limpia variables por vuelta
-                    $serieFactura = "";
-                    $correlativoFactura = "";
-                    $comprobanteFactura = "";
-
-                    $subtotalFactura_soles = 0.00;
-                    $igvFactura_soles = 0.00;
-                    $totalcomprobante_soles = 0.00;
-                    $percepcion_soles = 0.00;
-                    $biBoleta_soles = 0.00;
-                    $porcentaje_percepcion_soles = '';
-
-                    $subtotalFactura_dolares = 0.00;
-                    $igvFactura_dolares = 0.00;
-                    $totalcomprobante_dolares = 0.00;
-                    $percepcion_dolares = 0.00;
-                    $biBoleta_dolares = 0.00;
-                    $porcentaje_percepcion_dolares = '';
-
-                    $que_comprobante_se_sumara = "";
-                    $serieBoleta = "";
-                    $correlativoBoleta = "";
-                    $comprobanteBoleta = '';
-                    $tipocomprobante = '';
-                    $electronico = '';
-                    $moneda = '';
-                    $estado_ov = '';
-                    $estadoComprobante = '';
-                    //end limpia variables por vuelta
-                    if ($data[$i]['estado_ov'] == '1') {
-                        $estado_ov = 'Activo';
-                    }
-                    if ($data[$i]['estado_ov'] == '0') {
-                        $estado_ov = 'Anulado';
-                    }
-
-                    if ($listar_comprobantes[$j]['nombredoc'] == 1) { // si tiene facturas
-                        // START OBTENIENDO CORRELATIVO FACTURA
-                        if ($listar_comprobantes[$j]["electronico"] == 1) {
-                            $electronico = '';
-                            $serieFactura = $documento->add_ceros($listar_comprobantes[$j]['serie'], 3);
-                            $serieFactura = "F" . $serieFactura;
-                            $correlativoFactura = $documento->add_ceros($listar_comprobantes[$j]['numdoc'], 8);
-                        }
-
-                        if ($listar_comprobantes[$j]["electronico"] == 0) {
-                            $electronico = 'FISICA';
-                            $serieFactura = $listar_comprobantes[$j]['serie'];
-                            $correlativoFactura = $listar_comprobantes[$j]['numdoc'];
-                        }
-                        $comprobanteFactura = $serieFactura . ' - ' . $correlativoFactura;
-                        $tipocomprobante = "FACTURA " . $electronico;
-                        // END OBTENIENDO CORRELATIVO FACTURA
-
-                        if ($data[$i]['idmoneda'] == '1') {
-                            $subtotalFactura_soles = $listar_comprobantes[$j]['montofacturado'] - $listar_comprobantes[$j]['montoigv'];
-                            $igvFactura_soles = $listar_comprobantes[$j]['montoigv'];
-                            $totalcomprobante_soles = $listar_comprobantes[$j]['montofacturado'];
-                            $percepcion_soles = $listar_comprobantes[$j]['montofacturado'] * $data[$i]['percepcion'];
-                            $percepcion_soles = number_format($percepcion_soles, 2);
-                        }
-                        if ($data[$i]['idmoneda'] == '2') {
-                            $subtotalFactura_dolares = $listar_comprobantes[$j]['montofacturado'] - $listar_comprobantes[$j]['montoigv'];
-                            $igvFactura_dolares = $listar_comprobantes[$j]['montoigv'];
-                            $totalcomprobante_dolares = $listar_comprobantes[$j]['montofacturado'];
-                            $percepcion_dolares = $listar_comprobantes[$j]['montofacturado'] * $data[$i]['percepcion'];
-                            $percepcion_dolares = number_format($percepcion_dolares, 2);
-                        }
-                        if ($listar_comprobantes[$j]['esAnulado'] == 0) {
-                            $estadoComprobante = 'Activo';
-                        }
-                        if ($listar_comprobantes[$j]['esAnulado'] == 1) {
-                            $estadoComprobante = 'Anulado';
-                        }
-                        $que_comprobante_se_sumara = 'FACTURA';
-                    }
-
-                    if ($listar_comprobantes[$j]['nombredoc'] == 2) { // si tiene boleta
-                        // START OBTENIENDO CORRELATIVO BOLETA
-                        if ($listar_comprobantes[$j]["electronico"] == 1) {
-                            $electronico = '';
-                            $serieBoleta = $documento->add_ceros($listar_comprobantes[$j]['serie'], 3);
-                            $serieBoleta = 'B' . $serieBoleta;
-                            $correlativoBoleta = $documento->add_ceros($listar_comprobantes[$j]['numdoc'], 8);
-                        }
-                        if ($listar_comprobantes[$j]["electronico"] == 0) {
-                            $electronico = 'FISICA';
-                            $serieBoleta = $listar_comprobantes[$j]['serie'];
-                            $correlativoBoleta = $listar_comprobantes[$j]['numdoc'];
-                        }
-                        $comprobanteBoleta = $serieBoleta . ' - ' . $correlativoBoleta;
-                        $tipocomprobante = "BOLETA " . $electronico;
-                        // END OBTENIENDO CORRELATIVO BOLETA
-
-                        if ($data[$i]['idmoneda'] == '1') {
-                            $biBoleta_soles = $listar_comprobantes[$j]['montofacturado'];
-                            $totalcomprobante_soles = $listar_comprobantes[$j]['montofacturado'];
-                        }
-                        if ($data[$i]['idmoneda'] == '2') {
-                            $biBoleta_dolares = $listar_comprobantes[$j]['montofacturado'];
-                            $totalcomprobante_dolares = $listar_comprobantes[$j]['montofacturado'];
-                        }
-
-                        if ($listar_comprobantes[$j]['esAnulado'] == 0) {
-                            $estadoComprobante = 'Activo';
-                        }
-                        if ($listar_comprobantes[$j]['esAnulado'] == 1) {
-                            $estadoComprobante = 'Anulado';
-                        }
-                        $que_comprobante_se_sumara = 'BOLETA';
-                    }
-                    //start solo sumando el comprobante que esta activo
-                    if ($que_comprobante_se_sumara == 'BOLETA' and $listar_comprobantes[$j]['esAnulado'] == 0) {
-                        if ($data[$i]['idmoneda'] == '1') {
-                            $sum_biBoleta_soles = $sum_biBoleta_soles + $biBoleta_soles;
-                            $sum_totalcomprobante_soles = $sum_totalcomprobante_soles + $totalcomprobante_soles;
-                        }
-                        if ($data[$i]['idmoneda'] == '2') {
-                            $sum_biBoleta_dolares = $sum_biBoleta_dolares + $biBoleta_dolares;
-                            $sum_totalcomprobante_dolares = $sum_totalcomprobante_dolares + $totalcomprobante_dolares;
-                        }
-                    }
-                    if ($que_comprobante_se_sumara == 'FACTURA' and $listar_comprobantes[$j]['esAnulado'] == 0) {
-                        if ($data[$i]['idmoneda'] == '1') {
-                            $sum_subtotalFactura_soles = $sum_subtotalFactura_soles + $subtotalFactura_soles;
-                            $sum_igvFactura_soles = $sum_igvFactura_soles + $igvFactura_soles;
-                            $sum_totalcomprobante_soles = $sum_totalcomprobante_soles + $totalcomprobante_soles;
-                            $sum_percepcion_soles = $sum_percepcion_soles + $percepcion_soles;
-                        }
-                        if ($data[$i]['idmoneda'] == '2') {
-                            $sum_subtotalFactura_dolares = $sum_subtotalFactura_dolares + $subtotalFactura_dolares;
-                            $sum_igvFactura_dolares = $sum_igvFactura_dolares + $igvFactura_dolares;
-                            $sum_totalcomprobante_dolares = $sum_totalcomprobante_dolares + $totalcomprobante_dolares;
-                            $sum_percepcion_dolares = $sum_percepcion_dolares + $percepcion_dolares;
-                        }
-                    }
-                    //
-                    $idordenventaTemp = $data[$i]['idordenventa'];
-
-                    //            ***************************************************************************************************
-                    // START  ORDENADO DE VARIABLES PARA IMPRIMIR FILA
-                    if ($data[$i]['ruc'] == '') {
-                        $ruc_dni = $data[$i]['dni'];
-                    } else {
-                        $ruc_dni = $data[$i]['ruc'];
-                    }
-
-                    if ($data[$i]['idmoneda'] == '1') {
-                        $moneda = 'S/';
-                    }
-                    if ($data[$i]['idmoneda'] == '2') {
-                        $moneda = 'US $';
-                    }
-
-                    if ($subtotalFactura_soles > 0) {
-                        $percepcion_soles = $moneda . ' ' . $percepcion_soles;
-                        $porcentaje_percepcion_soles = $data[$i]['percepcion'] * 100;
-                        $porcentaje_percepcion_soles = $porcentaje_percepcion_soles . '%';
-                    } else {
-                        $percepcion_soles = '';
-                        $porcentaje_percepcion_soles = '';
-                    }
-
-                    if ($subtotalFactura_dolares > 0) {
-                        $percepcion_dolares = $moneda . ' ' . $percepcion_dolares;
-                        $porcentaje_percepcion_dolares = $data[$i]['percepcion'] * 100;
-                        $porcentaje_percepcion_dolares = $porcentaje_percepcion_dolares . '%';
-                    } else {
-                        $percepcion_dolares = '';
-                        $porcentaje_percepcion_dolares = '';
-                    }
-
-                    $nro_aumentador = $nro_aumentador + 1;
-
-                    if ($data[$i]['idmoneda'] == '1') {
-                        //***********************
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), $nro_aumentador);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . ($contador), $data[$i]['fordenventa']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C' . ($contador), $data[$i]['fechadespacho']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . ($contador), $data[$i]['codigov']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $ruc_dni);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $data[$i]['razonsocial']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $comprobanteFactura);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteBoleta);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $serieGRemision . '-' . $numGRemision);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $moneda . ' ' . number_format($subtotalFactura_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($igvFactura_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($biBoleta_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($importeGuia_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($totalcomprobante_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $percepcion_soles);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $porcentaje_percepcion_soles);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $estado_ov);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estadoComprobante);
-                        $contador ++;
-                        //***********************
-                    }
-                    if ($data[$i]['idmoneda'] == '2') {
-                        //***********************
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . ($contador), $nro_aumentador);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . ($contador), $data[$i]['fordenventa']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C' . ($contador), $data[$i]['fechadespacho']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . ($contador), $data[$i]['codigov']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $ruc_dni);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $data[$i]['razonsocial']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $comprobanteFactura);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteBoleta);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $serieGRemision . '-' . $numGRemision);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $moneda . ' ' . number_format($subtotalFactura_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($igvFactura_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($biBoleta_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($importeGuia_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($totalcomprobante_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $percepcion_dolares);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $porcentaje_percepcion_dolares);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $estado_ov);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estadoComprobante);
-                        $contador ++;
-                        //***********************
-                    }
-                    // END  ORDENADO DE VARIABLES PARA IMPRIMIR FILA
-                    //            ****************************************************************************************************
-                }
-            }
-        }
-
-        $totalNoFacturadoSoles = $sum_importeGuia_soles - $sum_totalcomprobante_soles;
-        $totalNoFacturadoDolares = $sum_importeGuia_dolares - $sum_totalcomprobante_dolares;
-
-
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":R" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':H' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('P' . $contador . ':R' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), 'TOTAL SOLES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'S/ ' . number_format($sum_subtotalFactura_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'S/ ' . number_format($sum_igvFactura_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'S/ ' . number_format($sum_biBoleta_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'S/ ' . number_format($sum_importeGuia_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'S/ ' . number_format($sum_totalcomprobante_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'S/ ' . number_format($sum_percepcion_soles, 2));
-        $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":R" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":R" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':H' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('P' . $contador . ':R' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), 'TOTAL DOLARES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'US $ ' . number_format($sum_subtotalFactura_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'US $ ' . number_format($sum_igvFactura_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'US $ ' . number_format($sum_biBoleta_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'US $ ' . number_format($sum_importeGuia_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'US $ ' . number_format($sum_totalcomprobante_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'US $ ' . number_format($sum_percepcion_dolares, 2));
-        $contador++;
-        $contador++;
-        $contador++;
-        $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "I" . ($contador) . ":O" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("I" . ($contador) . ":O" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("I" . ($contador) . ":O" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . $contador . ':L' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('M' . $contador . ':O' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), '');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'TOTAL EN VENTAS FACTURADO');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'TOTAL EN VENTAS NO FACTURADO');
-        $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "I" . ($contador) . ":O" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("I" . ($contador) . ":O" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("I" . ($contador) . ":O" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . $contador . ':L' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('M' . $contador . ':O' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), 'TOTAL SOLES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'S/ ' . number_format($sum_totalcomprobante_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'S/ ' . number_format($totalNoFacturadoSoles, 2));
-        $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "I" . ($contador) . ":O" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("I" . ($contador) . ":O" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("I" . ($contador) . ":O" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('J' . $contador . ':L' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('M' . $contador . ':O' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), 'TOTAL DOLARES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'US $ ' . number_format($sum_totalcomprobante_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'US $ ' . number_format($totalNoFacturadoDolares, 2));
-
-        $objPHPExcel->getActiveSheet()->setTitle('VENTAS FACTURADO Y NO FACTURADO');
-        $objPHPExcel->setActiveSheetIndex(0);
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save($filename);
-
-        header('Content-Description: File Transfer');
-        header('Content-type: application/force-download');
-        header('Content-Disposition: attachment; filename=' . basename($filename));
-        header('Content-Transfer-Encoding: binary');
-        header("Content-type: application/octet-stream");
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($filename));
-        ob_clean();
-        flush();
-        readfile($filename);
-        unlink($filename);
-    }
-
     function reportegeneralcobranzas() {
         set_time_limit(1500);
         $baseURL = ROOT . 'descargas' . DS;
@@ -14783,6 +14123,7 @@ Class ExcelController extends ApplicationGeneral {
         set_time_limit(1800);
         $idproducto = $_REQUEST['idProducto'];
         $reporte = $this->AutoLoadModel('reporte');
+        $ordenCompra = new Ordencompra();
         $soloCompras = $reporte->reporteKardexProduccionDetallado("", "", $idproducto, 1, "", "m.idordencompra!=''");
         $tamSoloCompras = count($soloCompras);
         $fechaInicioMovimiento = '';
@@ -14977,9 +14318,16 @@ Class ExcelController extends ApplicationGeneral {
         if ($tamSoloCompras > 0) {
             $detalleOrdenCompra = $this->AutoLoadModel('detalleordencompra');
             $data['porcifventas'] = $this->configIni('Parametros', 'PorCifVentas');
-            $porcentaje = (($data['porcifventas'] + 100) / 100);
+            
+            
+            
             $cantidad = count($dataCompra);
             for ($z = $cantidad - 1; $z >= 0; $z--) {
+                $cifventacpa_ordencompra = $ordenCompra->solicitarCifventascpa($dataCompra[$z]['codigooc']);
+                $porcentaje = (($data['porcifventas'] + 100) / 100);
+                if ($cifventacpa_ordencompra > 0) {
+                    $porcentaje = (($cifventacpa_ordencompra + 100) / 100);
+                }
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':C' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('D' . $contador . ':E' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('G' . $contador . ':I' . $contador);
