@@ -22,6 +22,15 @@ $(document).ready(function(){
 			$('#tblEncabezado').hide();
 		}
 	});
+	$('#agotados2').click(function(e){
+		if ($(this).attr('checked')=="checked") {
+			
+			
+			$('#tblConsulta').html('');
+			$('#tblConsulta').hide();
+			$('#tblEncabezado').hide();
+		}
+	});
 	$('#vendidos').click(function(e){
 		if ($(this).attr('checked')=="checked") {
 			
@@ -62,6 +71,9 @@ $(document).ready(function(){
 		}else if($('#vendidos').attr('checked')=="checked"){
 			
 			consultaVendidos();
+		}else if($('#agotados2').attr('checked')=="checked"){
+			
+			consultaAgotados2();
 		}
 		
 	});
@@ -117,6 +129,18 @@ function cargarSubLinea(idLinea){
 function consultaAgotados(){
 	$.ajax({
 		url:'/producto/productosAgotados',
+		type:'post',
+		dataType:'html',
+		data:$('#frmConsulta').serialize(),
+		success:function(data){
+			
+			$('#tblConsulta').html(data);
+		}
+	});
+}
+function consultaAgotados2(){
+	$.ajax({
+		url:'/producto/productosAgotados2',
 		type:'post',
 		dataType:'html',
 		data:$('#frmConsulta').serialize(),

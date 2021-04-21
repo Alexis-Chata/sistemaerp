@@ -742,6 +742,51 @@ class ProductoController extends ApplicationGeneral
         echo $fila;
     }
 
+    function productosAgotados2()
+    {
+        $reporte = $this->AutoLoadModel('reporte');
+        $idLinea = $_REQUEST['lstLinea'];
+        $idSubLinea = $_REQUEST['lstSubLinea'];
+        $idMarca = $_REQUEST['lstMarca'];
+        $idAlmacen = $_REQUEST['lstAlmacen'];
+        $idProducto = $_REQUEST['idProducto'];
+        if (!empty($_REQUEST['fechaInicio'])) {
+            $fechaInicio = date('Y-m-d', strtotime($_REQUEST['fechaInicio']));
+        } else {
+            $fechaInicio = $_REQUEST['fechaInicio'];
+        }
+        if (!empty($_REQUEST['fechaFinal'])) {
+            $fechaFinal = date('Y-m-d', strtotime($_REQUEST['fechaFinal']));
+        } else {
+            $fechaFinal = $_REQUEST['fechaFinal'];
+        }
+        $dataBusqueda = $reporte->reporteProductoAgotados2($idLinea, $idSubLinea, $idMarca, $idAlmacen, $idProducto, $fechaInicio, $fechaFinal);
+        $cantidad = count($dataBusqueda);
+        if ($cantidad > 0) {
+            $fila = "<tr>";
+            $fila .= "<th>Codigo</th>";
+            $fila .= "<th>Nombre Producto</th>";
+            $fila .= "<th>Nombre Almacen</th>";
+            $fila .= "<th>Nombre Marca</th>";
+            $fila .= "<th>Nombre SubLinea</th>";
+            $fila .= "<th>Precio Lista</th>";
+            $fila .= "<th>Fecha Agotada</th>";
+            $fila .= "</tr>";
+            for ($i = 0; $i < $cantidad; $i++) {
+                $fila .= "<tr>";
+                $fila .= "<td>" . $dataBusqueda[$i]['codigopa'] . "</td>";
+                $fila .= "<td>" . $dataBusqueda[$i]['nompro'] . "</td>";
+                $fila .= "<td>" . $dataBusqueda[$i]['razsocalm'] . "</td>";
+                $fila .= "<td>" . $dataBusqueda[$i]['nombre'] . "</td>";
+                $fila .= "<td>" . $dataBusqueda[$i]['nomlin'] . "</td>";
+                $fila .= "<td>S/." . number_format($dataBusqueda[$i]['preciolista'], 2) . "</td>";
+                $fila .= "<td>" . date("Y-m-d", strtotime($dataBusqueda[$i]['fechaagotado'])) . "</td>";
+                $fila .= "</tr>";
+            }
+        }
+        echo $fila;
+    }
+
     function productosVendidos()
     {
         $reporte = $this->AutoLoadModel('reporte');

@@ -992,6 +992,26 @@ class Reporte extends Applicationbase {
         return $data;
     }
 
+    function reporteProductoAgotados2($idLinea, $idSubLinea, $idMarca, $idAlmacen, $idProducto, $fechaInicio, $fechaFinal) {
+        $filtro = " p.estado=1 AND (p.stockactual <= 0 OR p.stockdisponible <= 0) ";
+        $filtro .= !empty($idLinea) ? " and li.idpadre='$idLinea' " : "";
+        $filtro .= !empty($idSubLinea) ? " and p.idlinea='$idSubLinea' " : "";
+        $filtro .= !empty($idMarca) ? " and p.idmarca='$idMarca' " : "";
+        $filtro .= !empty($idAlmacen) ? " and p.idalmacen='$idAlmacen' " : "";
+        $filtro .= !empty($idProducto) ? " and p.idproducto='$idProducto' " : "";
+        $filtro .= !empty($fechaInicio) ? " and DATE(p.fechaagotado)>='$fechaInicio' " : "";
+        $filtro .= !empty($fechaFinal) ? " and DATE(p.fechaagotado)<='$fechaFinal' " : "";
+
+        $data = $this->leeRegistro(
+                "wc_producto p
+                                left join wc_almacen a on p.idalmacen=a.idalmacen
+                                left join wc_linea li on li.idlinea=p.idlinea
+                                left join wc_marca m on m.idmarca=p.idmarca
+                                ", "", $filtro, "", ""
+        );
+        return $data;
+    }
+
     function reporteVendedores($idVendedor, $fechaInicio, $fechaFinal) {
 
         $filtro .= !empty($fechaInicio) ? " ov.fordenventa>='$fechaInicio' " : "";

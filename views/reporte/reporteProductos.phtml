@@ -1,7 +1,13 @@
 <script src="/javascript/reporte-productos.js"></script>
 <h2>Reporte de Productos</h2>
 <fieldset>
-	
+	<style>
+	.label1 {
+    	display: inline-block;
+    	font-weight: normal;
+		padding: 5px 0;
+	}
+	</style>
 	<form id="frmConsulta" method="post">
 		<ul>
 			<li>
@@ -49,6 +55,9 @@
 			</li>
 			<li>
 				<input type="radio" name="condicion" value="vendidos" id="vendidos"> Mas Vendidos
+			</li>
+			<li>
+				<input type="radio" name="condicion" value="vendidos" id="agotados2"><label for="agotados2" class="label1"> &nbsp;Agotados 2</label>
 			</li>
 
 		</ul><br>
