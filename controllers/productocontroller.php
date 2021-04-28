@@ -831,17 +831,26 @@ class ProductoController extends ApplicationGeneral
         echo $fila;
     }
 
-    function valorizaxlinea()
+function valorizaxlinea()
     {
-        $idFecha = $_REQUEST['idFecha'];
-        if ($idFecha == null) {
+        $idFecha = $_REQUEST['txtFecha'];
+        $dataProducto = array();
+        if (!empty($idFecha)) {
             $producto = $this->AutoLoadModel("Producto");
-            $dataProducto = $producto->ValorizadoxLinea(date('y-m-d'));
+            $dataProducto = $producto->ValorizadoxLinea($idFecha);
+            $data['fechaseleccionada'] = date('Y/m/d', strtotime($idFecha));
+        } else {
+            $data['fechaseleccionada'] = date('Y/m/d');
+        }
+        //if ($idFecha == null) {
+          /*  $producto = $this->AutoLoadModel("Producto");
+            $dataProducto = $producto->ValorizadoxLinea(date('y-m-d'));*/
+            
             $this->AutoLoadLib(array('GoogChart', 'GoogChart.class'));
             $data['datos'] = $dataProducto;
             $data['grafico'] = new GoogChart();
             $this->view->show("/producto/valorizadoxlinea.phtml", $data);
-        } else {
+        /*} else {
             $producto = $this->AutoLoadModel("Producto");
             $dataProducto = $producto->ValorizadoxLinea($idFecha);
             $this->AutoLoadLib(array('GoogChart', 'GoogChart.class'));
@@ -890,8 +899,9 @@ class ProductoController extends ApplicationGeneral
             echo '<td>&nbsp;</td>';
             echo '<td>US $ ' . number_format($total, 2) . '</td>';
             echo '</tr>';
-        }
-    }
+        }*/
+    } 
+    
 
     function durezaproducto()
     {

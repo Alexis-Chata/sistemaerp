@@ -5,9 +5,12 @@
 <div id="contenedorImpresion">
 	<h2>VALORIZADO POR LINEA</h2>
         <label for="txtFecha">Fecha</label>
-        <input type="text" class="datepicker" size="25" placeholder="Fecha" readonly="readonly" id="txtFecha" name="txtFecha" value="<?php echo date('Y/m/d'); ?>">
-        &nbsp &nbsp &nbsp<input style="cursor: pointer" type="button" class="button" value="Consultar" id="btnConsultar">
-        <img id="idImgCargar" src="/imagenes/cargandofe.gif" width="20" high="20">
+        <form action="/producto/valorizaxlinea" method="post">
+            <input type="text" class="datepicker" size="25" placeholder="Fecha" readonly="readonly" id="txtFecha" name="txtFecha" value="<?php echo $fechaseleccionada; ?>">
+            &nbsp &nbsp &nbsp<input style="cursor: pointer" type="submit" class="button" value="Consultar" id="btnConsultar">
+        </form>
+        
+        <!-- img id="idImgCargar" src="/imagenes/cargandofe.gif" width="20" high="20" -->
         <br><br>
 <table id="idTablaValorizado">
 		<tr>
