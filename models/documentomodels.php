@@ -455,7 +455,7 @@ class Documento extends Applicationbase {
         $sql.= "and nombredoc in('1','2') and estado=1 and (esCargado=1 or esImpreso=1) and CHARACTER_LENGTH(numdoc)<6";
         if($esAnulado=='0'){
             $sql.=" and esAnulado='".$esAnulado."'";
-        }
+        }//echo $sql."<br>";
         $scriptArrayCompleto = $this->scriptArrayCompleto($sql);
         return $scriptArrayCompleto;
     }

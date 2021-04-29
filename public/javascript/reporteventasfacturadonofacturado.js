@@ -86,3 +86,39 @@ $(document).ready(function(){
         $('#frmConsulta').submit();
     });
 });
+
+var txtFechaInicio = $("#txtFechaInicio").val();
+$("#txtFechaInicio").bind("keyup keydown change",function(){
+  if ( $("#txtFechaInicio").val() != txtFechaInicio ) {
+   $('#cmbFiltro').val('0');
+   $('#txtFechaEmisionInicio').val('');
+   $('#txtFechaEmisionFinal').val('');
+  }
+});
+
+var txtFechaFinal = $("#txtFechaFinal").val();
+$("#txtFechaFinal").bind("keyup keydown change",function(){
+  if ( $("#txtFechaFinal").val() != txtFechaFinal ) {
+   $('#cmbFiltro').val('0');
+   $('#txtFechaEmisionInicio').val('');
+   $('#txtFechaEmisionFinal').val('');
+  }
+});
+
+var txtFechaEmisionInicio = $("#txtFechaEmisionInicio").val();
+$("#txtFechaEmisionInicio").bind("keyup keydown change",function(){
+  if ( $("#txtFechaEmisionInicio").val() != txtFechaEmisionInicio ) {
+   $('#cmbFiltro').val('1');
+   $('#txtFechaInicio').val('');
+   $('#txtFechaFinal').val('');
+  }
+});
+
+var txtFechaEmisionFinal = $("#txtFechaEmisionFinal").val();
+$("#txtFechaEmisionFinal").bind("keyup keydown change",function(){
+  if ( $("#txtFechaEmisionFinal").val() != txtFechaEmisionFinal ) {
+   $('#cmbFiltro').val('1');
+   $('#txtFechaInicio').val('');
+   $('#txtFechaFinal').val('');
+  }
+});

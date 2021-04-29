@@ -5787,17 +5787,21 @@ Class Excel2Controller extends ApplicationGeneral {
         readfile($filename);
         unlink($filename);
     }
+
     
     public function ventasfacturadonofacturado1() {
         set_time_limit(1000);
         $url_fechaini = $_REQUEST['txtFechaInicio'];
         $url_fechafin = $_REQUEST['txtFechaFinal'];
+        $url_txtFechaEmisionInicio = $_REQUEST['txtFechaEmisionInicio'];
+        $url_txtFechaEmisionFinal = $_REQUEST['txtFechaEmisionFinal'];
         $url_idmoneda = $_REQUEST['cmbMoneda'];
         $url_situacion=$_REQUEST['cmbSituacion'];
         $url_monto=$_REQUEST['cmbMonto'];
         $url_anulados=$_REQUEST['cmbAnulados'];
         $url_opcion = $_REQUEST['cmbFiltro']; // 0 = todo, 1 = facturado, 2 = no facturado
         $esAnulado = $_REQUEST['cmbEstado'];
+
         $filtro = "";
         if ($url_idmoneda == 1) {
             $filtro = "VENTAS SOLO EN SOLES";
@@ -5805,18 +5809,32 @@ Class Excel2Controller extends ApplicationGeneral {
         if ($url_idmoneda == 2) {
             $filtro = "VENTAS SOLO EN DOLARES";
         }
+        $listar_ventasfacturadonofacturado1 = array();
         $reporte = $this->AutoLoadModel('reporte');
-        $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini, $url_fechafin, $url_idmoneda, $url_situacion,$url_monto,$url_anulados);
-        //********************************* Proceso de trasmutacion de ovs generadas de otros dias pero facturadas segun la fecha enviada
-        $get_segregado_idordenventas1 = '';
-        for ($i = 0; $i < count($listar_ventasfacturadonofacturado1); $i++) {
-            $idordenventa = $listar_ventasfacturadonofacturado1[$i]['idordenventa'];
-            $get_segregado_idordenventas1 .= $idordenventa . ',';
+        
+        if($url_fechaini || $url_fechafin || ( $url_fechaini && $url_fechafin)){
+
+            $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini, $url_fechafin, $url_idmoneda, $url_situacion,$url_monto,$url_anulados);//var_dump($listar_ventasfacturadonofacturado1);die();
+            //********************************* Proceso de trasmutacion de ovs generadas de otros dias pero facturadas segun la fecha enviada
+            $get_segregado_idordenventas1 = '';
+            for ($i = 0; $i < count($listar_ventasfacturadonofacturado1); $i++) {
+                $idordenventa = $listar_ventasfacturadonofacturado1[$i]['idordenventa'];
+                $get_segregado_idordenventas1 .= $idordenventa . ',';
+            }
+            $get_segregado_idordenventas1 = substr($get_segregado_idordenventas1, 0, -1);
+            $esAnulado = $url_anulados;
+
         }
-        $get_segregado_idordenventas1 = substr($get_segregado_idordenventas1, 0, -1);
+
+        if($url_txtFechaEmisionInicio || $url_txtFechaEmisionFinal || ( $url_txtFechaEmisionInicio && $url_txtFechaEmisionFinal)){
+            $url_fechaini = $url_txtFechaEmisionInicio;
+            $url_fechafin = $url_txtFechaEmisionFinal;
+            $esAnulado = $url_anulados;
+        }
+        
         $listar_ovs_de_comprobantesFaltantes = array();
         if ($url_opcion != 2) {
-            $listar_ovs_de_comprobantesFaltantes = $reporte->listar_ovs_de_comprobantesFaltantes($url_fechaini, $url_fechafin, $url_idmoneda, $get_segregado_idordenventas1, $url_situacion,$url_monto,$url_anulados);
+            $listar_ovs_de_comprobantesFaltantes = $reporte->listar_ovs_de_comprobantesFaltantes($url_fechaini, $url_fechafin, $url_idmoneda, $get_segregado_idordenventas1, $url_situacion,$url_monto,$url_anulados);//var_dump($listar_ovs_de_comprobantesFaltantes);die();
         }
         $idordenventa = -1;
         $get_segregado_idordenventasFaltantes = '';
@@ -5825,7 +5843,7 @@ Class Excel2Controller extends ApplicationGeneral {
                 $idordenventa = $listar_ovs_de_comprobantesFaltantes[$i]['idordenventa'];
                 $get_segregado_idordenventasFaltantes .= $idordenventa . ',';
             }
-        }
+        }//var_dump($get_segregado_idordenventasFaltantes);
         $get_segregado_idordenventasFaltantes = substr($get_segregado_idordenventasFaltantes, 0, -1);
         if ($get_segregado_idordenventas1 != "" and $get_segregado_idordenventasFaltantes == "") {
             $get_segregado_total = $get_segregado_idordenventas1;
@@ -5836,7 +5854,7 @@ Class Excel2Controller extends ApplicationGeneral {
         if ($get_segregado_idordenventas1 != "" and $get_segregado_idordenventasFaltantes != "") {
             $get_segregado_total = $get_segregado_idordenventas1 . ',' . $get_segregado_idordenventasFaltantes;
         }
-        $data = $reporte->ventasfacturadonofacturado2($get_segregado_total);
+        $data = $reporte->ventasfacturadonofacturado2($get_segregado_total);//var_dump($data[0]);die();
         //*********************************
 
         $baseURL = ROOT . 'descargas' . DS;
@@ -5848,7 +5866,7 @@ Class Excel2Controller extends ApplicationGeneral {
         $this->AutoLoadLib('PHPExcel');
         $objPHPExcel = new PHPExcel();
 
-        $titulos = array('N', 'FECHA.OV', 'FECHA.DES', 'ORD VENTA', 'COND. INICIAL', 'RUC/DNI', 'CLIENTE', 'FACTURA', 'BOLETA', 'GUIA REMI', 'BI FACTURA', 'IGV FACT', 'BI BOLETA', 'IMPORT GUIA', 'TOTAL', 'Monto Perce', '%', 'Est Guia', 'Est comprobante');
+        $titulos = array('N', 'FECHA.OV', 'FECHA.DES', 'ORD VENTA', 'COND. INICIAL', 'RUC/DNI', 'CLIENTE', 'FECHA COMPROBANTE', 'FACTURA', 'BOLETA', 'GUIA REMI', 'BI FACTURA', 'IGV FACT', 'BI BOLETA', 'IMPORT GUIA', 'TOTAL', 'Monto Perce', '%', 'Est Guia', 'Est comprobante');
         $sharedStyle1 = new PHPExcel_Style();
         $sharedStyle1->applyFromArray(array(
             'fill' => array(
@@ -5912,6 +5930,7 @@ Class Excel2Controller extends ApplicationGeneral {
         $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('S')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('T')->setAutoSize(true);
 
         $contador = 0;
 
@@ -5961,7 +5980,8 @@ Class Excel2Controller extends ApplicationGeneral {
                 ->setCellValue('P' . ($contador), $titulos[15])
                 ->setCellValue('Q' . ($contador), $titulos[16])
                 ->setCellValue('R' . ($contador), $titulos[17])
-                ->setCellValue('S' . ($contador), $titulos[18]);
+                ->setCellValue('S' . ($contador), $titulos[18])
+                ->setCellValue('T' . ($contador), $titulos[19]);
 
 
         $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "A" . ($contador) . ":S" . ($contador));
@@ -6036,7 +6056,7 @@ Class Excel2Controller extends ApplicationGeneral {
             $estado_ov = '';
             $estadoComprobante = '';
             $documento = new Documento();
-            $listar_comprobantes = $documento->listar_comprobantes($data[$i]['idordenventa'], $esAnulado);
+            $listar_comprobantes = $documento->listar_comprobantes($data[$i]['idordenventa'], $esAnulado);//var_dump($listar_comprobantes);die();
 
 
             $tiene_comprobantes = count($listar_comprobantes);
@@ -6132,18 +6152,19 @@ Class Excel2Controller extends ApplicationGeneral {
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteFactura);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteBoleta);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $serieGRemision . '-' . $numGRemision);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($subtotalFactura_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($igvFactura_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($biBoleta_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($importeGuia_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($totalcomprobante_soles, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $percepcion_soles);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $porcentaje_percepcion_soles);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estado_ov);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estadoComprobante);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $data[$i]['fechadoc']);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($subtotalFactura_soles, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($igvFactura_soles, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($biBoleta_soles, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($importeGuia_soles, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $moneda . ' ' . number_format($totalcomprobante_soles, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $percepcion_soles);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $porcentaje_percepcion_soles);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estado_ov);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('T' . ($contador), $estadoComprobante);
                     $contador ++;
                     //***********************
                 }
@@ -6156,18 +6177,19 @@ Class Excel2Controller extends ApplicationGeneral {
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteFactura);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteBoleta);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $serieGRemision . '-' . $numGRemision);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($subtotalFactura_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($igvFactura_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($biBoleta_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($importeGuia_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($totalcomprobante_dolares, 2));
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $percepcion_dolares);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $porcentaje_percepcion_dolares);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estado_ov);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estadoComprobante);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $data[$i]['fechadoc']);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($subtotalFactura_dolares, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($igvFactura_dolares, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($biBoleta_dolares, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($importeGuia_dolares, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $moneda . ' ' . number_format($totalcomprobante_dolares, 2));
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $percepcion_dolares);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $porcentaje_percepcion_dolares);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estado_ov);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('T' . ($contador), $estadoComprobante);
                     $contador ++;
                     //***********************
                 }
@@ -6386,18 +6408,19 @@ Class Excel2Controller extends ApplicationGeneral {
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteFactura);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteBoleta);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $serieGRemision . '-' . $numGRemision);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($subtotalFactura_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($igvFactura_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($biBoleta_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($importeGuia_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($totalcomprobante_soles, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $percepcion_soles);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $porcentaje_percepcion_soles);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estado_ov);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estadoComprobante);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $listar_comprobantes[$j]['fechadoc']);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($subtotalFactura_soles, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($igvFactura_soles, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($biBoleta_soles, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($importeGuia_soles, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $moneda . ' ' . number_format($totalcomprobante_soles, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $percepcion_soles);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $porcentaje_percepcion_soles);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estado_ov);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('T' . ($contador), $estadoComprobante);
                         $contador ++;
                         //***********************
                     }
@@ -6410,18 +6433,19 @@ Class Excel2Controller extends ApplicationGeneral {
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $comprobanteFactura);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteBoleta);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $serieGRemision . '-' . $numGRemision);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $moneda . ' ' . number_format($subtotalFactura_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($igvFactura_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($biBoleta_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($importeGuia_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($totalcomprobante_dolares, 2));
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $percepcion_dolares);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $porcentaje_percepcion_dolares);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $estado_ov);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estadoComprobante);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $listar_comprobantes[$j]['fechadoc']);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), $moneda . ' ' . number_format($subtotalFactura_dolares, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), $moneda . ' ' . number_format($igvFactura_dolares, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), $moneda . ' ' . number_format($biBoleta_dolares, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), $moneda . ' ' . number_format($importeGuia_dolares, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), $moneda . ' ' . number_format($totalcomprobante_dolares, 2));
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), $percepcion_dolares);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('R' . ($contador), $porcentaje_percepcion_dolares);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('S' . ($contador), $estado_ov);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('T' . ($contador), $estadoComprobante);
                         $contador ++;
                         //***********************
                     }
@@ -6439,57 +6463,57 @@ Class Excel2Controller extends ApplicationGeneral {
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":S" . ($contador))->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":S" . ($contador))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':I' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('Q' . $contador . ':S' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'TOTAL SOLES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'S/ ' . number_format($sum_subtotalFactura_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'S/ ' . number_format($sum_igvFactura_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'S/ ' . number_format($sum_biBoleta_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'S/ ' . number_format($sum_importeGuia_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'S/ ' . number_format($sum_totalcomprobante_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), 'S/ ' . number_format($sum_percepcion_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('R' . $contador . ':S' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'TOTAL SOLES');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'S/ ' . number_format($sum_subtotalFactura_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'S/ ' . number_format($sum_igvFactura_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'S/ ' . number_format($sum_biBoleta_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'S/ ' . number_format($sum_importeGuia_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), 'S/ ' . number_format($sum_totalcomprobante_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), 'S/ ' . number_format($sum_percepcion_soles, 2));
         $contador++;
         $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":S" . ($contador));
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":S" . ($contador))->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":S" . ($contador))->getFill()->setRotation(1);
         $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':I' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('Q' . $contador . ':S' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'TOTAL DOLARES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'US $ ' . number_format($sum_subtotalFactura_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'US $ ' . number_format($sum_igvFactura_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'US $ ' . number_format($sum_biBoleta_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'US $ ' . number_format($sum_importeGuia_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'US $ ' . number_format($sum_totalcomprobante_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), 'US $ ' . number_format($sum_percepcion_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('R' . $contador . ':S' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'TOTAL DOLARES');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'US $ ' . number_format($sum_subtotalFactura_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . ($contador), 'US $ ' . number_format($sum_igvFactura_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'US $ ' . number_format($sum_biBoleta_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'US $ ' . number_format($sum_importeGuia_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P' . ($contador), 'US $ ' . number_format($sum_totalcomprobante_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q' . ($contador), 'US $ ' . number_format($sum_percepcion_dolares, 2));
         $contador++;
         $contador++;
         $contador++;
         $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "J" . ($contador) . ":P" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("J" . ($contador) . ":P" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("J" . ($contador) . ":P" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . $contador . ':M' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('N' . $contador . ':P' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), '');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'TOTAL EN VENTAS FACTURADO');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'TOTAL EN VENTAS NO FACTURADO');
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "K" . ($contador) . ":P" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("K" . ($contador) . ":P" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("K" . ($contador) . ":P" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('L' . $contador . ':M' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('O' . $contador . ':P' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), '');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'TOTAL EN VENTAS FACTURADO');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'TOTAL EN VENTAS NO FACTURADO');
         $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "J" . ($contador) . ":P" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("J" . ($contador) . ":P" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("J" . ($contador) . ":P" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . $contador . ':M' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('N' . $contador . ':P' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'TOTAL SOLES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'S/ ' . number_format($sum_totalcomprobante_soles, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'S/ ' . number_format($totalNoFacturadoSoles, 2));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "K" . ($contador) . ":P" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("K" . ($contador) . ":P" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("K" . ($contador) . ":P" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('L' . $contador . ':M' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('O' . $contador . ':P' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'TOTAL SOLES');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'S/ ' . number_format($sum_totalcomprobante_soles, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'S/ ' . number_format($totalNoFacturadoSoles, 2));
         $contador++;
-        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "J" . ($contador) . ":P" . ($contador));
-        $objPHPExcel->getActiveSheet()->getStyle("J" . ($contador) . ":P" . ($contador))->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle("J" . ($contador) . ":P" . ($contador))->getFill()->setRotation(1);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('K' . $contador . ':M' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('N' . $contador . ':P' . $contador);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), 'TOTAL DOLARES');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'US $ ' . number_format($sum_totalcomprobante_dolares, 2));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . ($contador), 'US $ ' . number_format($totalNoFacturadoDolares, 2));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "K" . ($contador) . ":P" . ($contador));
+        $objPHPExcel->getActiveSheet()->getStyle("K" . ($contador) . ":P" . ($contador))->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle("K" . ($contador) . ":P" . ($contador))->getFill()->setRotation(1);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('L' . $contador . ':M' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->mergeCells('O' . $contador . ':P' . $contador);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), 'TOTAL DOLARES');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . ($contador), 'US $ ' . number_format($sum_totalcomprobante_dolares, 2));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O' . ($contador), 'US $ ' . number_format($totalNoFacturadoDolares, 2));
 
         $objPHPExcel->getActiveSheet()->setTitle('VENTAS FACTURADO Y NO FACTURADO');
         $objPHPExcel->setActiveSheetIndex(0);

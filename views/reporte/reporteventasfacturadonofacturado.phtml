@@ -1,4 +1,4 @@
-<script src="/javascript/reporteventasfacturadonofacturado.js"></script>
+<script src="/javascript/reporteventasfacturadonofacturado.js" defer></script>
 <style type="text/css">
     .ocultar_etiqueta{
         display:none !important;
@@ -15,8 +15,16 @@
                 <li>
                     <label for="txtFechaFinal">Fecha Fin:</label>
                     <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
+                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li>
+                    <label for="txtFechaEmisionInicio">Fecha emision comprobante Inicio:</label>
+                    <input type="text" style="background: #9e113b52;" class="datepicker" size="25" placeholder="Fecha Inicio" readonly="readonly" id="txtFechaEmisionInicio" name="txtFechaEmisionInicio">
                 </li>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li>
+                    <label for="txtFechaEmisionFinal">Fecha emision comprobante Fin:</label>
+                    <input type="text" style="background: #9e113b52;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaEmisionFinal" name="txtFechaEmisionFinal">
+                </li>
+                
                 <select id="cmbEstado" name="cmbEstado" class="ocultar_etiqueta">
                     <option value="todos">GUIAS + COMPROBANTES ACTIVOS Y ANULADOS</option>
                     <option value="0">GUIAS + COMPROBANTES ACTIVOS</option>

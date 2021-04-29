@@ -3626,7 +3626,7 @@ function ventasfacturadonofacturado1($fechaini, $fechafin, $idmoneda, $situacion
                     ov.vbcreditos=1 and
                     ov.faprobado!='' and
                     ov.idordenventa in (" . $idordenventas . ")
-                    order by ov.fordenventa asc;";
+                    order by ov.fordenventa asc;";//echo $sql."<br>";
             $scriptArrayCompleto = $this->scriptArrayCompleto($sql);
         }
 
