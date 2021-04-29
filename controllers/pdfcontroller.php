@@ -6772,6 +6772,8 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         set_time_limit(1000);
         $url_fechaini=$_REQUEST['txtFechaInicio'];
         $url_fechafin=$_REQUEST['txtFechaFinal'];
+        $url_txtFechaEmisionInicio = $_REQUEST['txtFechaEmisionInicio'];
+        $url_txtFechaEmisionFinal = $_REQUEST['txtFechaEmisionFinal'];
         $url_idmoneda=$_REQUEST['cmbMoneda'];
         $url_situacion=$_REQUEST['cmbSituacion'];
         $url_monto=$_REQUEST['cmbMonto'];
@@ -6782,15 +6784,27 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         if($url_idmoneda==1){ $filtro="SOLO EN SOLES"; }
         if($url_idmoneda==2){ $filtro="SOLO EN DOLARES"; }
 
+        $listar_ventasfacturadonofacturado1 = array();
         $reporte = $this->AutoLoadModel('reporte');
-        $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini,$url_fechafin,$url_idmoneda, $url_situacion,$url_monto,$url_anulados);
-        //********************************* Proceso de trasmutacion de ovs generadas de otros dias pero facturadas segun la fecha enviada
-        $get_segregado_idordenventas1='';
-        for ($i = 0; $i < count($listar_ventasfacturadonofacturado1); $i++) {
-            $idordenventa = $listar_ventasfacturadonofacturado1[$i]['idordenventa'];
-            $get_segregado_idordenventas1.=$idordenventa.',';
+
+        if($url_fechaini || $url_fechafin || ( $url_fechaini && $url_fechafin)){
+
+            $listar_ventasfacturadonofacturado1 = $reporte->ventasfacturadonofacturado1($url_fechaini,$url_fechafin,$url_idmoneda, $url_situacion,$url_monto,$url_anulados);
+            //********************************* Proceso de trasmutacion de ovs generadas de otros dias pero facturadas segun la fecha enviada
+            $get_segregado_idordenventas1='';
+            for ($i = 0; $i < count($listar_ventasfacturadonofacturado1); $i++) {
+                $idordenventa = $listar_ventasfacturadonofacturado1[$i]['idordenventa'];
+                $get_segregado_idordenventas1.=$idordenventa.',';
+            }
+            $get_segregado_idordenventas1=substr($get_segregado_idordenventas1,0,-1);
         }
-        $get_segregado_idordenventas1=substr($get_segregado_idordenventas1,0,-1);
+
+        if($url_txtFechaEmisionInicio || $url_txtFechaEmisionFinal || ( $url_txtFechaEmisionInicio && $url_txtFechaEmisionFinal)){
+            $url_fechaini = $url_txtFechaEmisionInicio;
+            $url_fechafin = $url_txtFechaEmisionFinal;
+        }
+        
+        $esAnulado = $url_anulados;
         $listar_ovs_de_comprobantesFaltantes = array();
         if ($url_opcion != 2) {
             $listar_ovs_de_comprobantesFaltantes = $reporte->listar_ovs_de_comprobantesFaltantes($url_fechaini,$url_fechafin,$url_idmoneda,$get_segregado_idordenventas1, $url_situacion,$url_monto,$url_anulados);
@@ -6816,10 +6830,10 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         $data = $reporte->ventasfacturadonofacturado2($get_segregado_total);
         //*********************************
         $pdf = new PDF_MC_Table("L", "mm", "A4");
-        $titulos = array('N','FECHA.OV', 'FECHA.DES', 'ORD VENTA', 'RUC/DNI', 'CLIENTE', 'FACTURA', 'BOLETA', 'GUIA REMI', 'BI FACTURA', 'IGV FACT', 'BI BOLETA', 'IMPORT GUIA', 'TOTAL', 'Monto Perce','%','Est Guia','Est comprobante');
+        $titulos = array('N','FECHA.OV', 'FECHA.DES', 'ORD VENTA', 'RUC/DNI', 'CLIENTE', 'FECHA COMPROBANTE', 'FACTURA', 'BOLETA', 'GUIA REMI', 'BI FACTURA', 'IGV FACT', 'BI BOLETA', 'IMPORT GUIA', 'TOTAL', 'Monto Perce','%','Est Guia','Est comprobante');
         $pdf->SetFont('Helvetica', 'B', 5.4);
-        $ancho = array(8,13, 15, 15, 14, 38, 17, 17, 14,16,14,16,17,17,15,7,12,20);
-        $orientacion = array('C', 'C', 'C', '', 'R', 'L', 'C', 'C', 'L', 'L','','','','','R','R','R','R');
+        $ancho = array(6,13, 15, 15, 14, 35, 15, 17, 17, 12,16,14,16,17,14,15,5,11,16);
+        $orientacion = array('C', 'C', 'C', 'C', '', 'R', 'L', 'C', 'C', 'L', 'L','','','','','R','R','R','R');
 //        $pdf->AddPage();
 
         $pdf->SetWidths($ancho);
@@ -6983,7 +6997,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
                         if($data[$i]['idmoneda']=='1'){
                             $fila = array($nro_aumentador,$data[$i]['fordenventa'],$data[$i]['fechadespacho'],$data[$i]['codigov'],
                             $ruc_dni,html_entity_decode(substr($data[$i]['razonsocial'], 0, 27), ENT_QUOTES),
-                            $comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
+                            $fechaComprobante,$comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
                             $moneda.' '.number_format($subtotalFactura_soles, 2),
                             $moneda.' '.number_format($igvFactura_soles, 2),
                             $moneda.' '.number_format($biBoleta_soles, 2),
@@ -6996,7 +7010,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
                         if($data[$i]['idmoneda']=='2'){
                             $fila = array($nro_aumentador,$data[$i]['fordenventa'],$data[$i]['fechadespacho'],$data[$i]['codigov'],
                             $ruc_dni,html_entity_decode(substr($data[$i]['razonsocial'], 0, 27), ENT_QUOTES, 'UTF-8'),
-                            $comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
+                            $fechaComprobante,$comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
                             $moneda.' '.number_format($subtotalFactura_dolares, 2),
                             $moneda.' '.number_format($igvFactura_dolares, 2),
                             $moneda.' '.number_format($biBoleta_dolares, 2),
@@ -7084,6 +7098,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
                                    $correlativoFactura=$listar_comprobantes[$j]['numdoc'];
                                 }
                                $comprobanteFactura=$serieFactura.' - '.$correlativoFactura;
+                               $fechaComprobante=$listar_comprobantes[$j]['fechadoc'];
                                $tipocomprobante="FACTURA ".$electronico;
                             // END OBTENIENDO CORRELATIVO FACTURA
 
@@ -7203,7 +7218,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
                         if($data[$i]['idmoneda']=='1'){
                             $fila = array($nro_aumentador,$data[$i]['fordenventa'],$data[$i]['fechadespacho'],$data[$i]['codigov'],
                             $ruc_dni,html_entity_decode(substr($data[$i]['razonsocial'], 0, 27), ENT_QUOTES, 'UTF-8'),
-                            $comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
+                            $fechaComprobante,$comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
                             $moneda.' '.number_format($subtotalFactura_soles, 2),
                             $moneda.' '.number_format($igvFactura_soles, 2),
                             $moneda.' '.number_format($biBoleta_soles, 2),
@@ -7216,7 +7231,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
                         if($data[$i]['idmoneda']=='2'){
                             $fila = array($nro_aumentador,$data[$i]['fordenventa'],$data[$i]['fechadespacho'],$data[$i]['codigov'],
                             $ruc_dni,html_entity_decode(substr($data[$i]['razonsocial'], 0, 27), ENT_QUOTES, 'UTF-8'),
-                            $comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
+                            $fechaComprobante,$comprobanteFactura,$comprobanteBoleta,$serieGRemision.'-'.$numGRemision,
                             $moneda.' '.number_format($subtotalFactura_dolares, 2),
                             $moneda.' '.number_format($igvFactura_dolares, 2),
                             $moneda.' '.number_format($biBoleta_dolares, 2),
@@ -8138,7 +8153,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
                         html_entity_decode(substr($data[$p][$i]['razonsocial'], 0, 27), ENT_QUOTES),$ruc_dni,
                         $moneda.' '.number_format($importeGuia_soles, 2),
                         $estado_ov,
-                        $serieGRemision.'-'.$numGRemision,$comprobanteFactura,
+                        $serieGRemision.'-'.$numGRemision,$listar_comprobantes[$j]['fechadoc'],$comprobanteFactura,
                         $moneda.' '.number_format($subtotalFactura_soles, 2),
                         $moneda.' '.number_format($igvFactura_soles, 2),
                         $percepcion_soles,

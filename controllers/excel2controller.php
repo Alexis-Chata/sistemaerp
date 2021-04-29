@@ -6152,7 +6152,7 @@ Class Excel2Controller extends ApplicationGeneral {
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $data[$i]['fechadoc']);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $fechaComprobante);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
@@ -6177,7 +6177,7 @@ Class Excel2Controller extends ApplicationGeneral {
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $data[$i]['fechadoc']);
+                    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $fechaComprobante);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
                     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
@@ -6276,6 +6276,7 @@ Class Excel2Controller extends ApplicationGeneral {
                             $correlativoFactura = $listar_comprobantes[$j]['numdoc'];
                         }
                         $comprobanteFactura = $serieFactura . ' - ' . $correlativoFactura;
+                        $fechaComprobante = $listar_comprobantes[$j]['fechadoc'];
                         $tipocomprobante = "FACTURA " . $electronico;
                         // END OBTENIENDO CORRELATIVO FACTURA
 
@@ -6408,7 +6409,7 @@ Class Excel2Controller extends ApplicationGeneral {
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $listar_comprobantes[$j]['fechadoc']);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $fechaComprobante);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
@@ -6433,7 +6434,7 @@ Class Excel2Controller extends ApplicationGeneral {
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . ($contador), $temporal_condicion_venta);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . ($contador), $ruc_dni);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . ($contador), $data[$i]['razonsocial']);
-                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $listar_comprobantes[$j]['fechadoc']);
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . ($contador), $fechaComprobante);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . ($contador), $comprobanteFactura);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J' . ($contador), $comprobanteBoleta);
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . ($contador), $serieGRemision . '-' . $numGRemision);
