@@ -6831,12 +6831,13 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         //*********************************
         $pdf = new PDF_MC_Table("L", "mm", "A4");
         $titulos = array('N','FECHA.OV', 'FECHA.DES', 'ORD VENTA', 'RUC/DNI', 'CLIENTE', 'FECHA COMPROBANTE', 'FACTURA', 'BOLETA', 'GUIA REMI', 'BI FACTURA', 'IGV FACT', 'BI BOLETA', 'IMPORT GUIA', 'TOTAL', 'Monto Perce','%','Est Guia','Est comprobante');
-        $pdf->SetFont('Helvetica', 'B', 5.4);
-        $ancho = array(6,13, 15, 15, 14, 35, 15, 17, 17, 12,16,14,16,17,14,15,5,11,16);
+        $pdf->SetFont('Helvetica', 'B', 5.3);
+        $ancho = array(6,13, 15, 15, 14, 35, 19, 17, 17, 12,15,14,14,17,14,15,5,11,16);
         $orientacion = array('C', 'C', 'C', 'C', '', 'R', 'L', 'C', 'C', 'L', 'L','','','','','R','R','R','R');
 //        $pdf->AddPage();
 
         $pdf->SetWidths($ancho);
+        $pdf->SetMargins( 10.00125*0.625 , 10.00125*0.625 );
         $pdf->_titulos = $titulos;
         if ($url_opcion == 0) {
             $pdf->_titulo = "REPORTE DE VENTAS DE LO FACTURADO Y NO FACTURADO DEL ".$url_fechaini." AL ".$url_fechafin." ".$filtro;
