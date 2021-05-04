@@ -1,0 +1,11 @@
+<h2>Actualizar Precio Lista Masivo</h2><br>
+<form action="/producto/actualizarpreciolistaporcodigo/" method="post" enctype="multipart/form-data">
+    <div id="busqueda">
+        <input type="file" name="txtArchivos" accept=".txt" required=""/>
+        <input type="submit" value="Cargar"/>
+    </div>
+    <br>
+    <div>
+        <?php echo $mensaje; ?>
+    </div>
+</form>

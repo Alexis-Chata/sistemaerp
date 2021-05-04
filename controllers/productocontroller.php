@@ -995,4 +995,65 @@ function valorizaxlinea()
             echo json_encode($objeto);
         }
     }
+    
+    public function actualizarpreciolistaporcodigo() {
+        if (!empty($_FILES['txtArchivos']['name'])) {
+            $mensaje = "";
+            $productmodel = new Producto();
+            $nombre_archivo = $_FILES['txtArchivos']['name'];
+            //echo '<br>' . $nombre_archivo . '<br><br>';
+            $nuevoarchivo = $_SERVER["DOCUMENT_ROOT"] . DS . "public" . DS . "/descargas/" . DS . "cargamasivapreciolista.txt";
+            if (move_uploaded_file($_FILES['txtArchivos']['tmp_name'], $nuevoarchivo)) {
+                $mensaje .= "<table>";
+                $mensaje .= "<tr>";
+                $mensaje .= "<th colspan='5'><label> El archivo <i>" . $nombre_archivo . "</i> ha sido cargado correctamente.</label></th>";
+                $mensaje .= "</tr>";
+                $mensaje .= "<tr>";
+                $file = fopen($nuevoarchivo, "r");
+                $row = 0;
+                $productos_ok = 0;
+                $productos_error = 0;
+                while (!feof($file)) {
+                    $linea = explode("*-*", fgets($file));
+                    if (!empty($linea[0]) && !empty($linea[1])) {
+                        if ($row > 0 && $row%5==0) {
+                            $mensaje .= "</tr><tr>";
+                        }
+                        $row++;
+                        $mensaje .= "<td>";
+                        $mensaje .= '<b> - ' . $linea[0] . "</b>: <br>";
+                        $dataProducto = $productmodel->buscaxcodigo($linea[0]);
+                        if (count($dataProducto) > 0) {
+                            $mensaje .= ' <b> - Precio Lista: </b>' . $dataProducto[0]['preciolista'] . "<br>";
+                            $mensaje .= " <b> - Nuevo Precio Lista: </b>" . $linea[1];
+                            $dataAct['valortipocambio'] = 3.65;
+                            $dataAct['preciolista'] = $linea[1];
+                            $dataAct['preciolistadolares'] = $linea[1] / 3.65;
+                            $dataAct['preciotope'] = $linea[1] - ($linea[1] * 0.3);
+                            $dataAct['preciotopedolares'] = $dataAct['preciotope'] / 3.65;
+                            $productmodel->actualizaProducto($dataAct, $dataProducto[0]['idproducto']);
+                            unset($dataAct);
+                            $productos_ok++;
+                        } else {
+                            $mensaje .= " <span style='color: red;'>No se encontro el producto.</span>";
+                            $productos_error++;
+                        }
+                        $mensaje .= "<br><br>";
+                        $mensaje .= "</td>";
+                    }
+                }
+                $mensaje .= "</tr>";                
+                $mensaje .= "</table><hr>";
+                $mensaje .= "<label>Productos actualizados correctamente: " . $productos_ok . "<br>";
+                $mensaje .= "<label>Productos no encontrados: " . $productos_error . "<br>";
+                $mensaje .= "<label>Total de productos analizados: " . ($productos_ok+$productos_error) . "</label><hr>";
+                fclose($file);
+            } else {
+                $mensaje = "<label>Error al cargar el archivo</label>";
+            }
+            $data['mensaje'] = $mensaje;
+        }
+        $this->view->show("/producto/actualizarPrecioListaPorCodigo.phtml", $data);
+    }
+
 }
