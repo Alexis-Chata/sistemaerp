@@ -141,11 +141,13 @@ Class facturacioncontroller extends ApplicationGeneral {
         if (isset($_REQUEST['Percepcion'])) {
             $dataPercepcion = $_REQUEST['Percepcion'];
             $idDetalleOrdenCobro = $_REQUEST['txtIdDetalleOrdenCobro'];
+            //echo $idDetalleOrdenCobro!='sin cargar gasto';die();
             $dataPercepcion['nombredoc'] = 10;
             $dataPercepcion['electronico'] = 1;
             $redondeo = $this->configIni('Globals', 'Redondeo');
             $documento = new Documento();
             $lstFacturas = $documento->getDetallePercepcion($dataPercepcion['idOrdenVenta'], " and d.esCargado=1 and d.idRelacionado=0 and d.esAnulado=0");
+            //die();
             $tamano = count($lstFacturas);
             $montoPercepcion = 0;
             for ($i = 0; $i < $tamano; $i++) {/*
@@ -163,51 +165,57 @@ Class facturacioncontroller extends ApplicationGeneral {
             if ($idPercepcion > 0) {
                 $ordenCobro = $this->AutoLoadModel('ordencobro');
                 $detalleOrdenCobro = $this->AutoLoadModel('detalleordencobro');
-                if ($idDetalleOrdenCobro <= 0) {
-                    $dataOC['importeordencobro'] = round($montoPercepcion, $redondeo);
-                    $dataOC['saldoordencobro'] = round($montoPercepcion, $redondeo);
-                    $dataOC['escontado'] = 1;
-                    $dataOC['idOrdenVenta'] = $dataPercepcion['idOrdenVenta'];
-                    $dataOC['femision'] = date('Y-m-d');
-                    $exitoOC = $ordenCobro->grabaOrdencobro($dataOC);
-                    if ($exitoOC) {
-                        $dataDOC['importedoc'] = round($montoPercepcion, $redondeo);
-                        $dataDOC['saldodoc'] = round($montoPercepcion, $redondeo);
-                        $dataDOC['formacobro'] = 1;
-                        $dataDOC['tipogasto'] = 6;
-                        $dataDOC['idordencobro'] = $exitoOC;
-                        $dataDOC['fechagiro'] = date('Y-m-d');
-                        $dataDOC['fvencimiento'] = date('Y-m-d');
-                        $idDetalleOrdenCobro = $detalleOrdenCobro->grabaDetalleOrdenVentaCobro($dataDOC);
-                        $idOrdenVenta = $dataPercepcion['idOrdenVenta'];
-                    }
-                } else {
-                    $dataBusquedaDOC = $detalleOrdenCobro->buscaDetalleOrdencobro($idDetalleOrdenCobro);
-                    if (!empty($dataBusquedaDOC)) {
-                        $numdocAc = $dataBusquedaDOC[0]['numeroletra'];
-                        $idOrdenCobro = $dataBusquedaDOC[0]['idordencobro'];
-                        $importeDoc = $dataBusquedaDOC[0]['importedoc'];
-                        $saldoDoc = $dataBusquedaDOC[0]['saldodoc'];
-                        $dataDOC['importedoc'] = round($importeDoc + $montoPercepcion, $redondeo);
-                        $dataDOC['saldoDoc'] = round($saldoDoc + $montoPercepcion, $redondeo);
-                        $dataDOC['tipogasto'] = 6;
-                        $exitoDOC = $detalleOrdenCobro->actualizaDetalleOrdencobro($dataDOC, $idDetalleOrdenCobro);
-                        if ($exitoDOC) {
-                            if ($numdocAc != "") {
-                                $dataDoc2['montofacturado'] = $dataDOC['importedoc'];
-                                $exitoD = $documento->actualizarDocumento($dataDoc2, "nombredoc=7 and numdoc='$numdocAc'");
-                            }
-                            $dataBusquedaOC = $ordenCobro->buscaOrdencobro($idOrdenCobro);
-                            if (!empty($dataBusquedaOC)) {
-                                $idOrdenVenta = $dataBusquedaOC[0]['idordenventa'];
-                                $importeOrdenCobro = $dataBusquedaOC[0]['importeordencobro'];
-                                $saldoOrdenCobro = $dataBusquedaOC[0]['saldoordencobro'];
-                                $dataOC['importeordencobro'] = round($importeOrdenCobro + $montoPercepcion, $redondeo);
-                                $dataOC['saldoordencobro'] = round($saldoOrdenCobro + $montoPercepcion, $redondeo);
-                                $exitoOC = $ordenCobro->actualizaOrdencobro($dataOC, $idOrdenCobro);
+
+                if($idDetalleOrdenCobro !== 'sin cargar gasto'){
+                    if ($idDetalleOrdenCobro <= 0) {
+                        $dataOC['importeordencobro'] = round($montoPercepcion, $redondeo);
+                        $dataOC['saldoordencobro'] = round($montoPercepcion, $redondeo);
+                        $dataOC['escontado'] = 1;
+                        $dataOC['idOrdenVenta'] = $dataPercepcion['idOrdenVenta'];
+                        $dataOC['femision'] = date('Y-m-d');
+                        $exitoOC = $ordenCobro->grabaOrdencobro($dataOC);
+                        if ($exitoOC) {
+                            $dataDOC['importedoc'] = round($montoPercepcion, $redondeo);
+                            $dataDOC['saldodoc'] = round($montoPercepcion, $redondeo);
+                            $dataDOC['formacobro'] = 1;
+                            $dataDOC['tipogasto'] = 6;
+                            $dataDOC['idordencobro'] = $exitoOC;
+                            $dataDOC['fechagiro'] = date('Y-m-d');
+                            $dataDOC['fvencimiento'] = date('Y-m-d');
+                            $idDetalleOrdenCobro = $detalleOrdenCobro->grabaDetalleOrdenVentaCobro($dataDOC);
+                            $idOrdenVenta = $dataPercepcion['idOrdenVenta'];
+                        }
+                    } else if ($idDetalleOrdenCobro > 0){
+                        $dataBusquedaDOC = $detalleOrdenCobro->buscaDetalleOrdencobro($idDetalleOrdenCobro);
+                        if (!empty($dataBusquedaDOC)) {
+                            $numdocAc = $dataBusquedaDOC[0]['numeroletra'];
+                            $idOrdenCobro = $dataBusquedaDOC[0]['idordencobro'];
+                            $importeDoc = $dataBusquedaDOC[0]['importedoc'];
+                            $saldoDoc = $dataBusquedaDOC[0]['saldodoc'];
+                            $dataDOC['importedoc'] = round($importeDoc + $montoPercepcion, $redondeo);
+                            $dataDOC['saldoDoc'] = round($saldoDoc + $montoPercepcion, $redondeo);
+                            $dataDOC['tipogasto'] = 6;
+                            $exitoDOC = $detalleOrdenCobro->actualizaDetalleOrdencobro($dataDOC, $idDetalleOrdenCobro);
+                            if ($exitoDOC) {
+                                if ($numdocAc != "") {
+                                    $dataDoc2['montofacturado'] = $dataDOC['importedoc'];
+                                    $exitoD = $documento->actualizarDocumento($dataDoc2, "nombredoc=7 and numdoc='$numdocAc'");
+                                }
+                                $dataBusquedaOC = $ordenCobro->buscaOrdencobro($idOrdenCobro);
+                                if (!empty($dataBusquedaOC)) {
+                                    $idOrdenVenta = $dataBusquedaOC[0]['idordenventa'];
+                                    $importeOrdenCobro = $dataBusquedaOC[0]['importeordencobro'];
+                                    $saldoOrdenCobro = $dataBusquedaOC[0]['saldoordencobro'];
+                                    $dataOC['importeordencobro'] = round($importeOrdenCobro + $montoPercepcion, $redondeo);
+                                    $dataOC['saldoordencobro'] = round($saldoOrdenCobro + $montoPercepcion, $redondeo);
+                                    $exitoOC = $ordenCobro->actualizaOrdencobro($dataOC, $idOrdenCobro);
+                                }
                             }
                         }
                     }
+                }else if($idDetalleOrdenCobro === 'sin cargar gasto'){
+                    $idDetalleOrdenCobro = 1;
+                    $exitoOC = 1;
                 }
                 if ($exitoOC > 0 && $idDetalleOrdenCobro > 0) {
                     $ordenGasto = $this->AutoLoadModel('ordengasto');

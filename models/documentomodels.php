@@ -398,7 +398,7 @@ class Documento extends Applicationbase {
                 left join wc_documento d2 on d.idRelacionado = d2.iddocumento
                 inner join wc_moneda m on m.idmoneda = ov.idmoneda
                 where ov.estado = 1 and d.nombredoc=1 and d.estado = 1 and ov.idOrdenVenta=" . $idOrdenVenta . $filtro;
-        $data = $this->EjecutaConsulta($sql);
+        $data = $this->EjecutaConsulta($sql);//echo $sql;
         return $data;
     }
     
