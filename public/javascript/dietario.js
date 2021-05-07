@@ -904,7 +904,7 @@ function verificarMontoAcumulado () {
     if($('#chkListaIngresos').prop('checked')) {
         var acumulado = parseFloat($('#idBlockAcumulado').html());
         var total = parseFloat($('#idBlockSaldo').html());
-        if (total-0.01 > acumulado) {
+        if (total-0.1 > acumulado) {
             return false;
         }
     }

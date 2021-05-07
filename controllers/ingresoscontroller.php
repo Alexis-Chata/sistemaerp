@@ -159,7 +159,7 @@ Class IngresosController extends ApplicationGeneral {
         //recuperamos los datos del detalleordencobro como el idordencobro
         $datadetordencobro = $detOrdenCobro->buscaDetalleOrdencobro($iddetalleordencobro);
         $idordencobro = $datadetordencobro[0]['idordencobro'];
-        $monto = round($datadetordencobro[0]['importedoc'], 3);
+        $monto = round($datadetordencobro[0]['saldodoc'], 3);
         //recuperamos algunos datos del antiguo ordencobro
         $ordencobroantiguo = $ordencobro->buscaOrdencobro($idordencobro);
         $saldoordencobroA = round($ordencobroantiguo[0]['saldoordencobro'], 3);
@@ -172,9 +172,12 @@ Class IngresosController extends ApplicationGeneral {
             $arraIngresosValidados = array();
             $contadorIng = 0;
             $banderaIngreso = 1;
-            for ($i = 0; $i < $cantidadingresos && $banderaIngreso == 1; $i++) {                
+     
+            for ($i = 0; $i < $cantidadingresos && $banderaIngreso == 1; $i++) {
+                
                 $temporalIngreso = $objIngreso->buscaxidyOV($arrayIngresos[$i], $idordenventa);
-                if (count($temporalIngreso) > 0) {                    
+                if (count($temporalIngreso) > 0) { 
+                    
                     if ($montoAcumulado < $monto && $temporalIngreso[0]['saldo'] > 0) {
                         $arraIngresosValidados[$contadorIng]['idingresos'] = $temporalIngreso[0]['idingresos'];
                         $arraIngresosValidados[$contadorIng]['observaciones'] = $temporalIngreso[0]['observaciones'] . ':: ' . $observacionesrecibo;
@@ -203,7 +206,15 @@ Class IngresosController extends ApplicationGeneral {
                     $banderaIngreso = 0;
                 }
             }
-
+            echo "   bandera: " . $banderaIngreso ;
+            echo "   montoAcumulado: " . $montoAcumulado ;
+            echo "   monto: " . $monto ;
+            
+            $diferencia = round($monto, 3) - round($montoAcumulado, 3);
+            if ($diferencia >= 0 && $diferencia < 0.1) {
+                $montoAcumulado = $monto;
+            }
+            
             if ($banderaIngreso == 1 && round($montoAcumulado, 3) == round($monto, 3)) {
                 $acumuladorSaldoIngreso = 0;
                 for ($i = 0; $i < $contadorIng; $i++) {
@@ -358,6 +369,10 @@ Class IngresosController extends ApplicationGeneral {
             }
             echo $fila;
             $diferencia = round($auxSaldo, 3) - round($acumuladoImporte, 3);
+            if ($diferencia >= 0 && $diferencia < 0.1) {
+                $acumuladoImporte = $auxSaldo;
+                $diferencia = 0;
+            }
             if ($diferencia > 0) {
                 $diferencia = "Faltan " . $diferencia;
             } else if ($diferencia < 0) {

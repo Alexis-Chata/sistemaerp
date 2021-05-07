@@ -451,7 +451,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 					echo "<input class='iddetalle' type='hidden' value='".$dataDetalleOrdenCobro[$i]['iddetalleordencobro']."'>";
 					echo "<input class='formacobro' type='hidden' value='".$dataDetalleOrdenCobro[$i]['formacobro']."'>";
 					echo "<input class='iddetalleordencobro' type='hidden' value='".$dataDetalleOrdenCobro[$i]['iddetalleordencobro']."'>";
-					echo "<input class='valorLetra' type='hidden' value='".$dataDetalleOrdenCobro[$i]['importedoc']."'>";
+					echo "<input class='valorLetra' type='hidden' value='".$dataDetalleOrdenCobro[$i]['saldodoc']."'>";
 
 					echo "</tr>";
 				}else{
@@ -470,7 +470,7 @@ Class OrdenCobroController extends ApplicationGeneral{
 					echo "<input class='iddetalle' type='hidden' value='".$dataDetalleOrdenCobro[$i]['iddetalleordencobro']."'>";
 					echo "<input class='formacobro' type='hidden' value='".$dataDetalleOrdenCobro[$i]['formacobro']."'>";
 					echo "<input class='iddetalleordencobro' type='hidden' value='".$dataDetalleOrdenCobro[$i]['iddetalleordencobro']."'>";
-					echo "<input class='valorLetra' type='hidden' value='".$dataDetalleOrdenCobro[$i]['importedoc']."'>";
+					echo "<input class='valorLetra' type='hidden' value='".$dataDetalleOrdenCobro[$i]['saldodoc']."'>";
 
 					echo "</td>";
 					echo "</tr>";
