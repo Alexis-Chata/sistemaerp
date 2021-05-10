@@ -464,7 +464,7 @@ protected function scriptArrayCompleto($sql) {
         for ($i = 0; $i < count($data); $i++) {
             $sql.="'" . str_replace("'", "&#39;", mb_strtoupper($data[$columnas[$i]])) . "',";
         }
-        $sql.="Now()," . $_SESSION['idactor'] . ")";
+        $sql.="Now()," . $_SESSION['idactor'] . ")"; //echo $sql;
         
         $this->conectar();
         $resultado = mysql_query($sql) or die(mysql_error());

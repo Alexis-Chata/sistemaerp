@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    $('#txtOrdenVenta').focus();
+
     $('#txtOrdenVenta').autocomplete({
         source: "/ordenventa/buscarautocompletecompletopendientes/",
         select: function (event, ui) {
@@ -11,8 +13,16 @@ $(document).ready(function () {
     $('#frmGenerarCodigo').submit(function () {
         if ($('#txtIdordenventa').val() == '') {
             $('#txtOrdenVenta').focus();
+            $('#txtOrdenVenta').css('background', '#ffa8a8');
             return false;
         }
+
+        if (!($('#nroCodigos').val() >= 1 && $('#nroCodigos').val() <= 4) ) {
+            $('#nroCodigos').focus();
+            $('#nroCodigos').css('background', '#ffa8a8');
+            return false;
+        }
+        
     });
 
 });

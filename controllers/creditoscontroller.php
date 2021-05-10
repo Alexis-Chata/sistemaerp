@@ -877,22 +877,36 @@ Class creditoscontroller extends ApplicationGeneral {
                     $Codigoverificacion=New Codigoverificacion();
                     $existeVerificacion = $Codigoverificacion->verificarCodigopendiente($idmodulo, $idactor, $idordenventa, $idmotivo, $fecha);
                     if (count($existeVerificacion) == 0) {
-                        $caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-                        $string = "";
-                        for($i = 0; $i < 4; $i++) {
-                            $string .= substr($caracteres, rand(0, strlen($caracteres) - 1), 1);
+
+                        $nroCodigos = $_REQUEST['nroCodigos'];
+                        $data['mensaje'] = '';
+
+                        if ($nroCodigos>=1 && $nroCodigos<=4) {
+
+                            for ($j=0; $j < $nroCodigos; $j++) { 
+                            $caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                            $string = "";
+                            for($i = 0; $i < 4; $i++) {
+                                $string .= substr($caracteres, rand(0, strlen($caracteres) - 1), 1);
+                            }
+                            $dataGraba['idordenventa'] = $idordenventa;
+                            $dataGraba['idactor'] = $idactor;
+                            $dataGraba['idopciones'] = $idmodulo;
+                            $dataGraba['idmotivo'] = $idmotivo;
+                            $dataGraba['codigo'] = $string;
+                            $dataGraba['descripcion'] = $txtdescripcion;
+                            $dataGraba['uso'] = 0;
+                            $nuevafecha = strtotime( '+'.$j.'5 minute', strtotime($fecha)) ;
+                            $dataGraba['fechavencimiento'] = date('Y-m-d H:i:s', $nuevafecha);
+                            $Codigoverificacion->graba($dataGraba);
+                            $data['respuesta'] = 1;
+                            $data['mensaje'] .= 'El código de verifación generado es: <span style="font-size:30px">' . $string . '</span>.</br>';
+                            }
+                        }else{
+                            $data['respuesta'] = -1;
+                            $data['mensaje'] .= 'Numero de codigos permitidos (min: 1 - max: 4)';
                         }
-                        $dataGraba['idordenventa'] = $idordenventa;
-                        $dataGraba['idactor'] = $idactor;
-                        $dataGraba['idopciones'] = $idmodulo;
-                        $dataGraba['idmotivo'] = $idmotivo;
-                        $dataGraba['codigo'] = $string;
-                        $dataGraba['descripcion'] = $txtdescripcion;
-                        $nuevafecha = strtotime( '+15 minute', strtotime($fecha)) ;
-                        $dataGraba['fechavencimiento'] = date('Y-m-d H:i:s', $nuevafecha);
-                        $Codigoverificacion->graba($dataGraba);
-                        $data['respuesta'] = 1;
-                        $data['mensaje'] = 'El código de verifación generado es: <span style="font-size:30px">' . $string . '</span>.';
+
                     } else {
                         $data['respuesta'] = -1;
                         $data['mensaje'] = 'Ya se ha generado un código de verificación que aun esta pendiente con esos parametros, cual es: <span style="font-size:30px">' . $existeVerificacion[0]['codigo'] . '</span>.';
@@ -907,7 +921,7 @@ Class creditoscontroller extends ApplicationGeneral {
             }
         }
         $data['MotivoReprogramacion']=$motivoReprogramado;
-    $data['OpcionesValidacion']=$dataOpciones->listarOpcionesxVerificacion();
+        $data['OpcionesValidacion']=$dataOpciones->listarOpcionesxVerificacion();
         $data['UsuariosVerificacion']=$actorrol->actoresxRol(81);
         $this->view->show("creditos/generarcodigoverificacion.phtml", $data);
     }
