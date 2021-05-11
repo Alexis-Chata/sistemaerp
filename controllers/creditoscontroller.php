@@ -896,7 +896,8 @@ Class creditoscontroller extends ApplicationGeneral {
                             $dataGraba['codigo'] = $string;
                             $dataGraba['descripcion'] = $txtdescripcion;
                             $dataGraba['uso'] = 0;
-                            $nuevafecha = strtotime( '+'.$j.'5 minute', strtotime($fecha)) ;
+                            $vence = ($j+1)*15;
+                            $nuevafecha = strtotime( '+'.$vence.' minute', strtotime($fecha)) ;
                             $dataGraba['fechavencimiento'] = date('Y-m-d H:i:s', $nuevafecha);
                             $Codigoverificacion->graba($dataGraba);
                             $data['respuesta'] = 1;
