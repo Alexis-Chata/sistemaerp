@@ -17,7 +17,7 @@ $(document).ready(function () {
             return false;
         }
 
-        if (!($('#nroCodigos').val() >= 1 && $('#nroCodigos').val() <= 4) ) {
+        if (!($('#nroCodigos').val() >= 1 && $('#nroCodigos').val() <= 10) ) {
             $('#nroCodigos').focus();
             $('#nroCodigos').css('background', '#ffa8a8');
             return false;

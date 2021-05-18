@@ -879,9 +879,10 @@ Class creditoscontroller extends ApplicationGeneral {
                     if (count($existeVerificacion) == 0) {
 
                         $nroCodigos = $_REQUEST['nroCodigos'];
+                        $nroCodigosMAX = 10;
                         $data['mensaje'] = '';
 
-                        if ($nroCodigos>=1 && $nroCodigos<=4) {
+                        if ($nroCodigos>=1 && $nroCodigos<=$nroCodigosMAX) {
 
                             for ($j=0; $j < $nroCodigos; $j++) { 
                             $caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -905,7 +906,7 @@ Class creditoscontroller extends ApplicationGeneral {
                             }
                         }else{
                             $data['respuesta'] = -1;
-                            $data['mensaje'] .= 'Numero de codigos permitidos (min: 1 - max: 4)';
+                            $data['mensaje'] .= 'Numero de codigos permitidos (min: 1 - max: '.$nroCodigosMAX.')';
                         }
 
                     } else {
