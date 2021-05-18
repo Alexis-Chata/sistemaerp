@@ -1117,15 +1117,15 @@ Class OrdenVentaController extends ApplicationGeneral {
             echo '<tr style="color:#f00">';
             echo    '<td colspan="8" class="right bold">Total a Pagar</td>';
             echo    '<td class="right"><input type="text" id="txtTotal" value="' . ' ' . $simboloMoneda . ' ' . number_format(($total), 2) . '" class="text-100 right" readonly></td>';
-            echo "</tr>";
+            echo "</tr>";/*
             $ordenGasto = $this->AutoLoadModel('ordengasto');
-            $Percepcion = $ordenGasto->importeGasto($idOrdenVenta, 6);
+            $Percepcion = $ordenGasto->importeGasto($idGuia, 6);
             if (!empty($Percepcion)) {
-                echo '<tr styl                                                                                                                                                                                                                                                                                                                                                                                                                              e="color:#f00">';
+                echo '<tr style="color:#f00">';
                 echo    '<td colspan="8" class="righ t bold">Total a Pagar (+Percepción)</td>';
                 echo    '<td class="right"><b>' . ' ' . $simboloMoneda . ' ' . number_format(($Percepcion + $total), 2) . '</b></td>';
                 echo "</tr>";
-            }
+            }*/
             echo '<tr><td colspan="9" style="background:white;">&nbsp;</td></tr>';
             for ($i = 0; $i < $cantidad; $i++) {
                 if ($data[$i]['serie'] != "") {
@@ -1192,15 +1192,15 @@ Class OrdenVentaController extends ApplicationGeneral {
             echo '<tr style="color:#f00">';
             echo    '<td colspan="8" class="right bold">Total a Pagar</td>';
             echo    '<td class="right"><input type="text" id="txtTotal" value="' . ' ' . $simboloMoneda . ' ' . number_format(($total), 2) . '" class="text-100 right" readonly></td>';
-            echo "</tr>";
+            echo "</tr>";/*
             $ordenGasto = $this->AutoLoadModel('ordengasto');
-            $Percepcion = $ordenGasto->importeGasto($idOrdenVenta, 6);
+            $Percepcion = $ordenGasto->importeGasto($idGuia, 6);
             if (!empty($Percepcion)) {
                 echo '<tr style="color:#f00">';
                 echo    '<td colspan="7" class="right bold">Total a Pagar (+Percepción)</td>';
                 echo    '<td class="right"><b>' . ' ' . $simboloMoneda . ' ' . number_format(($Percepcion + $total), 2) . '</b></td>';
                 echo "</tr>";
-            }
+            }*/
             echo '<tr><td colspan="9" style="background:white;">&nbsp;</td></tr>';
             for ($i = 0; $i < $cantidad; $i++) {
                 if ($data[$i]['serie'] != "") {
