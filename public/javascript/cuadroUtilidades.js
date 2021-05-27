@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    
+    $('#contenedordetallemovimiento').hide();
 
     if ($('#cuadroutilidad').val() == 1) {
         $('input').attr('disabled', 'disabled');
@@ -20,6 +22,10 @@ $(document).ready(function () {
         $(this).show();
     });
     
+    $('#btnCerrarDetalle').click(function () {
+        $('#contenedordetallemovimiento').hide('Blind');
+    });
+        
     $('#lstAnio').change(function () {
         var anio = $(this).val();
         $.ajax({
@@ -171,6 +177,7 @@ $(document).ready(function () {
     $('#lstxOrdenCompra').change(function () {
         location = '/ordencompra/utilidadxContainer/' + $(this).val();
     });
+    
     $('.detalledelMovimiento').click(function (e) {
         e.preventDefault();
         var textPorcentaje = $(this).data('porcentaje');
@@ -184,6 +191,7 @@ $(document).ready(function () {
             success: function (resp) {
                 //console.log(resp);
                 $('#contenedordetallemovimiento').hide('Blind');
+                $('#excelContenedor').attr('href', '/excel2/listaDetalleContenedor/' + idcontenedor);
                 $('#tablacontenedor tbody').html(resp);
                 $('#contenedordetallemovimiento').show('Blind');
             },

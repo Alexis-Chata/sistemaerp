@@ -6,7 +6,7 @@ require_once 'evalcredenciales.php'; ?>
 <fieldset>
     <form method="POST" action="/devolucion/buscaDevoluciones/">
         <div id="busqueda">
-            Busqueda: </br>
+            Busqueda: <br>
             <input type="text" value="<?php echo $retorno; ?>" id="txtBusqueda" name="txtBusqueda" size="50px" title="Ingrese Orden Venta o Número de Devolucion" autofocus="on">
             <input type="submit" value="Ver"/>
         </div>
@@ -14,7 +14,7 @@ require_once 'evalcredenciales.php'; ?>
     <form action="/devolucion/listarDevolucionTotal">
         <button>Cancelar</button>
     </form>
-    <table>
+    <table id="tblDevoluciones">
         <thead>
             <tr>
                 <th rowspan="2">N°</th>
@@ -53,10 +53,10 @@ require_once 'evalcredenciales.php'; ?>
             <tr>
                 <td colspan="15" align="center">
                     <?php
-                    if (empty($_REQUEST['id'])) {
+                    if (empty($_GET['id'])) {
                         $pagina = 1;
                     } else {
-                        $pagina = $_REQUEST['id'];
+                        $pagina = $_GET['id'];
                     }
 
                     if ($blockpaginas * 10 < $paginacion) {
@@ -66,7 +66,8 @@ require_once 'evalcredenciales.php'; ?>
                     }
 
                     if ($pagina > 1) {
-                        echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
+                        echo '<a href="/devolucion/buscaDevoluciones?id=' . ($pagina - 1) . '&txtBusqueda=' . $retorno . '"> Anterior </a>';
+                        //echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($pagina - 1) . "\"> " . "Anterior" . " </a>";
                     }
 
                     for ($i = 1; $i <= $blockpaginas; $i++) {
@@ -74,24 +75,22 @@ require_once 'evalcredenciales.php'; ?>
                         for ($min = $max - 9; $min <= $max; $min++) {
                             if ($pagina >= $max - 9 && $pagina <= $max && $paginacion >= $min) {
                                 if ($pagina == $min) {
-                                    echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
+                                    echo '<a href="/devolucion/buscaDevoluciones?id=' . ($min) . '&txtBusqueda=' . $retorno . '"> <b style="color:blue;">' . ($min) . ' </b> </a>';
+                                    //echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($min) . "\"> <b style='color:blue;'>" . ($min) . " </b></a>";
                                 } else {
-                                    echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($min) . "\"> " . ($min) . " </a>";
+                                    echo '<a href="/devolucion/buscaDevoluciones?id=' . ($min) . '&txtBusqueda=' . $retorno . '"> ' . $min . ' </a>';
+                                    //echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($min) . "\"> " . ($min) . " </a>";
                                 }
                             }
                         }
                     }
 
                     if ($pagina < $paginacion) {
-                        echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
+                        echo '<a href="/devolucion/buscaDevoluciones?id=' . ($pagina + 1) . '&txtBusqueda=' . $retorno . '"> Siguiente </a>';
+                        //echo "<a href=\"/devolucion/listarDevolucionTotal/" . ($pagina + 1) . "\"> " . "Siguiente" . " </a>";
                     }
-                    ?>
-                    <select id="seleccion" >
-                        <option value=""></option>
-                        <?php for ($i = 1; $i <= $paginacion; $i++) { ?>
-                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                    <?php } ?>
-                    </select>
+                    
+                     echo ' <b> | Total de registros: ' . $totregistros . ' | </b>';?>
                 </td>
             </tr>
         </tfoot>

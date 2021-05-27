@@ -1141,12 +1141,13 @@ class Reporte extends Applicationbase {
         return $data;
     }
 
-    function historialVentasxProducto($idProducto, $idVendedor, $idCliente) {
-
+    function historialVentasxProducto($idProducto, $idVendedor, $idCliente, $txtFechaInicio, $txtFechaFinal) {
         $condicion = "ov.estado=1 and dov.estado=1 and vbcreditos=1 ";
         $condicion .= !empty($idProducto) ? " and dov.idproducto='$idProducto' " : "";
         $condicion .= !empty($idVendedor) ? " and ov.idvendedor='$idVendedor' " : "";
         $condicion .= !empty($idCliente) ? " and ov.idcliente='$idCliente' " : "";
+        $condicion .= !empty($txtFechaInicio) ? " and ov.fordenventa>='$txtFechaInicio' " : "";
+        $condicion .= !empty($txtFechaFinal) ? " and ov.fordenventa<='$txtFechaFinal' " : "";
 
         $data = $this->leeRegistro("wc_ordenventa ov
                                 INNER JOIN wc_detalleordenventa dov ON ov.idordenventa=dov.idordenventa

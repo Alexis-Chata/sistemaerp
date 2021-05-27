@@ -2017,12 +2017,14 @@ if($idProducto!==''){
         $idVendedor = $_REQUEST['idVendedor'];
         $idProducto = $_REQUEST['idProducto'];
         $idCliente = $_REQUEST['idCliente'];
+        $txtFechaInicio = $_REQUEST['txtFechaInicio'];
+        $txtFechaFinal = $_REQUEST['txtFechaFinal'];
         $reporte = $this->AutoLoadModel('reporte');
 
         if ($idProducto == 0) {
             $idProducto = "";
         }
-        $datos = $reporte->historialVentasxProducto($idProducto, $idVendedor, $idCliente);
+        $datos = $reporte->historialVentasxProducto($idProducto, $idVendedor, $idCliente, $txtFechaInicio, $txtFechaFinal);
         $cantidadData = count($datos);
 
         $pdf = new PDF_MC_Table("P", "mm", "A4");

@@ -100,5 +100,8 @@ require_once 'evalcredenciales.php'; ?>
     <fieldset>
         <input id="btnAceptar" type="submit" value="Generar" disabled="disabled" style="background:red" class="c1_datashet">
         <button id="imprimir" type="button" class="c2_datashet">Imprimir</button>
+        <?php if (!empty($Ordencompra[0]['idordencompra'])) {
+            echo '<a href="/excel2/cuadroUtilidad/' . $Ordencompra[0]['idordencompra'] . '" target="_blank" style="color: green; font-weight: bold;">[ Exportar Excel ]</a>';
+        } ?>
     </fieldset>
 </form>

@@ -134,7 +134,11 @@ $(document).ready(function(){
 		}else{
 			novena='';
 		}
-                reemplazarvalores('/excel/reporteletras',lstZona.val(),lstCategoriaPrincipal.val(),lstCategoria.val(),lstvendedor.val(),lstTipoCobranza.val(),fechaInicio.val(),$('#fechaFinal').val(),lstTipoCobro.val(),titulo,pendiente,cancelado,octava,novena,idcobrador,$('#fechaPagoInicio').val(),$('#fechaPagoFinal').val(),IdCliente.val(),IdOrdenVenta.val(), '', '');
+                if ($(this).data('tipo') == 2) {
+                    reemplazarvalores('/excel2/reporteletras',lstZona.val(),lstCategoriaPrincipal.val(),lstCategoria.val(),lstvendedor.val(),lstTipoCobranza.val(),fechaInicio.val(),$('#fechaFinal').val(),lstTipoCobro.val(),titulo,pendiente,cancelado,octava,novena,idcobrador,$('#fechaPagoInicio').val(),$('#fechaPagoFinal').val(),IdCliente.val(),IdOrdenVenta.val(), '', '');
+                } else {
+                    reemplazarvalores('/excel2/reporteletraszona',lstZona.val(),lstCategoriaPrincipal.val(),lstCategoria.val(),lstvendedor.val(),lstTipoCobranza.val(),fechaInicio.val(),$('#fechaFinal').val(),lstTipoCobro.val(),titulo,pendiente,cancelado,octava,novena,idcobrador,$('#fechaPagoInicio').val(),$('#fechaPagoFinal').val(),IdCliente.val(),IdOrdenVenta.val(), '', '');
+                }                
             }
         });
 
@@ -343,7 +347,8 @@ $(document).ready(function(){
 		$('#tblreportes').html('<th style="text-align: center;"><img style="width:250px;heigth:100" src="/imagenes/cargando.gif"></th>');
 		console.log("haber:"+lstRecepcionLetras.val());
 		buscarContenido(ruta,lstZona.val(),lstCategoriaPrincipal.val(),lstCategoria.val(),lstvendedor.val(),lstTipoCobranza.val(),fechaInicio.val(),$('#fechaFinal').val(),lstTipoCobro.val(),titulo,pendiente,cancelado,octava,novena,idcobrador,$('#fechaPagoInicio').val(),$('#fechaPagoFinal').val(),IdCliente.val(),IdOrdenVenta.val());
-                $('#exportarExcel').data('tipo', 2);
+                $('#exportarExcel').data('tipo', 3);
+                $('#exportarExcel').html('Excel [Zona]');
 		encabezadoReporte();
 		
 	});
@@ -377,6 +382,7 @@ $(document).ready(function(){
 		$('#tblreportes').html('<th style="text-align: center;"><img style="width:250px;heigth:100" src="/imagenes/cargando.gif"></th>');
 		console.log("haber:"+lstRecepcionLetras.val());
 		buscarContenido(ruta,lstZona.val(),lstCategoriaPrincipal.val(),lstCategoria.val(),lstvendedor.val(),lstTipoCobranza.val(),fechaInicio.val(),$('#fechaFinal').val(),lstTipoCobro.val(),titulo,pendiente,cancelado,octava,novena,idcobrador,$('#fechaPagoInicio').val(),$('#fechaPagoFinal').val(),IdCliente.val(),IdOrdenVenta.val());
+                $('#exportarExcel').html('Excel [Aceptar]');
                 $('#exportarExcel').data('tipo', 2);
 		encabezadoReporte();
 		
@@ -655,7 +661,8 @@ $(document).ready(function(){
 		$('#tblreportes').html('<th style="text-align: center;"><img style="width:250px;heigth:100" src="/imagenes/cargando.gif"></th>');
 		
 		buscarContenido(ruta,lstZona.val(),lstCategoriaPrincipal.val(),lstCategoria.val(),lstvendedor.val(),lstTipoCobranza.val(),$('#fechaInicio').val(),$('#fechaFinal').val(),lstTipoCobro.val(),titulo,pendiente,cancelado,octava,novena,idcobrador,$('#fechaPagoInicio').val(),$('#fechaPagoFinal').val(),IdCliente.val(),IdOrdenVenta.val(),vendedor,tipocobro,lstRecepcionLetras.val(),tipoBanco);
-		$('#exportarExcel').data('tipo', 1);	
+		$('#exportarExcel').html('Excel [Mostrar]');
+                $('#exportarExcel').data('tipo', 1);
 		encabezadoReporte();
 //		
 	});

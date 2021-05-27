@@ -88,6 +88,7 @@ Class Applicationbase {
         if (!empty($opciones)) {
             $sql.=" " . $opciones;
         }//echo $sql."</br>";
+        
         $this->conectar();
         $sql = strtolower($sql);//echo $sql;
         $resultado = mysql_query($sql) or die(mysql_error());

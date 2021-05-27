@@ -196,7 +196,7 @@ class devolucion extends Applicationbase {
         $condicion2 = "";
         $condicion = "wc_devolucion.`estado`=1 and wc_devolucion.`registrado`=1 ";
         if (!empty($paraBusqueda)) {
-            $condicion2 = " and wc_devolucion.`iddevolucion`='$paraBusqueda' or wc_ordenventa.`codigov`='$paraBusqueda' ";
+            $condicion2 = " and wc_devolucion.`aprobado`=1 and (wc_devolucion.`iddevolucion`='$paraBusqueda' or wc_ordenventa.`codigov` like '%$paraBusqueda%') ";
         }
         if (!empty($iddevolucion)) {
             $condicion = " wc_devolucion.`estado`=1 and wc_devolucion.`registrado`=1 and wc_devolucion.`iddevolucion`='$iddevolucion' or wc_ordenventa.`codigov`='$paraBusqueda' ";
@@ -236,7 +236,7 @@ class devolucion extends Applicationbase {
         $condicion2 = "";
         $condicion = "wc_devolucion.`estado`=1 and wc_devolucion.`registrado`=1 ";
         if (!empty($paraBusqueda)) {
-            $condicion2 = " and wc_devolucion.`aprobado`=1 and (wc_devolucion.`iddevolucion`='$paraBusqueda' or wc_ordenventa.`codigov`='$paraBusqueda') ";
+            $condicion2 = " and wc_devolucion.`aprobado`=1 and (wc_devolucion.`iddevolucion`='$paraBusqueda' or wc_ordenventa.`codigov` like'%$paraBusqueda%') ";
         }
         if (!empty($iddevolucion)) {
             $condicion = " wc_devolucion.`estado`=1 and wc_devolucion.`registrado`=1 and wc_devolucion.`iddevolucion`='$iddevolucion' or wc_ordenventa.`codigov`='$paraBusqueda' ";

@@ -128,6 +128,14 @@ class Ordencompra extends Applicationbase {
 					", "", "idordencompra='$idOrdenCompra'", "");
         return $data;
     }
+    
+    function ListaCuadroUtilidadxCompra($idordencompra) {
+        $data = $this->leeRegistro(
+                "wc_ordencompra oc inner join wc_almacen a on oc.`idalmacen`=a.`idalmacen`
+					inner join wc_proveedor p on p.`idproveedor`=oc.`idproveedor`
+					", "", "oc.idordencompra='$idordencompra' and oc.estado=1", "");
+        return $data;
+    }
 
     function ListaCuadroUtilidad($year) {
         $data = $this->leeRegistro(

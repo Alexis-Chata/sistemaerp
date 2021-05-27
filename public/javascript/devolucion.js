@@ -218,6 +218,8 @@ $(document).on('ready', function () {
     $('.verdetalle').click(function (e) {
         e.preventDefault();
         var IDD = $(this).attr('id');
+        $('#tblDevoluciones tr').removeClass();
+	$(this).parents('tr').addClass('active-row');
         $.ajax({
             url: '/devolucion/listaDetalleDevolucion',
             type: 'post',
@@ -254,6 +256,7 @@ $(document).on('ready', function () {
     });
     
     $('#btncerrar').click(function (e) {
+        $('#tblDevoluciones tr').removeClass();
         $('#detalle').hide('Blind');
     });
     

@@ -811,7 +811,8 @@ class devolucioncontroller extends ApplicationGeneral {
         $orden = $this->AutoLoadModel('ordenventa');
         $contador = 0;
         $data = array();
-        if (empty($_REQUEST['id'])) {
+        $pagina = $_GET['id'];
+        if (empty($_GET['id'])) {
             $pagina = 1;
         }
         session_start();
@@ -877,10 +878,12 @@ class devolucioncontroller extends ApplicationGeneral {
         }
         $data['dataDevolucion'] = $dataDevolucion;
         $paginacion = $devolucion->paginadoDevoluciones("", $parametro);
+
         $data['retorno'] = $parametro;
         $data['paginacion'] = $paginacion;
         $data['blockpaginas'] = round($paginacion / 10);
         $data['totregistros'] = $devolucion->cuentaDevoluciones("", $parametro);
+
         $this->view->show('/devolucion/buscadevoluciones.phtml', $data);
     }
 
