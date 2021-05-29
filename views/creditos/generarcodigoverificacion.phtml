@@ -34,7 +34,7 @@
                                 $cantidad = count($UsuariosVerificacion);
                                 for ($i = 0; $i < $cantidad; $i++) {
                                     ?>
-                                    <option value="<?php echo $UsuariosVerificacion[$i]['idactor'] ?>"><?php echo $UsuariosVerificacion[$i]['nombres'] . ' ' . $UsuariosVerificacion[$i]['apellidopaterno'] . ' ' . $UsuariosVerificacion[$i]['apellidomaterno'] . ' :: ' . $UsuariosVerificacion[$i]['usuario']; ?></option>
+                                    <option value="<?php echo $UsuariosVerificacion[$i]['idactor'] ?>" selected><?php echo $UsuariosVerificacion[$i]['nombres'] . ' ' . $UsuariosVerificacion[$i]['apellidopaterno'] . ' ' . $UsuariosVerificacion[$i]['apellidomaterno'] . ' :: ' . $UsuariosVerificacion[$i]['usuario']; ?></option>
                                 <?php } ?>
                             </select>
                         </li>
@@ -46,7 +46,7 @@
                                 $cantidad = count($OpcionesValidacion);
                                 for ($i = 0; $i < $cantidad; $i++) {
                                     ?>
-                                    <option value="<?php echo $OpcionesValidacion[$i]['idopciones'] ?>"><?php echo $OpcionesValidacion[$i]['nombre'] . ' :: ' . $OpcionesValidacion[$i]['url']; ?></option>
+                                    <option value="<?php echo $OpcionesValidacion[$i]['idopciones'] ?>" selected><?php echo $OpcionesValidacion[$i]['nombre'] . ' :: ' . $OpcionesValidacion[$i]['url']; ?></option>
                                 <?php } ?>
                             </select>
                         </li>
