@@ -805,7 +805,7 @@ class ReporteController extends ApplicationGeneral {
             </tr>"; // GAST. PROTE.
             if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
                 $cont = 0;
-                echo "<tr> <td >Telefono: </td> <td >" . $datareporte[$i]['telefono']."</td> </tr>"."</tbody>
+                echo "<tr> <td colspan='3'>Telefono: </td> <td colspan='13'>" . $datareporte[$i]['telefono']."</td> </tr>"."</tbody>
                                                         </table>
                                                 </td>
 
@@ -4960,7 +4960,7 @@ class ReporteController extends ApplicationGeneral {
             </tr>";
             if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
                 $cont = 0;
-                echo "<tr> <td >Telefono: </td> <td >" . $datareporte[$i]['telefono']."</td> </tr>"."</tbody>
+                echo "<tr> <td colspan='3'>Telefono: </td> <td colspan='13'>" . $datareporte[$i]['telefono']."</td> </tr>"."</tbody>
                                                         </table>
                                                 </td>
 
