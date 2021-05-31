@@ -6907,9 +6907,24 @@ Class Excel2Controller extends ApplicationGeneral {
                     ->setCellValue('P' . ($contador), ($datareporte[$i]['situacion'] == '' ? 'Pendiente' : $datareporte[$i]['situacion']))
                     ->setCellValue('Q' . ($contador), strtoupper($datareporte[$i]['proviene'] . " " . substr($datareporte[$i]['referencia'], 0, 11)));
             $contador++;
+            
+            if ($i == 0) {
+                $idclienteaux = $datareporte[$i+1]['idcliente'];
+            }
             if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
+                $idclienteaux = -1;
+            }
+            if ($idclienteaux != $datareporte[$i+1]['idcliente']) {
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":D" . ($contador));
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "E" . ($contador) . ":H" . ($contador));
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":D" . ($contador))->getFont()->setBold(true);
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":Q" . ($contador))->getFill()->setRotation(1);
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':D' . $contador);
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $contador . ':H' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A' . ($contador), "TELEFONO: ".$datareporte[$i]['telefono']);
+                            ->setCellValue('A' . ($contador), "Telefono/Celular:")
+                            ->setCellValue('E' . ($contador), " " . $datareporte[$i]['telefono'] . (!empty($datareporte[$i]['telefono']) ? " / "  : "") . $datareporte[$i]['celular']);
+                $idclienteaux = $datareporte[$i+1]['idcliente'];
                 $contador++;
             }
         }
@@ -7250,6 +7265,7 @@ Class Excel2Controller extends ApplicationGeneral {
         $cantidadreporte = count($datareporte);
         $contador++;
         $axuZona = -1;
+        $idclienteaux = -1;
         for ($i = 0; $i < $cantidadreporte; $i++) {
             if ($axuZona != $datareporte[$i]['idzona']){
                 $axuZona = $datareporte[$i]['idzona'];
@@ -7435,9 +7451,24 @@ Class Excel2Controller extends ApplicationGeneral {
                     ->setCellValue('P' . ($contador), ($datareporte[$i]['situacion'] == '' ? 'Pendiente' : $datareporte[$i]['situacion']))
                     ->setCellValue('Q' . ($contador), strtoupper($datareporte[$i]['proviene'] . " " . substr($datareporte[$i]['referencia'], 0, 11)));
             $contador++;
+            
+            if ($i == 0) {
+                $idclienteaux = $datareporte[$i+1]['idcliente'];
+            }
             if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
+                $idclienteaux = -1;
+            }
+            if ($idclienteaux != $datareporte[$i+1]['idcliente']) {
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":D" . ($contador));
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "E" . ($contador) . ":H" . ($contador));
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":D" . ($contador))->getFont()->setBold(true);
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":Q" . ($contador))->getFill()->setRotation(1);
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':D' . $contador);
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $contador . ':H' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A' . ($contador), "TELEFONO: ".$datareporte[$i]['telefono']);
+                            ->setCellValue('A' . ($contador), "Telefono/Celular:")
+                            ->setCellValue('E' . ($contador), " " . $datareporte[$i]['telefono'] . (!empty($datareporte[$i]['telefono']) ? " / "  : "") . $datareporte[$i]['celular']);
+                $idclienteaux = $datareporte[$i+1]['idcliente'];
                 $contador++;
             }
         }
