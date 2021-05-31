@@ -6907,6 +6907,11 @@ Class Excel2Controller extends ApplicationGeneral {
                     ->setCellValue('P' . ($contador), ($datareporte[$i]['situacion'] == '' ? 'Pendiente' : $datareporte[$i]['situacion']))
                     ->setCellValue('Q' . ($contador), strtoupper($datareporte[$i]['proviene'] . " " . substr($datareporte[$i]['referencia'], 0, 11)));
             $contador++;
+            if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
+                $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('A' . ($contador), "TELEFONO: ".$datareporte[$i]['telefono']);
+                $contador++;
+            }
         }
         $contador++;
         $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle0, "E" . ($contador) . ":E" . ($contador));
@@ -7430,6 +7435,11 @@ Class Excel2Controller extends ApplicationGeneral {
                     ->setCellValue('P' . ($contador), ($datareporte[$i]['situacion'] == '' ? 'Pendiente' : $datareporte[$i]['situacion']))
                     ->setCellValue('Q' . ($contador), strtoupper($datareporte[$i]['proviene'] . " " . substr($datareporte[$i]['referencia'], 0, 11)));
             $contador++;
+            if ($dataAnterior != $datareporte[$i + 1]['idordenventa']) {
+                $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('A' . ($contador), "TELEFONO: ".$datareporte[$i]['telefono']);
+                $contador++;
+            }
         }
         if ($i > 0) {
             $contador++;
