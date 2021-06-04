@@ -101,37 +101,40 @@ Class IngresosController extends ApplicationGeneral {
         echo json_encode(array("nrodoc" => $nrodoc, "banco" => $banco, "bancocheque" => $bancocheque, "codigov" => $codigov, "nrooperacion" => $nrooperacion, "nrorecibo" => $nrorecibo, "duplicado" => $duplicado));
     }
 
-    protected function getcodigoVerificacion($tipo, $password, $idordenventa) {
-        if ($tipo == 2) {
+    protected function getcodigoVerificacion($tipo, $password, $idordenventa, $motivo, $descripcion) {
+        if ($password != "datashet") {
             $password = $this->Encripta($password);
         }
-        $Codigoverificacion = New Codigoverificacion();
-        if ($tipo == 1) {
-            if (strlen($password) == 4) {
-                $dataRespuesta = $Codigoverificacion->solicitarCodigoVerificacion($password, $idordenventa);
-                if (count($dataRespuesta) > 0) {
-                    if ($dataRespuesta[0]['uso'] == 0) {
-                        $dataAct['uso'] = 1;
-                        $Codigoverificacion->actualiza($dataAct, $dataRespuesta[0]['idcodigoverificacion']);
-                    }
-                    $dataRespuesta['verificacion'] = true;
-                    $dataRespuesta['idcodigoverificacion'] = $dataRespuesta[0]['idcodigoverificacion'];
-                } else {
-                    $dataRespuesta['verificacion'] = false;
-                    $dataRespuesta['idcodigoverificacion'] = 0;
-                }
-            } else {
-                $dataRespuesta['verificacion'] = false;
-                $dataRespuesta['idcodigoverificacion'] = 0;
-            }
-        } else {
+        $dataRespuesta['verificacion'] = false;
+        $dataRespuesta['idcodigoverificacion'] = 0;
+        if (strlen($password) > 0) {
+            $Codigoverificacion = New Codigoverificacion();
             $dataRespuesta = $Codigoverificacion->verificarXcontrasena($password);
             if (count($dataRespuesta) > 0) {
                 $dataRespuesta['verificacion'] = true;
-            } else {
-                $dataRespuesta['verificacion'] = false;
+                if ($tipo == 1) {
+                    $caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                    $string = "";
+                    $fecha = date("Y-m-d H:i:s");
+                    for($i = 0; $i < 4; $i++) {
+                        $string .= substr($caracteres, rand(0, strlen($caracteres) - 1), 1);
+                    }
+                    $dataGraba['idordenventa'] = $idordenventa;
+                    $dataGraba['idactor'] = $_SESSION['idactor'];
+                    $dataGraba['idopciones'] = 118;
+                    $dataGraba['idmotivo'] = $motivo;
+                    $dataGraba['codigo'] = $string;
+                    $dataGraba['descripcion'] = $descripcion;
+                    $dataGraba['uso'] = 1;
+                    $nuevafecha = strtotime( '+15 minute', strtotime($fecha)) ;
+                    $dataGraba['fechavencimiento'] = date('Y-m-d H:i:s', $nuevafecha);
+                    $Codigoverificacion->graba($dataGraba);
+                    $dataRespuesta['idcodigoverificacion'] = $Codigoverificacion->buscarUltimoIdGrabado($idordenventa, 118, $motivo, $string, $descripcion, 1);
+                    if ($dataRespuesta['idcodigoverificacion'] == 0) {
+                        $dataRespuesta['verificacion'] = false;
+                    }
+                }
             }
-            $dataRespuesta['idcodigoverificacion'] = 0;
         }
         return $dataRespuesta;
     }
@@ -2768,10 +2771,23 @@ Class IngresosController extends ApplicationGeneral {
         $fila .= "</tbody></table>";
         echo $fila;
     }
+    
+    function verificarcodigovalidacionactivo() {
+        $idordenventa = $_REQUEST['idordenventa'];
+        $dataRespuesta['verificacion'] = false;
+        $dataRespuesta['idcodigoverificacion'] = 0;
+        $Codigoverificacion = New Codigoverificacion();
+        $data = $Codigoverificacion->solicitarCodigoVerificacion2($idordenventa, 118);
+        if (count($data) > 0) {
+            $dataRespuesta['verificacion'] = true;
+            $dataRespuesta['idcodigoverificacion'] = $data[0]['idcodigoverificacion'];
+        }
+        echo json_encode($dataRespuesta);
+    }
 
     function reprogramar() {
         if (($_REQUEST['tipo'] == 1 || $_REQUEST['tipo'] == 2) && $_REQUEST['contrasena'] && $_REQUEST['idordenventa'] > 0) {
-            $dataRespuesta = $this->getcodigoVerificacion($_REQUEST['tipo'], $_REQUEST['contrasena'], $_REQUEST['idordenventa']);
+            $dataRespuesta = $this->getcodigoVerificacion($_REQUEST['tipo'], $_REQUEST['contrasena'], $_REQUEST['idordenventa'], $_REQUEST['motivo'], $_REQUEST['descripcion']);
             echo json_encode($dataRespuesta);
         } else {
             $Actor = New Actor;
@@ -2782,6 +2798,7 @@ Class IngresosController extends ApplicationGeneral {
             $data['letras'] = $letras->listado();
             $data['ingresos'] = $Ingresos->listarxhoy();
             $data['tipoGasto'] = $tipoGasto->listaxCriterio(3);
+            $data['MotivoReprogramacion'] = $this->configIniTodo('MotivoReprogramacion');
             $this->view->show('/ingresos/reprogramar.phtml', $data);
         }
     }

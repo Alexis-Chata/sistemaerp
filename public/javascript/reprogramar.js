@@ -195,7 +195,17 @@ $(document).ready(function () {
         valorRestante = valorSaldo.toFixed(2);
         $('#valorRestante').val(valorRestante);
         $('#idModificar').val(iddetalleordencobrogeneral);
-        $('#contendorAutorizacion').dialog('open');
+               
+        validado = verificarcodigovalidacionactivo();
+        if (validado == true) {
+            claseGlobal == '';
+            $('#contenedorModificar').dialog('open');            
+            $('#idtxtMotivoR').val('');
+            $('#txtidDescripcion').val('');
+            $('#respVerificacion').html('');
+        } else {
+            $('#contendorAutorizacion').dialog('open');
+        }
     });
 
     $('.anular').live('click', function (e) {
@@ -205,7 +215,14 @@ $(document).ready(function () {
         claseGlobal = $(this).attr('class');
         console.log(claseGlobal);
         $('#lstTipoGasto').change();
-        $('#contendorAutorizacion').dialog('open');
+        
+        validado = verificarcodigovalidacionactivo();
+        if (validado == true) {
+            claseGlobal == '';
+            $('#tipoGasto').dialog('open');
+        } else {
+            $('#contendorAutorizacion').dialog('open');
+        }
     });
 
     $('#contenedorAdicional').dialog({
@@ -307,8 +324,8 @@ $(document).ready(function () {
         claseGlobal = $(this).attr('class');
         title = "Reprogramacion Total de la Deuda";
         fechaGiro = $('#fechavencimiento').val();
-        console.log(fechaGiro);
-        console.log($('#formularioModificar').serialize());
+        //console.log(fechaGiro);
+        //console.log($('#formularioModificar').serialize());
         SMoneda = $('#SMoneda').val();
         $('.SMoneda').html(SMoneda);
         montoTotalDeuda = parseFloat($('#totalImporteDeuda').val());
@@ -318,10 +335,17 @@ $(document).ready(function () {
         valorRestante = montoTotalDeuda.toFixed(2);
         $('#valorRestante').val(valorRestante);
         $('#valorEnvio').val(valorRestante);
-        $('#contendorAutorizacion').dialog('open');
-        //}else{
-        //alert('El Importe de la deuda es cero');
-        //}
+        
+        validado = verificarcodigovalidacionactivo();
+        if (validado == true) {
+            $('#contenedorModificar').dialog('open');
+            $('#idtxtMotivoR').val('');
+            $('#txtidDescripcion').val('');
+            $('#respVerificacion').html('');
+        } else {
+            $('#contendorAutorizacion').dialog('open');
+        }
+        
     });
     
     $('#cbAutorizacion').change(function () {
@@ -340,14 +364,29 @@ $(document).ready(function () {
         width: 350,
         buttons: {
             "Aceptar": function () {
+                var bandera = 1;
+                var motivoR = '';
+                var DescripcionR = '';
                 if ($('#cbAutorizacion').val() == 2) {
                     contrasena = $('#contrasenapersonal').val();
                 } else {
+                    if ($('#idtxtMotivoR').val() == '') {
+                        $('#idtxtMotivoR').focus();
+                        bandera = 0;
+                    } else if ($('#txtidDescripcion').val().length == 0) {
+                        $('#txtidDescripcion').focus();
+                        bandera = 0;
+                    } else {
+                        motivoR = $('#idtxtMotivoR').val();
+                        DescripcionR = $('#txtidDescripcion').val();
+                    }
                     contrasena = $('#contrasena').val();
                 }
-                if (contrasena != "") {
-                    validado = validarAutorizacion(contrasena, $('#cbAutorizacion').val());
+                if (contrasena != "" && bandera == 1) {
+                    validado = validarAutorizacion(contrasena, $('#cbAutorizacion').val(), motivoR, DescripcionR);
                     if (validado == true) {
+                        $('#idtxtMotivoR').val('');
+                        $('#txtidDescripcion').val('');
                         //$('#respVerificacion').html('Usuario Correcto').css('color','green');
                         valorActividad = true;
                         alert('Código verificacion correcto');
@@ -370,6 +409,8 @@ $(document).ready(function () {
 
                             $('#contendorAutorizacion').dialog('close');
                         }
+                        $('#idtxtMotivoR').val('');
+                        $('#txtidDescripcion').val('');
                         $('#respVerificacion').html('');
                     } else {
                         $('#respVerificacion').html('Código de verificación incorrecto.').css('color', 'red');
@@ -565,7 +606,31 @@ function traerProgramacion(idDetalleOrdenCobro) {
     return retorno;
 }
 
-function validarAutorizacion(contrasena, tipo) {
+function verificarcodigovalidacionactivo() {
+    var retorno = true;
+    $.ajax({
+        url: '/ingresos/verificarcodigovalidacionactivo',
+        type: 'post',
+        async: false,
+        dataType: 'json',
+        data: { 'idordenventa': $('#txtIdOrden').val()
+            },
+        success: function (resp) {
+            console.log(resp);
+            retorno = resp.verificacion;
+            idcodigoverificacion = resp.idcodigoverificacion;
+        },
+        error: function (a, b, c) {
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+    });
+        
+    return retorno;
+}
+
+function validarAutorizacion(contrasena, tipo, motivoR, DescripcionR) {
     if (contrasena.length > 0) {
         var retorno = true;
         $.ajax({
@@ -573,7 +638,12 @@ function validarAutorizacion(contrasena, tipo) {
             type: 'post',
             async: false,
             dataType: 'json',
-            data: {'tipo': tipo, 'contrasena': contrasena, 'idordenventa': $('#txtIdOrden').val()},
+            data: {'tipo': tipo, 
+                    'contrasena': contrasena,
+                    'idordenventa': $('#txtIdOrden').val(),
+                    'motivo': motivoR,
+                    'descripcion': DescripcionR
+                },
             success: function (resp) {
                 console.log(resp);
                 retorno = resp.verificacion;

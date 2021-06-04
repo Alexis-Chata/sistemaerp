@@ -6918,11 +6918,13 @@ Class Excel2Controller extends ApplicationGeneral {
                 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":D" . ($contador));
                 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "E" . ($contador) . ":G" . ($contador));
                 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "H" . ($contador));
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "I" . ($contador) . ":K" . ($contador));
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":D" . ($contador))->getFont()->setBold(true);
                 $objPHPExcel->getActiveSheet()->getStyle("H" . ($contador))->getFont()->setBold(true);
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":Q" . ($contador))->getFill()->setRotation(1);
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':D' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $contador . ':G' . $contador);
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells('I' . $contador . ':K' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A' . ($contador), "Telefono / Celular:")
                 ->setCellValue('E' . ($contador), " " . $datareporte[$i]['telefono'] . (!empty($datareporte[$i]['telefono']) ? " / "  : "") . $datareporte[$i]['celular'])
@@ -7464,18 +7466,20 @@ Class Excel2Controller extends ApplicationGeneral {
             }
             if ($idclienteaux != $datareporte[$i+1]['idcliente']) {
                 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A" . ($contador) . ":D" . ($contador));
-                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "E" . ($contador) . ":Q" . ($contador));
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "E" . ($contador) . ":G" . ($contador));
                 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "H" . ($contador));
+                $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "I" . ($contador) . ":K" . ($contador));
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":D" . ($contador))->getFont()->setBold(true);
                 $objPHPExcel->getActiveSheet()->getStyle("H" . ($contador))->getFont()->setBold(true);
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($contador) . ":Q" . ($contador))->getFill()->setRotation(1);
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':D' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $contador . ':G' . $contador);
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells('I' . $contador . ':K' . $contador);
                 $objPHPExcel->setActiveSheetIndex(0)
-                            ->setCellValue('A' . ($contador), "Telefono/Celular:")
-                            ->setCellValue('E' . ($contador), " " . $datareporte[$i]['telefono'] . (!empty($datareporte[$i]['telefono']) ? " / "  : "") . $datareporte[$i]['celular'])
-                            ->setCellValue('H' . ($contador), "Atiende:")
-                            ->setCellValue('I' . ($contador), " " . $datareporte[$i]['contacto']);
+                ->setCellValue('A' . ($contador), "Telefono / Celular:")
+                ->setCellValue('E' . ($contador), " " . $datareporte[$i]['telefono'] . (!empty($datareporte[$i]['telefono']) ? " / "  : "") . $datareporte[$i]['celular'])
+                ->setCellValue('H' . ($contador), "Atiende:")
+                ->setCellValue('I' . ($contador), " " . $datareporte[$i]['contacto']);
                 $idclienteaux = $datareporte[$i+1]['idcliente'];
                 $contador++;
             }

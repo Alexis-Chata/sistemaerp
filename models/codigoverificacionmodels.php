@@ -14,6 +14,20 @@ Class Codigoverificacion extends Applicationbase{
         return $exito;
     }
     
+    function buscarUltimoIdGrabado($idordenventa, $idopciones, $motivo, $codigo, $descripcion, $uso) {
+        $data = $this->leeRegistro($this->tabla, "idcodigoverificacion", "idordenventa='$idordenventa' and
+                                            idactor='" .  $_SESSION['idactor'] . "' and
+                                            idopciones='$idopciones' and
+                                            idmotivo='$motivo' and
+                                            codigo='$codigo' and 
+                                            descripcion='$descripcion' and 
+                                            uso='$uso'", "", "limit 1");        
+        if (count($data) > 0) {
+            return $data[0]['idcodigoverificacion'];
+        }
+        return 0;
+    }
+    
     public function verificarCodigopendiente($idmodulo, $idactor, $idordenventa, $idmotivo, $fecha) {
         $sql = "select * from wc_codigoverificacion where idopciones='$idmodulo' and idmotivo='$idmotivo' and idordenventa='$idordenventa' and idactor='$idactor' and uso!=2 and estado = 1 and fechavencimiento>'$fecha' order by idcodigoverificacion desc limit 1;";
         return $this->EjecutaConsulta($sql);
@@ -23,13 +37,19 @@ Class Codigoverificacion extends Applicationbase{
         if ($contrasena == "datashet") {
             $datos = $this->leeRegistro2($this->tabla2, 
                                     "t2.idactor", 
-                                    "t1.idrol=82 and t1.estado=1 and t2.idactor='" . $_SESSION['idactor'] . "'", "", "");
+                                    "t1.idrol in (81, 82) and t1.estado=1 and t2.idactor='" . $_SESSION['idactor'] . "'", "", "");
         } else {
             $datos = $this->leeRegistro2($this->tabla2, 
                                     "t2.idactor", 
-                                    "t1.idrol=82 and t1.estado=1 and t2.idactor='" . $_SESSION['idactor'] . "' and t2.contrasena='$contrasena'", "", "");
+                                    "t1.idrol in (81, 82) and t1.estado=1 and t2.idactor='" . $_SESSION['idactor'] . "' and t2.contrasena='$contrasena'", "", "");
         }
         return $datos;
+    }
+    
+    public function solicitarCodigoVerificacion2($idordenventa, $idopcion) {
+        $sql = "select * from wc_codigoverificacion " .
+                        "where idactor='" . $_SESSION['idactor'] . "' and idordenventa='$idordenventa' and uso!=2 and estado = 1 and fechavencimiento>'" . date("Y-m-d H:i:s") . "' and idopciones='$idopcion' order by idcodigoverificacion desc limit 1;";
+        return $this->EjecutaConsulta($sql);
     }
     
     public function solicitarCodigoVerificacion($codigo, $idordenventa) {

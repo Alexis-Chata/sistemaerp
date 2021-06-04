@@ -103,8 +103,26 @@
     </select>
     <br><br>
     <div id="blockCodigoVerificacion">
-        <label for="contrasena">Codigo de Verificación:</label>
-        <input type="text" class="uppercase" id="contrasena" maxlength="4" autocomplete="off" >
+        <ul>
+            <li>
+                Motivo:
+                <select name="txtMotivo" id="idtxtMotivoR">
+                    <option Value=""> -- Seleccione Motivo -- </option>
+                    <?php
+                    $cantidadMR = count($MotivoReprogramacion);
+                    for ($i = 1; $i <= $cantidadMR; $i++) {
+                    ?>
+                        <option value="<?php echo $i ?>"><?php echo $MotivoReprogramacion[$i]; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+            <li>
+                Descripción:<br>
+                <textarea placeholder="Descripcion" rows="5" maxlength="100" name="txtDescripcion" id="txtidDescripcion"></textarea>
+            </li>
+        </ul>
+        <label for="contrasena">Contraseña Personal:</label>
+        <input type="password" id="contrasena" maxlength="10" autocomplete="off" >
     </div>
     <div id="blockContrasenapersonal" style="display: none">
         <label for="contrasenapersonal">Contraseña Personal:</label>
