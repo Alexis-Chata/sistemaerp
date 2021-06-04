@@ -136,7 +136,7 @@ class VendedorController extends ApplicationGeneral {
     function autocompletevendedor() {
         $vendedor = new Actor();
         $text = $_REQUEST['term'];
-        $datos = $vendedor->buscaautocompletev($text);
+        $datos = $vendedor->buscaautocompletev($text);//die(var_dump($datos));
         echo json_encode($datos);
     }
 

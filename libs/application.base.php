@@ -454,7 +454,7 @@ protected function scriptArrayCompleto($sql) {
     
     protected function grabaRegistro($tabla, $data) {
         $data['estado'] = 1;
-        $tabla = mb_strtolower($tabla);
+        $tabla = strtolower($tabla);
         $columnas = array_keys($data);
         $sql = "Insert Into " . $tabla . "(";
         for ($i = 0; $i < count($columnas); $i++) {
@@ -463,7 +463,7 @@ protected function scriptArrayCompleto($sql) {
         $sql.="fechacreacion,usuariocreacion) ";
         $sql.="values(";
         for ($i = 0; $i < count($data); $i++) {
-            $sql.="'" . str_replace("'", "&#39;", mb_strtoupper($data[$columnas[$i]])) . "',";
+            $sql.="'" . str_replace("'", "&#39;", strtoupper($data[$columnas[$i]])) . "',";
         }
         $sql.="Now()," . $_SESSION['idactor'] . ")"; //echo $sql;
         

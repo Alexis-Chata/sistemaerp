@@ -3511,7 +3511,7 @@ class Reporte extends Applicationbase {
         return $scriptArrayCompleto;
     }
 
-    function listaDevolucionesConta($fechaini, $fechafin, $idproducto, $idcliente, $idvendedor, $orden) {
+    function listaDevolucionesConta($fechaini, $fechafin, $idproducto, $idcliente, $idvendedor, $orden, $iddev="") {
         $sql .= "SELECT detov.serie,dev.fechaaprobada,pro.idproducto,pro.codigopa,pro.nompro,detdev.cantidad,detdev.precio,round((detdev.importe-(detdev.importe*0.18)),2) as importe,round((detdev.importe*0.18),2) as igv,detdev.importe as total,
                      detdev.iddetalledevolucion,dev.iddevolucion,ov.codigov,
                      ov.idordenventa,ov.importeaprobado,CONCAT(REPEAT('0', 6-LENGTH(dev.iddevolucion)), dev.iddevolucion) as devolucion,CASE (dev.registrado) WHEN 1 THEN 'REG.' ELSE ' ' END as registrado,
@@ -3539,6 +3539,9 @@ class Reporte extends Applicationbase {
         if ($idvendedor != "") {
             $sql .= " and ov.idvendedor='" . $idvendedor . "'";
         }
+        if ($iddev != "") {
+            $sql .= " and dev.iddevolucion='" . $iddev . "'";
+        }
         $orderby = "fechaaprobada";
         if ($orden == 1) {
             $orderby = "dev.idordenventa";
@@ -3549,7 +3552,7 @@ class Reporte extends Applicationbase {
         if ($orden == 3) {
             $orderby = "nombrevendedor";
         }
-        $sql .= " order by " . $orderby . " asc;";
+        $sql .= " order by " . $orderby . " asc;";//die(var_dump($sql));
         $scriptArrayCompleto = $this->scriptArrayCompleto($sql);
         return $scriptArrayCompleto;
     }

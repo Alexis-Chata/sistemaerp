@@ -16,11 +16,16 @@
                     <label for="txtFechaFinal">Fecha Fin:</label>
                     <input type="text" style="background: skyblue;" class="datepicker" size="25" placeholder="Fecha Final" readonly="readonly" id="txtFechaFinal" name="txtFechaFinal">
                 </li>
+                
                ORDENAR POR:
                 <select id="cmdbOrden" name="cmdbOrden">
                     <option value="1">por fecha</option>
                     <option value="2">por orden venta</option>
                 </select>
+                <li>
+                    <label for="txtDev">Devolucion: </label>
+                    <input type="number" class="" max="999999" placeholder="N° Devolucion" id="txtDev" name="txtDev">
+                </li>
                 <a href="#" style="color:purple;margin-left: 20px;" id="btnAvanzado">Click Busqueda Avanzada</a>
                 <br>
                 <br>
@@ -47,6 +52,7 @@
         <ul>
             <li><button id="btnExcel">Consultar<img src="/imagenes/excel.png" style="vertical-align: middle" width="25" height="25"></button></li>
             <li><button id="btnPdf">Consultar<img src="/imagenes/iconos/pdf.gif" style="vertical-align: middle" width="25" height="25"></button></li>
+            <li><button id="btnDev">Consultar<img src="/imagenes/iconos/atencionalcliente.png" style="vertical-align: middle" width="25" height="25"></button></li>
             <li><button id="btnLimpiar">Limpiar<img src="/imagenes/limpiar.png" style="vertical-align: middle" width="25" height="25"></button></li>
         </ul>
     </form>

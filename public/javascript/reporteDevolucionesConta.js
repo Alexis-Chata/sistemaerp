@@ -74,6 +74,11 @@ $(document).ready(function(){
         $('#frmConsulta').attr('action', '/pdf/reporteDevolucionesConta');
         $('#frmConsulta').submit();
     });
+    $('#btnDev').click(function (e) {
+        e.preventDefault();
+      $('#frmConsulta').attr('action', '/pdf/reporteDevolucionesAtencionCliente');
+      $('#frmConsulta').submit();
+  });
     $('#btnResumiditoExcel').click(function (e) {
         e.preventDefault();
         $('#frmConsulta').attr('action', '/excel/reporteDevolucionesContaResumidito');

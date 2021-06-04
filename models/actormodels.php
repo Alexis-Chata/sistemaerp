@@ -292,10 +292,10 @@ Class Actor extends Applicationbase {
     public function buscaautocompletev($tex) {
         $tex = htmlentities($tex, ENT_QUOTES, 'UTF-8');
         $datos = $this->leeRegistro2($this->tabla2, "t2.nombres,t2.apellidopaterno,t2.apellidomaterno,t2.idactor", "t1.idrol=25 and t1.estado=1 and concat(t2.nombres,
-				' ',t2.apellidopaterno,' ',t2.apellidomaterno,' ') like '%$tex%' ", "", "");
+				' ',t2.apellidopaterno,' ',t2.apellidomaterno,' ') like '%$tex%' ", "", "");//die(var_dump($datos));
         foreach ($datos as $valor) {
             $dato[] = array("value" => (html_entity_decode($valor['nombres'], ENT_QUOTES, 'UTF-8')) . ' ' . (html_entity_decode($valor['apellidopaterno'], ENT_QUOTES, 'UTF-8')) . ' ' . (html_entity_decode($valor['apellidomaterno'], ENT_QUOTES, 'UTF-8')), "label" => (html_entity_decode($valor['nombres'], ENT_QUOTES, 'UTF-8')) . ' ' . (html_entity_decode($valor['apellidopaterno'], ENT_QUOTES, 'UTF-8')) . ' ' . (html_entity_decode($valor['apellidomaterno'], ENT_QUOTES, 'UTF-8')), "id" => $valor['idactor']);
-        }
+        }//die(var_dump($dato));
         return $dato;
     }
     

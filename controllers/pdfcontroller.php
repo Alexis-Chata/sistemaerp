@@ -6611,7 +6611,7 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         $pdf->SetFont('Helvetica', 'B', 6.5);
         $ancho = array(8,14, 89, 7, 16, 17, 15, 17, 12,17,22,22,20);
         $orientacion = array('C', 'C', '', '', 'R', 'R', 'R', 'R', 'R', '');
-//        $pdf->AddPage();
+        //        $pdf->AddPage();
 
         $pdf->SetWidths($ancho);
         $pdf->_titulos = $titulos;
@@ -6761,6 +6761,240 @@ function concatenerIddetalleordencobro($idmoneda, $array_ovs = array()) {
         $pdf->Cell(134, 5, "TOTAL DOLARES", 1, 0, 'R', false);
         $pdf->Cell(17, 5, 'US $ ' .number_format($sumImporteDolares, 2), 1, 0, 'R', false);
         $pdf->Cell(16, 5, 'US $ ' .number_format($sumIgvDolares, 2), 1, 0, 'R', false);
+        $pdf->Cell(19, 5, 'US $ ' .number_format($sumTotalDolares, 2), 1, 0, 'R', false);
+
+        //***********
+        $pdf->AliasNbPages();
+
+        $pdf->Output();
+    }
+
+    function reporteDevolucionesAtencionCliente() {
+        set_time_limit(500);
+        $idproducto = $_REQUEST['idProducto'];
+        if($idproducto==0){ $idproducto=''; }
+        $idcliente=$_REQUEST['idCliente'];
+        $idvendedor=$_REQUEST['idVendedor'];
+        $orden=$_REQUEST['cmbOrden'];
+        $iddev=$_REQUEST['txtDev'];
+
+
+        if($_REQUEST['txtFechaInicio']==""){ $fechaini='2000/01/01'; }else{    $fechaini =$_REQUEST['txtFechaInicio']; }
+        if($_REQUEST['txtFechaFinal']==""){ $fechafin=date("Y-m-d").' 23:59:59'; }else{ $fechafin =$_REQUEST['txtFechaFinal'].' 23:59:59'; }
+
+        $idordenventadiferente=-1;
+        $session_idrol=$_SESSION['idrol'];
+        $rolcontabilidad='17';
+
+
+        $anoReporte = substr($fechaini, 0, 4);
+        $mesReporte = substr($fechaini, 5, 2);
+        if($mesReporte=='01'){ $nombreMes="ENERO"; }
+        if($mesReporte=='02'){ $nombreMes="FEBRERO"; }
+        if($mesReporte=='03'){ $nombreMes="MARZO"; }
+        if($mesReporte=='04'){ $nombreMes="ABRIL"; }
+        if($mesReporte=='05'){ $nombreMes="MAYO"; }
+        if($mesReporte=='06'){ $nombreMes="JUNIO"; }
+        if($mesReporte=='07'){ $nombreMes="JULIO"; }
+        if($mesReporte=='08'){ $nombreMes="AGOSTO"; }
+        if($mesReporte=='09'){ $nombreMes="SETIEMBRE"; }
+        if($mesReporte=='10'){ $nombreMes="OCTUBRE"; }
+        if($mesReporte=='11'){ $nombreMes="NOVIEMBRE"; }
+        if($mesReporte=='12'){ $nombreMes="DICIEMBRE"; }
+
+        $reporte = $this->AutoLoadModel('reporte');
+        $producto = new Producto();
+        $cliente = new Cliente();
+        $actor = new Actor();
+        if ($idProducto == 0) {
+            $idProducto = "";
+        }
+        $data = $reporte->listaDevolucionesConta($fechaini,$fechafin,$idproducto,$idcliente,$idvendedor,$orden, $iddev);
+        $cantidadData = count($data);
+
+        if($idproducto!=''){
+            $dataProducto =  $producto->buscaProducto($idproducto);
+            foreach ($dataProducto as $value) {
+                $nombrepoducto=$value['nompro'];
+            }
+            $busquedaFiltro1="SOLO DEVOLUCIONES DEL PRODUCTO : ".html_entity_decode(substr($nombrepoducto,0,45));
+        }
+        if($idcliente!=''){
+            $dataCliente= $cliente->buscaCliente($idcliente);
+            foreach ($dataCliente as $value) {
+                $nombrecliente=$value['razonsocial'];
+            }
+           $busquedaFiltro1="SOLO DEVOLUCIONES DEL CLIENTE : ".$nombrecliente;
+        }
+        if($idvendedor!=''){
+            $dataActor= $actor->buscarxid($idvendedor);
+            foreach ($dataActor as $value) {
+                $nombrevendedor=$value['nombrecompleto'];
+            }
+            $busquedaFiltro1="SOLO DEVOLUCIONES DEL VENDEDOR : ".$nombrevendedor;
+        }
+        if($idproducto=='' and $idcliente=='' and $idvendedor==''){
+            $busquedaFiltro2="DEVOLUCIONES DEL DIA ".$fechaini." AL DIA ".substr($fechafin, 0, 10)." DEL MES DE ".$nombreMes." DEL ".$anoReporte;
+        }else{
+            $busquedaFiltro2=$busquedaFiltro1." DEL DIA ".$fechaini." AL DIA ".substr($fechafin, 0, 10);
+        }
+
+
+        $pdf = new PDF_MC_Table("L", "mm", "A4");
+        $titulos = array('N', '# DEVOL', 'FECHA','CODIGO', 'PRODUCTO', 'UND', 'P.UNI', 'TOTAL');
+        $pdf->SetFont('Helvetica', 'B', 6.5);
+        $ancho = array(8,15, 17, 15, 86, 10, 16, 19);
+        $orientacion = array('C', 'C', 'C', 'C', '', 'C', 'C', 'C');
+        //        $pdf->AddPage();
+
+        $pdf->SetWidths($ancho);
+        $pdf->_titulos = $titulos;
+        $pdf->_titulo = " ".$busquedaFiltro2;
+
+        $pdf->_fecha = $data[0]['codigopa'];
+        $pdf->_datoPie = 'Fecha Impresion '.date('Y-m-d H:i:s');
+        $pdf->AddPage();
+
+
+
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->SetTextColor(0);
+        $pdf->SetDrawColor(12, 78, 139);
+        $pdf->SetLineWidth(.3);
+        $pdf->_orientacion = $orientacion;
+        $pdf->SetAligns($orientacion);
+        $nro_aumentador=0;
+        for ($i = 0; $i < $cantidadData; $i++) {
+            $importe_soles_temp=0.00;
+            $igv_soles_temp=0.00;
+            $importe_dolares_temp=0.00;
+            $igv_dolares_temp=0.00;
+            $importe_temp=0.00;
+            $igv_temp=0.00;
+
+            // start extraccion de variables
+             $comprobante='';
+            $comprobanteNotaCredito='';
+            $tipocomprobante='';
+            $electronico='';
+            $documento = new Documento();
+            $data1 = $documento->verificasidevoluciontienefactura($data[$i]["idordenventa"]);
+            $data2 = $documento->verificasidevoluciontienenotacredito($data[$i]["idordenventa"], $data[$i]["iddevolucion"]);
+            $data3 = $documento->verificasidevoluciontieneboleta($data[$i]["idordenventa"], $data[$i]["iddevolucion"]);
+
+                if(count($data1)>=1){ //FACTURA
+                   if($data1[0]["electronico"]==1){
+                      $electronico='';
+                      $serieFactura=$documento->add_ceros($data1[0]['serie'], 3);
+                      $serieFactura="F".$serieFactura;
+                      $correlativoFactura=$documento->add_ceros($data1[0]['numdoc'], 8);
+                  }
+
+                  if($data1[0]["electronico"]==0){
+                      $electronico='FISICA';
+                      $serieFactura=$data1[0]['serie'];
+                      $correlativoFactura=$data1[0]['numdoc'];
+                  }
+                  $comprobante=$serieFactura.' - '.$correlativoFactura;
+                  $tipocomprobante="FACTURA ".$electronico;
+                }
+
+
+                if(count($data3)>=1){ //BOLETA
+                     if($data3[0]["electronico"]==1){
+                        $electronico='';
+                        $serieBoleta=$documento->add_ceros($data3[0]['serie'], 3);
+                        $serieBoleta='B'.$serieBoleta;
+                        $correlativoBoleta=$documento->add_ceros($data3[0]['numdoc'], 8);
+                    }
+                    if($data3[0]["electronico"]==0){
+                      $electronico='FISICA';
+                      $serieBoleta=$data3[0]['serie'];
+                      $correlativoBoleta=$data3[0]['numdoc'];
+                    }
+                    $comprobante=$serieBoleta.' - '.$correlativoBoleta;
+                    $tipocomprobante="BOLETA ".$electronico;
+                }
+
+                if(count($data2)==1){ //NOTA CREDITO
+                    if($data2[0]["electronico"]==1){
+                        $electronico='';
+                        $serieNotaCredito=$documento->add_ceros($data2[0]['serie'], 3);
+                        $serieNotaCredito='F'.$serieNotaCredito;
+                        $correlativoNotaCredito=$documento->add_ceros($data2[0]['numdoc'], 8);
+                    }
+                    if($data2[0]["electronico"]==0){
+
+                        $serieNotaCredito=$data2[0]['serie'];
+                        $correlativoNotaCredito=$data2[0]['numdoc'];
+                    }
+
+                  $comprobanteNotaCredito=$serieNotaCredito.' - '.$correlativoNotaCredito;
+                }
+
+                if(count($data1)==0 and count($data3)==0){
+                    $tipocomprobante="GUIA MADRE";
+                }
+            // end extraccion de variables
+
+            $nro_aumentador=$nro_aumentador+1;
+            if($data[$i]["simbolo"]=="S/"){
+                $importe_soles_temp=$data[$i]["total"]/1.18;
+                $igv_soles_temp=$data[$i]["total"]-$importe_soles_temp;
+                $importe_temp=$importe_soles_temp;
+                $igv_temp=$igv_soles_temp;
+            }
+            if($data[$i]["simbolo"]=="US $"){
+                $importe_dolares_temp=$data[$i]["total"]/1.18;
+                $igv_dolares_temp=$data[$i]["total"]-$importe_dolares_temp;
+                $importe_temp=$importe_dolares_temp;
+                $igv_temp=$igv_dolares_temp;
+            }
+
+            $fila = array($nro_aumentador,$data[$i]["iddevolucion"],substr($data[$i]["fechaaprobada"],0,10),$data[$i]["idproducto"], html_entity_decode(substr($data[$i]["nompro"],0,55), ENT_QUOTES, 'UTF-8'),$data[$i]["cantidad"],$data[$i]["simbolo"].' '.number_format($data[$i]["precio"],2),$data[$i]["simbolo"].' '.number_format($data[$i]["total"], 2));
+            if($data[$i]["simbolo"]=="S/"){
+            $sumImporteSoles=$importe_soles_temp+$sumImporteSoles;
+            $sumIgvSoles=$igv_soles_temp+$sumIgvSoles;
+            $sumTotalSoles=$data[$i]["total"]+$sumTotalSoles;
+            }
+            if($data[$i]["simbolo"]=="US $"){
+            $sumImporteDolares=$importe_dolares_temp+$sumImporteDolares;
+            $sumIgvDolares=$igv_dolares_temp+$sumIgvDolares;
+            $sumTotalDolares=$data[$i]["total"]+$sumTotalDolares;
+            }
+
+
+            // start salto por cada diferente orden venta siempre y cuando sea contabilidad
+            if($session_idrol==$rolcontabilidad){ $nada=""; }else{
+                if($data[$i]["idordenventa"]!=$idordenventadiferente){
+                   if($i>=1){
+                      $pdf->ln();
+                      $pdf->ln();
+                   }
+                }
+                $idordenventadiferente=$data[$i]["idordenventa"];
+            }
+            // end salto por cada diferente orden venta  siempre y cuando sea contabilidad
+
+
+            $pdf->Row($fila);
+
+
+        }
+
+        $pdf->ln();
+        //$pdf->Cell(115);
+        $pdf->Cell(141, 5, "TOTAL SOLES", 1, 0, 'R', false);
+        #$pdf->Cell(17, 5, 'S/ ' .number_format($sumImporteSoles, 2), 1, 0, 'R', false);
+        #$pdf->Cell(16, 5, 'S/ ' .number_format($sumIgvSoles, 2), 1, 0, 'R', false);
+        $pdf->Cell(19, 5, 'S/ ' .number_format($sumTotalSoles, 2), 1, 0, 'R', false);
+
+
+        $pdf->ln();
+        //$pdf->Cell(115);
+        $pdf->Cell(141, 5, "TOTAL DOLARES", 1, 0, 'R', false);
+        #$pdf->Cell(17, 5, 'US $ ' .number_format($sumImporteDolares, 2), 1, 0, 'R', false);
+        #$pdf->Cell(16, 5, 'US $ ' .number_format($sumIgvDolares, 2), 1, 0, 'R', false);
         $pdf->Cell(19, 5, 'US $ ' .number_format($sumTotalDolares, 2), 1, 0, 'R', false);
 
         //***********
