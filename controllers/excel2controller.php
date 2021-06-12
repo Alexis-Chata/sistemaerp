@@ -7331,9 +7331,11 @@ Class Excel2Controller extends ApplicationGeneral {
                 $acumulaxIdMoneda_temporal['S/']['totalImporte'] = 0;
                 $acumulaxIdMoneda_temporal['S/']['TPagado'] = 0;
                 $acumulaxIdMoneda_temporal['S/']['totalDevolucion'] = 0;
+                $acumulaxIdMoneda_temporal['S/']['totalDeuda'] = 0;
                 $acumulaxIdMoneda_temporal['US $']['totalImporte'] = 0;
                 $acumulaxIdMoneda_temporal['US $']['TPagado'] = 0;
                 $acumulaxIdMoneda_temporal['US $']['totalDevolucion'] = 0;
+                $acumulaxIdMoneda_temporal['US $']['totalDeuda'] = 0;
                 $contador++;
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('A' . $contador . ':D' . ($contador+1));
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('E' . $contador . ':Q' . ($contador+1));

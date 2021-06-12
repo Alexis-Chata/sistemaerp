@@ -4825,21 +4825,23 @@ class ReporteController extends ApplicationGeneral {
                           "</tr>
                           <tr style='font-weight:bold;border-radius:10px;background-color:rgb(124, 180, 224)'>" . 
                             "<td colspan='2' style='text-align:right;'>Total:</td>" . 
-                            "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['totalImporte'], 2) . "</th>" . 
+                            "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['totalImporte'], 2) . "</th>" . 
                             "<td colspan='2' style='text-align:right;'>Total Pagado:</td>" . 
-                            "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['TPagado'], 2) . "</th>" . 
+                            "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['TPagado'], 2) . "</th>" . 
                             "<td colspan='2' style='text-align:right;'>Total Devolucion:</td>" . 
-                            "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
+                            "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
                             "<td colspan='2' style='text-align:right;'>Total Deuda:</td>" .
-                            "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDeuda']-$acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
+                            "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDeuda']-$acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
                           "</tr>";
                 }
                 $acumulaxIdMoneda_temporal['S/']['totalImporte'] = 0;
                 $acumulaxIdMoneda_temporal['S/']['TPagado'] = 0;
                 $acumulaxIdMoneda_temporal['S/']['totalDevolucion'] = 0;
+                $acumulaxIdMoneda_temporal['S/']['totalDeuda'] = 0;
                 $acumulaxIdMoneda_temporal['US $']['totalImporte'] = 0;
                 $acumulaxIdMoneda_temporal['US $']['TPagado'] = 0;
                 $acumulaxIdMoneda_temporal['US $']['totalDevolucion'] = 0;
+                $acumulaxIdMoneda_temporal['US $']['totalDeuda'] = 0;
                 echo "<tr>
                         <th style='padding: 10px;text-align: center;border:1px solid black;color: black;background-color:white;font-size: 15px;font-weight: bold;' colspan='3'>ZONA: </th>
                         <td style='padding: 10px;color: rgb(153,0,0);border:1px solid black; background-color:white;font-size: 15px;font-weight: bold;' colspan='14'>" . $datareporte[$i]['nombrezona'] . "</td>
@@ -4981,13 +4983,13 @@ class ReporteController extends ApplicationGeneral {
                   "</tr>
                   <tr style='font-weight:bold;border-radius:10px;background-color:rgb(124, 180, 224)'>" . 
                     "<td colspan='2' style='text-align:right;'>Total:</td>" . 
-                    "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['totalImporte'], 2) . "</th>" . 
+                    "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['totalImporte'], 2) . "</th>" . 
                     "<td colspan='2' style='text-align:right;'>Total Pagado:</td>" . 
-                    "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['TPagado'], 2) . "</th>" . 
+                    "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['TPagado'], 2) . "</th>" . 
                     "<td colspan='2' style='text-align:right;'>Total Devolucion:</td>" . 
-                    "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
+                    "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
                     "<td colspan='2' style='text-align:right;'>Total Deuda:</td>" .
-                    "<th colspan='2' style='background-color:white;text-align:center;'>S/. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDeuda']-$acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
+                    "<th colspan='2' style='background-color:white;text-align:center;'>US $. " . number_format($acumulaxIdMoneda_temporal['US $']['totalDeuda']-$acumulaxIdMoneda_temporal['US $']['totalDevolucion'], 2) . "</th>" . 
                   "</tr>";
         }
 
