@@ -771,6 +771,10 @@ Class facturacioncontroller extends ApplicationGeneral {
         $documento = new Documento();
         $ingresos = new Ingresos();
         $data['electronico'] = 1;
+        if ($_REQUEST['nc_fisico']) {
+            $data['electronico'] = 0;
+            $data['serie'] = 1;
+        }
         //$data['numdoc'] = $documento->ultimoCorrelativoElectronico ($data['serie'], 5);
         $data['nroSeleccion'] = $data['nroSeleccion'] - 1;
         $exito = $documento->grabaDocumento($data);

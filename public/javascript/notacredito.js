@@ -8,9 +8,17 @@ $(document).ready(function(){
             if ($(this).val() == 1) {
                 $('#bqdFactura').removeAttr('style');
                 $('#bqdOv').attr('style', 'display: none');
+                if ($('#lstTipoDocumento').children("option:selected").val()==0){
+                    $('#bqdFactura ul li.center:last').removeAttr('style');
+                }
             } else {
                 $('#bqdFactura').attr('style', 'display: none');
                 $('#bqdOv').removeAttr('style');
+                $('#bqdFactura ul li.center:last').attr('style', 'display: none');
+                $('#blockCorrelativo li:first').removeAttr('style');
+                $('#blockCorrelativo li:last').html('');
+                $('#Datos ul:first li:last').removeAttr('style');
+                func_nc_fisico();
             }
         });
                 
@@ -21,16 +29,35 @@ $(document).ready(function(){
                 $('#txtFacturaElectronica').removeAttr('style');
                 $('#blockCargado').removeAttr('style');
                 //$('#leTipoFactura').html('F-');
+                $('#bqdFactura ul li:last').html('');
                 console.log('electronico');
             } else {
                 $('#txtFacturaElectronica').attr('style', 'display: none');
                 $('#blockCargado').attr('style', 'display: none');
                 $('#txtFactura').removeAttr('style');
                 //$('#leTipoFactura').html('');
+                $('#bqdFactura ul li.center:last').removeAttr('style');
+                func_nc_fisico();
                 console.log('factura');
             }
             $('#blockBtnRegistrar').removeAttr('style');
         });
+        
+        function func_nc_fisico(){
+            $('#bqdFactura ul li.center:last').html('<label for="nc_fisico">Nota de Credito Fisico</label><input type="checkbox" name="nc_fisico" id="nc_fisico">');
+            $('#nc_fisico').change(function () {
+                console.log($('#nc_fisico').is(":checked"));
+                if($('#nc_fisico').is(":checked")){
+                    $('#blockCorrelativo li:first').attr('style', 'display: none');
+                    $('#blockCorrelativo li:last').html('<label>Correlativo 1:</label><input type="text" maxlength="10" size="10" name="Factura[numdoc]" required="required" value="" disabled=""></input>');
+                    $('#Datos ul:first li:last').attr('style', 'display: none');
+                }else{
+                    $('#blockCorrelativo li:first').removeAttr('style');
+                    $('#blockCorrelativo li:last').html('');
+                    $('#Datos ul:first li:last').removeAttr('style');
+                }
+            });
+        }
         
 	$('#registrar').click(function(e){
 		
@@ -120,7 +147,7 @@ function actualizarNroNota () {
             type:'post',
             data:{'idguia':0,'tipo':5, 'serie': $('#txtSerie').val()},
             success:function(datos){
-                $('#blockCorrelativo').html(datos);
+                $('#blockCorrelativo').html(datos+"<li></li>");
             }, error: function(a, b, c) {
                 console.log(a);
                 console.log(b);
